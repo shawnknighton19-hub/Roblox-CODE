@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "runtime_assertions": 7938,
+  "distinct_geometry_signatures_excluding_color_and_names": 25,
+  "maximum_parts_per_trail": 18,
+  "emitters_per_trail": 0,
+  "instances_created_during_motion": 0,
+  "catalog_ids_prices_defaults_preserved": true,
+  "path_corner_teleport_stop_cleanup_tested": true,
+  "part_counts": {
+    "default": 12,
+    "aqua": 15,
+    "sunset": 15,
+    "royal": 15,
+    "lime": 15,
+    "rose": 15,
+    "trail_ice": 15,
+    "trail_smoke": 12,
+    "trail_coins": 15,
+    "trail_ocean": 12,
+    "trail_berry": 15,
+    "trail_volt": 15,
+    "trail_petals": 18,
+    "trail_cosmic": 15,
+    "trail_lava": 15,
+    "trail_ghost": 12,
+    "trail_neon": 18,
+    "trail_party": 15,
+    "trail_halo": 18,
+    "trail_blizzard": 18,
+    "trail_comet": 15,
+    "trail_eclipse": 12,
+    "trail_overload": 18,
+    "trail_supernova": 18,
+    "trail_celebrate": 18
+  },
+  "limitations": "Deterministic Instance/math harness and offline geometry export; native Roblox rendering requires Studio playtest.",
+  "sha256": {
+    "TrailDesignsV13.luau": "6af896d2173d275489e8470b01295a1ed10e8ffbde92354616e20457b1a1ea5e",
+    "HussCatalogV13.luau": "bd7d375bc41bf74f16e5f577646b8ea083fe3f220926093948d4e4ef1f9da93f"
+  }
+}

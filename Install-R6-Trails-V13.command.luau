@@ -1,0 +1,9781 @@
+-- HUSS A BOMB V13 — MOVEMENT ANIMATION REPAIR + 25 TRAIL DESIGNS
+-- Paste the ENTIRE script into Studio's Command Bar with Play stopped.
+-- Requires the verified V12 installation. No network downloads or gameplay modules run here.
+-- IMPORTANT: File > Avatar Settings > ... menu > R6 must be saved separately, then publish.
+-- Roblox does not expose the experience's rig setting as StarterPlayer.CharacterRigType.
+local run=game:GetService('RunService')
+assert(run:IsStudio() and not run:IsRunning(),'V13: Stop Play before installing. Nothing changed.')
+local storage=game:GetService('ServerStorage')
+local replicated=game:GetService('ReplicatedStorage')
+local server=game:GetService('ServerScriptService')
+local starterRoot=game:GetService('StarterPlayer')
+local issues,notes={},{ }
+local function problem(message) table.insert(issues,tostring(message)) end
+local function note(message) table.insert(notes,tostring(message)) end
+local function path(object) return object and object:GetFullName() or '(missing)' end
+local function canonical(source) return source:gsub('\r\n','\n'):match('^%s*(.-)%s*$') end
+local function unique(parent,name,class,recursive,optional)
+ local found={}
+ if parent then for _,object in ipairs(recursive and parent:GetDescendants() or parent:GetChildren()) do
+  if object.Name==name then table.insert(found,object) end
+ end end
+ if #found==0 then if not optional then problem(path(parent)..'.'..name..' is missing; expected '..class..'.') end;return nil end
+ if #found~=1 then
+  local locations={};for _,object in ipairs(found) do table.insert(locations,path(object)..' ('..object.ClassName..')') end
+  problem('Ambiguous '..name..': '..table.concat(locations,', ')..'. No duplicate system will be added.');return nil
+ end
+ local object=found[1]
+ if not object:IsA(class) then problem(path(object)..' is '..object.ClassName..'; expected '..class..'.');return nil end
+ return object
+end
+local function stopPreflight()
+ if #issues>0 then error('V13 compatibility preflight stopped. Originals preserved.\n- '..table.concat(issues,'\n- '),0) end
+end
+local function attempt(label,fn)
+ local ok,result=pcall(fn)
+ if not ok then problem(label..': '..tostring(result));return nil end
+ return result
+end
+local function r6Reminder()
+ warn('[V13 REQUIRED PUBLISH STEP] In Studio open File > Avatar Settings > the ... menu > R6, save the setting, then Publish to Roblox. Join a NEW server. This installer cannot change Roblox experience rig settings.')
+end
+
+local dependencyValidator=(function()
+local function canonical(s) return s:gsub('\r\n','\n'):match('^%s*(.-)%s*$') end
+local function fingerprint(s)
+ s=canonical(s);local a,b=1,0
+ for i=1,#s do a=(a+s:byte(i))%65521;b=(b+a)%65521 end
+ return #s..':'..(b*65536+a)
+end
+local known={
+ Remotes={["1719:1737753784"]=true},
+ MapVote={["4995:3112494590"]=true},
+ AFK={["3768:2633261036"]=true},
+ ClientMain={["1025:267261944"]=true},
+ Dodge={["9272:1815088008"]=true,["9680:1349820738"]=true},
+}
+local configTypes={MinimumPlayers="number",AbsoluteMinimumPlayers="number",AutoStartMinSeconds="number",AutoStartMaxSeconds="number",ForceStartAfterSeconds="number",IntermissionSeconds="number",RoundStartCountdownSeconds="number",ResultsSeconds="number",SoloPracticeSeconds="number",MapName="string",NormalBombFuseSeconds="number",FinalDuelBombFuseSeconds="number",BombTagRadius="number",AntiTagBackSeconds="number",NewCarrierLockSeconds="number",BetweenBombsSeconds="number",TagCheckInterval="number",DebugPrints="boolean"}
+local configFingerprint="3381:79344004"
+-- Validates the existing dependency graph without requiring live game modules.
+local D={}
+function D.Validate(c)
+ local issues,sources={},{}
+ local function issue(message) table.insert(issues,message) end
+ local function path(o) return o and o:GetFullName() or '<missing>' end
+ local function child(parent,name,class,optional)
+  if not parent then return nil end
+  local matches={}
+  for _,o in ipairs(parent:GetChildren()) do if o.Name==name then table.insert(matches,o) end end
+  if #matches==0 and optional then return nil end
+  if #matches~=1 then issue(path(parent)..'.'..name..': expected exactly one '..class..', found '..#matches);return nil end
+  local o=matches[1]
+  if not o:IsA(class) then issue(path(o)..': expected '..class..', found '..o.ClassName);return nil end
+  return o
+ end
+ local function named(root,name,class)
+  if not root then return nil end
+  local found={}
+  for _,o in ipairs(root:GetDescendants()) do if o.Name==name then table.insert(found,o) end end
+  if #found~=1 then issue(path(root)..': expected one '..name..', found '..#found);return nil end
+  local o=found[1]
+  if not o:IsA(class) then issue(path(o)..': expected '..class..', found '..o.ClassName);return nil end
+  return o
+ end
+ local function verified(o,kind)
+  if not o then return end
+  table.insert(sources,o)
+  local ok,source=pcall(function() return o.Source end)
+  if not ok then issue(path(o)..': Source is not readable');return end
+  local id=fingerprint(source)
+  if not known[kind][id] then issue(path(o)..': unknown '..kind..' source ('..id..'); preserve it and review compatibility before installation') end
+  if o:IsA('BaseScript') and o.Disabled then issue(path(o)..': required script is disabled') end
+ end
+ local shared=child(c.replicated,'Shared','Folder')
+ local net=child(shared,'Net','Folder')
+ local configFolder=child(shared,'Config','Folder')
+ local remotes=child(net,'Remotes','ModuleScript')
+ local config=child(configFolder,'GameConfig','ModuleScript')
+ verified(remotes,'Remotes')
+ verified(child(c.services,'BombTagMapVoteServiceV6','ModuleScript'),'MapVote')
+ verified(named(c.server,'BombTagAFKServer','Script'),'AFK')
+ verified(named(c.server,'DodgeIFrameServer','Script'),'Dodge')
+ local client=named(c.starter,'ClientMain','LocalScript');verified(client,'ClientMain')
+ if client and c.hud then
+  local controllers=child(client.Parent,'Controllers','Folder')
+  local actual=child(controllers,'HudController','ModuleScript')
+  if actual and actual~=c.hud then issue(path(client)..': starts a different HudController than the selected installer target') end
+ end
+ child(c.replicated,'BombTagVoteV6','RemoteEvent')
+ child(c.replicated,'BombTagAFKRequest','RemoteEvent')
+ child(net,'DodgeIFrameRequest','RemoteEvent',true)
+ local remoteFolder=child(c.replicated,'BombTagRemotes','Folder',true)
+ child(remoteFolder,'RoundState','RemoteEvent',true)
+ child(remoteFolder,'BombState','RemoteEvent',true)
+ -- Known Remotes.Init and DodgeIFrameServer create these optional remotes at runtime.
+ if config then
+  table.insert(sources,config)
+  local seen,values,lines={},{},{}
+  local ok,source=pcall(function() return config.Source end)
+  if not ok then issue(path(config)..': Source is not readable') else
+   for line in (source:gsub('\r\n','\n')..'\n'):gmatch('(.-)\n') do
+    local left,key,value=line:match('^(%s*GameConfig%.([%w_]+)%s*=%s*)(.-)%s*$')
+    if key then
+     local kind=configTypes[key]
+     if not kind or seen[key] then issue(path(config)..': unsupported or duplicate assignment '..key) end
+     seen[key]=true
+     if kind=='number' then
+      local n=tonumber(value)
+      if not n or n~=n or math.abs(n)==math.huge then issue(path(config)..': '..key..' must be a finite numeric literal')
+      else values[key]=n;if n<0 then issue(path(config)..': '..key..' must not be negative') end end
+     elseif kind=='boolean' then
+      if value~='true' and value~='false' then issue(path(config)..': '..key..' must be true or false') end
+     elseif kind=='string' then
+      local q=value:sub(1,1);local content=value:sub(2,-2)
+      if (q~='"' and q~="'") or value:sub(-1)~=q or #content==0 or content:find('[%c\\"\']') then
+       issue(path(config)..': MapName must be a plain quoted map name')
+      end
+     end
+     line=left..'<'..key..'>'
+    end
+    table.insert(lines,line)
+   end
+   for key in pairs(configTypes) do if not seen[key] then issue(path(config)..': missing GameConfig.'..key) end end
+   if fingerprint(table.concat(lines,'\n'))~=configFingerprint then
+    issue(path(config)..': configuration structure differs from the reviewed module; only its literal settings may vary')
+   end
+   for _,key in ipairs({'AbsoluteMinimumPlayers','MinimumPlayers','NormalBombFuseSeconds','FinalDuelBombFuseSeconds','BombTagRadius','TagCheckInterval'}) do
+    if values[key] and values[key]<=0 then issue(path(config)..': '..key..' must be positive') end
+   end
+   for _,key in ipairs({'AbsoluteMinimumPlayers','MinimumPlayers'}) do
+    if values[key] and values[key]%1~=0 then issue(path(config)..': '..key..' must be a whole player count') end
+   end
+   if values.AutoStartMaxSeconds and values.AutoStartMinSeconds and values.AutoStartMaxSeconds<values.AutoStartMinSeconds then
+    issue(path(config)..': AutoStartMaxSeconds is smaller than AutoStartMinSeconds')
+   end
+  end
+ end
+ return {issues=issues,sources=sources}
+end
+return D
+
+end)()
+
+local shopValidator=(function()
+--!nonstrict
+-- HussShopStandsV12. Apply only to a staged Lobby clone, never a live world.
+local S={}
+local CollectionService=game:GetService('CollectionService')
+local categories={'Bombs','Trails','Titles','Emotes'}
+local colors={Bombs=Color3.fromRGB(255,173,37),Trails=Color3.fromRGB(45,216,245),Titles=Color3.fromRGB(196,115,255),Emotes=Color3.fromRGB(255,104,174)}
+local ink,white=Color3.fromRGB(15,22,33),Color3.fromRGB(255,250,239)
+local function make(class,parent,properties)
+ local o=Instance.new(class);for k,v in pairs(properties) do o[k]=v end;o.Parent=parent;return o
+end
+local function label(parent,name,value,y,height,size,color)
+ local o=make('TextLabel',parent,{Name=name,Text=value,Position=UDim2.fromOffset(24,y),Size=UDim2.new(1,-48,0,height),BackgroundTransparency=1,Font=Enum.Font.FredokaOne,TextSize=size,TextColor3=color or white,TextWrapped=true,ZIndex=4})
+ make('UIStroke',o,{Color=ink,Thickness=3,ApplyStrokeMode=Enum.ApplyStrokeMode.Contextual});return o
+end
+local function stations(lobby)
+ assert(lobby and lobby:IsA('Model'),'V12 shops need a Lobby Model.')
+ local exchange=lobby:FindFirstChild('V11 Bomb Exchange')
+ assert(exchange and exchange:IsA('Model'),'V12 shops need the verified V11 Bomb Exchange inside Lobby.')
+ local found={}
+ for _,category in ipairs(categories) do
+  local station=exchange:FindFirstChild(category..' kiosk')
+  assert(station and station:IsA('Model'),'Missing lobby '..category..' kiosk.')
+  local anchor=station:FindFirstChild('Browse '..category)
+  local counter=station:FindFirstChild('Counter')
+  local prompt=anchor and anchor:FindFirstChild('BrowseShop')
+  assert(anchor and anchor:IsA('BasePart') and counter and counter:IsA('BasePart'),'Missing '..category..' shop approach anchor or counter.')
+  assert(prompt and prompt:IsA('ProximityPrompt') and prompt:GetAttribute('HussShopCategory')==category,'Unexpected '..category..' shop prompt; not overwritten.')
+  table.insert(found,{category=category,station=station,anchor=anchor,counter=counter,prompt=prompt})
+ end
+ return found
+end
+function S.Validate(lobby)
+ assert(lobby:GetAttribute('HussShopVersion')==12,'Lobby walk-up shops are not V12.')
+ for _,entry in ipairs(stations(lobby)) do
+  local panel=entry.station:FindFirstChild('ShopPanelV12')
+  assert(panel and panel:IsA('BasePart') and panel:GetAttribute('HussShopPanelVersion')==12,'Missing V12 physical panel for '..entry.category..'.')
+  assert(panel.Anchored and not panel.CanCollide and not panel.CanTouch and panel.CanQuery,'Shop panel flags changed for '..entry.category..'.')
+  assert(panel.Size==Vector3.new(19,7.2,.24),'Unexpected shop panel size for '..entry.category..'.')
+  assert(entry.anchor:GetAttribute('HussShopCategory')==entry.category and entry.anchor:GetAttribute('HussShopStandEnabled')==true and CollectionService:HasTag(entry.anchor,'HussShopStandV12'),'Invalid V12 approach anchor for '..entry.category..'.')
+  assert(entry.prompt.Enabled==false,'Legacy shop prompt still enabled for '..entry.category..'.')
+  local idle=panel:FindFirstChild('ShopIdleV12')
+  assert(idle and idle:IsA('SurfaceGui') and idle.Face==Enum.NormalId.Back,'Missing idle shop face for '..entry.category..'.')
+ end
+ return true
+end
+function S.Apply(lobby)
+ if lobby:GetAttribute('HussShopVersion')==12 then S.Validate(lobby);return lobby end
+ assert(lobby:GetAttribute('HussShopVersion')==nil,'Unrecognized lobby shop version; not overwritten.')
+ local entries=stations(lobby)
+ -- Check every name before editing the staged clone.
+ for _,entry in ipairs(entries) do
+  assert(not entry.station:FindFirstChild('ShopPanelV12'),'Unrecognized ShopPanelV12 in '..entry.category..'; not overwritten.')
+  assert(entry.anchor:GetAttribute('HussShopCategory')==nil and entry.anchor:GetAttribute('HussShopStandEnabled')==nil,'Unrecognized shop anchor metadata in '..entry.category..'; not overwritten.')
+ end
+ for _,entry in ipairs(entries) do
+  local category,color=entry.category,colors[entry.category]
+  -- Counter's local center is (0,2,4.7). Its outward face is local +Z.
+  -- The panel covers the counter front, below the existing overhead sign.
+  local panel=make('Part',entry.station,{Name='ShopPanelV12',Size=Vector3.new(19,7.2,.24),CFrame=entry.counter.CFrame*CFrame.new(0,2.3,2.67),Color=ink,Material=Enum.Material.SmoothPlastic,Anchored=true,CanCollide=false,CanTouch=false,CanQuery=true,CastShadow=false,TopSurface=Enum.SurfaceType.Smooth,BottomSurface=Enum.SurfaceType.Smooth})
+  panel:SetAttribute('HussShopPanelVersion',12)
+  local gui=make('SurfaceGui',panel,{Name='ShopIdleV12',Face=Enum.NormalId.Back,SizingMode=Enum.SurfaceGuiSizingMode.FixedSize,CanvasSize=Vector2.new(1140,432),LightInfluence=0,Brightness=1,AlwaysOnTop=false,MaxDistance=90,ZIndexBehavior=Enum.ZIndexBehavior.Sibling})
+  local body=make('Frame',gui,{Name='Body',Size=UDim2.fromScale(1,1),BackgroundColor3=color,BorderSizePixel=0,ClipsDescendants=true})
+  make('UICorner',body,{CornerRadius=UDim.new(0,26)});make('UIStroke',body,{Color=ink,Thickness=12,ApplyStrokeMode=Enum.ApplyStrokeMode.Border})
+  make('UIGradient',body,{Color=ColorSequence.new(white,Color3.fromRGB(120,167,161)),Rotation=90})
+  for row=0,3 do for column=0,11 do if (row+column)%2==0 then
+   make('Frame',body,{Name='Checker',Position=UDim2.fromScale(column/12,row/4),Size=UDim2.fromScale(1/12,1/4),BackgroundColor3=white,BackgroundTransparency=.9,BorderSizePixel=0,ZIndex=2})
+  end end end
+  label(body,'Title',category:upper()..' EXCHANGE',60,98,72)
+  label(body,'Hint','WALK UP TO BROWSE',170,76,51)
+  label(body,'Details',category=='Bombs' and '25 SIGNATURE BOMBS • EARN / COLLECT / EQUIP' or category=='Trails' and '25 TRAIL EFFECTS • MAKE AN ENTRANCE' or category=='Titles' and 'FIND YOUR NAME • SHOW YOUR STYLE' or 'CELEBRATE EVERY CLOSE CALL',274,56,28)
+  entry.prompt.Enabled=false
+  entry.anchor:SetAttribute('HussShopCategory',category)
+  entry.anchor:SetAttribute('HussShopStandEnabled',true)
+  entry.anchor:SetAttribute('HussShopRadius',12)
+  CollectionService:AddTag(entry.anchor,'HussShopStandV12')
+ end
+ lobby:SetAttribute('HussShopVersion',12);S.Validate(lobby);return lobby
+end
+return S
+
+end)()
+
+local animationAdapter=(function()
+--!nonstrict
+-- Exact reviewed Animate source, allowing only the four existing base animation ID edits.
+local A = {}
+local uploaded = [========[
+--!nonstrict
+
+------------------------------------------------------------
+-- BOMB TAG - R6 ANIMATION CONTROLLER
+--
+-- SnappyMovement controls all movement physics.
+-- This script controls animations only.
+--
+-- Supports:
+-- Idle
+-- Walk
+-- Sprint
+-- Fall
+-- Forward Dodge
+-- Backward Dodge
+-- Left Dodge
+-- Right Dodge
+------------------------------------------------------------
+
+local RunService =
+	game:GetService("RunService")
+
+------------------------------------------------------------
+-- CHARACTER
+------------------------------------------------------------
+
+local character =
+	script.Parent
+
+local humanoid =
+	character:WaitForChild("Humanoid")
+
+local root =
+	character:WaitForChild("HumanoidRootPart")
+
+------------------------------------------------------------
+-- ANIMATOR
+------------------------------------------------------------
+
+local animator =
+	humanoid:FindFirstChildOfClass(
+		"Animator"
+	)
+
+if not animator then
+
+	animator =
+		Instance.new("Animator")
+
+	animator.Parent =
+		humanoid
+end
+
+------------------------------------------------------------
+-- BASE ANIMATION IDS
+------------------------------------------------------------
+
+local IDLE_ID =
+	"rbxassetid://86722180453998"
+
+local WALK_ID =
+	"rbxassetid://128318370222834"
+
+local RUN_ID =
+	"rbxassetid://124106396906271"
+
+local FALL_ID =
+	"rbxassetid://103035488330716"
+
+------------------------------------------------------------
+-- DIRECTIONAL DODGE IDS
+--
+-- REPLACE THESE AS YOU PUBLISH NEW ANIMATIONS.
+--
+-- For now they all use your current dodge animation.
+------------------------------------------------------------
+
+local DODGE_FORWARD_ID =
+	"rbxassetid://140160678402253"
+
+local DODGE_BACK_ID =
+	"rbxassetid://140160678402253"
+
+local DODGE_LEFT_ID =
+	"rbxassetid://140160678402253"
+
+local DODGE_RIGHT_ID =
+	"rbxassetid://140160678402253"
+
+------------------------------------------------------------
+-- ANIMATION SETTINGS
+------------------------------------------------------------
+
+local NORMAL_FADE_TIME =
+	0.15
+
+local DODGE_FADE_IN =
+	0.04
+
+local DODGE_FADE_OUT =
+	0.10
+
+local WALK_ANIMATION_SPEED =
+	1.00
+
+local RUN_ANIMATION_SPEED =
+	1.00
+
+local FALL_ANIMATION_SPEED =
+	1.00
+
+local DODGE_FORWARD_SPEED =
+	1.00
+
+local DODGE_BACK_SPEED =
+	1.00
+
+local DODGE_LEFT_SPEED =
+	1.00
+
+local DODGE_RIGHT_SPEED =
+	1.00
+
+------------------------------------------------------------
+-- CREATE TRACK
+------------------------------------------------------------
+
+local function createTrack(
+	animationId,
+	priority,
+	looped
+)
+
+	local animation =
+		Instance.new("Animation")
+
+	animation.AnimationId =
+		animationId
+
+	local track =
+		animator:LoadAnimation(
+			animation
+		)
+
+	track.Priority =
+		priority
+
+	track.Looped =
+		looped
+
+	return track
+end
+
+------------------------------------------------------------
+-- NORMAL TRACKS
+------------------------------------------------------------
+
+local idleTrack =
+	createTrack(
+		IDLE_ID,
+		Enum.AnimationPriority.Idle,
+		true
+	)
+
+local walkTrack =
+	createTrack(
+		WALK_ID,
+		Enum.AnimationPriority.Movement,
+		true
+	)
+
+local runTrack =
+	createTrack(
+		RUN_ID,
+		Enum.AnimationPriority.Movement,
+		true
+	)
+
+local fallTrack =
+	createTrack(
+		FALL_ID,
+		Enum.AnimationPriority.Movement,
+		true
+	)
+
+------------------------------------------------------------
+-- DODGE TRACKS
+------------------------------------------------------------
+
+local dodgeForwardTrack =
+	createTrack(
+		DODGE_FORWARD_ID,
+		Enum.AnimationPriority.Action,
+		false
+	)
+
+local dodgeBackTrack =
+	createTrack(
+		DODGE_BACK_ID,
+		Enum.AnimationPriority.Action,
+		false
+	)
+
+local dodgeLeftTrack =
+	createTrack(
+		DODGE_LEFT_ID,
+		Enum.AnimationPriority.Action,
+		false
+	)
+
+local dodgeRightTrack =
+	createTrack(
+		DODGE_RIGHT_ID,
+		Enum.AnimationPriority.Action,
+		false
+	)
+
+------------------------------------------------------------
+-- TRACK TABLES
+------------------------------------------------------------
+
+local normalTracks = {
+	idleTrack,
+	walkTrack,
+	runTrack,
+	fallTrack,
+}
+
+local dodgeTracks = {
+	dodgeForwardTrack,
+	dodgeBackTrack,
+	dodgeLeftTrack,
+	dodgeRightTrack,
+}
+
+------------------------------------------------------------
+-- STATE
+------------------------------------------------------------
+
+local currentNormalTrack =
+	nil
+
+local currentNormalName =
+	""
+
+local activeDodgeTrack =
+	nil
+
+------------------------------------------------------------
+-- STOP NORMAL TRACKS
+------------------------------------------------------------
+
+local function stopNormalTracks(
+	exceptTrack
+)
+
+	for _, track in ipairs(
+		normalTracks
+		) do
+
+		if track ~= exceptTrack
+			and track.IsPlaying then
+
+			track:Stop(
+				NORMAL_FADE_TIME
+			)
+		end
+	end
+end
+
+------------------------------------------------------------
+-- STOP DODGE TRACKS
+------------------------------------------------------------
+
+local function stopDodgeTracks(
+	exceptTrack
+)
+
+	for _, track in ipairs(
+		dodgeTracks
+		) do
+
+		if track ~= exceptTrack
+			and track.IsPlaying then
+
+			track:Stop(
+				0
+			)
+		end
+	end
+end
+
+------------------------------------------------------------
+-- IS DODGING
+------------------------------------------------------------
+
+local function isDodgePlaying()
+
+	for _, track in ipairs(
+		dodgeTracks
+		) do
+
+		if track.IsPlaying then
+			return true
+		end
+	end
+
+	return false
+end
+
+------------------------------------------------------------
+-- PLAY NORMAL ANIMATION
+------------------------------------------------------------
+
+local function playNormal(
+	name,
+	track,
+	speed
+)
+
+	--------------------------------------------------------
+	-- Dodge animations override normal animations.
+	--------------------------------------------------------
+
+	if isDodgePlaying() then
+		return
+	end
+
+	if currentNormalTrack == track
+		and currentNormalName == name
+		and track.IsPlaying then
+
+		track:AdjustSpeed(
+			speed or 1
+		)
+
+		return
+	end
+
+	stopNormalTracks(
+		track
+	)
+
+	if not track.IsPlaying then
+
+		track:Play(
+			NORMAL_FADE_TIME,
+			1,
+			speed or 1
+		)
+
+	else
+
+		track:AdjustSpeed(
+			speed or 1
+		)
+	end
+
+	currentNormalTrack =
+		track
+
+	currentNormalName =
+		name
+end
+
+------------------------------------------------------------
+-- PLAY DIRECTIONAL DODGE
+------------------------------------------------------------
+
+local function playDodge(
+	track,
+	speed
+)
+
+	--------------------------------------------------------
+	-- Stop any previous dodge immediately.
+	--------------------------------------------------------
+
+	stopDodgeTracks(
+		track
+	)
+
+	if track.IsPlaying then
+
+		track:Stop(
+			0
+		)
+	end
+
+	--------------------------------------------------------
+	-- Fade out normal movement animation.
+	--------------------------------------------------------
+
+	for _, normalTrack in ipairs(
+		normalTracks
+		) do
+
+		if normalTrack.IsPlaying then
+
+			normalTrack:Stop(
+				DODGE_FADE_IN
+			)
+		end
+	end
+
+	currentNormalTrack =
+		nil
+
+	currentNormalName =
+		""
+
+	activeDodgeTrack =
+		track
+
+	track:Play(
+		DODGE_FADE_IN,
+		1,
+		speed or 1
+	)
+end
+
+------------------------------------------------------------
+-- MOVEMENT ACTION LISTENER
+------------------------------------------------------------
+
+local lastActionId =
+	character:GetAttribute(
+		"MovementActionId"
+	) or 0
+
+local function checkMovementAction()
+
+	local newActionId =
+		character:GetAttribute(
+			"MovementActionId"
+		) or 0
+
+	if newActionId == lastActionId then
+		return
+	end
+
+	lastActionId =
+		newActionId
+
+	local action =
+		character:GetAttribute(
+			"MovementAction"
+		) or ""
+
+	--------------------------------------------------------
+	-- FORWARD
+	--------------------------------------------------------
+
+	if action == "DiveForward" then
+
+		playDodge(
+			dodgeForwardTrack,
+			DODGE_FORWARD_SPEED
+		)
+
+		return
+	end
+
+	--------------------------------------------------------
+	-- BACKWARD
+	--------------------------------------------------------
+
+	if action == "DiveBack" then
+
+		playDodge(
+			dodgeBackTrack,
+			DODGE_BACK_SPEED
+		)
+
+		return
+	end
+
+	--------------------------------------------------------
+	-- LEFT
+	--------------------------------------------------------
+
+	if action == "DiveLeft" then
+
+		playDodge(
+			dodgeLeftTrack,
+			DODGE_LEFT_SPEED
+		)
+
+		return
+	end
+
+	--------------------------------------------------------
+	-- RIGHT
+	--------------------------------------------------------
+
+	if action == "DiveRight" then
+
+		playDodge(
+			dodgeRightTrack,
+			DODGE_RIGHT_SPEED
+		)
+
+		return
+	end
+
+	--------------------------------------------------------
+	-- FORWARD DIAGONALS
+	--
+	-- For now:
+	-- Forward-left/right reuse forward dodge.
+	--------------------------------------------------------
+
+	if action == "DiveForwardLeft"
+		or action == "DiveForwardRight" then
+
+		playDodge(
+			dodgeForwardTrack,
+			DODGE_FORWARD_SPEED
+		)
+
+		return
+	end
+
+	--------------------------------------------------------
+	-- BACKWARD DIAGONALS
+	--
+	-- For now:
+	-- Back-left/right reuse backward dodge.
+	--------------------------------------------------------
+
+	if action == "DiveBackLeft"
+		or action == "DiveBackRight" then
+
+		playDodge(
+			dodgeBackTrack,
+			DODGE_BACK_SPEED
+		)
+
+		return
+	end
+end
+
+------------------------------------------------------------
+-- LISTEN FOR NEW DODGES
+------------------------------------------------------------
+
+character:GetAttributeChangedSignal(
+	"MovementActionId"
+):Connect(
+	checkMovementAction
+)
+
+------------------------------------------------------------
+-- DODGE FINISHED
+------------------------------------------------------------
+
+local function dodgeStopped(
+	track
+)
+
+	if activeDodgeTrack == track then
+
+		activeDodgeTrack =
+			nil
+
+		currentNormalTrack =
+			nil
+
+		currentNormalName =
+			""
+	end
+end
+
+dodgeForwardTrack.Stopped:Connect(
+	function()
+
+		dodgeStopped(
+			dodgeForwardTrack
+		)
+	end
+)
+
+dodgeBackTrack.Stopped:Connect(
+	function()
+
+		dodgeStopped(
+			dodgeBackTrack
+		)
+	end
+)
+
+dodgeLeftTrack.Stopped:Connect(
+	function()
+
+		dodgeStopped(
+			dodgeLeftTrack
+		)
+	end
+)
+
+dodgeRightTrack.Stopped:Connect(
+	function()
+
+		dodgeStopped(
+			dodgeRightTrack
+		)
+	end
+)
+
+------------------------------------------------------------
+-- STOP EVERYTHING
+------------------------------------------------------------
+
+local function stopEverything()
+
+	for _, track in ipairs(
+		dodgeTracks
+		) do
+
+		if track.IsPlaying then
+
+			track:Stop(
+				DODGE_FADE_OUT
+			)
+		end
+	end
+
+	for _, track in ipairs(
+		normalTracks
+		) do
+
+		if track.IsPlaying then
+
+			track:Stop(
+				NORMAL_FADE_TIME
+			)
+		end
+	end
+
+	currentNormalTrack =
+		nil
+
+	currentNormalName =
+		""
+
+	activeDodgeTrack =
+		nil
+end
+
+------------------------------------------------------------
+-- MAIN ANIMATION UPDATE
+------------------------------------------------------------
+
+RunService.RenderStepped:Connect(
+	function()
+
+		if humanoid.Health <= 0 then
+
+			stopEverything()
+
+			return
+		end
+
+		local movementState =
+			character:GetAttribute(
+				"MovementState"
+			) or "Idle"
+
+		----------------------------------------------------
+		-- DODGE OVERRIDES EVERYTHING
+		----------------------------------------------------
+
+		if isDodgePlaying() then
+			return
+		end
+
+		----------------------------------------------------
+		-- ROUND LOCK
+		----------------------------------------------------
+
+		if root.Anchored
+			or movementState == "Locked" then
+
+			playNormal(
+				"Idle",
+				idleTrack,
+				1
+			)
+
+			return
+		end
+
+		----------------------------------------------------
+		-- FALLING
+		----------------------------------------------------
+
+		if humanoid.FloorMaterial
+			== Enum.Material.Air then
+
+			playNormal(
+				"Fall",
+				fallTrack,
+				FALL_ANIMATION_SPEED
+			)
+
+			return
+		end
+
+		----------------------------------------------------
+		-- DIVE PHYSICS MAY STILL BE ACTIVE AFTER THE
+		-- DODGE ANIMATION FINISHES.
+		--
+		-- Transition into run instead of freezing.
+		----------------------------------------------------
+
+		if movementState == "Dive" then
+
+			playNormal(
+				"DiveRunOut",
+				runTrack,
+				RUN_ANIMATION_SPEED
+			)
+
+			return
+		end
+
+		----------------------------------------------------
+		-- SPRINT
+		----------------------------------------------------
+
+		if movementState == "Sprint" then
+
+			playNormal(
+				"Sprint",
+				runTrack,
+				RUN_ANIMATION_SPEED
+			)
+
+			return
+		end
+
+		----------------------------------------------------
+		-- WALK
+		----------------------------------------------------
+
+		if movementState == "Run" then
+
+			playNormal(
+				"Walk",
+				walkTrack,
+				WALK_ANIMATION_SPEED
+			)
+
+			return
+		end
+
+		----------------------------------------------------
+		-- INPUT FALLBACK
+		----------------------------------------------------
+
+		if humanoid.MoveDirection.Magnitude
+			> 0.05 then
+
+			playNormal(
+				"Walk",
+				walkTrack,
+				WALK_ANIMATION_SPEED
+			)
+
+			return
+		end
+
+		----------------------------------------------------
+		-- IDLE
+		----------------------------------------------------
+
+		playNormal(
+			"Idle",
+			idleTrack,
+			1
+		)
+	end
+)
+
+------------------------------------------------------------
+-- DEATH
+------------------------------------------------------------
+
+humanoid.Died:Connect(
+	function()
+
+		stopEverything()
+	end
+)
+
+------------------------------------------------------------
+-- START
+------------------------------------------------------------
+
+playNormal(
+	"Idle",
+	idleTrack,
+	1
+)
+
+print(
+	"[Animate] 4-direction R6 dodge animation controller initialized"
+)]========]
+local v5 = uploaded:gsub("local function checkMovementAction%(%)", "local function checkMovementAction()\n if workspace:GetAttribute('HussDodgeV5') == true then return end -- HussDodgeV5", 1)
+local names = {"IDLE_ID", "WALK_ID", "RUN_ID", "FALL_ID"}
+local function normalize(source)
+ return (source:gsub("\r\n", "\n"):gsub("[ \t]+\n", "\n"):gsub("%s+$", ""))
+end
+local function inspect(source)
+ assert(type(source)=="string", "Animate Source is not a string.")
+ local ids = {}
+ local masked = normalize(source)
+ for _,name in ipairs(names) do
+  local pattern = "local%s+"..name..'%s*=%s*"([^"\r\n]+)"'
+  local count = 0
+  masked = masked:gsub(pattern, function(id)
+   count += 1
+   assert(id:match("^rbxassetid://[1-9]%d*$") and #id<=29 and tonumber(id:sub(14))<=9007199254740991, "Animate "..name.." needs a positive Roblox asset ID.")
+   ids[name]=id
+   return 'local '..name..' = "__APPROVED_ID__"'
+  end)
+  assert(count==1, "Animate "..name.." definition differs from the reviewed controller.")
+ end
+ return masked,ids
+end
+function A.Adapt(source, target)
+ local masked, ids = inspect(source)
+ local old = inspect(uploaded)
+ local oldV5 = inspect(v5)
+ local new = inspect(target)
+ assert(masked==old or masked==oldV5 or masked==new, "StarterCharacterScripts.Animate contains unreviewed source. Original preserved; compare it with the uploaded/V5 Animate before adapting.")
+ local result = target
+ for _,name in ipairs(names) do
+  local pattern = "local%s+"..name..'%s*=%s*"([^"\r\n]+)"'
+  result = result:gsub(pattern,function() return 'local '..name..' = "'..ids[name]..'"' end,1)
+ end
+ return result
+end
+function A.ValidateChildren(object)
+ assert(object:IsA("LocalScript"), "Animate must be a LocalScript.")
+ -- Both reviewed controllers use source IDs. Preserve every child as-is; never
+ -- destroy user's Animation objects or reinterpret them as replacement settings.
+ return {}
+end
+return A
+
+end)()
+
+local source={
+[ [==[oldCatalog]==] ]=[==[--!nonstrict
+-- HussCatalogV12: every item is bought with earned Coins; cosmetic effects only.
+local C={Items={},ById={},Categories={'Bombs','Trails','Titles','Emotes'},Defaults={Bombs='bomb_classic',Trails='default',Titles='title_rookie',Emotes='emote_wave'}}
+local function add(category,rows)
+ for _,r in ipairs(rows) do
+  local item={id=r[1],name=r[2],price=r[3],color=r[4],style=r[5],description=r[6],rarity=r[7] or 'Common',category=category}
+  assert(not C.ById[item.id],'Duplicate catalog ID');C.ById[item.id]=item;table.insert(C.Items,item)
+ end
+end
+add('Bombs',{
+ {'bomb_classic','Classic Fuse',0,{44,48,58},'smooth','Black foundry bomb, copper seam, rivets and a curled sparking fuse.'},
+ {'bomb_cherry','Cherry Pop',200,{255,69,92},'smooth','Glossy cherry bomb with a leafy stem and a tiny cherry companion.'},
+ {'bomb_cobalt','Cobalt Core',250,{47,134,255},'banded','Armored blue shell with a seven-blade turbine and cooling pipes.'},
+ {'bomb_mint','Mint Condition',300,{78,244,183},'banded','A peppermint swirl, fresh leaves and a bright mint bomb shell.'},
+ {'bomb_taxi','Taxi Trouble',350,{255,211,48},'hazard','A round yellow taxi bomb with wheels, headlights and checkers.'},
+ {'bomb_candy','Candy Capsule',400,{255,123,206},'banded','Wrapped candy bomb with twisted ends, a sugar ribbon and sprinkles.'},
+ {'bomb_orange','Citrus Charge',450,{255,157,45},'panel','A sliced citrus bomb with visible segments, a leaf and curling peel.'},
+ {'bomb_arctic','Arctic Fuse',500,{140,234,255},'orb','Frozen bomb heart, icy crown shards, icicles and snowbright sparks.','Rare'},
+ {'bomb_ember','Ember Egg',600,{255,106,43},'reactor','Obsidian shell plates split by glowing molten cracks and embers.','Rare'},
+ {'bomb_toxic','Toxic Tank',700,{143,255,60},'hazard','An acid-filled tank bomb with pressure hoses and a warning badge.','Rare'},
+ {'bomb_royal','Royal Rumble',800,{177,105,255},'ring','Purple bomb with a jeweled golden crown, royal sash and ruby crest.','Rare'},
+ {'bomb_disco','Disco Disaster',900,{233,109,255},'panel','Mirrored bomb tiles, neon headphones and tiny dance-floor glints.','Rare'},
+ {'bomb_gift','Surprise Package',1000,{255,85,129},'gift','A round present bomb with crossed ribbons, a bow and hanging tag.','Rare'},
+ {'bomb_bee','Bumble Blast',1100,{255,213,60},'banded','A striped bee bomb with wings, antennae, a stinger and a hot fuse.','Rare'},
+ {'bomb_prism','Prism Pop',1250,{147,203,255},'panel','An opal bomb heart inside pastel crystal facets and hanging points.','Epic'},
+ {'bomb_saturn','Saturn Sphere',1400,{246,179,115},'ring','A banded planet bomb with a tilted ring and two little moons.','Epic'},
+ {'bomb_abyss','Abyss Pearl',1600,{99,88,215},'orb','A glowing midnight pearl cradled in a luminous deep-sea shell.','Epic'},
+ {'bomb_spike','Iron Urchin',1800,{150,174,193},'spike','A riveted iron bomb with broad metal spikes and a bolted faceplate.','Epic'},
+ {'bomb_plasma','Plasma Pulse',2000,{86,255,238},'reactor','A glass reactor bomb with a plasma coil, cage ribs and power terminals.','Epic'},
+ {'bomb_sakura','Sakura Surprise',2200,{255,175,207},'orb','A porcelain-pink bomb with a sculpted branch and three blossoms.','Epic'},
+ {'bomb_gold','Golden Fuse',2500,{255,207,62},'banded','A polished gold bomb stamped with a star coin and gilded laurels.','Legendary'},
+ {'bomb_void','Void Star',2800,{139,78,246},'spike','A dark armored bomb with a glowing star aperture and drifting wisps.','Legendary'},
+ {'bomb_solar','Solar Furnace',3200,{255,158,54},'reactor','A furnace bomb with heat fins, a glowing grate and escaping embers.','Legendary'},
+ {'bomb_nova','Supernova',3600,{255,89,167},'ring','A stellar bomb with crossing luminous rings and a brilliant starburst.','Legendary'},
+ {'bomb_champion','Champion Charge',4200,{255,227,104},'gift','A trophy bomb with handles, a medal, victory ribbons and laurels.','Legendary'},
+})
+add('Trails',{
+ {'default','Classic',0,{125,244,255},'ribbon','The familiar cyan sprint and golden weave.'},
+ {'aqua','Arctic Rush',250,{72,211,255},'ribbon','A crisp blue ribbon for clean escapes.'},
+ {'sunset','Solar Rush',400,{255,161,74},'sparks','Orange embers follow your acceleration.'},
+ {'royal','Royal Rush',600,{172,116,255},'stars','Violet stars mark a royal escape.','Rare'},
+ {'lime','Toxic Rush',800,{157,255,85},'bubbles','Bright green bubbles spill behind you.','Rare'},
+ {'rose','Candy Rush',1000,{255,117,180},'confetti','Pink candy confetti follows every burst.','Rare'},
+ {'trail_ice','Ice Shards',500,{179,242,255},'sparks','Pale crystal sparks scatter from your heels.'},
+ {'trail_smoke','Smoke Screen',550,{170,185,202},'smoke','A soft silver plume marks your path.'},
+ {'trail_coins','Coin Shower',650,{255,224,85},'confetti','Golden flecks make every run look valuable.','Rare'},
+ {'trail_ocean','Ocean Foam',700,{73,238,218},'bubbles','Turquoise bubbles wash across your wake.','Rare'},
+ {'trail_berry','Berry Blast',850,{189,72,220},'pulse','A rich berry pulse surges behind you.','Rare'},
+ {'trail_volt','Voltage',950,{255,242,68},'lightning','A jagged yellow flash follows quick turns.','Rare'},
+ {'trail_petals','Petal Parade',1100,{255,185,214},'confetti','Pastel petals drift across the arena.','Rare'},
+ {'trail_cosmic','Cosmic Dust',1250,{141,142,255},'stars','A starlit indigo path for close calls.','Epic'},
+ {'trail_lava','Lava Leak',1400,{255,79,43},'sparks','Hot red sparks burst from your sprint.','Epic'},
+ {'trail_ghost','Ghost Step',1500,{207,244,229},'smoke','A pale mist traces your narrow escapes.','Epic'},
+ {'trail_neon','Neon Circuit',1700,{53,255,170},'lightning','Green circuit flashes race along your trail.','Epic'},
+ {'trail_party','Party Fuse',1900,{255,132,222},'confetti','Bright party pieces make a joyful mess.','Epic'},
+ {'trail_halo','Golden Halo',2100,{255,224,125},'pulse','A warm golden pulse lights the finish.','Epic'},
+ {'trail_blizzard','Blizzard',2300,{195,235,255},'stars','A cold burst of snowbright stars.','Epic'},
+ {'trail_comet','Comet Tail',2600,{93,203,255},'sparks','Brilliant blue sparks streak through the arena.','Legendary'},
+ {'trail_eclipse','Eclipse Wake',2900,{175,108,255},'smoke','Purple dusk follows your footsteps.','Legendary'},
+ {'trail_overload','Overload',3200,{255,90,89},'lightning','Scarlet energy crackles after each weave.','Legendary'},
+ {'trail_supernova','Supernova Wake',3600,{255,155,95},'pulse','A bright solar pulse marks a perfect escape.','Legendary'},
+ {'trail_celebrate','Victory Parade',4200,{255,223,71},'confetti','A shower of gold for the arena champion.','Legendary'},
+})
+add('Titles',{
+ {'title_rookie','Fuse Rookie',0,{235,243,255},'title','Your first name in the bomb arena.'},
+ {'title_runner','Quick Feet',250,{86,219,255},'title','A title for runners who keep moving.'},
+ {'title_courier','Special Delivery',450,{255,181,67},'title','Always ready to hand over the hot package.'},
+ {'title_dancer','Danger Dancer',700,{255,126,188},'title','A little style in the danger zone.','Rare'},
+ {'title_wire','Live Wire',950,{184,255,82},'title','Charged up and hard to catch.','Rare'},
+ {'title_calm','Cool Under Fire',1300,{120,220,255},'title','Keep your head when the timer runs low.','Epic'},
+ {'title_stand','Last One Standing',1800,{255,201,82},'title','A bold title for your collection.','Epic'},
+ {'title_fuse','Fuse Master',2200,{197,125,255},'title','Wear your explosive ambitions.','Epic'},
+ {'title_untouch','Untouchable',2800,{128,255,206},'title','Make every near miss look effortless.','Legendary'},
+ {'title_legend','Bomb Legend',3600,{255,226,97},'title','The golden name above the arena.','Legendary'},
+})
+add('Emotes',{
+ {'emote_wave','Friendly Wave',0,{93,211,255},'wave','Say hello in the lobby.'},
+ {'emote_cheer','Fuse Cheer',300,{255,206,79},'cheer','Raise your arms and cheer for the next round.'},
+ {'emote_salute','Bomb Squad Salute',500,{124,231,160},'salute','A sharp salute before the action.'},
+ {'emote_shuffle','Lobby Shuffle',800,{255,140,209},'shuffle','A playful side to side dance.','Rare'},
+ {'emote_robot','Circuit Robot',1100,{119,197,255},'robot','Move like a mechanical bomb defuser.','Rare'},
+ {'emote_victory','Victory Bounce',1500,{255,211,83},'victory','Celebrate with a grounded victory pose.','Epic'},
+ {'emote_spin','Disco Spin',2000,{194,141,255},'spin','Turn up the style with a spinning dance.','Epic'},
+ {'emote_charge','Power Up',2600,{255,126,91},'charge','Gather your energy for the next match.','Legendary'},
+})
+return C
+]==],
+[ [==[oldHUD]==] ]=[==[--!nonstrict
+-- HUSS A BOMB / unified match, lobby, voting and map gallery HUD.
+local Players = game:GetService("Players")
+local RS = game:GetService("ReplicatedStorage")
+local Run = game:GetService("RunService")
+local Tween = game:GetService("TweenService")
+local Input = game:GetService("UserInputService")
+local Gui = game:GetService("GuiService")
+local P = Players.LocalPlayer
+local Remotes = require(RS.Shared.Net.Remotes)
+local Config = require(RS.Shared.Config.GameConfig)
+local HUD = {}
+-- HussGlossV8
+local rgb=Color3.fromRGB
+-- HussReferenceHudV10
+local C={ink=rgb(13,20,28),panel=rgb(35,40,50),line=rgb(101,135,163),white=rgb(255,255,255),muted=rgb(233,244,255),green=rgb(106,255,76),red=rgb(255,76,98),gold=rgb(255,218,48),cyan=rgb(62,230,255),violet=rgb(196,131,255)}
+local tones={STATS=rgb(255,159,29),CONTROLS=rgb(57,154,255),['HOW TO PLAY']=rgb(170,82,246),MAPS=rgb(29,193,182),SETTINGS=rgb(232,85,188),Close=rgb(248,64,90),AFK=rgb(70,140,230),VoteReopen=rgb(255,179,23),Continue=rgb(30,220,91),Music=rgb(155,89,245),SoundEffects=rgb(30,196,218),Motion=rgb(166,83,231),SHOP=rgb(15,220,102),QUESTS=rgb(255,169,22),LEADERBOARDS=rgb(255,199,24),Home=rgb(37,218,248),Hub=rgb(255,199,24)}
+local panelTones={MatchStatus=rgb(21,170,234),Identity=rgb(140,80,218),MatchInfo=rgb(24,128,207),Bomb=rgb(245,149,25),Dodge=rgb(21,175,107),LobbyFooter=rgb(110,84,205),Notification=rgb(27,152,211),Wallet=rgb(250,181,25)}
+local U, links, charLinks, pageLinks, hidden, tweens = {},{},{},{},{},{}
+local started, epoch, menu, phase, duration, phaseAt, alive = false,0,nil,"WAITING",0,0,nil
+local bomb, owner, carrier, fuseEnd, fuseLength = false,0,"",0,14
+local character, humanoid, dodgeAt, direction = nil,nil,-math.huge,"DODGE / WEAVE"
+local winner, resultDismissed, countdown, countUntil = "",false,nil,0
+local options, counts, selection, voteOpen, voteEnd, voteChosen, voteResultUntil, voteDismissed = {},{},nil,false,0,nil,0,false
+local previewFolder, voteRemote, afkRemote, voteLink, pageName, mapIndex = nil,nil,nil,nil,nil,1
+local lastSize, tickTime, statTime, noticeUntil = Vector2.zero,0,0,0
+-- HussEconomyHudV9
+local economy,ecoLink,profile,board,busy,serial=nil,nil,nil,nil,nil,0
+-- HussCollectionHudV11
+-- HussPhysicalShopHudV12: inventory stays in the Index; buying lives on the lobby stands.
+local rosterLinks={}
+local category,collectionPageNumber,cosmetics='Bombs',1,nil
+local categories={'Bombs','Trails','Titles','Emotes'}
+local catalog=require(RS:WaitForChild('HussCatalogV11'))
+local skinBuilder=require(RS:WaitForChild('BombSkinBuilderV12'))
+local defaults={Bombs='bomb_classic',Trails='default',Titles='title_rookie',Emotes='emote_wave'}
+local categoryColors={Bombs=rgb(255,164,38),Trails=rgb(81,225,255),Titles=rgb(202,128,255),Emotes=rgb(255,111,184)}
+tones.INDEX=rgb(55,155,239)
+local emoteAt=-math.huge
+local ecoMessage
+local refresh, layout, openMenu, buildPage
+local phases = {WAITING="WAITING FOR PLAYERS",INTERMISSION="NEXT MATCH",STARTING="GET READY",PRACTICE="PRACTICE",PRACTICE_ENDING="PLAYER JOINING",ROUND="MATCH LIVE",FINAL_DUEL="FINAL DUEL",RESULT="ROUND COMPLETE"}
+local function num(v,f) return type(v)=="number" and v==v and math.abs(v)<math.huge and v or f end
+local function connect(signal,fn,bucket) local c=signal:Connect(fn); table.insert(bucket or links,c); return c end
+local function clear(bucket) for _,c in ipairs(bucket) do c:Disconnect() end; table.clear(bucket) end
+local function make(class,parent,props)
+ local o=Instance.new(class); for k,v in pairs(props or {}) do o[k]=v end; o.Parent=parent; return o
+end
+local function rounded(o,r) make("UICorner",o,{CornerRadius=UDim.new(0,r or 5)}) end
+local function frame(parent,name,x,y,w,h,color,z)
+ return make("Frame",parent,{Name=name,Position=UDim2.fromOffset(x,y),Size=UDim2.fromOffset(w,h),BackgroundColor3=color or C.panel,BorderSizePixel=0,ZIndex=z or parent.ZIndex or 1})
+end
+local function stroke(o,color) return make("UIStroke",o,{Color=color or C.line,Thickness=2,Transparency=.12,ApplyStrokeMode=Enum.ApplyStrokeMode.Border}) end
+local function text(parent,name,value,x,y,w,h,size,color,align)
+ local o=make("TextLabel",parent,{Name=name,Text=value,Position=UDim2.fromOffset(x,y),Size=UDim2.fromOffset(w,h),BackgroundTransparency=1,Font=Enum.Font.GothamBlack,TextSize=size,TextColor3=color or C.white,TextStrokeColor3=C.ink,TextStrokeTransparency=1,TextXAlignment=align or Enum.TextXAlignment.Left,TextYAlignment=Enum.TextYAlignment.Center,TextTruncate=Enum.TextTruncate.AtEnd,ZIndex=(parent.ZIndex or 1)+2})
+ local outline=make('UIStroke',o,{Color=C.ink,Thickness=size>=18 and 2.3 or 1.3,Transparency=0,ApplyStrokeMode=Enum.ApplyStrokeMode.Contextual})
+ o.Font=size>=18 and Enum.Font.FredokaOne or Enum.Font.GothamBlack
+ return o
+end
+local function motion(o,goal,t)
+ if tweens[o] then tweens[o]:Cancel(); tweens[o]=nil end
+ if P:GetAttribute("HussReducedMotion")==true then for k,v in pairs(goal) do o[k]=v end; return end
+ local a=Tween:Create(o,TweenInfo.new(t or .16,Enum.EasingStyle.Quart,Enum.EasingDirection.Out),goal); tweens[o]=a
+ local done; done=a.Completed:Connect(function() if tweens[o]==a then tweens[o]=nil end; if done then done:Disconnect() end end); a:Play()
+end
+local function edge(o,color,width)
+ return make('UIStroke',o,{Color=color,Thickness=width or 3,Transparency=0,ApplyStrokeMode=Enum.ApplyStrokeMode.Border})
+end
+local function gloss(o,checks)
+ o.ClipsDescendants=false
+ make('UIGradient',o,{Color=ColorSequence.new(C.white,rgb(159,205,181)),Rotation=90})
+ local bottom=frame(o,'DropEdge',3,0,1,7,C.ink,o.ZIndex+1);bottom.Position=UDim2.new(0,3,1,-7);bottom.Size=UDim2.new(1,-6,0,7);rounded(bottom,5)
+ if checks then
+  local tile=frame(o,'Checkers',4,4,1,1,C.white,o.ZIndex+1);tile.Size=UDim2.new(1,-8,1,-13);tile.BackgroundTransparency=1;tile.ClipsDescendants=true;rounded(tile,8)
+  for row=0,3 do for col=0,11 do if (row+col)%2==0 then
+   local cell=frame(tile,'Tile',0,0,1,1,C.white,tile.ZIndex);cell.Position=UDim2.fromScale(col/12,row/4);cell.Size=UDim2.fromScale(1/12,1/4);cell.BackgroundTransparency=.9
+  end end end
+ end
+ local shine=frame(o,'Gloss',4,4,1,1,C.white,o.ZIndex+2);shine.Size=UDim2.new(1,-8,.45,-4);shine.BackgroundTransparency=checks and .86 or .96;rounded(shine,8)
+ local inset=frame(o,'InnerRim',4,4,1,1,C.white,o.ZIndex+2);inset.Size=UDim2.new(1,-8,1,-12);inset.BackgroundTransparency=1;rounded(inset,8)
+ return edge(inset,C.white:Lerp(o.BackgroundColor3,.45),2)
+end
+local function emblem(parent,kind,size,color)
+ local host=frame(parent,'Illustration',0,0,size,size,C.white,parent.ZIndex+4);host.BackgroundTransparency=1
+ local unit=size/100;local z=host.ZIndex
+ local function part(name,x,y,w,h,tint,radius,angle,line)
+  local p=frame(host,name,x*unit,y*unit,w*unit,h*unit,tint,z);if radius then rounded(p,radius*unit) end
+  p.Rotation=angle or 0;if line~=false then edge(p,C.ink,math.max(2,4*unit)) end;return p
+ end
+ local bright=color or C.gold
+ if kind=='Bombs' then
+  part('Fuse',53,7,11,35,rgb(244,198,100),4,-24);part('Spark',59,4,19,19,C.gold,3,45)
+  part('BombBody',16,27,70,65,bright,32);part('BombShine',30,40,17,10,bright:Lerp(C.white,.8),6,-30,false)
+  part('Band',18,62,66,12,bright:Lerp(C.ink,.5),4,0,false)
+ elseif kind=='Emotes' then
+  part('Head',39,6,24,24,bright,14);part('Body',38,36,26,31,bright,9)
+  part('LeftArm',12,34,36,12,bright,6,-30);part('RightArm',59,28,36,12,bright,6,-45)
+  part('LeftLeg',27,64,14,29,bright,6,23);part('RightLeg',58,64,14,29,bright,6,-23)
+ elseif kind=='Titles' or kind=='INDEX' then
+  part('Badge',15,24,70,51,bright,8);part('Ribbon',29,64,15,29,bright:Lerp(C.ink,.25),3,15);part('Ribbon2',57,64,15,29,bright:Lerp(C.ink,.25),3,-15)
+  part('Star',38,31,26,26,C.gold,3,45);part('StarCenter',41,34,20,20,C.white,3,0,false)
+ elseif kind=='SHOP' then
+  part('Bundle',15,31,70,47,rgb(25,155,68),6,-12);part('CashTop',15,19,70,42,rgb(103,241,93),5,-12)
+  part('CashBand',42,18,19,58,C.gold,2,-12);part('BandShine',45,20,5,50,rgb(255,245,151),1,-12,false)
+ elseif kind=='Home' then
+  part('Roof',24,12,52,52,rgb(68,161,255),3,45);part('House',23,43,55,44,rgb(53,139,242),4)
+  part('Door',44,61,18,28,rgb(97,225,255),4,0,false)
+ elseif kind=='Hub' or kind=='LEADERBOARDS' or kind=='STATS' then
+  part('LeftHandle',9,23,27,34,C.gold,12);part('RightHandle',65,23,27,34,C.gold,12)
+  part('Stem',44,55,13,25,rgb(244,166,33),3);part('Base',26,78,48,13,C.gold,4)
+  part('Cup',24,13,52,49,rgb(255,197,32),16);part('CupShine',32,22,34,8,rgb(255,242,128),4,0,false)
+ elseif kind=='QUESTS' then
+  part('Paper',22,12,57,75,rgb(255,237,166),6,5);part('Clip',36,5,30,17,rgb(255,174,28),4)
+  part('CheckShort',34,49,12,27,rgb(51,192,76),3,-42,false);part('CheckLong',49,31,12,45,rgb(51,192,76),3,35,false)
+ elseif kind=='SETTINGS' then
+  for i=0,3 do part('Cog',40,6,20,88,rgb(242,178,242),4,i*45) end
+  part('Gear',20,20,60,60,rgb(242,178,242),30);part('Center',37,37,26,26,rgb(131,61,166),13)
+ elseif kind=='MAPS' then
+  part('Map',15,17,71,64,rgb(120,244,176),5,-6);part('Route1',23,42,56,10,rgb(247,246,174),2,-24,false)
+  part('Pin',47,25,27,27,rgb(249,93,101),14);part('PinPoint',52,44,16,16,rgb(249,93,101),2,45,false)
+ elseif kind=='CONTROLS' or kind=='HOW TO PLAY' then
+  part('Key',12,24,76,53,rgb(163,220,255),12);part('Cross1',27,36,9,29,rgb(39,77,122),2,0,false);part('Cross2',17,46,29,9,rgb(39,77,122),2,0,false)
+  part('Dot1',61,38,11,11,C.gold,6,0,false);part('Dot2',68,55,11,11,C.red,6,0,false)
+ else
+  -- A distinct large comet illustration previews the trail's actual server color.
+  part('TailLong',3,55,70,14,bright,7,-25);part('TailMiddle',12,32,58,14,bright:Lerp(C.white,.3),7,-25)
+  part('TailShort',27,14,39,12,bright,6,-25)
+  part('Burst',49,24,43,43,bright,5,45);part('Core',60,35,21,21,bright:Lerp(C.white,.78),4,45,false)
+  part('Spark',79,4,10,10,C.white,2,45,false);part('SmallSpark',32,84,7,7,bright,2,45,false)
+ end
+ return host
+end
+local function panel(parent,name,w,h,z,accent)
+ local o=frame(parent,name,0,0,w,h,panelTones[name] or C.panel,z)
+ o.BackgroundTransparency=0;rounded(o,14);edge(o,C.ink,4)
+ local rim=gloss(o,panelTones[name]~=nil);rim.Color=accent or C.white:Lerp(o.BackgroundColor3,.35)
+ return o,rim
+end
+local function button(parent,name,caption,callback,danger,bucket)
+ local purchase=name:sub(1,5)=='Item_' or name:sub(1,6)=='Quest_'
+ local tone=danger and tones.Close or purchase and rgb(25,227,48) or tones[name:sub(1,3)=='Nav' and name:sub(4) or name] or rgb(47,175,228)
+ local b=make('TextButton',parent,{Name=name,Text=caption,TextTransparency=1,TextStrokeTransparency=1,TextTruncate=Enum.TextTruncate.AtEnd,Size=UDim2.fromOffset(120,44),BackgroundColor3=tone,TextColor3=C.white,Font=Enum.Font.GothamBlack,TextSize=16,AutoButtonColor=false,BorderSizePixel=0,ZIndex=(parent.ZIndex or 1)+3})
+ rounded(b,12);edge(b,C.ink,4);local rim=gloss(b,true)
+ local label=text(b,'ButtonCaption',caption,5,-2,110,44,16,C.white,Enum.TextXAlignment.Center);label.Size=UDim2.new(1,-10,1,0);label.ZIndex=b.ZIndex+6
+ local function captionUpdate()
+  label.Text=b.Text;label.TextColor3=b.TextColor3;label.TextSize=b.TextSize;label.TextTruncate=b.TextTruncate;label.TextXAlignment=b.TextXAlignment;label.Font=b.TextSize>=18 and Enum.Font.FredokaOne or Enum.Font.GothamBlack
+  label:FindFirstChildOfClass('UIStroke').Thickness=b.TextSize>=18 and 2.6 or 1.5
+ end
+ for _,key in ipairs({'Text','TextColor3','TextSize','TextTruncate','TextXAlignment'}) do connect(b:GetPropertyChangedSignal(key),captionUpdate,bucket) end
+ local focused=false
+ local function paint()
+  local selected=b:GetAttribute('HussSelected')==true;local disabled=b:GetAttribute('HussDisabled')==true
+  local color=selected and rgb(47,222,66) or (disabled and rgb(83,110,93) or tone)
+  b.Interactable=not disabled;b.Selectable=not disabled
+  motion(rim,{Color=selected and C.gold or (focused and not disabled and C.white or color:Lerp(C.white,.45))})
+  motion(b,{BackgroundColor3=focused and not disabled and color:Lerp(C.white,.14) or color})
+ end
+ local function focus(on) focused=on;paint() end
+ connect(b.MouseEnter,function() focus(true) end,bucket);connect(b.MouseLeave,function() focus(false) end,bucket)
+ connect(b.SelectionGained,function() focus(true) end,bucket);connect(b.SelectionLost,function() focus(false) end,bucket)
+ connect(b:GetAttributeChangedSignal('HussSelected'),paint,bucket);connect(b:GetAttributeChangedSignal('HussDisabled'),paint,bucket)
+ connect(b.Activated,function() if b:GetAttribute('HussDisabled')~=true then callback() end end,bucket);captionUpdate();return b
+end
+local function bar(parent,name,color)
+ local track=frame(parent,name,12,0,100,4,C.ink,parent.ZIndex+1); rounded(track,2)
+ local fill=frame(track,"Fill",0,0,100,4,color,track.ZIndex+1); fill.Size=UDim2.fromScale(1,1); rounded(fill,2)
+ return track,fill
+end
+local function align(o,x,y,ax,ay) o.AnchorPoint=Vector2.new(ax or 0,ay or 0); o.Position=UDim2.fromOffset(x,y) end
+local function numberStat(key)
+ local folder=P:FindFirstChild("leaderstats"); local v=folder and folder:FindFirstChild(key)
+ if v and (v:IsA("IntValue") or v:IsA("NumberValue")) then return num(v.Value) end
+ return num(P:GetAttribute(key))
+end
+local function formatted(v) return tostring(math.floor(v)):reverse():gsub("(%d%d%d)","%1,"):reverse():gsub("^,","") end
+local function mapName() return tostring(workspace:GetAttribute("CurrentVotedMap") or Config.MapName or "ARENA") end
+local function inRound() return P:GetAttribute("InRound")==true end
+local function reduced() return P:GetAttribute("HussReducedMotion")==true end
+local function announce(title,body,color)
+ if not started then return end
+ U.NoticeTitle.Text,U.NoticeBody.Text=title,body; U.NoticeTitle.TextColor3=color or C.green
+ noticeUntil=time()+2.2; U.Notice.Visible=true; U.NoticeScale.Scale=reduced() and 1 or .95; motion(U.NoticeScale,{Scale=1},.2)
+end
+local function view(parent)
+ local v=make("ViewportFrame",parent,{Name="ArenaPreview",BackgroundColor3=Color3.fromRGB(41,56,51),BorderSizePixel=0,Ambient=Color3.fromRGB(205,218,210),LightColor=Color3.fromRGB(255,240,204),LightDirection=Vector3.new(-1,-1,-.5),ZIndex=parent.ZIndex+1})
+ rounded(v,4); local world=make("WorldModel",v); local camera=make("Camera",v,{FieldOfView=42}); v.CurrentCamera=camera
+ return {frame=v,world=world,camera=camera,name=nil}
+end
+local function fit(v)
+ if not v.center then return end
+ local size=v.frame.AbsoluteSize; local ratio=size.X/math.max(size.Y,1)
+ local angle=math.atan(math.tan(math.rad(v.camera.FieldOfView/2))*math.min(1,ratio))
+ local distance=v.radius/math.max(.1,math.sin(angle))*1.12
+ v.camera.CFrame=CFrame.lookAt(v.center+Vector3.new(1,.86,1).Unit*distance,v.center)
+end
+local function loadPreview(v,name)
+ if v.name==name then fit(v); return end
+ v.world:ClearAllChildren(); v.name=nil; v.center=nil
+ local source=previewFolder and previewFolder:FindFirstChild(name or "")
+ if not source or not source:IsA("Model") then return end
+ local copy=source:Clone(); copy.Parent=v.world
+ for _,o in ipairs(copy:GetDescendants()) do
+  if o:IsA("LuaSourceContainer") or o:IsA("SurfaceGui") or o:IsA("BillboardGui") or o:IsA("Light") or o.Name=="Spawns" or (o:IsA("BasePart") and o.Transparency>=1) then o:Destroy() end
+ end
+ local cf,size=copy:GetBoundingBox(); v.name=name; v.center=cf.Position; v.radius=math.max(size.Magnitude/2,1); fit(v)
+end
+local function ecoRefresh()
+ if U.Mode=='menu' and (menu=='INDEX' or menu=='QUESTS' or menu=='LEADERBOARDS' or menu=='STATS') then local pos=U.Body.CanvasPosition;buildPage();U.Body.CanvasPosition=pos end
+end
+local function request(action,id)
+ if busy or not economy then return end
+ serial+=1;local ticket=serial;local generation=epoch;busy=ticket;ecoMessage=nil
+ economy:FireServer(action,id,ticket);ecoRefresh()
+ task.delay(10,function()
+  if started and epoch==generation and busy==ticket then busy=nil;ecoMessage='This is taking longer than expected. Please try again.';ecoRefresh() end
+ end)
+end
+local function cleanText(v,f) return type(v)=='string' and v:sub(1,90) or f or '' end
+local function amount(v) return math.clamp(math.floor(num(v,0)),0,1000000000000) end
+local function receive(data)
+ if type(data)~='table' then return end
+ if data.kind=='Profile' then
+  local p={ready=data.ready==true,mode=cleanText(data.mode),Equipped=cleanText(data.Equipped),EquippedByCategory={},Catalog={},Quests={},Owned={},resetsAt=amount(data.resetsAt)}
+  for _,name in ipairs(categories) do p.EquippedByCategory[name]=type(data.EquippedByCategory)=='table' and cleanText(data.EquippedByCategory[name],defaults[name]) or (name=='Trails' and p.Equipped or defaults[name]) end
+  if type(data.Owned)=='table' then for i,id in ipairs(data.Owned) do if i>100 then break end;if type(id)=='string' then p.Owned[id:sub(1,90)]=true end end end
+  if type(data.Catalog)=='table' then for i,item in ipairs(data.Catalog) do
+   if i>100 then break end
+   if type(item)=='table' and type(item.id)=='string' then
+    local color=type(item.color)=='table' and item.color or {};table.insert(p.Catalog,{id=cleanText(item.id),name=cleanText(item.name,'Cosmetic'),category=defaults[item.category] and item.category or 'Trails',description=cleanText(item.description,'Equip this cosmetic to make it yours.'),rarity=cleanText(item.rarity,'Common'),style=cleanText(item.style),price=amount(item.price),color=rgb(math.clamp(num(color[1],255),0,255),math.clamp(num(color[2],255),0,255),math.clamp(num(color[3],255),0,255))})
+   end
+  end end
+  if type(data.Quests)=='table' then for i,q in ipairs(data.Quests) do
+   if i>12 then break end
+   if type(q)=='table' and type(q.id)=='string' then table.insert(p.Quests,{id=cleanText(q.id),title=cleanText(q.title,'Daily quest'),target=math.max(1,amount(q.target)),progress=amount(q.progress),reward=amount(q.reward),claimed=q.claimed==true}) end
+  end end
+  profile=p
+ elseif data.kind=='Board' then
+  board={status=cleanText(data.status),rows={}}
+  if type(data.rows)=='table' then for i,r in ipairs(data.rows) do
+   if i>25 then break end
+   if type(r)=='table' then table.insert(board.rows,{name=cleanText(r.name,'Player'),wins=amount(r.wins)}) end
+  end end
+ else return end
+ if busy==data.requestId then
+  busy=nil
+  if type(data.message)=='string' and data.message~='' then ecoMessage=cleanText(data.message);announce(data.ok==true and 'ALL SET!' or 'PLEASE TRY AGAIN',cleanText(data.message),data.ok==true and C.green or C.gold) end
+ end
+ ecoRefresh()
+end
+local function watchPlayer(player)
+ if rosterLinks[player] then clear(rosterLinks[player]) end
+ local bucket={};rosterLinks[player]=bucket
+ local function update() if player==P then U.Identity.Player.Text=player.DisplayName:upper() end;ecoRefresh() end
+ if player==P then for _,key in ipairs({"GamesPlayed","Passes","HussEmotePlaying"}) do connect(player:GetAttributeChangedSignal(key),update,bucket) end end
+ local function value(v) if v:IsA('IntValue') or v:IsA('NumberValue') then connect(v.Changed,update,bucket) end end
+ local function folder(f)
+  if f.Name=='leaderstats' then connect(f.ChildAdded,function() watchPlayer(player) end,bucket);connect(f.ChildRemoved,function() watchPlayer(player) end,bucket);for _,v in ipairs(f:GetChildren()) do value(v) end end
+ end
+ connect(player.ChildAdded,function() watchPlayer(player) end,bucket);connect(player.ChildRemoved,function() watchPlayer(player) end,bucket)
+ connect(player:GetPropertyChangedSignal('DisplayName'),update,bucket)
+ for _,f in ipairs(player:GetChildren()) do folder(f) end
+ update()
+end
+local function playEmote(id)
+ if inRound() or not cosmetics or not profile or not profile.ready or not profile.Owned[id] or profile.EquippedByCategory.Emotes~=id then return end
+ if P:GetAttribute('HussEmotePlaying')==id then cosmetics:FireServer('StopEmote')
+ elseif time()-emoteAt>=1.3 then emoteAt=time();cosmetics:FireServer('Emote',id) end
+end
+local function collectionPage(width,y)
+ local ownedCount,total=0,0;local list={}
+ for _,item in ipairs(profile.Catalog) do if item.category==category then table.insert(list,item);total+=1;if profile.Owned[item.id] then ownedCount+=1 end end end
+ local cols=width>=810 and 3 or width>=520 and 2 or 1
+ local pageSize=6;local pageCount=math.max(1,math.ceil(total/pageSize));collectionPageNumber=math.clamp(collectionPageNumber,1,pageCount)
+ local h=text(U.Body,'CollectionHeading',category:upper()..'  '..ownedCount..'/'..total,5,y,width-16,34,23,categoryColors[category]);h.TextSize=width<350 and 18 or 23;y+=42
+ local tabCols=width<520 and 2 or 4
+ for i,name in ipairs(categories) do
+  local b=button(U.Body,'Category_'..name,name:upper(),function() category=name;collectionPageNumber=1;ecoMessage=nil;buildPage() end,false,pageLinks)
+  b.Position=UDim2.new((i-1)%tabCols/tabCols,5,0,y+math.floor((i-1)/tabCols)*53);b.Size=UDim2.new(1/tabCols,-14,0,44);b.TextSize=width<350 and 13 or 16;b:SetAttribute('HussSelected',category==name)
+ end
+ y+=math.ceil(4/tabCols)*53+4
+ local caption=category=='Emotes' and 'Equip and play owned emotes here. Find new ones at the lobby stands.' or 'Equip your collection here. Walk up to the lobby stands to buy new items.'
+ text(U.Body,'CollectionDescription',caption,6,y,width-18,32,width<350 and 11 or 14,C.muted).TextWrapped=true;y+=40
+ local start=y;local height=344;local count=0
+ for i=(collectionPageNumber-1)*pageSize+1,math.min(collectionPageNumber*pageSize,total) do
+  local item=list[i];local owned=profile.Owned[item.id]==true;local equipped=profile.EquippedByCategory[category]==item.id
+  local accent=item.color:Lerp(C.white,item.color.R+item.color.G+item.color.B<1 and .55 or .2)
+  local c=panel(U.Body,'Collectible_'..item.id,250,height,54,accent);c.Position=UDim2.new(count%cols/cols,7,0,start+math.floor(count/cols)*(height+20));c.Size=UDim2.new(1/cols,-16,0,height);count+=1
+  c.BackgroundColor3=item.color:Lerp(C.ink,.86);c.Gloss:Destroy();c.InnerRim:FindFirstChildOfClass('UIStroke').Thickness=4
+  local g=c:FindFirstChildOfClass('UIGradient');if g then g.Color=ColorSequence.new(rgb(60,67,70),C.white) end
+  local art
+  if category=='Bombs' and catalog.ById[item.id] then
+   art=make('ViewportFrame',c,{Name='BombPreview',Size=UDim2.fromOffset(122,110),BackgroundTransparency=1,Ambient=rgb(205,211,225),LightColor=C.white,LightDirection=Vector3.new(-1,-1,-.5),ZIndex=c.ZIndex+4})
+   local world=make('WorldModel',art);local core=make('Part',world,{Name='PreviewBomb',Size=Vector3.new(2.25,2.25,2.25),Shape=Enum.PartType.Ball,Anchored=true,CanCollide=false,CanTouch=false,CanQuery=false})
+   skinBuilder.Apply(core,catalog.ById[item.id],{Preview=true})
+   local camera=make('Camera',art,{FieldOfView=36,CFrame=CFrame.lookAt(Vector3.new(5,3.5,6),Vector3.new(0,.15,0))});art.CurrentCamera=camera
+  else art=emblem(c,category,102,item.color) end
+  art.AnchorPoint=Vector2.new(.5,0);art.Position=UDim2.new(.5,0,0,8)
+  local nameY=118
+  local title=text(c,'ItemName',item.name:upper(),9,nameY,240,48,23,accent,Enum.TextXAlignment.Center);title.Size=UDim2.new(1,-18,0,48);title.TextWrapped=true
+  local rarity=text(c,'Rarity',item.rarity:upper()..' • '..(owned and (equipped and 'EQUIPPED' or 'OWNED') or 'LOCKED'),9,nameY+50,240,22,12,owned and C.green or C.gold,Enum.TextXAlignment.Center);rarity.Size=UDim2.new(1,-18,0,22)
+  local description=text(c,'ItemDescription',item.description,14,nameY+76,228,44,12,C.white,Enum.TextXAlignment.Center);description.Size=UDim2.new(1,-28,0,44);description.TextWrapped=true
+  local caption=busy and 'PLEASE WAIT…' or equipped and 'EQUIPPED' or owned and 'EQUIP' or 'FIND AT LOBBY STAND'
+  local b=button(c,'Item_'..item.id,caption,function() if owned then request('Equip',item.id) end end,false,pageLinks)
+  b.Position=UDim2.new(0,14,1,-102);b.Size=UDim2.new(1,-28,0,45);b.TextSize=owned and 18 or 12;b:SetAttribute('HussDisabled',busy~=nil or equipped or not owned)
+  if category=='Emotes' then
+   local use=button(c,'Play_'..item.id,P:GetAttribute('HussEmotePlaying')==item.id and 'STOP EMOTE' or equipped and 'PLAY EMOTE' or 'EQUIP TO PLAY',function() playEmote(item.id) end,false,pageLinks)
+   use.Position=UDim2.new(0,14,1,-49);use.Size=UDim2.new(1,-28,0,42);use.TextSize=13;use:SetAttribute('HussDisabled',not owned or not equipped or not cosmetics or inRound())
+  else
+   local price=text(c,'Price',owned and 'COLLECTED • YOURS TO EQUIP' or formatted(item.price)..' COINS AT THE STAND',12,height-42,230,29,12,C.gold,Enum.TextXAlignment.Center);price.Size=UDim2.new(1,-24,0,29)
+  end
+ end
+ y=start+math.ceil(count/cols)*(height+20)
+ if total==0 then text(U.Body,'EmptyCollection','The collection is loading. Refresh your player record.',5,y,width-16,60,16,C.gold).TextWrapped=true;y+=75 end
+ local function pageButton(name,caption,delta,x)
+  local b=button(U.Body,name,caption,function() collectionPageNumber=math.clamp(collectionPageNumber+delta,1,pageCount);buildPage() end,false,pageLinks);b.Position=UDim2.new(x,5,0,y);b.Size=UDim2.new(.5,-14,0,46);b:SetAttribute('HussDisabled',delta<0 and collectionPageNumber==1 or delta>0 and collectionPageNumber==pageCount)
+ end
+ pageButton('CollectionPrevious','‹ PREVIOUS',-1,0);pageButton('CollectionNext','NEXT ›',1,.5);y+=58
+ text(U.Body,'CollectionPage','PAGE '..collectionPageNumber..' / '..pageCount..' • '..total..' '..category:upper(),5,y,width-16,26,14,C.muted,Enum.TextXAlignment.Center)
+ return y+40
+end
+local function economyPage(block,width)
+ local y=0
+ local function card(title,body,color,height)
+  local before=#U.Body:GetChildren();block(title,body,color,height);local o=U.Body:GetChildren()[before+1];y+=height+12;return o
+ end
+ local function action(parent,name,caption,fn,disabled)
+  local b=button(parent,name,caption,fn,false,pageLinks);b.Position=UDim2.new(0,12,1,-56);b.Size=UDim2.new(1,-24,0,44);b:SetAttribute('HussDisabled',busy~=nil or disabled==true);return b
+ end
+ if ecoMessage then card('UPDATE',ecoMessage,C.gold,100) end
+ if menu=='LEADERBOARDS' then
+  card('THIS SERVER','The same Wins and Coins shown in the Roblox player list.',C.cyan,88)
+  local list=Players:GetPlayers()
+  local function stat(p,key) local f=p:FindFirstChild('leaderstats');local v=f and f:FindFirstChild(key);return v and (v:IsA('IntValue') or v:IsA('NumberValue')) and amount(v.Value) or 0 end
+  table.sort(list,function(a,b) local aw,bw=stat(a,'Wins'),stat(b,'Wins');return aw==bw and a.UserId<b.UserId or aw>bw end)
+  for i,p in ipairs(list) do card(i..'. '..p.DisplayName,formatted(stat(p,'Wins'))..' WINS   •   '..formatted(stat(p,'Coins'))..' COINS\n'..formatted(stat(p,'Kills'))..' KILLS   •   '..formatted(stat(p,'FinalStands'))..' FINAL STANDS',p==P and C.gold or C.white,100) end
+  local message=not board and 'Load the global wins leaderboard.' or board.status=='ready' and 'Most wins across all servers. Updates about every 2 minutes.' or board.status=='loading' and 'Loading global wins…' or board.status=='preview' and 'Play the published game for global rankings.' or 'Global rankings are temporarily unavailable.'
+  local c=card('GLOBAL WINS',message,C.violet,158)
+  action(c,'LoadBoard',busy and 'LOADING…' or 'REFRESH GLOBAL WINS',function() request('Board') end,not economy)
+  if board and board.status=='ready' then for i,row in ipairs(board.rows) do card('#'..i..'  '..row.name,formatted(row.wins)..' WINS',C.gold,86) end end
+ elseif not profile or not profile.ready then
+  local c=card('YOUR PLAYER RECORD',profile and profile.mode=='unavailable' and 'Your saved record is unavailable. Please rejoin before earning or spending.' or 'Connecting to your saved coins, quests and collection…',C.gold,180)
+  action(c,'RetryProfile',busy and 'CONNECTING…' or 'REFRESH STATUS',function() request('Sync') end,not economy)
+ else
+  local coins=numberStat('Coins')
+  if menu=='QUESTS' then card('DAILY QUESTS','Complete these goals, then claim your coins. Quests reset at 00:00 UTC.',C.gold,108) end
+  if profile.mode=='preview' then card('STUDIO PREVIEW','Preview progress is temporary. Your live saved record is separate.',C.gold,90) end
+  if menu=='INDEX' then
+   y=collectionPage(width,y)
+  else
+   for _,q in ipairs(profile.Quests) do
+    local done=q.progress>=q.target
+    local c=card(q.title:upper(),math.min(q.progress,q.target)..' / '..q.target..'   •   +'..formatted(q.reward)..' COINS',C.green,166);c.BackgroundColor3=rgb(28,76,73)
+    local rail,fill=bar(c,'QuestProgress',C.green);rail.Position=UDim2.fromOffset(14,74);rail.Size=UDim2.new(1,-28,0,7);fill.Size=UDim2.fromScale(math.clamp(q.progress/q.target,0,1),1)
+    action(c,'Quest_'..q.id,busy and 'PLEASE WAIT…' or q.claimed and 'CLAIMED' or done and 'CLAIM REWARD' or 'IN PROGRESS',function() request('Claim',q.id) end,q.claimed or not done)
+   end
+  end
+ end
+ return y
+end
+local function makeUI()
+ local pg=P:WaitForChild("PlayerGui"); local old=pg:FindFirstChild("BombTagHUD"); if old then old:Destroy() end
+ U.Gui=make("ScreenGui",pg,{Name="BombTagHUD",ResetOnSpawn=false,IgnoreGuiInset=false,DisplayOrder=160,ZIndexBehavior=Enum.ZIndexBehavior.Sibling})
+ U.Root=frame(U.Gui,"SafeArea",0,0,1,1,C.ink,1); U.Root.Size=UDim2.fromScale(1,1); U.Root.BackgroundTransparency=1
+ U.Top=panel(U.Root,"MatchStatus",302,74,5)
+ text(U.Top,"Brand","H U S S  A  B O M B",15,8,223,14,10,C.green)
+ U.Phase=text(U.Top,"Phase","WAITING FOR PLAYERS",15,27,265,22,17)
+ U.Timer=text(U.Top,"Timer","",230,7,56,17,13,C.green,Enum.TextXAlignment.Right)
+ U.Sub=text(U.Top,"Subtitle","RUN. PASS. SURVIVE.",15,54,270,12,10,C.muted)
+ U.Identity=panel(U.Root,"Identity",206,66,5)
+ U.Avatar=make("ImageLabel",U.Identity,{Name="Portrait",Position=UDim2.fromOffset(10,10),Size=UDim2.fromOffset(44,44),BackgroundColor3=C.ink,BorderSizePixel=0,ZIndex=7}); rounded(U.Avatar,22);stroke(U.Avatar,C.violet)
+ text(U.Identity,"Player",P.DisplayName:upper(),64,9,132,17,12)
+ U.HealthText=text(U.Identity,"Vitals","100 / 100",64,29,132,16,11,C.muted)
+ U.HealthTrack,U.HealthFill=bar(U.Identity,"Health",C.green); U.HealthTrack.Position=UDim2.fromOffset(64,52); U.HealthTrack.Size=UDim2.fromOffset(132,4)
+ U.Wallet=panel(U.Root,'Wallet',206,42,6,C.gold)
+ U.Wallet.BackgroundColor3=panelTones.Wallet
+ local coin=frame(U.Wallet,'Coin',10,8,26,26,C.gold,8);rounded(coin,13);stroke(coin,rgb(255,241,170));text(coin,'Symbol','$',0,0,26,26,18,C.white,Enum.TextXAlignment.Center)
+ U.Coins=text(U.Wallet,'Coins','— COINS',46,8,148,26,16,C.white)
+ U.Info=panel(U.Root,"MatchInfo",202,66,5)
+ U.Alive=text(U.Info,"Alive","",12,9,178,23,20,C.white,Enum.TextXAlignment.Right)
+ U.Map=text(U.Info,"Map","",12,38,178,16,11,C.green,Enum.TextXAlignment.Right)
+ U.Bomb,U.BombRim=panel(U.Root,"Bomb",234,138,7,C.gold)
+ U.BombCaption=text(U.Bomb,"Caption","BOMB IN PLAY",14,11,206,17,11,C.gold)
+ U.BombTime=text(U.Bomb,"Fuse","00.0",12,31,164,54,43); U.BombTime.Font=Enum.Font.GothamBlack
+ text(U.Bomb,"Unit","SEC",181,62,39,17,10,C.muted)
+ U.Carrier=text(U.Bomb,"Carrier","",14,91,206,17,12,C.white)
+ U.FuseTrack,U.FuseFill=bar(U.Bomb,"FuseRail",C.gold); U.FuseTrack.Position=UDim2.fromOffset(14,121); U.FuseTrack.Size=UDim2.fromOffset(206,5)
+ U.Dash=panel(U.Root,"Dodge",358,77,6,C.green)
+ U.DashTitle=text(U.Dash,"Action","DODGE / WEAVE",14,10,214,22,15)
+ U.DashState=text(U.Dash,"State","READY",230,10,112,22,15,C.green,Enum.TextXAlignment.Right)
+ U.DashHint=text(U.Dash,"Input","MOVE + SPACE",14,36,220,15,10,C.muted)
+ U.Immunity=text(U.Dash,"Immunity","",199,36,145,15,10,C.green,Enum.TextXAlignment.Right)
+ U.Segments={}; for i=1,12 do U.Segments[i]=frame(U.Dash,"Charge"..i,14+(i-1)*27.5,62,24,4,C.green,8) end
+ U.Lobby=frame(U.Root,"LobbyMenu",0,0,186,318,C.ink,10); U.Lobby.BackgroundTransparency=1
+ text(U.Lobby,"Section","LOBBY",8,0,180,16,12,C.white)
+ U.MenuScroll=make("ScrollingFrame",U.Lobby,{Name="MenuOptions",Position=UDim2.fromOffset(0,26),Size=UDim2.new(1,0,1,-26),BackgroundTransparency=1,ClipsDescendants=true,BorderSizePixel=0,ScrollBarThickness=2,CanvasSize=UDim2.fromOffset(0,525),ScrollBarImageColor3=C.green,ZIndex=10})
+ for i,name in ipairs({"QUESTS","INDEX","LEADERBOARDS","STATS","MAPS","SETTINGS","CONTROLS","HOW TO PLAY"}) do
+  local titles={QUESTS='Quests',INDEX='Index',LEADERBOARDS='Hub',STATS='Stats',MAPS='Maps',SETTINGS='Settings',CONTROLS='Controls',['HOW TO PLAY']='How to Play'}
+  local b=button(U.MenuScroll,name,titles[name] or name,function() openMenu(name) end)
+  b.Size=UDim2.new(1,-12,0,54);b.Position=UDim2.fromOffset(6,5+(i-1)*65);b.TextXAlignment=Enum.TextXAlignment.Left;b.TextSize=name=='HOW TO PLAY' and 17 or 23
+  local icon=emblem(b,name,39);icon.Position=UDim2.fromOffset(8,4)
+  local label=b.ButtonCaption;label.Position=UDim2.fromOffset(52,-2);label.Size=UDim2.new(1,-60,1,0)
+  b:SetAttribute("HussReferenceButton",true)
+ end
+ U.LobbyFooter=panel(U.Root,"LobbyFooter",246,81,6)
+ U.Wins=text(U.LobbyFooter,"Record","",12,7,222,18,12,C.green)
+ U.AFK=button(U.LobbyFooter,"AFK","GO AFK",function() if not inRound() and afkRemote then afkRemote:FireServer(P:GetAttribute("BombTagAFK")~=true) end end)
+ U.AFK.Position=UDim2.fromOffset(10,29); U.AFK.Size=UDim2.fromOffset(226,44)
+ U.VoteReopen=button(U.Root,"VoteReopen","CHOOSE A MAP",function() voteDismissed=false; menu=nil; refresh() end); U.VoteReopen.Size=UDim2.fromOffset(202,44)
+ U.Notice=panel(U.Root,"Notification",362,62,35); U.NoticeScale=make("UIScale",U.Notice,{Scale=1})
+ U.NoticeTitle=text(U.Notice,"Title","",14,8,334,17,12,C.green,Enum.TextXAlignment.Center)
+ U.NoticeBody=text(U.Notice,"Message","",14,31,334,17,12,C.white,Enum.TextXAlignment.Center)
+ U.Count=frame(U.Root,"Countdown",0,0,220,168,C.ink,40); U.Count.BackgroundColor3=rgb(102,61,170);U.Count.BackgroundTransparency=.08;rounded(U.Count,24);stroke(U.Count,C.gold);gloss(U.Count)
+ U.CountText=text(U.Count,"Number","",0,0,220,133,112,C.white,Enum.TextXAlignment.Center); U.CountText.Font=Enum.Font.GothamBlack
+ U.CountLabel=text(U.Count,"Caption","GET READY TO RUN",0,145,220,20,12,C.green,Enum.TextXAlignment.Center)
+ U.CountScale=make("UIScale",U.Count,{Scale=1})
+ U.Shade=frame(U.Root,"ModalShade",0,0,1,1,C.ink,50); U.Shade.Size=UDim2.fromScale(1,1); U.Shade.BackgroundTransparency=.32; U.Shade.Active=true
+ U.Window=panel(U.Shade,"Window",660,456,51,C.green); U.WindowScale=make("UIScale",U.Window,{Scale=1})
+ U.WindowBrand=text(U.Window,"Brand","H U S S  A  B O M B",22,15,440,17,11,C.green)
+ U.WindowTitle=text(U.Window,"Title","",22,35,510,43,34)
+ U.Close=button(U.Window,"Close","X",function()
+  if U.Mode=="vote" then voteDismissed=true elseif U.Mode=="result" then resultDismissed=true else menu=nil end
+  Gui.SelectedObject=nil; refresh()
+ end,true); U.Close.Position=UDim2.new(1,-60,0,16); U.Close.Size=UDim2.fromOffset(44,44)
+ frame(U.Window,"Divider",22,91,1,1,C.line,53).Size=UDim2.new(1,-44,0,1)
+ U.Navigation=frame(U.Window,'Navigation',22,89,1,64,C.white,54);U.Navigation.BackgroundTransparency=1;U.Navigation.Size=UDim2.new(1,-44,0,64)
+ for index,entry in ipairs({{'Hub','LEADERBOARDS'},{'Home',false},{'INDEX','INDEX'}}) do
+  local b=button(U.Navigation,'Nav'..entry[1],entry[1]=='INDEX' and 'Index' or entry[1],function() if entry[2] then openMenu(entry[2]) else menu=nil;refresh() end end)
+  b.BackgroundColor3=tones[entry[1]];b.Size=UDim2.new(1/3,-10,1,0);b.Position=UDim2.new((index-1)/3,5,0,0);b.TextSize=26
+  local icon=emblem(b,entry[1],44);icon.Position=UDim2.fromOffset(9,6)
+  b.ButtonCaption.Position=UDim2.fromOffset(59,-2);b.ButtonCaption.Size=UDim2.new(1,-65,1,0)
+ end
+ U.Body=make("ScrollingFrame",U.Window,{Position=UDim2.fromOffset(22,107),Size=UDim2.new(1,-44,1,-125),BackgroundTransparency=1,ClipsDescendants=true,BorderSizePixel=0,ScrollBarThickness=3,ScrollBarImageColor3=C.green,CanvasSize=UDim2.fromOffset(0,0),ZIndex=53})
+ U.Vote=make("ScrollingFrame",U.Window,{Name="VoteCards",Position=UDim2.fromOffset(22,107),Size=UDim2.fromOffset(616,327),BackgroundTransparency=1,ClipsDescendants=true,BorderSizePixel=0,ScrollBarThickness=2,ScrollBarImageColor3=C.green,CanvasSize=UDim2.fromOffset(0,0),ScrollingDirection=Enum.ScrollingDirection.Y,ZIndex=53})
+ U.Cards={}
+ for i=1,3 do
+  local index=i; local b=button(U.Vote,"Map"..i,"",function()
+   if voteOpen and workspace:GetServerTimeNow()<voteEnd and not inRound() and P:GetAttribute("BombTagAFK")~=true and options[index] and voteRemote then
+    selection=options[index]; voteRemote:FireServer("Vote",selection); refresh()
+   end
+  end)
+  local v=view(b); local caption=text(b,"Name","",10,176,175,40,15); caption.TextWrapped=true
+  local amount=text(b,"Votes","",10,230,175,19,12,C.green)
+  local status=text(b,"Selection","",10,258,175,17,10,C.muted)
+  U.Cards[i]={button=b,view=v,title=caption,count=amount,status=status,rim=b:FindFirstChildOfClass("UIStroke")}
+ end
+ U.VoteFooter=text(U.Window,"VoteFooter","",22,0,616,21,11,C.muted)
+end
+local function availableMaps()
+ local names={}; if previewFolder then for _,m in ipairs(previewFolder:GetChildren()) do if m:IsA("Model") then table.insert(names,m.Name) end end end
+ table.sort(names); return names
+end
+buildPage=function()
+ clear(pageLinks); U.Body:ClearAllChildren(); U.Body.CanvasPosition=Vector2.zero; U.Gallery=nil
+ local width=math.max(200,U.Window.Size.X.Offset-44); local y=0
+ local function block(title,body,color,height)
+  local card=panel(U.Body,title,width-6,height or 100,54,color)
+  card.Position=UDim2.fromOffset(0,y); card.Size=UDim2.new(1,-6,0,height or 100)
+  text(card,"Heading",title,14,10,width-34,22,15,color or C.green).Size=UDim2.new(1,-28,0,22)
+  local label=text(card,"Description",body,14,38,width-34,(height or 100)-48,13,C.muted)
+  label.Size=UDim2.new(1,-28,0,(height or 100)-48);label.TextWrapped=true; label.TextTruncate=Enum.TextTruncate.None; label.TextYAlignment=Enum.TextYAlignment.Top
+  y+=(height or 100)+12
+ end
+ if menu=='INDEX' or menu=='QUESTS' or menu=='LEADERBOARDS' then
+  y=economyPage(block,width)
+ elseif U.Mode=="result" then
+  block("LAST PLAYER STANDING",winner~="" and winner or "No survivor this round.",C.green,130)
+  local title=U.Body:GetChildren()[1]; local label=title and title:FindFirstChild("Description")
+  if label then label.TextColor3=C.white; label.TextSize=29; label.Font=Enum.Font.GothamBlack end
+  block("ANOTHER ROUND. ANOTHER CHANCE.","Read the route. Time your weave. Keep the fuse moving.",C.muted,94)
+  local b=button(U.Body,"Continue","CONTINUE  ›",function() resultDismissed=true; refresh() end,false,pageLinks)
+  b.Position=UDim2.fromOffset(0,y); b.Size=UDim2.new(1,-6,0,48); y+=60
+ elseif menu=="STATS" then
+  local cols=width>=520 and 2 or 1;local i=0
+  for _,entry in ipairs({{'Wins','VICTORIES',C.gold},{'Coins','COINS',C.green},{'Kills','BOMB KILLS',C.red},{'FinalStands','FINAL STANDS',C.violet},{'GamesPlayed','ROUNDS PLAYED',C.cyan},{'Passes','BOMB PASSES',C.gold}}) do
+   local value=numberStat(entry[1]);local c=panel(U.Body,'Stat_'..entry[1],200,132,54,entry[3]);c.Size=UDim2.new(1/cols,-16,0,132);c.Position=UDim2.new(i%cols/cols,7,0,math.floor(i/cols)*148);i+=1
+   text(c,'StatLabel',entry[2],14,12,200,26,16,entry[3]).Size=UDim2.new(1,-28,0,26)
+   text(c,'StatValue',value~=nil and formatted(value) or '—',14,47,200,61,36,C.white).Size=UDim2.new(1,-28,0,61)
+  end
+  y=math.ceil(i/cols)*148
+  block('PLAY FOR THE FINISH','Final Stand: reach the last two players. Bomb Kill: your last pass leaves another player holding the bomb when it explodes. Solo practice does not award stats.',C.gold,130)
+ elseif menu=="CONTROLS" then
+  block("MOVE / SPRINT","W A S D to move. Hold LEFT SHIFT to sprint.",C.green,92)
+  block("DODGE / WEAVE","Move + SPACE to dodge in that direction. SPACE alone does nothing. There is no jumping.",C.green,118)
+  block("PASS THE BOMB","Get close to another player to pass it. These movement bindings use a keyboard.",C.gold,104)
+ elseif menu=="HOW TO PLAY" then
+  block("01 / THE FUSE NEVER RESETS","The bomb passes on contact. Its timer keeps counting down after every transfer.",C.green,108)
+  block("02 / COMMIT TO YOUR ESCAPE","Use running lanes and ramps. Your dodge grants a short server-confirmed immunity window.",C.green,112)
+  block("03 / BE THE LAST ONE STANDING","Break away when you are safe. Close the gap when carrying. One player survives the final duel.",C.gold,110)
+ elseif menu=="SETTINGS" then
+  -- HussAudioV6: session preferences consumed by GameAudioV6.
+  block("AUDIO MIX","Control the soundtrack and game sounds separately. Adjust each layer below.",C.green,112)
+  local function audioToggle(name,caption,attribute)
+   local muted=P:GetAttribute(attribute)==true
+   local b=button(U.Body,name,caption..(muted and " / OFF" or " / ON"),function()
+    P:SetAttribute(attribute,P:GetAttribute(attribute)~=true); buildPage()
+   end,false,pageLinks)
+   b.TextColor3=muted and C.muted or C.green
+   b.Position=UDim2.fromOffset(0,y); b.Size=UDim2.new(1,-6,0,48); y+=60
+  end
+  audioToggle("Music","MUSIC","HussMusicMuted")
+  audioToggle("SoundEffects","SOUND EFFECTS","HussSFXMuted")
+  block("MOTION & EFFECTS",reduced() and "Reduced motion is on. HUD transitions and movement trails are disabled." or "Full motion is on. Glossy transitions and movement effects give feedback during the action.",C.green,122)
+  local b=button(U.Body,"Motion",reduced() and "ENABLE FULL MOTION" or "REDUCE MOTION",function()
+   P:SetAttribute("HussReducedMotion",not reduced()); for _,t in pairs(tweens) do t:Cancel() end; U.CountScale.Scale=1; U.WindowScale.Scale=1; U.NoticeScale.Scale=1; buildPage()
+  end,false,pageLinks)
+  b.Position=UDim2.fromOffset(0,y); b.Size=UDim2.new(1,-6,0,48); y+=64
+  block("SESSION PREFERENCES","Your audio and motion choices apply to this play session.",C.muted,92)
+ elseif menu=="MAPS" then
+  local names=availableMaps(); mapIndex=math.clamp(mapIndex,1,math.max(1,#names)); local name=names[mapIndex]
+  local v=view(U.Body); U.Gallery=v; v.frame.Size=UDim2.new(1,-6,0,208); loadPreview(v,name); y=220
+  local title=text(U.Body,"MapTitle",name and name:upper() or "NO MAP PREVIEW",0,y,width-6,32,22); title.TextWrapped=true; y+=38
+  local source=name and previewFolder:FindFirstChild(name); local w=source and num(source:GetAttribute("MapWidth")); local d=source and num(source:GetAttribute("MapDepth"))
+  text(U.Body,"MapDetail",name==mapName() and "CURRENT ARENA" or (w and d and string.format("%d × %d STUDS",w,d) or "RUN / SPRINT / DODGE"),0,y,width-6,20,11,C.green); y+=32
+  local prev=button(U.Body,"Previous","‹  PREVIOUS",function() if #names>0 then mapIndex=(mapIndex-2)%#names+1; buildPage() end end,false,pageLinks)
+  prev.Position=UDim2.fromOffset(0,y); prev.Size=UDim2.new(.5,-9,0,48)
+  local nextButton=button(U.Body,"Next","NEXT  ›",function() if #names>0 then mapIndex=mapIndex%#names+1; buildPage() end end,false,pageLinks)
+  nextButton.Position=UDim2.new(.5,3,0,y); nextButton.Size=UDim2.new(.5,-9,0,48); y+=60
+ end
+ U.Body.CanvasSize=UDim2.fromOffset(0,y)
+end
+openMenu=function(name)
+ if inRound() then return end
+ menu=menu==name and nil or name;ecoMessage=nil;refresh()
+ if menu and Input:GetLastInputType().Name:find("Gamepad") then Gui.SelectedObject=U.Close end
+end
+layout=function()
+ local size=U.Root.AbsoluteSize; if size.X<1 or size.Y<1 then return end
+ lastSize=size; local w,h=size.X,size.Y; local short=h<430; local landscape=short and w>=500; local compact=w<780 and not landscape; U.Short=short
+ U.Top.Size=UDim2.fromOffset(math.min(landscape and 210 or 302,w-24),74); align(U.Top,w/2,12,.5,0)
+ local identityWidth=landscape and 128 or (compact and math.min(206,(w-36)/2) or 206)
+ U.Identity.Size=UDim2.fromOffset(identityWidth,66); align(U.Identity,12,compact and 96 or 12)
+ local ix=landscape and 12 or 64; U.Avatar.Visible=not landscape
+ U.Identity.Player.Position=UDim2.fromOffset(ix,9); U.Identity.Player.Size=UDim2.new(1,-ix-10,0,17); U.HealthText.Position=UDim2.fromOffset(ix,29); U.HealthText.Size=UDim2.new(1,-ix-10,0,16); U.HealthTrack.Position=UDim2.fromOffset(ix,52); U.HealthTrack.Size=UDim2.new(1,-ix-10,0,4)
+ U.Top.Brand.Size=UDim2.new(1,-82,0,14); U.Phase.Size=UDim2.new(1,-30,0,22); U.Phase.TextSize=landscape and 13 or 17; U.Timer.Position=UDim2.new(1,-72,0,7); U.Sub.Size=UDim2.new(1,-30,0,12)
+ U.Info.Size=UDim2.fromOffset((compact or landscape) and identityWidth or 202,66); align(U.Info,w-12,compact and 96 or 12,1,0)
+ U.Alive.Size=UDim2.new(1,-24,0,23); U.Alive.TextSize=landscape and 14 or 20; U.Map.TextSize=landscape and 9 or 11; U.Map.Size=UDim2.new(1,-24,0,16)
+ local bw=short and 180 or math.min(234,w-24); local bh=short and (landscape and h<280 and 76 or 86) or 138
+ U.Bomb.Size=UDim2.fromOffset(bw,bh); align(U.Bomb,landscape and 12 or w-12,(compact and 174 or 96),landscape and 0 or 1,0)
+ U.BombCaption.Size=UDim2.new(1,-28,0,17); U.BombTime.Position=UDim2.fromOffset(12,short and 26 or 31); U.BombTime.Size=UDim2.fromOffset(bw-60,short and 31 or 54); U.BombTime.TextSize=short and 29 or 43
+ U.Bomb.Unit.Position=UDim2.new(1,-45,0,short and 39 or 62)
+ U.Carrier.Visible=bh>=86; U.Carrier.Position=UDim2.fromOffset(14,short and 59 or 91); U.Carrier.Size=UDim2.new(1,-28,0,17)
+ U.FuseTrack.Position=UDim2.fromOffset(14,short and bh-7 or 121); U.FuseTrack.Size=UDim2.new(1,-28,0,5)
+ local dashW=math.min(358,w-24); U.Dash.Size=UDim2.fromOffset(dashW,77); align(U.Dash,w/2,h-14,.5,1)
+ U.DashState.Position=UDim2.new(1,-124,0,10); U.DashTitle.Size=UDim2.new(1,-142,0,22); U.Immunity.Position=UDim2.new(1,-159,0,36)
+ for i,seg in ipairs(U.Segments) do seg.Position=UDim2.fromOffset(14+(i-1)*(dashW-28)/12,62); seg.Size=UDim2.fromOffset((dashW-28)/12-3,4) end
+ -- Keep desktop's upper-right clear for Roblox's native player list.
+ U.Tight=compact or landscape
+ U.Wallet.Size=UDim2.fromOffset(landscape and 128 or identityWidth,42)
+ U.WalletLobbyY=compact and 96 or 12;align(U.Wallet,12,U.WalletLobbyY)
+ U.Coins.TextSize=U.Tight and 11 or 15;U.Coins.Size=UDim2.new(1,-54,0,26)
+ if not compact and not landscape then align(U.Info,w/2,94,.5,0);align(U.Bomb,12,140) end
+ local top=compact and 174 or 102; local available=math.max(78,h-top-112); local menuH=math.min(318,available)
+ U.Lobby.Size=UDim2.fromOffset(w<420 and 180 or 214,menuH); align(U.Lobby,12,math.max(top,(h-menuH)/2-16))
+ U.LobbyFooter.Size=UDim2.fromOffset(math.min(246,w-24),81); align(U.LobbyFooter,landscape and w-12 or 12,h-12,landscape and 1 or 0,1)
+ U.AFK.Size=UDim2.new(1,-20,0,44); align(U.VoteReopen,w-12,h-12,1,1)
+ local nw=math.min(362,w-24); U.Notice.Size=UDim2.fromOffset(nw,62); align(U.Notice,w/2,compact and math.min(324,h-165) or 180,.5,0)
+ U.NoticeTitle.Size=UDim2.new(1,-28,0,17); U.NoticeBody.Size=UDim2.new(1,-28,0,17)
+ align(U.Count,w/2,h*.45,.5,.5)
+ local ww=math.min(1040,w-24);local wh=math.min(w<540 and 690 or 680,h-24)
+ U.Window.Size=UDim2.fromOffset(ww,wh); align(U.Window,w/2,h/2,.5,.5)
+ U.WindowTitle.Size=UDim2.new(1,-104,0,37); U.WindowBrand.Size=UDim2.new(1,-104,0,17)
+ local vw,vh=ww-44,wh-157; U.Vote.Size=UDim2.fromOffset(vw,vh)
+ local vertical=w<540
+ for i,e in ipairs(U.Cards) do
+  local cw=vertical and vw or (vw-20)/3; local ch=vertical and math.max(96,(vh-16)/3) or vh
+  e.button.Size=UDim2.fromOffset(cw,ch); e.button.Position=UDim2.fromOffset(vertical and 0 or (i-1)*(cw+10),vertical and (i-1)*(ch+8) or 0)
+  local pw=vertical and math.min(112,cw*.36) or cw-12; local ph=vertical and ch-12 or math.max(38,ch-105)
+  e.view.frame.Position=UDim2.fromOffset(6,6); e.view.frame.Size=UDim2.fromOffset(pw,ph)
+  local small=not vertical and ch<150; e.view.frame.Visible=not small
+  local tx=vertical and pw+17 or 10; local tw=cw-tx-8
+  e.title.Position=UDim2.fromOffset(tx,(vertical or small) and 8 or ph+15); e.title.Size=UDim2.fromOffset(tw,vertical and math.min(38,ch-44) or 37); e.title.TextSize=vertical and 13 or 14
+  e.count.Position=UDim2.fromOffset(tx,vertical and ch-42 or (small and 48 or ch-49)); e.count.Size=UDim2.fromOffset(tw,18)
+  e.status.Position=UDim2.fromOffset(tx,vertical and ch-23 or ch-25); e.status.Size=UDim2.fromOffset(tw,16); fit(e.view)
+ end
+ U.Vote.CanvasSize=UDim2.fromOffset(0,vertical and 3*(math.max(96,(vh-16)/3)+8)-8 or vh)
+ U.VoteFooter.Position=UDim2.fromOffset(22,wh-35); U.VoteFooter.Size=UDim2.new(1,-44,0,21)
+ if U.Mode and U.Mode~="vote" then buildPage() end
+end
+refresh=function()
+ if not U.Gui then return end
+ local now,server=time(),workspace:GetServerTimeNow(); local playing=inRound(); local afk=P:GetAttribute("BombTagAFK")==true
+ if playing then menu=nil; voteDismissed=true end
+ local voting=(voteOpen or now<voteResultUntil) and not playing and not afk and not voteDismissed
+ local mode=voting and "vote" or (phase=="RESULT" and not resultDismissed and "result") or (menu and "menu") or nil
+ local key=mode=="menu" and menu or mode
+ if key~=pageName then
+  pageName=key; U.Mode=mode
+  U.WindowScale.Scale=(not mode or reduced()) and 1 or .965; motion(U.WindowScale,{Scale=1},.22)
+  clear(pageLinks); U.Body:ClearAllChildren(); U.Gallery=nil; U.Vote.CanvasPosition=Vector2.zero
+  U.Body.Visible=mode~=nil and mode~="vote"; U.Vote.Visible=mode=="vote"; U.VoteFooter.Visible=mode=="vote"
+  if mode and mode~="vote" then buildPage() end
+ end
+ local tight=U.Window.Size.Y.Offset<340;local tabs=mode=='menu' and not tight
+ U.Navigation.Visible=tabs
+ U.WindowBrand.Visible=not tight;U.WindowTitle.Position=UDim2.fromOffset(22,tight and 8 or 35);U.WindowTitle.TextSize=tight and 25 or 34;U.Close.Position=UDim2.new(1,-60,0,tight and 8 or 16)
+ U.Window.Divider.Position=UDim2.fromOffset(22,tight and 52 or 81)
+ U.Body.Position=UDim2.fromOffset(22,tight and 57 or tabs and 170 or 107);U.Body.Size=UDim2.new(1,-44,1,tight and -67 or tabs and -190 or -125)
+ local small=U.Window.Size.X.Offset<520
+ for _,b in ipairs(U.Navigation:GetChildren()) do if b:IsA('TextButton') then
+  b.Illustration.Visible=not small;b.ButtonCaption.Position=UDim2.fromOffset(small and 5 or 59,-2);b.ButtonCaption.Size=UDim2.new(1,small and -10 or -65,1,0);b.TextSize=small and 17 or 26
+ end end
+ U.Shade.Visible=mode~=nil; U.WindowTitle.Text=mode=="vote" and (voteOpen and "CHOOSE YOUR ARENA" or "ARENA SELECTED") or (mode=="result" and "ROUND RESULTS" or menu or "")
+ U.WindowBrand.Text=mode=="vote" and "N E X T  M A T C H  /  M A P  V O T E" or "H U S S  A  B O M B"
+ U.Lobby.Visible=not playing and not mode and not voteOpen and countdown==nil
+ U.LobbyFooter.Visible=not playing and not mode and not voteOpen
+ U.VoteReopen.Visible=voteOpen and voteDismissed and not playing and not afk and not mode
+ U.Identity.Visible=playing and not mode and phase~="RESULT"
+ U.Wallet.Visible=not mode and (not playing or not U.Tight);U.Wallet.Position=UDim2.fromOffset(12,playing and 86 or U.WalletLobbyY);local coins=profile and profile.ready and numberStat("Coins") or nil;U.Coins.Text=coins~=nil and (coins>=1000000 and string.format("%.1f%s",coins/(coins>=1000000000 and 1000000000 or 1000000),coins>=1000000000 and "B" or "M") or formatted(coins)).." COINS" or (profile and profile.mode=="unavailable" and "UNAVAILABLE" or "LOADING…")
+ U.Info.Visible=not mode; U.Top.Visible=not mode
+ U.Dash.Visible=playing and not mode and phase~="RESULT"
+ U.Bomb.Visible=bomb and not mode and (phase=="ROUND" or phase=="FINAL_DUEL" or phase=="PRACTICE")
+ U.Notice.Visible=now<noticeUntil and not mode and countdown==nil and not U.Short
+ U.Count.Visible=countdown~=nil and now<countUntil and not mode
+ if countdown and now>=countUntil then countdown=nil end
+ U.Phase.Text=(phase=="WAITING" and duration>0) and "NEXT MATCH" or (phases[phase] or "HUSS A BOMB")
+ local remaining=math.max(0,math.ceil(duration-(now-phaseAt)))
+ U.Timer.Text=(phase=="ROUND" or phase=="FINAL_DUEL" or (phase=="WAITING" and duration<=0)) and "" or tostring(remaining).."s"
+ U.Sub.Text=afk and "AFK / MATCHMAKING PAUSED" or (phase=="FINAL_DUEL" and "ONE FUSE. TWO PLAYERS." or "RUN. PASS. SURVIVE.")
+ U.Alive.Text=tostring(alive or #Players:GetPlayers())..(alive and "  ALIVE" or "  PLAYERS")
+ U.Map.Text=playing and U.Tight and U.Coins.Text or mapName():upper()
+ local wins=numberStat("Wins"); U.Wins.Text=wins and formatted(wins).."  WINS" or "READY FOR YOUR NEXT ROUND"
+ U.AFK.Text=afk and "RETURN TO PLAY" or "GO AFK"
+ U.AFK.TextColor3=afk and C.gold or C.green
+ if humanoid then
+  local hp,max=math.max(0,humanoid.Health),math.max(1,humanoid.MaxHealth)
+  U.HealthText.Text=string.format("%d / %d",math.ceil(hp),math.ceil(max)); U.HealthFill.Size=UDim2.fromScale(math.clamp(hp/max,0,1),1); U.HealthFill.BackgroundColor3=hp/max<=.3 and C.red or C.green
+ end
+ local wait=math.max(0,1.5-(now-dodgeAt)); local immunity=character and server<num(character:GetAttribute("BombTagIFrameUntil"),0)
+ U.DashTitle.Text=now-dodgeAt<num(workspace:GetAttribute("HussDodgeDuration"),.95) and direction or "DODGE / WEAVE"
+ U.DashState.Text=wait<=0 and "READY" or string.format("%.1fs",wait); U.DashState.TextColor3=wait<=0 and C.green or C.gold
+ U.DashHint.Text=Input:GetLastInputType()==Enum.UserInputType.Touch and "KEYBOARD: MOVE + SPACE" or (Input:GetLastInputType().Name:find("Gamepad") and "KEYBOARD: MOVE + SPACE" or "MOVE + SPACE  /  DODGE")
+ U.Immunity.Text=immunity and "IMMUNE" or ""
+ local charge=1-wait/1.5; for i,seg in ipairs(U.Segments) do seg.BackgroundColor3=charge>=i/12 and C.green or C.line; seg.BackgroundTransparency=charge>=i/12 and 0 or .7 end
+ if bomb then
+  local left=math.max(0,fuseEnd-server); local mine=owner==P.UserId; local danger=left<=3
+  U.BombCaption.Text=mine and "YOU HAVE THE BOMB" or "BOMB IN PLAY"; U.BombCaption.TextColor3=mine and C.red or C.gold
+  U.BombTime.Text=string.format("%04.1f",left); U.BombTime.TextColor3=danger and C.red or C.white
+  U.Carrier.Text=mine and "CLOSE THE GAP. PASS IT." or carrier
+  U.BombRim.Color=(mine or danger) and C.red or C.gold; U.Bomb.BackgroundColor3=(mine or danger) and rgb(117,35,64) or panelTones.Bomb; U.FuseFill.BackgroundColor3=(mine or danger) and C.red or C.gold
+  U.FuseFill.Size=UDim2.fromScale(math.clamp(left/math.max(.1,fuseLength),0,1),1)
+ end
+ if mode=="vote" then
+  for i,e in ipairs(U.Cards) do
+   local name=options[i]; e.button.Visible=name~=nil
+   if name then
+    e.title.Text=name:upper(); e.count.Text=tostring(counts[name] or 0).." VOTES"; local selected=selection==name
+    e.status.Text=voteChosen==name and not voteOpen and "SELECTED ARENA" or (selected and "YOUR VOTE" or "TAP TO VOTE")
+    e.button:SetAttribute("HussSelected",selected or (not voteOpen and voteChosen==name))
+    e.button:SetAttribute("HussDisabled",not voteOpen or server>=voteEnd)
+    e.status.TextColor3=(selected or voteChosen==name) and C.green or C.muted
+    if voteOpen and server>=voteEnd then e.status.Text="VOTING CLOSED" end
+    loadPreview(e.view,name)
+   end
+  end
+  U.VoteFooter.Text=voteOpen and (string.format("%ds REMAINING",math.max(0,math.ceil(voteEnd-server))).."  /  PICK YOUR NEXT CHASE") or tostring(voteChosen or "")
+ end
+end
+local function bindCharacter(new)
+ clear(charLinks); character=new; humanoid=nil; dodgeAt=-math.huge
+ if not new then return end
+ humanoid=new:FindFirstChildOfClass("Humanoid")
+ connect(new.ChildAdded,function(child) if child:IsA("Humanoid") then humanoid=child end end,charLinks)
+ local last=new:GetAttribute("MovementActionId")
+ connect(new:GetAttributeChangedSignal("MovementActionId"),function()
+  local id=new:GetAttribute("MovementActionId"); if id==last then return end; last=id
+  local action=tostring(new:GetAttribute("MovementAction") or "")
+  if action:sub(1,4)=="Dive" and action~="DiveEnd" and action~="DiveRecover" then
+   dodgeAt=time(); direction=(action:sub(5):gsub("(%l)(%u)","%1 %2")):upper(); direction="WEAVE "..direction
+  end
+ end,charLinks)
+end
+local function onRound(data)
+ if type(data)~="table" or type(data.State)~="string" then return end
+ local previous=phase; phase=data.State; duration=math.max(0,num(data.TimeLeft,0)); phaseAt=time()
+ alive=(phase=="ROUND" or phase=="FINAL_DUEL" or phase=="PRACTICE") and num(data.Alive,phase=="FINAL_DUEL" and 2 or nil) or nil; if alive then alive=math.max(0,math.floor(alive)) end
+ if phase=="STARTING" and duration>=1 and duration<=3 then
+  local value=tostring(math.ceil(duration)); if countdown~=value then
+   countdown=value; countUntil=time()+1.2; U.CountText.Text=value; U.CountText.TextColor3=C.white; U.CountLabel.Text="GET READY TO RUN"; U.CountScale.Scale=reduced() and 1 or .82; motion(U.CountScale,{Scale=1},.23)
+  end
+ elseif (phase=="ROUND" or phase=="FINAL_DUEL" or phase=="PRACTICE") and previous=="STARTING" then
+  countdown="GO!"; countUntil=time()+.7; U.CountText.Text="GO!"; U.CountText.TextColor3=C.green; U.CountLabel.Text="RUN. PASS. SURVIVE."
+ else countdown=nil end
+ if phase=="RESULT" and previous~="RESULT" then winner=type(data.Winner)=="string" and data.Winner or ""; resultDismissed=false; menu=nil; noticeUntil=0 end
+ if phase=="RESULT" or phase=="WAITING" or phase=="INTERMISSION" then bomb=false end
+ refresh()
+end
+local function onBomb(data)
+ if type(data)~="table" then return end
+ local previousOwner=owner; local event=type(data.Event)=="string" and data.Event or ""
+ bomb=data.Active==true; owner=num(data.CarrierUserId,0); carrier=type(data.CarrierName)=="string" and data.CarrierName or "PLAYER"
+ fuseEnd=num(data.EndTime,0)
+ if event=="Started" then fuseLength=math.max(.1,fuseEnd-workspace:GetServerTimeNow()) end
+ if event=="Exploded" then announce(owner==P.UserId and "ELIMINATED" or "PLAYER ELIMINATED",carrier.." ran out of time.",C.red)
+ elseif bomb and owner==P.UserId and previousOwner~=owner then announce("YOU HAVE THE BOMB","Find a player. Pass the pressure.",C.red)
+ elseif event=="Transferred" and previousOwner==P.UserId then announce("BOMB PASSED","Keep moving. The fuse is still live.",C.green) end
+ refresh()
+end
+local function onVote(kind,data)
+ if type(data)~="table" then return end
+ if kind=="Open" or kind=="Sync" then
+  local valid={}; if type(data.Options)=="table" then for _,name in ipairs(data.Options) do if type(name)=="string" and #valid<3 then table.insert(valid,name) end end end
+  options=valid; voteOpen=data.Open==true and #options>0; voteEnd=num(data.EndsAt,0); voteChosen=nil; voteResultUntil=0
+  if kind=="Open" then selection=nil; voteDismissed=false end
+  if voteOpen then menu=nil; resultDismissed=true end
+ elseif kind=="Result" then
+  voteOpen=false; voteChosen=type(data.Chosen)=="string" and data.Chosen or nil; voteResultUntil=time()+1
+ elseif kind=="Close" then voteOpen=false; voteResultUntil=0
+ elseif kind~="Counts" then return end
+ if type(data.Counts)=="table" then
+  local clean={}; for _,name in ipairs(options) do clean[name]=math.max(0,math.floor(num(data.Counts[name],0))) end; counts=clean
+ end
+ refresh()
+end
+function HUD.Init()
+ if started then return end
+ started=true; epoch+=1; local session=epoch
+ previewFolder=nil; voteRemote=nil; afkRemote=nil; voteLink=nil
+ options={}; counts={}; selection=nil; tickTime=0; statTime=0; phase="WAITING"; phaseAt=time(); duration=0; alive=nil; menu=nil; pageName=nil; voteOpen=false; voteResultUntil=0; voteDismissed=false; bomb=false; owner=0; resultDismissed=false; countdown=nil; noticeUntil=0
+ profile=nil;board=nil;busy=nil;economy=nil;ecoLink=nil;ecoMessage=nil;cosmetics=nil;category="Bombs";collectionPageNumber=1
+ makeUI(); layout()
+ connect(P:GetAttributeChangedSignal('HussShopBrowsingV12'),function()
+  if P:GetAttribute('HussShopBrowsingV12') then menu=nil;Gui.SelectedObject=nil;refresh() end
+ end)
+ connect(Players.PlayerAdded,watchPlayer)
+ connect(Players.PlayerRemoving,function(p) if rosterLinks[p] then clear(rosterLinks[p]);rosterLinks[p]=nil end;task.defer(function() if started and epoch==session then ecoRefresh() end end) end)
+ for _,p in ipairs(Players:GetPlayers()) do watchPlayer(p) end
+ connect(Remotes.Get("RoundState").OnClientEvent,onRound); connect(Remotes.Get("BombState").OnClientEvent,onBomb)
+ local function attach(child)
+  if child.Name=='HussCosmeticsV11' and child:IsA('RemoteEvent') then cosmetics=child;ecoRefresh()
+  elseif child.Name=='HussEconomyV9' and child:IsA('RemoteEvent') and child~=economy then
+   if ecoLink then ecoLink:Disconnect() end;economy=child;ecoLink=connect(child.OnClientEvent,receive);busy=nil;request('Sync')
+  elseif child.Name=="BombTagVoteV6" and child:IsA("RemoteEvent") and child~=voteRemote then
+   if voteLink then voteLink:Disconnect() end
+   voteRemote=child; voteLink=connect(child.OnClientEvent,onVote); child:FireServer("Sync")
+  elseif child.Name=="BombTagAFKRequest" and child:IsA("RemoteEvent") then afkRemote=child
+  elseif child.Name=="BombTagV6Previews" and child:IsA("Folder") and child~=previewFolder then
+   previewFolder=child; for _,e in ipairs(U.Cards) do e.view.name=nil end
+   if menu=="MAPS" and U.Mode=="menu" then buildPage() end
+  end
+ end
+ connect(RS.ChildAdded,attach)
+ connect(RS.ChildRemoved,function(child)
+  if child==cosmetics then cosmetics=nil;ecoRefresh() end
+  if child==economy then economy=nil;profile=nil;busy=nil;if ecoLink then ecoLink:Disconnect();ecoLink=nil end;ecoRefresh() end
+  if child==voteRemote then voteRemote=nil; if voteLink then voteLink:Disconnect(); voteLink=nil end end
+  if child==afkRemote then afkRemote=nil end
+  if child==previewFolder then previewFolder=nil end
+ end)
+ for _,child in ipairs(RS:GetChildren()) do attach(child) end
+ connect(P.CharacterAdded,bindCharacter); connect(P.CharacterRemoving,function(old) if character==old then bindCharacter(nil) end end); bindCharacter(P.Character)
+ connect(P:GetAttributeChangedSignal("InRound"),refresh); connect(P:GetAttributeChangedSignal("BombTagAFK"),refresh)
+ local function hideLegacy(child)
+  if child:IsA("ScreenGui") and (child.Name=="PixelHealthGui" or child.Name=="BombTagV6VoteGui" or child.Name=="BombTagAFKGui") then hidden[child]=child.Enabled; child.Enabled=false end
+ end
+ local pg=P:WaitForChild("PlayerGui"); connect(pg.ChildAdded,hideLegacy); for _,child in ipairs(pg:GetChildren()) do hideLegacy(child) end
+ connect(Input.InputBegan,function(input,processed)
+  if processed or Input:GetFocusedTextBox() then return end
+  if input.KeyCode==Enum.KeyCode.Escape or input.KeyCode==Enum.KeyCode.ButtonB then
+   if U.Mode=="vote" then voteDismissed=true elseif U.Mode=="result" then resultDismissed=true else menu=nil end; Gui.SelectedObject=nil; refresh()
+  end
+ end)
+ connect(Run.RenderStepped,function(dt)
+  tickTime+=dt; statTime+=dt
+  if U.Root.AbsoluteSize~=lastSize then layout() end
+  if tickTime>=1/30 then tickTime=0; refresh() end
+  if statTime>=1 then statTime=0 end
+ end)
+ task.spawn(function()
+  local ok,url=pcall(function() return Players:GetUserThumbnailAsync(P.UserId,Enum.ThumbnailType.HeadShot,Enum.ThumbnailSize.Size100x100) end)
+  if ok and started and epoch==session then U.Avatar.Image=url end
+ end)
+ refresh()
+end
+function HUD.Destroy()
+ if not started then return end
+ started=false; epoch+=1; clear(links); clear(charLinks); clear(pageLinks)
+ for _,bucket in pairs(rosterLinks) do clear(bucket) end;table.clear(rosterLinks)
+ economy=nil;ecoLink=nil;profile=nil;board=nil;busy=nil;cosmetics=nil
+ for _,t in pairs(tweens) do t:Cancel() end; table.clear(tweens)
+ for o,enabled in pairs(hidden) do if o.Parent then o.Enabled=enabled end end; table.clear(hidden)
+ if U.Gui then if Gui.SelectedObject and Gui.SelectedObject:IsDescendantOf(U.Gui) then Gui.SelectedObject=nil end; U.Gui:Destroy() end
+ U={}; character=nil; humanoid=nil; voteLink=nil; lastSize=Vector2.zero
+end
+return HUD
+]==],
+[ [==[oldShop]==] ]=[==[--!nonstrict
+-- HussStandShopV12: each player browses a private shop face on a real lobby counter.
+-- The economy server validates ownership, price, readiness and proximity on every Buy.
+local Players=game:GetService('Players')
+local RS=game:GetService('ReplicatedStorage')
+local Run=game:GetService('RunService')
+local CollectionService=game:GetService('CollectionService')
+local Input=game:GetService('UserInputService')
+local Gui=game:GetService('GuiService')
+local P=Players.LocalPlayer
+local playerGui=P:WaitForChild('PlayerGui')
+local Catalog=require(RS:WaitForChild('HussCatalogV11'))
+local SkinBuilder=require(RS:WaitForChild('BombSkinBuilderV12'))
+local colors={Bombs=Color3.fromRGB(255,173,37),Trails=Color3.fromRGB(45,216,245),Titles=Color3.fromRGB(196,115,255),Emotes=Color3.fromRGB(255,104,174)}
+local ink,white,gold,green=Color3.fromRGB(15,22,33),Color3.fromRGB(255,251,240),Color3.fromRGB(255,221,65),Color3.fromRGB(40,229,79)
+local links,pageLinks={},{},{}
+local active,dismissed,remote,remoteLink,cosmetics,profile,busy=nil,nil,nil,nil,nil,nil,nil
+local display,elapsed,serial,alive={},0,1000000000,true
+local page,chosen,message,messageOk=1,nil,'',true
+local priorMouseBehavior,priorMouseIcon,cursorBound=nil,nil,false
+local render,close,updateApproach
+local function connect(signal,fn,bucket) local c=signal:Connect(fn);table.insert(bucket or links,c);return c end
+local function clear(bucket) for _,c in ipairs(bucket) do c:Disconnect() end;table.clear(bucket) end
+local function make(class,parent,properties)
+ local o=Instance.new(class);for k,v in pairs(properties or {}) do o[k]=v end;o.Parent=parent;return o
+end
+local function rounded(o,r) make('UICorner',o,{CornerRadius=UDim.new(0,r or 12)}) end
+local function edge(o,color,width) return make('UIStroke',o,{Color=color,Thickness=width or 3,ApplyStrokeMode=Enum.ApplyStrokeMode.Border}) end
+local function text(parent,name,value,x,y,w,h,size,color)
+ local o=make('TextLabel',parent,{Name=name,Text=value,Position=UDim2.fromOffset(x,y),Size=UDim2.fromOffset(w,h),BackgroundTransparency=1,TextColor3=color or white,Font=size>=24 and Enum.Font.FredokaOne or Enum.Font.GothamBold,TextSize=size,TextWrapped=true,TextTruncate=Enum.TextTruncate.AtEnd,ZIndex=(parent:IsA('GuiObject') and parent.ZIndex or 1)+3})
+ make('UIStroke',o,{Color=ink,Thickness=size>=24 and 2.2 or 1.1,ApplyStrokeMode=Enum.ApplyStrokeMode.Contextual});return o
+end
+local function frame(parent,name,x,y,w,h,color)
+ return make('Frame',parent,{Name=name,Position=UDim2.fromOffset(x,y),Size=UDim2.fromOffset(w,h),BackgroundColor3=color,BorderSizePixel=0,ZIndex=(parent:IsA('GuiObject') and parent.ZIndex or 1)+1})
+end
+local function gloss(o,color)
+ rounded(o);edge(o,ink,4)
+ make('UIGradient',o,{Color=ColorSequence.new(white,Color3.fromRGB(155,202,175)),Rotation=90})
+ local checker=frame(o,'Checkers',5,5,1,1,color);checker.Size=UDim2.new(1,-10,1,-10);checker.BackgroundTransparency=1;checker.ClipsDescendants=true;rounded(checker,8)
+ for row=0,1 do for column=0,7 do if (row+column)%2==0 then
+  local tile=frame(checker,'Tile',0,0,1,1,white);tile.Position=UDim2.fromScale(column/8,row/2);tile.Size=UDim2.fromScale(1/8,.5);tile.BackgroundTransparency=.91
+ end end end
+ local shine=frame(o,'Gloss',4,4,1,1,white);shine.Size=UDim2.new(1,-8,.42,0);shine.BackgroundTransparency=.86;rounded(shine,9)
+ local rim=frame(o,'Rim',5,5,1,1,color);rim.Size=UDim2.new(1,-10,1,-10);rim.BackgroundTransparency=1;rounded(rim,8);edge(rim,color:Lerp(white,.55),2)
+end
+local function button(parent,name,caption,x,y,w,h,color,fn,disabled)
+ local b=make('TextButton',parent,{Name=name,Text='',Position=UDim2.fromOffset(x,y),Size=UDim2.fromOffset(w,h),BackgroundColor3=disabled and Color3.fromRGB(73,94,89) or color,AutoButtonColor=not disabled,BorderSizePixel=0,Selectable=not disabled,Interactable=not disabled,ZIndex=(parent:IsA('GuiObject') and parent.ZIndex or 1)+2})
+ b:SetAttribute('HussDisabled',disabled==true);gloss(b,b.BackgroundColor3)
+ text(b,'Caption',caption,5,0,w-10,h,24,disabled and Color3.fromRGB(215,224,222) or white)
+ connect(b.Activated,function() if not disabled and active then fn() end end,pageLinks);return b
+end
+local function finite(v) return type(v)=='number' and v==v and math.abs(v)<math.huge end
+local function amount(v) return finite(v) and math.clamp(math.floor(v),0,2000000000) or 0 end
+local function formatted(v) return tostring(amount(v)):reverse():gsub('(%d%d%d)','%1,'):reverse():gsub('^,','') end
+local function playerRoot()
+ if P:GetAttribute('InRound')==true or P:GetAttribute('HussPracticeActive')==true then return nil end
+ local character=P.Character;local humanoid=character and character:FindFirstChildOfClass('Humanoid')
+ local root=character and character:FindFirstChild('HumanoidRootPart')
+ return humanoid and humanoid.Health>0 and root and root:IsA('BasePart') and root or nil
+end
+local function details(anchor)
+ local lobby=workspace:FindFirstChild('Lobby')
+ if not anchor or not anchor:IsA('BasePart') or not lobby or not anchor:IsDescendantOf(lobby) or not CollectionService:HasTag(anchor,'HussShopStandV12') or anchor:GetAttribute('HussShopStandEnabled')~=true then return end
+ local category=anchor:GetAttribute('HussShopCategory')
+ local panel=anchor.Parent and anchor.Parent:FindFirstChild('ShopPanelV12')
+ if not colors[category] or not panel or not panel:IsA('BasePart') or panel:GetAttribute('HussShopPanelVersion')~=12 then return end
+ return category,panel
+end
+local function isNear(anchor,radius)
+ local root=playerRoot();local category,panel=details(anchor)
+ return root and category and (root.Position-anchor.Position).Magnitude<=radius and category or nil,panel
+end
+local function obstructingHUD()
+ local hud=playerGui:FindFirstChild('BombTagHUD');local safe=hud and hud:FindFirstChild('SafeArea');local shade=safe and safe:FindFirstChild('ModalShade')
+ return shade and shade.Visible==true
+end
+local function restoreCursor()
+ if cursorBound then Run:UnbindFromRenderStep('HussStandShopCursorV12');cursorBound=false end
+ if priorMouseBehavior then Input.MouseBehavior=priorMouseBehavior;priorMouseBehavior=nil end
+ if priorMouseIcon~=nil then Input.MouseIconEnabled=priorMouseIcon;priorMouseIcon=nil end
+end
+local function unlockCursor()
+ if cursorBound then return end
+ priorMouseBehavior=Input.MouseBehavior;priorMouseIcon=Input.MouseIconEnabled;cursorBound=true
+ Run:BindToRenderStep('HussStandShopCursorV12',Enum.RenderPriority.Last.Value,function()
+  if active and not obstructingHUD() and not Input:GetFocusedTextBox() then Input.MouseBehavior=Enum.MouseBehavior.Default;Input.MouseIconEnabled=true end
+ end)
+end
+local function dropDisplay()
+ clear(pageLinks)
+ if display.gui then
+  if Gui.SelectedObject and Gui.SelectedObject:IsDescendantOf(display.gui) then Gui.SelectedObject=nil end
+  display.gui:Destroy()
+ end
+ if display.idle and display.idle.Parent then display.idle.Enabled=display.idleEnabled end
+ display={}
+end
+close=function(suppress)
+ if suppress then dismissed=active end
+ active=nil;dropDisplay();restoreCursor();P:SetAttribute('HussShopBrowsingV12',nil)
+end
+local function inventory(category)
+ local result={};for _,item in ipairs(Catalog.Items) do if item.category==category then table.insert(result,item) end end;return result
+end
+local function request(action,id)
+ if busy or not remote or not active or not isNear(active,14) then return end
+ if action~='Sync' and (not profile or not profile.ready) then return end
+ if action~='Sync' then
+  local item=Catalog.ById[id]
+  if not item or item.category~=active:GetAttribute('HussShopCategory') then return end
+ end
+ serial+=1;if serial>=1900000000 then serial=1000000001 end
+ local ticket=serial;busy={ticket=ticket,at=time()};message='';remote:FireServer(action,id,ticket);render()
+ task.delay(10,function()
+  if alive and busy and busy.ticket==ticket then busy=nil;message='No reply yet. Refresh your record before trying again.';messageOk=false;if active then render() end end
+ end)
+end
+local function preview(parent,item)
+ local color=Color3.fromRGB(table.unpack(item.color))
+ if item.category=='Bombs' then
+  local viewport=make('ViewportFrame',parent,{Name='SelectedBombPreview',Position=UDim2.fromOffset(32,37),Size=UDim2.fromOffset(320,164),BackgroundTransparency=1,Ambient=Color3.fromRGB(213,220,233),LightColor=white,LightDirection=Vector3.new(-1,-1,-.5),ZIndex=parent.ZIndex+2})
+  local world=make('WorldModel',viewport)
+  local core=make('Part',world,{Name='PreviewBomb',Size=Vector3.new(2.25,2.25,2.25),Shape=Enum.PartType.Ball,Anchored=true,CanCollide=false,CanTouch=false,CanQuery=false})
+  SkinBuilder.Apply(core,item,{Preview=true})
+  local camera=make('Camera',viewport,{FieldOfView=34,CFrame=CFrame.lookAt(Vector3.new(5,3.5,6),Vector3.new(0,.15,0))});viewport.CurrentCamera=camera
+ elseif item.category=='Trails' then
+  for i=1,5 do
+   local streak=frame(parent,'TrailPreview'..i,66+(i%2)*35,43+i*23,230-i*20,13,color:Lerp(white,i*.1));streak.Rotation=-13;rounded(streak,7)
+  end
+  local head=frame(parent,'TrailHead',260,47,60,60,color);head.Rotation=45;rounded(head,16);edge(head,ink,4)
+ elseif item.category=='Titles' then
+  local badge=frame(parent,'TitleBadge',26,78,332,65,color);gloss(badge,color)
+  text(badge,'Title',item.text or item.name,10,2,312,59,29,white)
+ else
+  -- The icon advertises an emote; PLAY below runs the actual equipped pose on your avatar.
+  local head=frame(parent,'EmoteHead',164,48,44,44,color);rounded(head,24);edge(head,ink,3)
+  local body=frame(parent,'EmoteBody',167,95,38,60,color);rounded(body,12)
+  for _,limb in ipairs({{120,98,49,16,-28},{203,83,58,16,-45},{154,146,17,46,18},{204,146,17,46,-18}}) do
+   local p=frame(parent,'EmoteLimb',limb[1],limb[2],limb[3],limb[4],color);p.Rotation=limb[5];rounded(p,8)
+  end
+ end
+end
+render=function()
+ if not active then return end
+ local category,panel=details(active);if not category then close();return end
+ local hadSelection=display.gui and Gui.SelectedObject and Gui.SelectedObject:IsDescendantOf(display.gui)
+ dropDisplay()
+ local gui=make('SurfaceGui',playerGui,{Name='HussStandShopV12',Adornee=panel,Face=Enum.NormalId.Back,SizingMode=Enum.SurfaceGuiSizingMode.FixedSize,CanvasSize=Vector2.new(1140,432),LightInfluence=0,Brightness=1,AlwaysOnTop=false,MaxDistance=32,Active=true,ResetOnSpawn=false,ZIndexBehavior=Enum.ZIndexBehavior.Sibling})
+ local idle=panel:FindFirstChild('ShopIdleV12');display={gui=gui,idle=idle,idleEnabled=idle and idle.Enabled}
+ if idle then idle.Enabled=false end
+ local color=colors[category]
+ local body=frame(gui,'ShopFace',0,0,1140,432,ink);rounded(body,24);edge(body,color,8);body.SelectionGroup=true
+ local heading=frame(body,'Header',8,8,1124,56,color);gloss(heading,color)
+ text(heading,'Category',category:upper()..' EXCHANGE',15,0,500,56,37).TextXAlignment=Enum.TextXAlignment.Left
+ text(heading,'Coins',profile and profile.ready and formatted(profile.Coins)..' COINS' or 'CONNECTING…',645,0,455,56,31,gold).TextXAlignment=Enum.TextXAlignment.Right
+ local list=inventory(category);local pages=math.max(1,math.ceil(#list/6));page=math.clamp(page,1,pages)
+ if not chosen or not Catalog.ById[chosen] or Catalog.ById[chosen].category~=category then chosen=list[1] and list[1].id end
+ local selectedButton
+ for index=(page-1)*6+1,math.min(page*6,#list) do
+  local item=list[index];local slot=index-(page-1)*6-1;local owned=profile and profile.Owned[item.id]==true;local equipped=profile and profile.EquippedByCategory[category]==item.id
+  local x,y=18+(slot%2)*357,79+math.floor(slot/2)*83
+  local card=button(body,'Select_'..item.id,'',x,y,345,73,chosen==item.id and color or Color3.fromRGB(55,68,86),function() chosen=item.id;message='';render() end,false)
+  text(card,'ItemName',item.name,10,4,325,31,24,white)
+  text(card,'ItemStatus',equipped and 'EQUIPPED' or owned and 'OWNED' or formatted(item.price)..' COINS',10,38,325,24,19,equipped and gold or owned and green or white)
+  if chosen==item.id then edge(card,gold,4);selectedButton=card end
+ end
+ button(body,'Previous','‹ PREVIOUS',18,335,217,48,color,function() page=math.max(1,page-1);chosen=list[(page-1)*6+1].id;render() end,page==1)
+ text(body,'Page','PAGE '..page..' / '..pages,244,340,250,42,24,color)
+ button(body,'Next','NEXT ›',507,335,212,48,color,function() page=math.min(pages,page+1);chosen=list[(page-1)*6+1].id;render() end,page==pages)
+ local selection=frame(body,'SelectedItem',736,78,386,305,color:Lerp(ink,.87));rounded(selection,15);edge(selection,color,3)
+ local item=Catalog.ById[chosen]
+ if item then
+  text(selection,'SelectedName',item.name:upper(),10,5,366,34,27,color:Lerp(white,.25))
+  preview(selection,item)
+  text(selection,'Description',item.description or '',13,198,360,40,17,white)
+  local owned=profile and profile.Owned[item.id]==true;local equipped=profile and profile.EquippedByCategory[category]==item.id
+  local poor=not owned and profile and profile.Coins<item.price
+  local caption=busy and 'PLEASE WAIT…' or (not profile or not profile.ready) and 'CONNECTING…' or equipped and 'EQUIPPED' or owned and 'EQUIP' or poor and 'NEED '..formatted(item.price)..' COINS' or 'BUY • '..formatted(item.price)
+  local ready=profile and profile.ready and remote~=nil
+  local buy=button(selection,'BuyEquip',caption,12,247,category=='Emotes' and 222 or 362,47,green,function() request(owned and 'Equip' or 'Buy',item.id) end,busy~=nil or not ready or equipped or poor)
+  buy.Caption.TextSize=category=='Emotes' and 20 or 24
+  if category=='Emotes' then
+   local playing=P:GetAttribute('HussEmotePlaying')==item.id
+   button(selection,'PlayEmote',playing and 'STOP' or 'PLAY',244,247,130,47,color,function() if cosmetics and equipped and isNear(active,14) then cosmetics:FireServer(playing and 'StopEmote' or 'Emote',playing and nil or item.id) end end,not ready or not owned or not equipped or not cosmetics)
+  end
+ end
+ local status=message~='' and message or profile and profile.mode=='preview' and 'STUDIO PREVIEW • Temporary coins and collection. Walk away to close.' or 'Earn Coins in multiplayer • Choose an item • Walk away to close'
+ text(body,'Status',status,20,388,940,34,message~='' and 18 or 20,messageOk and white or gold)
+ button(body,'Refresh','↻',976,386,61,44,color,function() request('Sync') end,busy~=nil).Caption.TextSize=22
+ button(body,'Close','×',1048,386,64,44,Color3.fromRGB(247,65,94),function() close(true) end,false).Caption.TextSize=28
+ if (hadSelection or Input:GetLastInputType().Name:find('Gamepad')) and not obstructingHUD() then Gui.SelectedObject=selectedButton or selection:FindFirstChild('BuyEquip') end
+end
+local function receive(data)
+ if type(data)~='table' or data.kind~='Profile' then return end
+ local nextProfile={ready=data.ready==true,mode=type(data.mode)=='string' and data.mode or '',Coins=amount(data.Coins),Owned={},EquippedByCategory={}}
+ if type(data.Owned)=='table' then for index,id in ipairs(data.Owned) do if index>100 then break end;if type(id)=='string' and Catalog.ById[id] then nextProfile.Owned[id]=true end end end
+ if type(data.EquippedByCategory)=='table' then for category in pairs(colors) do local id=data.EquippedByCategory[category];if type(id)=='string' and Catalog.ById[id] and Catalog.ById[id].category==category then nextProfile.EquippedByCategory[category]=id end end end
+ profile=nextProfile
+ if busy and busy.ticket==data.requestId then busy=nil;message=type(data.message)=='string' and data.message:sub(1,130) or '';messageOk=data.ok==true end
+ if active then render() end
+end
+local function attach(child)
+ if child.Name=='HussEconomyV9' and child:IsA('RemoteEvent') and child~=remote then
+  if remoteLink then remoteLink:Disconnect() end;remote=child;profile=nil;busy=nil;remoteLink=connect(remote.OnClientEvent,receive)
+  remote:FireServer('Sync')
+ elseif child.Name=='HussCosmeticsV11' and child:IsA('RemoteEvent') then cosmetics=child end
+end
+updateApproach=function()
+ if active and not isNear(active,14) then close() end
+ if dismissed and not isNear(dismissed,14) then dismissed=nil end
+ if active then return end
+ local root=playerRoot();if not root then return end
+ local nearest,distance=nil,12
+ for _,anchor in ipairs(CollectionService:GetTagged('HussShopStandV12')) do
+  if anchor~=dismissed and details(anchor) then
+   local d=(root.Position-anchor.Position).Magnitude
+   if d<=distance then nearest=anchor;distance=d end
+  end
+ end
+ if nearest then
+  active=nearest;page=1;chosen=nil;message='';messageOk=true
+  P:SetAttribute('HussShopBrowsingV12',active:GetAttribute('HussShopCategory'))
+  render();unlockCursor()
+  if remote and not profile and not busy then request('Sync') end
+ end
+end
+connect(RS.ChildAdded,attach)
+connect(RS.ChildRemoved,function(child)
+ if child==remote then if remoteLink then remoteLink:Disconnect() end;remote=nil;profile=nil;busy=nil;if active then render() end end
+ if child==cosmetics then cosmetics=nil;if active then render() end end
+end)
+for _,child in ipairs(RS:GetChildren()) do attach(child) end
+connect(P:GetAttributeChangedSignal('InRound'),updateApproach)
+connect(P:GetAttributeChangedSignal('HussPracticeActive'),updateApproach)
+connect(P:GetAttributeChangedSignal('HussEmotePlaying'),function() if active then render() end end)
+connect(P.CharacterRemoving,function() close();dismissed=nil end)
+connect(Input.InputBegan,function(input,processed)
+ if not processed and active and not Input:GetFocusedTextBox() and (input.KeyCode==Enum.KeyCode.Escape or input.KeyCode==Enum.KeyCode.ButtonB) then close(true) end
+end)
+connect(Run.Heartbeat,function(dt)
+ elapsed+=dt;if elapsed<.1 then return end;elapsed=0;updateApproach()
+end)
+connect(script.Destroying,function()
+ if not alive then return end;alive=false;close();clear(links);clear(pageLinks)
+ remote=nil;remoteLink=nil;cosmetics=nil;profile=nil;busy=nil
+end)
+updateApproach()
+]==],
+[ [==[oldCollection]==] ]=[==[--!nonstrict
+-- HussCollectionEffectsV11: bounded local trails, titles, stationary emotes and perfect-weave feedback.
+local Players=game:GetService('Players')
+local RS=game:GetService('ReplicatedStorage')
+local Run=game:GetService('RunService')
+local Sound=game:GetService('SoundService')
+local C=require(RS:WaitForChild('HussCatalogV11'))
+local me=Players.LocalPlayer
+local states,links={},{}
+local stopped,allocated=false,0
+local V,CF=Vector3.new,CFrame.new
+local folder=Instance.new('Folder');folder.Name='HussCollectionEffectsV11';folder.Parent=workspace
+local variants={};local counts={}
+for _,i in ipairs(C.Items) do if i.category=='Trails' then counts[i.style]=(counts[i.style] or 0)+1;variants[i.id]=counts[i.style] end end
+local function make(class,parent,props)
+ local o=Instance.new(class);for k,v in pairs(props) do o[k]=v end;o.Parent=parent;return o
+end
+local function link(signal,fn,bucket) table.insert(bucket or links,signal:Connect(fn)) end
+local function clear(bucket) for _,c in ipairs(bucket) do c:Disconnect() end;table.clear(bucket) end
+local function reduced() return me:GetAttribute('HussReducedMotion')==true or workspace:GetAttribute('HussReducedMotion')==true end
+local function entry(s,attribute,category)
+ local i=C.ById[s.p:GetAttribute(attribute)];return i and i.category==category and i or C.ById[C.Defaults[category]]
+end
+local function tint(i) return Color3.fromRGB(table.unpack(i.color)) end
+local function destroyTrail(s)
+ if not s.trail then return end
+ for _,o in ipairs(s.trail.objects) do o:Destroy() end;s.trail=nil;allocated-=1
+end
+local function poseEnd(s)
+ if s.pose then for joint,original in pairs(s.pose.originals) do if joint.Parent then joint.C0=original end end;s.pose=nil end
+end
+local function reset(s)
+ destroyTrail(s);poseEnd(s)
+ if s.title then s.title:Destroy();s.title=nil end
+ if s.burst then s.burst:Destroy();s.burst=nil end
+ clear(s.charLinks);s.character=nil;s.h=nil;s.root=nil
+end
+local tones={1.45,1.9}
+local cues={}
+for n=1,2 do cues[n]=make('Sound',Sound,{Name='HussPerfectWeaveV11',SoundId='rbxasset://sounds/volume_slider.ogg',PlaybackSpeed=tones[n],Volume=0}) end
+local cueSerial=0
+local function cue()
+ if me:GetAttribute('HussSFXMuted')==true then return end
+ cueSerial+=1;local serial=cueSerial
+ for n,sound in ipairs(cues) do task.delay((n-1)*.085,function()
+  if stopped or serial~=cueSerial or me:GetAttribute('HussSFXMuted')==true then return end
+  local group=Sound:FindFirstChild('HussSFXV6');sound.SoundGroup=group and group:IsA('SoundGroup') and group or nil
+  sound.Volume=.22*(sound.SoundGroup and 1 or math.clamp(tonumber(me:GetAttribute('HussSFXVolume')) or .8,0,1));sound:Stop();sound:Play()
+ end) end
+end
+link(me:GetAttributeChangedSignal('HussSFXMuted'),function() if me:GetAttribute('HussSFXMuted')==true then cueSerial+=1;for _,sound in ipairs(cues) do sound:Stop() end end end)
+local function perfect(s)
+ local stamp=s.character:GetAttribute('HussPerfectWeaveAt')
+ if type(stamp)~='number' or stamp~=stamp or stamp==s.lastPerfect or math.abs(workspace:GetServerTimeNow()-stamp)>1 then return end
+ s.lastPerfect=stamp;if s.p==me then cue() end
+ if reduced() then return end
+ local camera=workspace.CurrentCamera;if not camera or (camera.CFrame.Position-s.root.Position).Magnitude>100 then return end
+ if s.burst then s.burst:Destroy() end
+ s.burst=make('Highlight',s.character,{Name='HussPerfectWeave',Adornee=s.character,DepthMode=Enum.HighlightDepthMode.Occluded,FillColor=Color3.fromRGB(147,255,137),OutlineColor=Color3.new(1,1,1),FillTransparency=.85,OutlineTransparency=.2})
+ s.burstUntil=os.clock()+.3
+end
+local function bindCharacter(s,c)
+ reset(s);s.generation+=1;local generation=s.generation
+ task.spawn(function()
+  local h=c:WaitForChild('Humanoid',10);local root=c:WaitForChild('HumanoidRootPart',10)
+  if stopped or states[s.p]~=s or s.generation~=generation or s.p.Character~=c or not h or not root then return end
+  s.character=c;s.h=h;s.root=root;s.lastPerfect=c:GetAttribute('HussPerfectWeaveAt')
+  link(c:GetAttributeChangedSignal('HussPerfectWeaveAt'),function() if s.character==c then perfect(s) end end,s.charLinks)
+  link(h.Died,function() reset(s) end,s.charLinks)
+ end)
+end
+local function add(p)
+ if states[p] then return end
+ local s={p=p,links={},charLinks={},generation=0};states[p]=s
+ link(p.CharacterAdded,function(c) bindCharacter(s,c) end,s.links)
+ link(p.CharacterRemoving,function() s.generation+=1;reset(s) end,s.links)
+ if p.Character then bindCharacter(s,p.Character) end
+end
+local function remove(p) local s=states[p];if s then s.generation+=1;reset(s);clear(s.links);states[p]=nil end end
+local function title(s)
+ local i=entry(s,'HussTitleId','Titles')
+ local head=s.character:FindFirstChild('Head');if not head then return end
+ if not s.title then
+  s.title=make('BillboardGui',head,{Name='HussTitleV11',Adornee=head,Size=UDim2.fromOffset(240,34),StudsOffsetWorldSpace=V(0,2.15,0),MaxDistance=85,AlwaysOnTop=false})
+  make('TextLabel',s.title,{Name='Title',BackgroundTransparency=1,Size=UDim2.fromScale(1,1),Font=Enum.Font.FredokaOne,TextSize=20,TextStrokeTransparency=.05,TextStrokeColor3=Color3.fromRGB(12,19,28),TextColor3=tint(i),Text=i.name})
+ end
+ if s.title:GetAttribute('Item')~=i.id then s.title:SetAttribute('Item',i.id);s.title.Title.Text=i.name;s.title.Title.TextColor3=tint(i) end
+end
+local function trail(s,i)
+ if s.trail and s.trail.id~=i.id then destroyTrail(s) end
+ if s.trail then return s.trail end
+ if allocated>=(s.p==me and 10 or 9) then return end;allocated+=1
+ local t={id=i.id,objects={},nextEmit=0};s.trail=t
+ local function obj(class,parent,props) local o=make(class,parent,props);table.insert(t.objects,o);return o end
+ local color=tint(i);local variant=variants[i.id] or 1;local style=i.style
+ local a=obj('Attachment',s.root,{Name='HussCollectionWake',Position=V(0,-1.5,.5)})
+ t.emitter=obj('ParticleEmitter',a,{Name='CollectionTrail',Texture='rbxasset://textures/particles/'..((style=='smoke' or style=='bubbles' or style=='pulse') and 'smoke_main.dds' or 'sparkles_main.dds'),Enabled=false,Rate=0,
+  Color=ColorSequence.new(color:Lerp(Color3.new(1,1,1),.3),color),LightEmission=style=='smoke' and .15 or .7,LightInfluence=.1,
+  Lifetime=NumberRange.new(.16+variant*.025,.3+variant*.025),Speed=NumberRange.new(style=='sparks' and 3 or .5,style=='sparks' and 6 or 2),
+  SpreadAngle=Vector2.new(style=='lightning' and 5 or 30+variant*5,style=='lightning' and 5 or 35),EmissionDirection=Enum.NormalId.Back,
+  Acceleration=V(0,style=='bubbles' and 2 or style=='confetti' and -4 or 0,0),Drag=1,Rotation=NumberRange.new(0,360),RotSpeed=NumberRange.new(style=='confetti' and -120 or -20,style=='confetti' and 120 or 20),
+  Size=NumberSequence.new({NumberSequenceKeypoint.new(0,style=='smoke' and .45 or style=='pulse' and .6 or .17+variant*.02),NumberSequenceKeypoint.new(1,style=='smoke' and 1.1 or style=='bubbles' and .4 or 0)}),
+  Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,style=='smoke' and .72 or .2),NumberSequenceKeypoint.new(1,1)})})
+ if style=='ribbon' or style=='lightning' or style=='pulse' then
+  local b=obj('Attachment',s.root,{Name='HussCollectionEdge',Position=V(0,-1.3,.5)})
+  t.ribbon=obj('Trail',s.root,{Name='CollectionRibbon',Attachment0=a,Attachment1=b,FaceCamera=true,Enabled=false,Lifetime=.12+variant*.018,MinLength=style=='lightning' and .65 or .1,MaxLength=8,
+   Color=ColorSequence.new(color,Color3.new(1,1,1)),LightEmission=.8,Transparency=NumberSequence.new(.3,1),WidthScale=NumberSequence.new(1,0)})
+ end
+ -- Small geometry distinguishes bubbles, paper confetti and pulse discs without uploaded textures.
+ if style=='bubbles' or style=='confetti' or style=='pulse' then
+  t.shapes={}
+  for n=1,3 do local p=obj('Part',folder,{Name='CollectionAccent',Anchored=true,CanCollide=false,CanTouch=false,CanQuery=false,CastShadow=false,Material=Enum.Material.Neon,
+   Shape=style=='bubbles' and Enum.PartType.Ball or style=='pulse' and Enum.PartType.Cylinder or Enum.PartType.Block,
+   Size=style=='bubbles' and V(.15,.15,.15) or style=='pulse' and V(.03,.36,.36) or V(.12,.04,.22),Color=color,Transparency=.35})
+   table.insert(t.shapes,p)
+  end
+ end
+ return t
+end
+local jointNames={RightShoulder='right',LeftShoulder='left',['Right Shoulder']='right',['Left Shoulder']='left',Waist='body',RootJoint='body',Neck='neck',RightHip='rightLeg',LeftHip='leftLeg',['Right Hip']='rightLeg',['Left Hip']='leftLeg'}
+local function emote(s,now,near)
+ local id=s.p:GetAttribute('HussEmotePlaying');local stamp=s.p:GetAttribute('HussEmoteStarted');local i=C.ById[id]
+ local action=s.character:GetAttribute('MovementAction')
+ if not near or not i or i.category~='Emotes' or type(stamp)~='number' or stamp~=stamp or s.p:GetAttribute('InRound')==true or s.h.MoveDirection.Magnitude>.05 or s.root.AssemblyLinearVelocity.Magnitude>2 or s.h.Sit or s.h.PlatformStand or (type(action)=='string' and action:sub(1,4)=='Dive' and action~='DiveEnd') then poseEnd(s);return end
+ local age=workspace:GetServerTimeNow()-stamp;if age<0 or age>6.2 then poseEnd(s);return end
+ if s.pose and (s.pose.id~=id or s.pose.stamp~=stamp) then poseEnd(s) end
+ if not s.pose then
+  local pose={id=id,stamp=stamp,originals={},joints={}};s.pose=pose
+  for _,joint in ipairs(s.character:GetDescendants()) do if joint:IsA('Motor6D') and jointNames[joint.Name] then
+   local key=jointNames[joint.Name]
+   -- Prefer the R15 waist over its root joint. Never move the physical root.
+   if key~='body' or joint.Name=='Waist' or not pose.joints.body then pose.joints[key]=joint end
+   pose.originals[joint]=joint.C0
+  end end
+ end
+ local wave=math.sin(age*7);local beat=math.sin(age*5);local step=math.sin(age*8)
+ local angles={right=V(0,0,0),left=V(0,0,0),body=V(0,0,0),neck=V(0,0,0),rightLeg=V(0,0,0),leftLeg=V(0,0,0)}
+ if i.style=='wave' then angles.right=V(0,0,2.25+wave*.25);angles.neck=V(0,0,.08)
+ elseif i.style=='cheer' then angles.right=V(0,0,2.5+beat*.2);angles.left=V(0,0,-2.5-beat*.2);angles.body=V(.08*beat,0,0)
+ elseif i.style=='salute' then angles.right=V(-.2,0,-2.6);angles.neck=V(-.08,0,0)
+ elseif i.style=='shuffle' then angles.right=V(step*.4,0,.25);angles.left=V(-step*.4,0,-.25);angles.body=V(0,beat*.25,step*.1);angles.rightLeg=V(step*.15,0,0);angles.leftLeg=V(-step*.15,0,0)
+ elseif i.style=='robot' then local tick=math.floor(age*3)%4;angles.right=V(tick%2==0 and -.8 or .4,0,.8);angles.left=V(tick%2==0 and .4 or -.8,0,-.8);angles.neck=V(0,(tick-1.5)*.16,0)
+ elseif i.style=='victory' then angles.right=V(-.25,0,2.6);angles.left=V(-.25,0,-2.6);angles.body=V(.08*beat,0,beat*.14)
+ elseif i.style=='spin' then angles.body=V(0,age*2.5,0);angles.right=V(0,0,1.25);angles.left=V(0,0,-1.25)
+ elseif i.style=='charge' then angles.right=V(.5,0,.75);angles.left=V(.5,0,-.75);angles.body=V(-.12+beat*.025,0,0);angles.neck=V(.12,0,0) end
+ local strength=math.min(1,age/.18)*(reduced() and .5 or 1)
+ for name,joint in pairs(s.pose.joints) do if joint.Parent then local a=angles[name]*strength;local original=s.pose.originals[joint];joint.C0=CF(original.Position)*CFrame.Angles(a.X,a.Y,a.Z)*original.Rotation end end
+end
+link(Players.PlayerAdded,add);link(Players.PlayerRemoving,remove)
+for _,p in ipairs(Players:GetPlayers()) do add(p) end
+link(Run.Heartbeat,function()
+ local camera=workspace.CurrentCamera;local now=os.clock();local low=reduced()
+ for _,s in pairs(states) do if s.root and s.character and s.root.Parent then
+  local near=camera and (camera.CFrame.Position-s.root.Position).Magnitude<90
+  if s.burst and (low or now>=s.burstUntil) then s.burst:Destroy();s.burst=nil end
+  if near and s.h.Health>0 then title(s) elseif s.title then s.title:Destroy();s.title=nil end
+  emote(s,now,near)
+  local v=s.root.AssemblyLinearVelocity;local speed=V(v.X,0,v.Z).Magnitude
+  local i=entry(s,'HussTrailId','Trails')
+  local active=near and not low and i.id~='default' and speed>27 and speed<100 and s.h.Health>0 and not s.h.Sit and not s.h.PlatformStand and not s.root.Anchored and s.h.FloorMaterial~=Enum.Material.Air and s.character:GetAttribute('Ragdolled')~=true and s.character:GetAttribute('IsRagdoll')~=true and s.p:GetAttribute('HussGamePaused')~=true and workspace:GetAttribute('HussGamePaused')~=true
+  if active then
+   local t=trail(s,i)
+   if t then
+    if t.ribbon then t.ribbon.Enabled=true end
+    if now>=t.nextEmit then t.emitter:Emit(i.style=='smoke' and 1 or 2);t.nextEmit=now+.09 end
+    if t.shapes then for n,p in ipairs(t.shapes) do
+     local lag=n*.045;local wave=math.sin(now*7+n)*.45
+     p.CFrame=CF(s.root.Position-v*lag+V(wave,-1.25+n*.08,0))*CFrame.Angles(i.style=='pulse' and 0 or now*2,n,math.pi/2)
+    end end
+   end
+  else destroyTrail(s) end
+ end end
+end)
+link(script.Destroying,function()
+ stopped=true;cueSerial+=1;clear(links)
+ local list={};for p in pairs(states) do table.insert(list,p) end;for _,p in ipairs(list) do remove(p) end
+ for _,sound in ipairs(cues) do sound:Destroy() end;folder:Destroy()
+end)
+]==],
+[ [==[catalog]==] ]=[==[--!nonstrict
+-- HussCatalogV13: every item is bought with earned Coins; cosmetic effects only.
+local C={Items={},ById={},Categories={'Bombs','Trails','Titles','Emotes'},Defaults={Bombs='bomb_classic',Trails='default',Titles='title_rookie',Emotes='emote_wave'}}
+local function add(category,rows)
+ for _,r in ipairs(rows) do
+  local item={id=r[1],name=r[2],price=r[3],color=r[4],style=r[5],description=r[6],rarity=r[7] or 'Common',category=category}
+  assert(not C.ById[item.id],'Duplicate catalog ID');C.ById[item.id]=item;table.insert(C.Items,item)
+ end
+end
+add('Bombs',{
+ {'bomb_classic','Classic Fuse',0,{44,48,58},'smooth','Black foundry bomb, copper seam, rivets and a curled sparking fuse.'},
+ {'bomb_cherry','Cherry Pop',200,{255,69,92},'smooth','Glossy cherry bomb with a leafy stem and a tiny cherry companion.'},
+ {'bomb_cobalt','Cobalt Core',250,{47,134,255},'banded','Armored blue shell with a seven-blade turbine and cooling pipes.'},
+ {'bomb_mint','Mint Condition',300,{78,244,183},'banded','A peppermint swirl, fresh leaves and a bright mint bomb shell.'},
+ {'bomb_taxi','Taxi Trouble',350,{255,211,48},'hazard','A round yellow taxi bomb with wheels, headlights and checkers.'},
+ {'bomb_candy','Candy Capsule',400,{255,123,206},'banded','Wrapped candy bomb with twisted ends, a sugar ribbon and sprinkles.'},
+ {'bomb_orange','Citrus Charge',450,{255,157,45},'panel','A sliced citrus bomb with visible segments, a leaf and curling peel.'},
+ {'bomb_arctic','Arctic Fuse',500,{140,234,255},'orb','Frozen bomb heart, icy crown shards, icicles and snowbright sparks.','Rare'},
+ {'bomb_ember','Ember Egg',600,{255,106,43},'reactor','Obsidian shell plates split by glowing molten cracks and embers.','Rare'},
+ {'bomb_toxic','Toxic Tank',700,{143,255,60},'hazard','An acid-filled tank bomb with pressure hoses and a warning badge.','Rare'},
+ {'bomb_royal','Royal Rumble',800,{177,105,255},'ring','Purple bomb with a jeweled golden crown, royal sash and ruby crest.','Rare'},
+ {'bomb_disco','Disco Disaster',900,{233,109,255},'panel','Mirrored bomb tiles, neon headphones and tiny dance-floor glints.','Rare'},
+ {'bomb_gift','Surprise Package',1000,{255,85,129},'gift','A round present bomb with crossed ribbons, a bow and hanging tag.','Rare'},
+ {'bomb_bee','Bumble Blast',1100,{255,213,60},'banded','A striped bee bomb with wings, antennae, a stinger and a hot fuse.','Rare'},
+ {'bomb_prism','Prism Pop',1250,{147,203,255},'panel','An opal bomb heart inside pastel crystal facets and hanging points.','Epic'},
+ {'bomb_saturn','Saturn Sphere',1400,{246,179,115},'ring','A banded planet bomb with a tilted ring and two little moons.','Epic'},
+ {'bomb_abyss','Abyss Pearl',1600,{99,88,215},'orb','A glowing midnight pearl cradled in a luminous deep-sea shell.','Epic'},
+ {'bomb_spike','Iron Urchin',1800,{150,174,193},'spike','A riveted iron bomb with broad metal spikes and a bolted faceplate.','Epic'},
+ {'bomb_plasma','Plasma Pulse',2000,{86,255,238},'reactor','A glass reactor bomb with a plasma coil, cage ribs and power terminals.','Epic'},
+ {'bomb_sakura','Sakura Surprise',2200,{255,175,207},'orb','A porcelain-pink bomb with a sculpted branch and three blossoms.','Epic'},
+ {'bomb_gold','Golden Fuse',2500,{255,207,62},'banded','A polished gold bomb stamped with a star coin and gilded laurels.','Legendary'},
+ {'bomb_void','Void Star',2800,{139,78,246},'spike','A dark armored bomb with a glowing star aperture and drifting wisps.','Legendary'},
+ {'bomb_solar','Solar Furnace',3200,{255,158,54},'reactor','A furnace bomb with heat fins, a glowing grate and escaping embers.','Legendary'},
+ {'bomb_nova','Supernova',3600,{255,89,167},'ring','A stellar bomb with crossing luminous rings and a brilliant starburst.','Legendary'},
+ {'bomb_champion','Champion Charge',4200,{255,227,104},'gift','A trophy bomb with handles, a medal, victory ribbons and laurels.','Legendary'},
+})
+add('Trails',{
+ {'default','Classic',0,{125,244,255},'ribbon','Little black bombs, burning fuses and cyan speed dashes follow your run.'},
+ {'aqua','Arctic Rush',250,{72,211,255},'ribbon','Frozen arrowheads and bright wind streaks carve an icy escape.'},
+ {'sunset','Solar Rush',400,{255,161,74},'sparks','Spinning miniature suns shed curved orange and pink solar flares.'},
+ {'royal','Royal Rush',600,{172,116,255},'stars','Golden three-point crowns with amethyst jewels bob in your wake.','Rare'},
+ {'lime','Toxic Rush',800,{157,255,85},'bubbles','Glassy acid bubbles, glowing poison cores and rising green droplets.','Rare'},
+ {'rose','Candy Rush',1000,{255,117,180},'confetti','Wrapped pink sweets tumble behind you with sugar stripes and twisted ends.','Rare'},
+ {'trail_ice','Ice Shards',500,{179,242,255},'sparks','Clusters of sculpted ice splinters and bright crystal chips tumble behind you.'},
+ {'trail_smoke','Smoke Screen',550,{170,185,202},'smoke','Rounded silver puffs billow upward in a light, transparent smoke wake.'},
+ {'trail_coins','Coin Shower',650,{255,224,85},'confetti','Spinning gold coins stamped with little bombs and polished glints.','Rare'},
+ {'trail_ocean','Ocean Foam',700,{73,238,218},'bubbles','Breaking turquoise waves, white foam crests and flying sea spray.','Rare'},
+ {'trail_berry','Berry Blast',850,{189,72,220},'pulse','Bunches of purple berries with fresh green leaves tumble along your path.','Rare'},
+ {'trail_volt','Voltage',950,{255,242,68},'lightning','Five-segment lightning bolts crackle in a jagged yellow and white wake.','Rare'},
+ {'trail_petals','Petal Parade',1100,{255,185,214},'confetti','Five-petal pink blossoms with golden centers flutter behind your steps.','Rare'},
+ {'trail_cosmic','Cosmic Dust',1250,{141,142,255},'stars','Twinkling cross-stars and tiny ringed planets drift in a cosmic wake.','Epic'},
+ {'trail_lava','Lava Leak',1400,{255,79,43},'sparks','Molten rocks reveal lava hearts, dark crusts and falling golden cinders.','Epic'},
+ {'trail_ghost','Ghost Step',1500,{207,244,229},'smoke','Little translucent ghosts with dark eyes and curling tails float behind you.','Epic'},
+ {'trail_neon','Neon Circuit',1700,{53,255,170},'lightning','Right-angle neon traces connect metal chips and bright circular terminals.','Epic'},
+ {'trail_party','Party Fuse',1900,{255,132,222},'confetti','Mini party bombs trail pink and blue streamers with shiny gold confetti.','Epic'},
+ {'trail_halo','Golden Halo',2100,{255,224,125},'pulse','Open golden rings tilt and shimmer with bright gleams in your wake.','Epic'},
+ {'trail_blizzard','Blizzard',2300,{195,235,255},'stars','Six-armed snowflakes spin with sculpted ice tips and frosty glimmers.','Epic'},
+ {'trail_comet','Comet Tail',2600,{93,203,255},'sparks','White-hot comet heads drag twin blue tails and orbiting fragments.','Legendary'},
+ {'trail_eclipse','Eclipse Wake',2900,{175,108,255},'smoke','Dark moons eclipse glowing violet discs beside scattered dusk stars.','Legendary'},
+ {'trail_overload','Overload',3200,{255,90,89},'lightning','Metal capacitors arc with three connected scarlet and white lightning bolts.','Legendary'},
+ {'trail_supernova','Supernova Wake',3600,{255,155,95},'pulse','White star hearts burst through six radiant rays and drifting golden shards.','Legendary'},
+ {'trail_celebrate','Victory Parade',4200,{255,223,71},'confetti','Golden trophy cups with handles, medals and dark plinths bounce in celebration.','Legendary'},
+})
+add('Titles',{
+ {'title_rookie','Fuse Rookie',0,{235,243,255},'title','Your first name in the bomb arena.'},
+ {'title_runner','Quick Feet',250,{86,219,255},'title','A title for runners who keep moving.'},
+ {'title_courier','Special Delivery',450,{255,181,67},'title','Always ready to hand over the hot package.'},
+ {'title_dancer','Danger Dancer',700,{255,126,188},'title','A little style in the danger zone.','Rare'},
+ {'title_wire','Live Wire',950,{184,255,82},'title','Charged up and hard to catch.','Rare'},
+ {'title_calm','Cool Under Fire',1300,{120,220,255},'title','Keep your head when the timer runs low.','Epic'},
+ {'title_stand','Last One Standing',1800,{255,201,82},'title','A bold title for your collection.','Epic'},
+ {'title_fuse','Fuse Master',2200,{197,125,255},'title','Wear your explosive ambitions.','Epic'},
+ {'title_untouch','Untouchable',2800,{128,255,206},'title','Make every near miss look effortless.','Legendary'},
+ {'title_legend','Bomb Legend',3600,{255,226,97},'title','The golden name above the arena.','Legendary'},
+})
+add('Emotes',{
+ {'emote_wave','Friendly Wave',0,{93,211,255},'wave','Say hello in the lobby.'},
+ {'emote_cheer','Fuse Cheer',300,{255,206,79},'cheer','Raise your arms and cheer for the next round.'},
+ {'emote_salute','Bomb Squad Salute',500,{124,231,160},'salute','A sharp salute before the action.'},
+ {'emote_shuffle','Lobby Shuffle',800,{255,140,209},'shuffle','A playful side to side dance.','Rare'},
+ {'emote_robot','Circuit Robot',1100,{119,197,255},'robot','Move like a mechanical bomb defuser.','Rare'},
+ {'emote_victory','Victory Bounce',1500,{255,211,83},'victory','Celebrate with a grounded victory pose.','Epic'},
+ {'emote_spin','Disco Spin',2000,{194,141,255},'spin','Turn up the style with a spinning dance.','Epic'},
+ {'emote_charge','Power Up',2600,{255,126,91},'charge','Gather your energy for the next match.','Legendary'},
+})
+return C
+]==],
+[ [==[hud]==] ]=[==[--!nonstrict
+-- HUSS A BOMB / unified match, lobby, voting and map gallery HUD.
+local Players = game:GetService("Players")
+local RS = game:GetService("ReplicatedStorage")
+local Run = game:GetService("RunService")
+local Tween = game:GetService("TweenService")
+local Input = game:GetService("UserInputService")
+local Gui = game:GetService("GuiService")
+local P = Players.LocalPlayer
+local Remotes = require(RS.Shared.Net.Remotes)
+local Config = require(RS.Shared.Config.GameConfig)
+local HUD = {}
+-- HussGlossV8
+local rgb=Color3.fromRGB
+-- HussReferenceHudV10
+local C={ink=rgb(13,20,28),panel=rgb(35,40,50),line=rgb(101,135,163),white=rgb(255,255,255),muted=rgb(233,244,255),green=rgb(106,255,76),red=rgb(255,76,98),gold=rgb(255,218,48),cyan=rgb(62,230,255),violet=rgb(196,131,255)}
+local tones={STATS=rgb(255,159,29),CONTROLS=rgb(57,154,255),['HOW TO PLAY']=rgb(170,82,246),MAPS=rgb(29,193,182),SETTINGS=rgb(232,85,188),Close=rgb(248,64,90),AFK=rgb(70,140,230),VoteReopen=rgb(255,179,23),Continue=rgb(30,220,91),Music=rgb(155,89,245),SoundEffects=rgb(30,196,218),Motion=rgb(166,83,231),SHOP=rgb(15,220,102),QUESTS=rgb(255,169,22),LEADERBOARDS=rgb(255,199,24),Home=rgb(37,218,248),Hub=rgb(255,199,24)}
+local panelTones={MatchStatus=rgb(21,170,234),Identity=rgb(140,80,218),MatchInfo=rgb(24,128,207),Bomb=rgb(245,149,25),Dodge=rgb(21,175,107),LobbyFooter=rgb(110,84,205),Notification=rgb(27,152,211),Wallet=rgb(250,181,25)}
+local U, links, charLinks, pageLinks, hidden, tweens = {},{},{},{},{},{}
+local started, epoch, menu, phase, duration, phaseAt, alive = false,0,nil,"WAITING",0,0,nil
+local bomb, owner, carrier, fuseEnd, fuseLength = false,0,"",0,14
+local character, humanoid, dodgeAt, direction = nil,nil,-math.huge,"DODGE / WEAVE"
+local winner, resultDismissed, countdown, countUntil = "",false,nil,0
+local options, counts, selection, voteOpen, voteEnd, voteChosen, voteResultUntil, voteDismissed = {},{},nil,false,0,nil,0,false
+local previewFolder, voteRemote, afkRemote, voteLink, pageName, mapIndex = nil,nil,nil,nil,nil,1
+local lastSize, tickTime, statTime, noticeUntil = Vector2.zero,0,0,0
+-- HussEconomyHudV9
+local economy,ecoLink,profile,board,busy,serial=nil,nil,nil,nil,nil,0
+-- HussCollectionHudV11
+-- HussPhysicalShopHudV12: inventory stays in the Index; buying lives on the lobby stands.
+local rosterLinks={}
+local category,collectionPageNumber,cosmetics='Bombs',1,nil
+local categories={'Bombs','Trails','Titles','Emotes'}
+local catalog=require(RS:WaitForChild('HussCatalogV11'))
+local skinBuilder=require(RS:WaitForChild('BombSkinBuilderV12'))
+-- HussTrailPreviewV13
+local trailDesigns=require(RS:WaitForChild('HussTrailDesignsV13'))
+local defaults={Bombs='bomb_classic',Trails='default',Titles='title_rookie',Emotes='emote_wave'}
+local categoryColors={Bombs=rgb(255,164,38),Trails=rgb(81,225,255),Titles=rgb(202,128,255),Emotes=rgb(255,111,184)}
+tones.INDEX=rgb(55,155,239)
+local emoteAt=-math.huge
+local ecoMessage
+local refresh, layout, openMenu, buildPage
+local phases = {WAITING="WAITING FOR PLAYERS",INTERMISSION="NEXT MATCH",STARTING="GET READY",PRACTICE="PRACTICE",PRACTICE_ENDING="PLAYER JOINING",ROUND="MATCH LIVE",FINAL_DUEL="FINAL DUEL",RESULT="ROUND COMPLETE"}
+local function num(v,f) return type(v)=="number" and v==v and math.abs(v)<math.huge and v or f end
+local function connect(signal,fn,bucket) local c=signal:Connect(fn); table.insert(bucket or links,c); return c end
+local function clear(bucket) for _,c in ipairs(bucket) do c:Disconnect() end; table.clear(bucket) end
+local function make(class,parent,props)
+ local o=Instance.new(class); for k,v in pairs(props or {}) do o[k]=v end; o.Parent=parent; return o
+end
+local function rounded(o,r) make("UICorner",o,{CornerRadius=UDim.new(0,r or 5)}) end
+local function frame(parent,name,x,y,w,h,color,z)
+ return make("Frame",parent,{Name=name,Position=UDim2.fromOffset(x,y),Size=UDim2.fromOffset(w,h),BackgroundColor3=color or C.panel,BorderSizePixel=0,ZIndex=z or parent.ZIndex or 1})
+end
+local function stroke(o,color) return make("UIStroke",o,{Color=color or C.line,Thickness=2,Transparency=.12,ApplyStrokeMode=Enum.ApplyStrokeMode.Border}) end
+local function text(parent,name,value,x,y,w,h,size,color,align)
+ local o=make("TextLabel",parent,{Name=name,Text=value,Position=UDim2.fromOffset(x,y),Size=UDim2.fromOffset(w,h),BackgroundTransparency=1,Font=Enum.Font.GothamBlack,TextSize=size,TextColor3=color or C.white,TextStrokeColor3=C.ink,TextStrokeTransparency=1,TextXAlignment=align or Enum.TextXAlignment.Left,TextYAlignment=Enum.TextYAlignment.Center,TextTruncate=Enum.TextTruncate.AtEnd,ZIndex=(parent.ZIndex or 1)+2})
+ local outline=make('UIStroke',o,{Color=C.ink,Thickness=size>=18 and 2.3 or 1.3,Transparency=0,ApplyStrokeMode=Enum.ApplyStrokeMode.Contextual})
+ o.Font=size>=18 and Enum.Font.FredokaOne or Enum.Font.GothamBlack
+ return o
+end
+local function motion(o,goal,t)
+ if tweens[o] then tweens[o]:Cancel(); tweens[o]=nil end
+ if P:GetAttribute("HussReducedMotion")==true then for k,v in pairs(goal) do o[k]=v end; return end
+ local a=Tween:Create(o,TweenInfo.new(t or .16,Enum.EasingStyle.Quart,Enum.EasingDirection.Out),goal); tweens[o]=a
+ local done; done=a.Completed:Connect(function() if tweens[o]==a then tweens[o]=nil end; if done then done:Disconnect() end end); a:Play()
+end
+local function edge(o,color,width)
+ return make('UIStroke',o,{Color=color,Thickness=width or 3,Transparency=0,ApplyStrokeMode=Enum.ApplyStrokeMode.Border})
+end
+local function gloss(o,checks)
+ o.ClipsDescendants=false
+ make('UIGradient',o,{Color=ColorSequence.new(C.white,rgb(159,205,181)),Rotation=90})
+ local bottom=frame(o,'DropEdge',3,0,1,7,C.ink,o.ZIndex+1);bottom.Position=UDim2.new(0,3,1,-7);bottom.Size=UDim2.new(1,-6,0,7);rounded(bottom,5)
+ if checks then
+  local tile=frame(o,'Checkers',4,4,1,1,C.white,o.ZIndex+1);tile.Size=UDim2.new(1,-8,1,-13);tile.BackgroundTransparency=1;tile.ClipsDescendants=true;rounded(tile,8)
+  for row=0,3 do for col=0,11 do if (row+col)%2==0 then
+   local cell=frame(tile,'Tile',0,0,1,1,C.white,tile.ZIndex);cell.Position=UDim2.fromScale(col/12,row/4);cell.Size=UDim2.fromScale(1/12,1/4);cell.BackgroundTransparency=.9
+  end end end
+ end
+ local shine=frame(o,'Gloss',4,4,1,1,C.white,o.ZIndex+2);shine.Size=UDim2.new(1,-8,.45,-4);shine.BackgroundTransparency=checks and .86 or .96;rounded(shine,8)
+ local inset=frame(o,'InnerRim',4,4,1,1,C.white,o.ZIndex+2);inset.Size=UDim2.new(1,-8,1,-12);inset.BackgroundTransparency=1;rounded(inset,8)
+ return edge(inset,C.white:Lerp(o.BackgroundColor3,.45),2)
+end
+local function emblem(parent,kind,size,color)
+ local host=frame(parent,'Illustration',0,0,size,size,C.white,parent.ZIndex+4);host.BackgroundTransparency=1
+ local unit=size/100;local z=host.ZIndex
+ local function part(name,x,y,w,h,tint,radius,angle,line)
+  local p=frame(host,name,x*unit,y*unit,w*unit,h*unit,tint,z);if radius then rounded(p,radius*unit) end
+  p.Rotation=angle or 0;if line~=false then edge(p,C.ink,math.max(2,4*unit)) end;return p
+ end
+ local bright=color or C.gold
+ if kind=='Bombs' then
+  part('Fuse',53,7,11,35,rgb(244,198,100),4,-24);part('Spark',59,4,19,19,C.gold,3,45)
+  part('BombBody',16,27,70,65,bright,32);part('BombShine',30,40,17,10,bright:Lerp(C.white,.8),6,-30,false)
+  part('Band',18,62,66,12,bright:Lerp(C.ink,.5),4,0,false)
+ elseif kind=='Emotes' then
+  part('Head',39,6,24,24,bright,14);part('Body',38,36,26,31,bright,9)
+  part('LeftArm',12,34,36,12,bright,6,-30);part('RightArm',59,28,36,12,bright,6,-45)
+  part('LeftLeg',27,64,14,29,bright,6,23);part('RightLeg',58,64,14,29,bright,6,-23)
+ elseif kind=='Titles' or kind=='INDEX' then
+  part('Badge',15,24,70,51,bright,8);part('Ribbon',29,64,15,29,bright:Lerp(C.ink,.25),3,15);part('Ribbon2',57,64,15,29,bright:Lerp(C.ink,.25),3,-15)
+  part('Star',38,31,26,26,C.gold,3,45);part('StarCenter',41,34,20,20,C.white,3,0,false)
+ elseif kind=='SHOP' then
+  part('Bundle',15,31,70,47,rgb(25,155,68),6,-12);part('CashTop',15,19,70,42,rgb(103,241,93),5,-12)
+  part('CashBand',42,18,19,58,C.gold,2,-12);part('BandShine',45,20,5,50,rgb(255,245,151),1,-12,false)
+ elseif kind=='Home' then
+  part('Roof',24,12,52,52,rgb(68,161,255),3,45);part('House',23,43,55,44,rgb(53,139,242),4)
+  part('Door',44,61,18,28,rgb(97,225,255),4,0,false)
+ elseif kind=='Hub' or kind=='LEADERBOARDS' or kind=='STATS' then
+  part('LeftHandle',9,23,27,34,C.gold,12);part('RightHandle',65,23,27,34,C.gold,12)
+  part('Stem',44,55,13,25,rgb(244,166,33),3);part('Base',26,78,48,13,C.gold,4)
+  part('Cup',24,13,52,49,rgb(255,197,32),16);part('CupShine',32,22,34,8,rgb(255,242,128),4,0,false)
+ elseif kind=='QUESTS' then
+  part('Paper',22,12,57,75,rgb(255,237,166),6,5);part('Clip',36,5,30,17,rgb(255,174,28),4)
+  part('CheckShort',34,49,12,27,rgb(51,192,76),3,-42,false);part('CheckLong',49,31,12,45,rgb(51,192,76),3,35,false)
+ elseif kind=='SETTINGS' then
+  for i=0,3 do part('Cog',40,6,20,88,rgb(242,178,242),4,i*45) end
+  part('Gear',20,20,60,60,rgb(242,178,242),30);part('Center',37,37,26,26,rgb(131,61,166),13)
+ elseif kind=='MAPS' then
+  part('Map',15,17,71,64,rgb(120,244,176),5,-6);part('Route1',23,42,56,10,rgb(247,246,174),2,-24,false)
+  part('Pin',47,25,27,27,rgb(249,93,101),14);part('PinPoint',52,44,16,16,rgb(249,93,101),2,45,false)
+ elseif kind=='CONTROLS' or kind=='HOW TO PLAY' then
+  part('Key',12,24,76,53,rgb(163,220,255),12);part('Cross1',27,36,9,29,rgb(39,77,122),2,0,false);part('Cross2',17,46,29,9,rgb(39,77,122),2,0,false)
+  part('Dot1',61,38,11,11,C.gold,6,0,false);part('Dot2',68,55,11,11,C.red,6,0,false)
+ else
+  -- A distinct large comet illustration previews the trail's actual server color.
+  part('TailLong',3,55,70,14,bright,7,-25);part('TailMiddle',12,32,58,14,bright:Lerp(C.white,.3),7,-25)
+  part('TailShort',27,14,39,12,bright,6,-25)
+  part('Burst',49,24,43,43,bright,5,45);part('Core',60,35,21,21,bright:Lerp(C.white,.78),4,45,false)
+  part('Spark',79,4,10,10,C.white,2,45,false);part('SmallSpark',32,84,7,7,bright,2,45,false)
+ end
+ return host
+end
+local function panel(parent,name,w,h,z,accent)
+ local o=frame(parent,name,0,0,w,h,panelTones[name] or C.panel,z)
+ o.BackgroundTransparency=0;rounded(o,14);edge(o,C.ink,4)
+ local rim=gloss(o,panelTones[name]~=nil);rim.Color=accent or C.white:Lerp(o.BackgroundColor3,.35)
+ return o,rim
+end
+local function button(parent,name,caption,callback,danger,bucket)
+ local purchase=name:sub(1,5)=='Item_' or name:sub(1,6)=='Quest_'
+ local tone=danger and tones.Close or purchase and rgb(25,227,48) or tones[name:sub(1,3)=='Nav' and name:sub(4) or name] or rgb(47,175,228)
+ local b=make('TextButton',parent,{Name=name,Text=caption,TextTransparency=1,TextStrokeTransparency=1,TextTruncate=Enum.TextTruncate.AtEnd,Size=UDim2.fromOffset(120,44),BackgroundColor3=tone,TextColor3=C.white,Font=Enum.Font.GothamBlack,TextSize=16,AutoButtonColor=false,BorderSizePixel=0,ZIndex=(parent.ZIndex or 1)+3})
+ rounded(b,12);edge(b,C.ink,4);local rim=gloss(b,true)
+ local label=text(b,'ButtonCaption',caption,5,-2,110,44,16,C.white,Enum.TextXAlignment.Center);label.Size=UDim2.new(1,-10,1,0);label.ZIndex=b.ZIndex+6
+ local function captionUpdate()
+  label.Text=b.Text;label.TextColor3=b.TextColor3;label.TextSize=b.TextSize;label.TextTruncate=b.TextTruncate;label.TextXAlignment=b.TextXAlignment;label.Font=b.TextSize>=18 and Enum.Font.FredokaOne or Enum.Font.GothamBlack
+  label:FindFirstChildOfClass('UIStroke').Thickness=b.TextSize>=18 and 2.6 or 1.5
+ end
+ for _,key in ipairs({'Text','TextColor3','TextSize','TextTruncate','TextXAlignment'}) do connect(b:GetPropertyChangedSignal(key),captionUpdate,bucket) end
+ local focused=false
+ local function paint()
+  local selected=b:GetAttribute('HussSelected')==true;local disabled=b:GetAttribute('HussDisabled')==true
+  local color=selected and rgb(47,222,66) or (disabled and rgb(83,110,93) or tone)
+  b.Interactable=not disabled;b.Selectable=not disabled
+  motion(rim,{Color=selected and C.gold or (focused and not disabled and C.white or color:Lerp(C.white,.45))})
+  motion(b,{BackgroundColor3=focused and not disabled and color:Lerp(C.white,.14) or color})
+ end
+ local function focus(on) focused=on;paint() end
+ connect(b.MouseEnter,function() focus(true) end,bucket);connect(b.MouseLeave,function() focus(false) end,bucket)
+ connect(b.SelectionGained,function() focus(true) end,bucket);connect(b.SelectionLost,function() focus(false) end,bucket)
+ connect(b:GetAttributeChangedSignal('HussSelected'),paint,bucket);connect(b:GetAttributeChangedSignal('HussDisabled'),paint,bucket)
+ connect(b.Activated,function() if b:GetAttribute('HussDisabled')~=true then callback() end end,bucket);captionUpdate();return b
+end
+local function bar(parent,name,color)
+ local track=frame(parent,name,12,0,100,4,C.ink,parent.ZIndex+1); rounded(track,2)
+ local fill=frame(track,"Fill",0,0,100,4,color,track.ZIndex+1); fill.Size=UDim2.fromScale(1,1); rounded(fill,2)
+ return track,fill
+end
+local function align(o,x,y,ax,ay) o.AnchorPoint=Vector2.new(ax or 0,ay or 0); o.Position=UDim2.fromOffset(x,y) end
+local function numberStat(key)
+ local folder=P:FindFirstChild("leaderstats"); local v=folder and folder:FindFirstChild(key)
+ if v and (v:IsA("IntValue") or v:IsA("NumberValue")) then return num(v.Value) end
+ return num(P:GetAttribute(key))
+end
+local function formatted(v) return tostring(math.floor(v)):reverse():gsub("(%d%d%d)","%1,"):reverse():gsub("^,","") end
+local function mapName() return tostring(workspace:GetAttribute("CurrentVotedMap") or Config.MapName or "ARENA") end
+local function inRound() return P:GetAttribute("InRound")==true end
+local function reduced() return P:GetAttribute("HussReducedMotion")==true end
+local function announce(title,body,color)
+ if not started then return end
+ U.NoticeTitle.Text,U.NoticeBody.Text=title,body; U.NoticeTitle.TextColor3=color or C.green
+ noticeUntil=time()+2.2; U.Notice.Visible=true; U.NoticeScale.Scale=reduced() and 1 or .95; motion(U.NoticeScale,{Scale=1},.2)
+end
+local function view(parent)
+ local v=make("ViewportFrame",parent,{Name="ArenaPreview",BackgroundColor3=Color3.fromRGB(41,56,51),BorderSizePixel=0,Ambient=Color3.fromRGB(205,218,210),LightColor=Color3.fromRGB(255,240,204),LightDirection=Vector3.new(-1,-1,-.5),ZIndex=parent.ZIndex+1})
+ rounded(v,4); local world=make("WorldModel",v); local camera=make("Camera",v,{FieldOfView=42}); v.CurrentCamera=camera
+ return {frame=v,world=world,camera=camera,name=nil}
+end
+local function fit(v)
+ if not v.center then return end
+ local size=v.frame.AbsoluteSize; local ratio=size.X/math.max(size.Y,1)
+ local angle=math.atan(math.tan(math.rad(v.camera.FieldOfView/2))*math.min(1,ratio))
+ local distance=v.radius/math.max(.1,math.sin(angle))*1.12
+ v.camera.CFrame=CFrame.lookAt(v.center+Vector3.new(1,.86,1).Unit*distance,v.center)
+end
+local function loadPreview(v,name)
+ if v.name==name then fit(v); return end
+ v.world:ClearAllChildren(); v.name=nil; v.center=nil
+ local source=previewFolder and previewFolder:FindFirstChild(name or "")
+ if not source or not source:IsA("Model") then return end
+ local copy=source:Clone(); copy.Parent=v.world
+ for _,o in ipairs(copy:GetDescendants()) do
+  if o:IsA("LuaSourceContainer") or o:IsA("SurfaceGui") or o:IsA("BillboardGui") or o:IsA("Light") or o.Name=="Spawns" or (o:IsA("BasePart") and o.Transparency>=1) then o:Destroy() end
+ end
+ local cf,size=copy:GetBoundingBox(); v.name=name; v.center=cf.Position; v.radius=math.max(size.Magnitude/2,1); fit(v)
+end
+local function ecoRefresh()
+ if U.Mode=='menu' and (menu=='INDEX' or menu=='QUESTS' or menu=='LEADERBOARDS' or menu=='STATS') then local pos=U.Body.CanvasPosition;buildPage();U.Body.CanvasPosition=pos end
+end
+local function request(action,id)
+ if busy or not economy then return end
+ serial+=1;local ticket=serial;local generation=epoch;busy=ticket;ecoMessage=nil
+ economy:FireServer(action,id,ticket);ecoRefresh()
+ task.delay(10,function()
+  if started and epoch==generation and busy==ticket then busy=nil;ecoMessage='This is taking longer than expected. Please try again.';ecoRefresh() end
+ end)
+end
+local function cleanText(v,f) return type(v)=='string' and v:sub(1,90) or f or '' end
+local function amount(v) return math.clamp(math.floor(num(v,0)),0,1000000000000) end
+local function receive(data)
+ if type(data)~='table' then return end
+ if data.kind=='Profile' then
+  local p={ready=data.ready==true,mode=cleanText(data.mode),Equipped=cleanText(data.Equipped),EquippedByCategory={},Catalog={},Quests={},Owned={},resetsAt=amount(data.resetsAt)}
+  for _,name in ipairs(categories) do p.EquippedByCategory[name]=type(data.EquippedByCategory)=='table' and cleanText(data.EquippedByCategory[name],defaults[name]) or (name=='Trails' and p.Equipped or defaults[name]) end
+  if type(data.Owned)=='table' then for i,id in ipairs(data.Owned) do if i>100 then break end;if type(id)=='string' then p.Owned[id:sub(1,90)]=true end end end
+  if type(data.Catalog)=='table' then for i,item in ipairs(data.Catalog) do
+   if i>100 then break end
+   if type(item)=='table' and type(item.id)=='string' then
+    local color=type(item.color)=='table' and item.color or {};table.insert(p.Catalog,{id=cleanText(item.id),name=cleanText(item.name,'Cosmetic'),category=defaults[item.category] and item.category or 'Trails',description=cleanText(item.description,'Equip this cosmetic to make it yours.'),rarity=cleanText(item.rarity,'Common'),style=cleanText(item.style),price=amount(item.price),color=rgb(math.clamp(num(color[1],255),0,255),math.clamp(num(color[2],255),0,255),math.clamp(num(color[3],255),0,255))})
+   end
+  end end
+  if type(data.Quests)=='table' then for i,q in ipairs(data.Quests) do
+   if i>12 then break end
+   if type(q)=='table' and type(q.id)=='string' then table.insert(p.Quests,{id=cleanText(q.id),title=cleanText(q.title,'Daily quest'),target=math.max(1,amount(q.target)),progress=amount(q.progress),reward=amount(q.reward),claimed=q.claimed==true}) end
+  end end
+  profile=p
+ elseif data.kind=='Board' then
+  board={status=cleanText(data.status),rows={}}
+  if type(data.rows)=='table' then for i,r in ipairs(data.rows) do
+   if i>25 then break end
+   if type(r)=='table' then table.insert(board.rows,{name=cleanText(r.name,'Player'),wins=amount(r.wins)}) end
+  end end
+ else return end
+ if busy==data.requestId then
+  busy=nil
+  if type(data.message)=='string' and data.message~='' then ecoMessage=cleanText(data.message);announce(data.ok==true and 'ALL SET!' or 'PLEASE TRY AGAIN',cleanText(data.message),data.ok==true and C.green or C.gold) end
+ end
+ ecoRefresh()
+end
+local function watchPlayer(player)
+ if rosterLinks[player] then clear(rosterLinks[player]) end
+ local bucket={};rosterLinks[player]=bucket
+ local function update() if player==P then U.Identity.Player.Text=player.DisplayName:upper() end;ecoRefresh() end
+ if player==P then for _,key in ipairs({"GamesPlayed","Passes","HussEmotePlaying"}) do connect(player:GetAttributeChangedSignal(key),update,bucket) end end
+ local function value(v) if v:IsA('IntValue') or v:IsA('NumberValue') then connect(v.Changed,update,bucket) end end
+ local function folder(f)
+  if f.Name=='leaderstats' then connect(f.ChildAdded,function() watchPlayer(player) end,bucket);connect(f.ChildRemoved,function() watchPlayer(player) end,bucket);for _,v in ipairs(f:GetChildren()) do value(v) end end
+ end
+ connect(player.ChildAdded,function() watchPlayer(player) end,bucket);connect(player.ChildRemoved,function() watchPlayer(player) end,bucket)
+ connect(player:GetPropertyChangedSignal('DisplayName'),update,bucket)
+ for _,f in ipairs(player:GetChildren()) do folder(f) end
+ update()
+end
+local function playEmote(id)
+ if inRound() or not cosmetics or not profile or not profile.ready or not profile.Owned[id] or profile.EquippedByCategory.Emotes~=id then return end
+ if P:GetAttribute('HussEmotePlaying')==id then cosmetics:FireServer('StopEmote')
+ elseif time()-emoteAt>=1.3 then emoteAt=time();cosmetics:FireServer('Emote',id) end
+end
+-- Preview the actual trail geometry once; no per-card animation or RenderStepped work.
+local function trailPreview(parent,item,width,height,z)
+ local viewport=make('ViewportFrame',parent,{Name='TrailPreview',Size=UDim2.fromOffset(width,height),BackgroundTransparency=1,Ambient=Color3.fromRGB(213,220,233),LightColor=Color3.new(1,1,1),LightDirection=Vector3.new(-1,-1,-.5),ZIndex=z})
+ local world=make('WorldModel',viewport)
+ local model=trailDesigns.Preview(world,item)
+ local bounds,size=model:GetBoundingBox();local center=bounds.Position
+ local outward=Vector3.new(0,.65,1).Unit
+ local view=CFrame.lookAt(center+outward,center)
+ local vertical=math.tan(math.rad(36)*.5);local horizontal=vertical*width/height
+ local distance=2
+ -- Fit every bounding-box corner so wide ribbons and tall motifs remain inside the card.
+ for x=-1,1,2 do for y=-1,1,2 do for z=-1,1,2 do
+  local point=bounds:PointToWorldSpace(Vector3.new(size.X*x,size.Y*y,size.Z*z)*.5)-center
+  local depth=point:Dot(outward)
+  distance=math.max(distance,depth+math.abs(point:Dot(view.RightVector))/horizontal*1.12,depth+math.abs(point:Dot(view.UpVector))/vertical*1.12)
+ end end end
+ local camera=make('Camera',viewport,{FieldOfView=36,CFrame=CFrame.lookAt(center+outward*distance,center)})
+ viewport.CurrentCamera=camera
+ return viewport
+end
+local function collectionPage(width,y)
+ local ownedCount,total=0,0;local list={}
+ for _,item in ipairs(profile.Catalog) do if item.category==category then table.insert(list,item);total+=1;if profile.Owned[item.id] then ownedCount+=1 end end end
+ local cols=width>=810 and 3 or width>=520 and 2 or 1
+ local pageSize=6;local pageCount=math.max(1,math.ceil(total/pageSize));collectionPageNumber=math.clamp(collectionPageNumber,1,pageCount)
+ local h=text(U.Body,'CollectionHeading',category:upper()..'  '..ownedCount..'/'..total,5,y,width-16,34,23,categoryColors[category]);h.TextSize=width<350 and 18 or 23;y+=42
+ local tabCols=width<520 and 2 or 4
+ for i,name in ipairs(categories) do
+  local b=button(U.Body,'Category_'..name,name:upper(),function() category=name;collectionPageNumber=1;ecoMessage=nil;buildPage() end,false,pageLinks)
+  b.Position=UDim2.new((i-1)%tabCols/tabCols,5,0,y+math.floor((i-1)/tabCols)*53);b.Size=UDim2.new(1/tabCols,-14,0,44);b.TextSize=width<350 and 13 or 16;b:SetAttribute('HussSelected',category==name)
+ end
+ y+=math.ceil(4/tabCols)*53+4
+ local caption=category=='Emotes' and 'Equip and play owned emotes here. Find new ones at the lobby stands.' or 'Equip your collection here. Walk up to the lobby stands to buy new items.'
+ text(U.Body,'CollectionDescription',caption,6,y,width-18,32,width<350 and 11 or 14,C.muted).TextWrapped=true;y+=40
+ local start=y;local height=344;local count=0
+ for i=(collectionPageNumber-1)*pageSize+1,math.min(collectionPageNumber*pageSize,total) do
+  local item=list[i];local owned=profile.Owned[item.id]==true;local equipped=profile.EquippedByCategory[category]==item.id
+  local accent=item.color:Lerp(C.white,item.color.R+item.color.G+item.color.B<1 and .55 or .2)
+  local c=panel(U.Body,'Collectible_'..item.id,250,height,54,accent);c.Position=UDim2.new(count%cols/cols,7,0,start+math.floor(count/cols)*(height+20));c.Size=UDim2.new(1/cols,-16,0,height);count+=1
+  c.BackgroundColor3=item.color:Lerp(C.ink,.86);c.Gloss:Destroy();c.InnerRim:FindFirstChildOfClass('UIStroke').Thickness=4
+  local g=c:FindFirstChildOfClass('UIGradient');if g then g.Color=ColorSequence.new(rgb(60,67,70),C.white) end
+  local art
+  if category=='Bombs' and catalog.ById[item.id] then
+   art=make('ViewportFrame',c,{Name='BombPreview',Size=UDim2.fromOffset(122,110),BackgroundTransparency=1,Ambient=rgb(205,211,225),LightColor=C.white,LightDirection=Vector3.new(-1,-1,-.5),ZIndex=c.ZIndex+4})
+   local world=make('WorldModel',art);local core=make('Part',world,{Name='PreviewBomb',Size=Vector3.new(2.25,2.25,2.25),Shape=Enum.PartType.Ball,Anchored=true,CanCollide=false,CanTouch=false,CanQuery=false})
+   skinBuilder.Apply(core,catalog.ById[item.id],{Preview=true})
+   local camera=make('Camera',art,{FieldOfView=36,CFrame=CFrame.lookAt(Vector3.new(5,3.5,6),Vector3.new(0,.15,0))});art.CurrentCamera=camera
+  elseif category=='Trails' and catalog.ById[item.id] then
+   art=trailPreview(c,catalog.ById[item.id],174,110,c.ZIndex+4)
+  else art=emblem(c,category,102,item.color) end
+  art.AnchorPoint=Vector2.new(.5,0);art.Position=UDim2.new(.5,0,0,8)
+  local nameY=118
+  local title=text(c,'ItemName',item.name:upper(),9,nameY,240,48,23,accent,Enum.TextXAlignment.Center);title.Size=UDim2.new(1,-18,0,48);title.TextWrapped=true
+  local rarity=text(c,'Rarity',item.rarity:upper()..' • '..(owned and (equipped and 'EQUIPPED' or 'OWNED') or 'LOCKED'),9,nameY+50,240,22,12,owned and C.green or C.gold,Enum.TextXAlignment.Center);rarity.Size=UDim2.new(1,-18,0,22)
+  local description=text(c,'ItemDescription',item.description,14,nameY+76,228,44,12,C.white,Enum.TextXAlignment.Center);description.Size=UDim2.new(1,-28,0,44);description.TextWrapped=true
+  local caption=busy and 'PLEASE WAIT…' or equipped and 'EQUIPPED' or owned and 'EQUIP' or 'FIND AT LOBBY STAND'
+  local b=button(c,'Item_'..item.id,caption,function() if owned then request('Equip',item.id) end end,false,pageLinks)
+  b.Position=UDim2.new(0,14,1,-102);b.Size=UDim2.new(1,-28,0,45);b.TextSize=owned and 18 or 12;b:SetAttribute('HussDisabled',busy~=nil or equipped or not owned)
+  if category=='Emotes' then
+   local use=button(c,'Play_'..item.id,P:GetAttribute('HussEmotePlaying')==item.id and 'STOP EMOTE' or equipped and 'PLAY EMOTE' or 'EQUIP TO PLAY',function() playEmote(item.id) end,false,pageLinks)
+   use.Position=UDim2.new(0,14,1,-49);use.Size=UDim2.new(1,-28,0,42);use.TextSize=13;use:SetAttribute('HussDisabled',not owned or not equipped or not cosmetics or inRound())
+  else
+   local price=text(c,'Price',owned and 'COLLECTED • YOURS TO EQUIP' or formatted(item.price)..' COINS AT THE STAND',12,height-42,230,29,12,C.gold,Enum.TextXAlignment.Center);price.Size=UDim2.new(1,-24,0,29)
+  end
+ end
+ y=start+math.ceil(count/cols)*(height+20)
+ if total==0 then text(U.Body,'EmptyCollection','The collection is loading. Refresh your player record.',5,y,width-16,60,16,C.gold).TextWrapped=true;y+=75 end
+ local function pageButton(name,caption,delta,x)
+  local b=button(U.Body,name,caption,function() collectionPageNumber=math.clamp(collectionPageNumber+delta,1,pageCount);buildPage() end,false,pageLinks);b.Position=UDim2.new(x,5,0,y);b.Size=UDim2.new(.5,-14,0,46);b:SetAttribute('HussDisabled',delta<0 and collectionPageNumber==1 or delta>0 and collectionPageNumber==pageCount)
+ end
+ pageButton('CollectionPrevious','‹ PREVIOUS',-1,0);pageButton('CollectionNext','NEXT ›',1,.5);y+=58
+ text(U.Body,'CollectionPage','PAGE '..collectionPageNumber..' / '..pageCount..' • '..total..' '..category:upper(),5,y,width-16,26,14,C.muted,Enum.TextXAlignment.Center)
+ return y+40
+end
+local function economyPage(block,width)
+ local y=0
+ local function card(title,body,color,height)
+  local before=#U.Body:GetChildren();block(title,body,color,height);local o=U.Body:GetChildren()[before+1];y+=height+12;return o
+ end
+ local function action(parent,name,caption,fn,disabled)
+  local b=button(parent,name,caption,fn,false,pageLinks);b.Position=UDim2.new(0,12,1,-56);b.Size=UDim2.new(1,-24,0,44);b:SetAttribute('HussDisabled',busy~=nil or disabled==true);return b
+ end
+ if ecoMessage then card('UPDATE',ecoMessage,C.gold,100) end
+ if menu=='LEADERBOARDS' then
+  card('THIS SERVER','The same Wins and Coins shown in the Roblox player list.',C.cyan,88)
+  local list=Players:GetPlayers()
+  local function stat(p,key) local f=p:FindFirstChild('leaderstats');local v=f and f:FindFirstChild(key);return v and (v:IsA('IntValue') or v:IsA('NumberValue')) and amount(v.Value) or 0 end
+  table.sort(list,function(a,b) local aw,bw=stat(a,'Wins'),stat(b,'Wins');return aw==bw and a.UserId<b.UserId or aw>bw end)
+  for i,p in ipairs(list) do card(i..'. '..p.DisplayName,formatted(stat(p,'Wins'))..' WINS   •   '..formatted(stat(p,'Coins'))..' COINS\n'..formatted(stat(p,'Kills'))..' KILLS   •   '..formatted(stat(p,'FinalStands'))..' FINAL STANDS',p==P and C.gold or C.white,100) end
+  local message=not board and 'Load the global wins leaderboard.' or board.status=='ready' and 'Most wins across all servers. Updates about every 2 minutes.' or board.status=='loading' and 'Loading global wins…' or board.status=='preview' and 'Play the published game for global rankings.' or 'Global rankings are temporarily unavailable.'
+  local c=card('GLOBAL WINS',message,C.violet,158)
+  action(c,'LoadBoard',busy and 'LOADING…' or 'REFRESH GLOBAL WINS',function() request('Board') end,not economy)
+  if board and board.status=='ready' then for i,row in ipairs(board.rows) do card('#'..i..'  '..row.name,formatted(row.wins)..' WINS',C.gold,86) end end
+ elseif not profile or not profile.ready then
+  local c=card('YOUR PLAYER RECORD',profile and profile.mode=='unavailable' and 'Your saved record is unavailable. Please rejoin before earning or spending.' or 'Connecting to your saved coins, quests and collection…',C.gold,180)
+  action(c,'RetryProfile',busy and 'CONNECTING…' or 'REFRESH STATUS',function() request('Sync') end,not economy)
+ else
+  local coins=numberStat('Coins')
+  if menu=='QUESTS' then card('DAILY QUESTS','Complete these goals, then claim your coins. Quests reset at 00:00 UTC.',C.gold,108) end
+  if profile.mode=='preview' then card('STUDIO PREVIEW','Preview progress is temporary. Your live saved record is separate.',C.gold,90) end
+  if menu=='INDEX' then
+   y=collectionPage(width,y)
+  else
+   for _,q in ipairs(profile.Quests) do
+    local done=q.progress>=q.target
+    local c=card(q.title:upper(),math.min(q.progress,q.target)..' / '..q.target..'   •   +'..formatted(q.reward)..' COINS',C.green,166);c.BackgroundColor3=rgb(28,76,73)
+    local rail,fill=bar(c,'QuestProgress',C.green);rail.Position=UDim2.fromOffset(14,74);rail.Size=UDim2.new(1,-28,0,7);fill.Size=UDim2.fromScale(math.clamp(q.progress/q.target,0,1),1)
+    action(c,'Quest_'..q.id,busy and 'PLEASE WAIT…' or q.claimed and 'CLAIMED' or done and 'CLAIM REWARD' or 'IN PROGRESS',function() request('Claim',q.id) end,q.claimed or not done)
+   end
+  end
+ end
+ return y
+end
+local function makeUI()
+ local pg=P:WaitForChild("PlayerGui"); local old=pg:FindFirstChild("BombTagHUD"); if old then old:Destroy() end
+ U.Gui=make("ScreenGui",pg,{Name="BombTagHUD",ResetOnSpawn=false,IgnoreGuiInset=false,DisplayOrder=160,ZIndexBehavior=Enum.ZIndexBehavior.Sibling})
+ U.Root=frame(U.Gui,"SafeArea",0,0,1,1,C.ink,1); U.Root.Size=UDim2.fromScale(1,1); U.Root.BackgroundTransparency=1
+ U.Top=panel(U.Root,"MatchStatus",302,74,5)
+ text(U.Top,"Brand","H U S S  A  B O M B",15,8,223,14,10,C.green)
+ U.Phase=text(U.Top,"Phase","WAITING FOR PLAYERS",15,27,265,22,17)
+ U.Timer=text(U.Top,"Timer","",230,7,56,17,13,C.green,Enum.TextXAlignment.Right)
+ U.Sub=text(U.Top,"Subtitle","RUN. PASS. SURVIVE.",15,54,270,12,10,C.muted)
+ U.Identity=panel(U.Root,"Identity",206,66,5)
+ U.Avatar=make("ImageLabel",U.Identity,{Name="Portrait",Position=UDim2.fromOffset(10,10),Size=UDim2.fromOffset(44,44),BackgroundColor3=C.ink,BorderSizePixel=0,ZIndex=7}); rounded(U.Avatar,22);stroke(U.Avatar,C.violet)
+ text(U.Identity,"Player",P.DisplayName:upper(),64,9,132,17,12)
+ U.HealthText=text(U.Identity,"Vitals","100 / 100",64,29,132,16,11,C.muted)
+ U.HealthTrack,U.HealthFill=bar(U.Identity,"Health",C.green); U.HealthTrack.Position=UDim2.fromOffset(64,52); U.HealthTrack.Size=UDim2.fromOffset(132,4)
+ U.Wallet=panel(U.Root,'Wallet',206,42,6,C.gold)
+ U.Wallet.BackgroundColor3=panelTones.Wallet
+ local coin=frame(U.Wallet,'Coin',10,8,26,26,C.gold,8);rounded(coin,13);stroke(coin,rgb(255,241,170));text(coin,'Symbol','$',0,0,26,26,18,C.white,Enum.TextXAlignment.Center)
+ U.Coins=text(U.Wallet,'Coins','— COINS',46,8,148,26,16,C.white)
+ U.Info=panel(U.Root,"MatchInfo",202,66,5)
+ U.Alive=text(U.Info,"Alive","",12,9,178,23,20,C.white,Enum.TextXAlignment.Right)
+ U.Map=text(U.Info,"Map","",12,38,178,16,11,C.green,Enum.TextXAlignment.Right)
+ U.Bomb,U.BombRim=panel(U.Root,"Bomb",234,138,7,C.gold)
+ U.BombCaption=text(U.Bomb,"Caption","BOMB IN PLAY",14,11,206,17,11,C.gold)
+ U.BombTime=text(U.Bomb,"Fuse","00.0",12,31,164,54,43); U.BombTime.Font=Enum.Font.GothamBlack
+ text(U.Bomb,"Unit","SEC",181,62,39,17,10,C.muted)
+ U.Carrier=text(U.Bomb,"Carrier","",14,91,206,17,12,C.white)
+ U.FuseTrack,U.FuseFill=bar(U.Bomb,"FuseRail",C.gold); U.FuseTrack.Position=UDim2.fromOffset(14,121); U.FuseTrack.Size=UDim2.fromOffset(206,5)
+ U.Dash=panel(U.Root,"Dodge",358,77,6,C.green)
+ U.DashTitle=text(U.Dash,"Action","DODGE / WEAVE",14,10,214,22,15)
+ U.DashState=text(U.Dash,"State","READY",230,10,112,22,15,C.green,Enum.TextXAlignment.Right)
+ U.DashHint=text(U.Dash,"Input","MOVE + SPACE",14,36,220,15,10,C.muted)
+ U.Immunity=text(U.Dash,"Immunity","",199,36,145,15,10,C.green,Enum.TextXAlignment.Right)
+ U.Segments={}; for i=1,12 do U.Segments[i]=frame(U.Dash,"Charge"..i,14+(i-1)*27.5,62,24,4,C.green,8) end
+ U.Lobby=frame(U.Root,"LobbyMenu",0,0,186,318,C.ink,10); U.Lobby.BackgroundTransparency=1
+ text(U.Lobby,"Section","LOBBY",8,0,180,16,12,C.white)
+ U.MenuScroll=make("ScrollingFrame",U.Lobby,{Name="MenuOptions",Position=UDim2.fromOffset(0,26),Size=UDim2.new(1,0,1,-26),BackgroundTransparency=1,ClipsDescendants=true,BorderSizePixel=0,ScrollBarThickness=2,CanvasSize=UDim2.fromOffset(0,525),ScrollBarImageColor3=C.green,ZIndex=10})
+ for i,name in ipairs({"QUESTS","INDEX","LEADERBOARDS","STATS","MAPS","SETTINGS","CONTROLS","HOW TO PLAY"}) do
+  local titles={QUESTS='Quests',INDEX='Index',LEADERBOARDS='Hub',STATS='Stats',MAPS='Maps',SETTINGS='Settings',CONTROLS='Controls',['HOW TO PLAY']='How to Play'}
+  local b=button(U.MenuScroll,name,titles[name] or name,function() openMenu(name) end)
+  b.Size=UDim2.new(1,-12,0,54);b.Position=UDim2.fromOffset(6,5+(i-1)*65);b.TextXAlignment=Enum.TextXAlignment.Left;b.TextSize=name=='HOW TO PLAY' and 17 or 23
+  local icon=emblem(b,name,39);icon.Position=UDim2.fromOffset(8,4)
+  local label=b.ButtonCaption;label.Position=UDim2.fromOffset(52,-2);label.Size=UDim2.new(1,-60,1,0)
+  b:SetAttribute("HussReferenceButton",true)
+ end
+ U.LobbyFooter=panel(U.Root,"LobbyFooter",246,81,6)
+ U.Wins=text(U.LobbyFooter,"Record","",12,7,222,18,12,C.green)
+ U.AFK=button(U.LobbyFooter,"AFK","GO AFK",function() if not inRound() and afkRemote then afkRemote:FireServer(P:GetAttribute("BombTagAFK")~=true) end end)
+ U.AFK.Position=UDim2.fromOffset(10,29); U.AFK.Size=UDim2.fromOffset(226,44)
+ U.VoteReopen=button(U.Root,"VoteReopen","CHOOSE A MAP",function() voteDismissed=false; menu=nil; refresh() end); U.VoteReopen.Size=UDim2.fromOffset(202,44)
+ U.Notice=panel(U.Root,"Notification",362,62,35); U.NoticeScale=make("UIScale",U.Notice,{Scale=1})
+ U.NoticeTitle=text(U.Notice,"Title","",14,8,334,17,12,C.green,Enum.TextXAlignment.Center)
+ U.NoticeBody=text(U.Notice,"Message","",14,31,334,17,12,C.white,Enum.TextXAlignment.Center)
+ U.Count=frame(U.Root,"Countdown",0,0,220,168,C.ink,40); U.Count.BackgroundColor3=rgb(102,61,170);U.Count.BackgroundTransparency=.08;rounded(U.Count,24);stroke(U.Count,C.gold);gloss(U.Count)
+ U.CountText=text(U.Count,"Number","",0,0,220,133,112,C.white,Enum.TextXAlignment.Center); U.CountText.Font=Enum.Font.GothamBlack
+ U.CountLabel=text(U.Count,"Caption","GET READY TO RUN",0,145,220,20,12,C.green,Enum.TextXAlignment.Center)
+ U.CountScale=make("UIScale",U.Count,{Scale=1})
+ U.Shade=frame(U.Root,"ModalShade",0,0,1,1,C.ink,50); U.Shade.Size=UDim2.fromScale(1,1); U.Shade.BackgroundTransparency=.32; U.Shade.Active=true
+ U.Window=panel(U.Shade,"Window",660,456,51,C.green); U.WindowScale=make("UIScale",U.Window,{Scale=1})
+ U.WindowBrand=text(U.Window,"Brand","H U S S  A  B O M B",22,15,440,17,11,C.green)
+ U.WindowTitle=text(U.Window,"Title","",22,35,510,43,34)
+ U.Close=button(U.Window,"Close","X",function()
+  if U.Mode=="vote" then voteDismissed=true elseif U.Mode=="result" then resultDismissed=true else menu=nil end
+  Gui.SelectedObject=nil; refresh()
+ end,true); U.Close.Position=UDim2.new(1,-60,0,16); U.Close.Size=UDim2.fromOffset(44,44)
+ frame(U.Window,"Divider",22,91,1,1,C.line,53).Size=UDim2.new(1,-44,0,1)
+ U.Navigation=frame(U.Window,'Navigation',22,89,1,64,C.white,54);U.Navigation.BackgroundTransparency=1;U.Navigation.Size=UDim2.new(1,-44,0,64)
+ for index,entry in ipairs({{'Hub','LEADERBOARDS'},{'Home',false},{'INDEX','INDEX'}}) do
+  local b=button(U.Navigation,'Nav'..entry[1],entry[1]=='INDEX' and 'Index' or entry[1],function() if entry[2] then openMenu(entry[2]) else menu=nil;refresh() end end)
+  b.BackgroundColor3=tones[entry[1]];b.Size=UDim2.new(1/3,-10,1,0);b.Position=UDim2.new((index-1)/3,5,0,0);b.TextSize=26
+  local icon=emblem(b,entry[1],44);icon.Position=UDim2.fromOffset(9,6)
+  b.ButtonCaption.Position=UDim2.fromOffset(59,-2);b.ButtonCaption.Size=UDim2.new(1,-65,1,0)
+ end
+ U.Body=make("ScrollingFrame",U.Window,{Position=UDim2.fromOffset(22,107),Size=UDim2.new(1,-44,1,-125),BackgroundTransparency=1,ClipsDescendants=true,BorderSizePixel=0,ScrollBarThickness=3,ScrollBarImageColor3=C.green,CanvasSize=UDim2.fromOffset(0,0),ZIndex=53})
+ U.Vote=make("ScrollingFrame",U.Window,{Name="VoteCards",Position=UDim2.fromOffset(22,107),Size=UDim2.fromOffset(616,327),BackgroundTransparency=1,ClipsDescendants=true,BorderSizePixel=0,ScrollBarThickness=2,ScrollBarImageColor3=C.green,CanvasSize=UDim2.fromOffset(0,0),ScrollingDirection=Enum.ScrollingDirection.Y,ZIndex=53})
+ U.Cards={}
+ for i=1,3 do
+  local index=i; local b=button(U.Vote,"Map"..i,"",function()
+   if voteOpen and workspace:GetServerTimeNow()<voteEnd and not inRound() and P:GetAttribute("BombTagAFK")~=true and options[index] and voteRemote then
+    selection=options[index]; voteRemote:FireServer("Vote",selection); refresh()
+   end
+  end)
+  local v=view(b); local caption=text(b,"Name","",10,176,175,40,15); caption.TextWrapped=true
+  local amount=text(b,"Votes","",10,230,175,19,12,C.green)
+  local status=text(b,"Selection","",10,258,175,17,10,C.muted)
+  U.Cards[i]={button=b,view=v,title=caption,count=amount,status=status,rim=b:FindFirstChildOfClass("UIStroke")}
+ end
+ U.VoteFooter=text(U.Window,"VoteFooter","",22,0,616,21,11,C.muted)
+end
+local function availableMaps()
+ local names={}; if previewFolder then for _,m in ipairs(previewFolder:GetChildren()) do if m:IsA("Model") then table.insert(names,m.Name) end end end
+ table.sort(names); return names
+end
+buildPage=function()
+ clear(pageLinks); U.Body:ClearAllChildren(); U.Body.CanvasPosition=Vector2.zero; U.Gallery=nil
+ local width=math.max(200,U.Window.Size.X.Offset-44); local y=0
+ local function block(title,body,color,height)
+  local card=panel(U.Body,title,width-6,height or 100,54,color)
+  card.Position=UDim2.fromOffset(0,y); card.Size=UDim2.new(1,-6,0,height or 100)
+  text(card,"Heading",title,14,10,width-34,22,15,color or C.green).Size=UDim2.new(1,-28,0,22)
+  local label=text(card,"Description",body,14,38,width-34,(height or 100)-48,13,C.muted)
+  label.Size=UDim2.new(1,-28,0,(height or 100)-48);label.TextWrapped=true; label.TextTruncate=Enum.TextTruncate.None; label.TextYAlignment=Enum.TextYAlignment.Top
+  y+=(height or 100)+12
+ end
+ if menu=='INDEX' or menu=='QUESTS' or menu=='LEADERBOARDS' then
+  y=economyPage(block,width)
+ elseif U.Mode=="result" then
+  block("LAST PLAYER STANDING",winner~="" and winner or "No survivor this round.",C.green,130)
+  local title=U.Body:GetChildren()[1]; local label=title and title:FindFirstChild("Description")
+  if label then label.TextColor3=C.white; label.TextSize=29; label.Font=Enum.Font.GothamBlack end
+  block("ANOTHER ROUND. ANOTHER CHANCE.","Read the route. Time your weave. Keep the fuse moving.",C.muted,94)
+  local b=button(U.Body,"Continue","CONTINUE  ›",function() resultDismissed=true; refresh() end,false,pageLinks)
+  b.Position=UDim2.fromOffset(0,y); b.Size=UDim2.new(1,-6,0,48); y+=60
+ elseif menu=="STATS" then
+  local cols=width>=520 and 2 or 1;local i=0
+  for _,entry in ipairs({{'Wins','VICTORIES',C.gold},{'Coins','COINS',C.green},{'Kills','BOMB KILLS',C.red},{'FinalStands','FINAL STANDS',C.violet},{'GamesPlayed','ROUNDS PLAYED',C.cyan},{'Passes','BOMB PASSES',C.gold}}) do
+   local value=numberStat(entry[1]);local c=panel(U.Body,'Stat_'..entry[1],200,132,54,entry[3]);c.Size=UDim2.new(1/cols,-16,0,132);c.Position=UDim2.new(i%cols/cols,7,0,math.floor(i/cols)*148);i+=1
+   text(c,'StatLabel',entry[2],14,12,200,26,16,entry[3]).Size=UDim2.new(1,-28,0,26)
+   text(c,'StatValue',value~=nil and formatted(value) or '—',14,47,200,61,36,C.white).Size=UDim2.new(1,-28,0,61)
+  end
+  y=math.ceil(i/cols)*148
+  block('PLAY FOR THE FINISH','Final Stand: reach the last two players. Bomb Kill: your last pass leaves another player holding the bomb when it explodes. Solo practice does not award stats.',C.gold,130)
+ elseif menu=="CONTROLS" then
+  block("MOVE / SPRINT","W A S D to move. Hold LEFT SHIFT to sprint.",C.green,92)
+  block("DODGE / WEAVE","Move + SPACE to dodge in that direction. SPACE alone does nothing. There is no jumping.",C.green,118)
+  block("PASS THE BOMB","Get close to another player to pass it. These movement bindings use a keyboard.",C.gold,104)
+ elseif menu=="HOW TO PLAY" then
+  block("01 / THE FUSE NEVER RESETS","The bomb passes on contact. Its timer keeps counting down after every transfer.",C.green,108)
+  block("02 / COMMIT TO YOUR ESCAPE","Use running lanes and ramps. Your dodge grants a short server-confirmed immunity window.",C.green,112)
+  block("03 / BE THE LAST ONE STANDING","Break away when you are safe. Close the gap when carrying. One player survives the final duel.",C.gold,110)
+ elseif menu=="SETTINGS" then
+  -- HussAudioV6: session preferences consumed by GameAudioV6.
+  block("AUDIO MIX","Control the soundtrack and game sounds separately. Adjust each layer below.",C.green,112)
+  local function audioToggle(name,caption,attribute)
+   local muted=P:GetAttribute(attribute)==true
+   local b=button(U.Body,name,caption..(muted and " / OFF" or " / ON"),function()
+    P:SetAttribute(attribute,P:GetAttribute(attribute)~=true); buildPage()
+   end,false,pageLinks)
+   b.TextColor3=muted and C.muted or C.green
+   b.Position=UDim2.fromOffset(0,y); b.Size=UDim2.new(1,-6,0,48); y+=60
+  end
+  audioToggle("Music","MUSIC","HussMusicMuted")
+  audioToggle("SoundEffects","SOUND EFFECTS","HussSFXMuted")
+  block("MOTION & EFFECTS",reduced() and "Reduced motion is on. HUD transitions and movement trails are disabled." or "Full motion is on. Glossy transitions and movement effects give feedback during the action.",C.green,122)
+  local b=button(U.Body,"Motion",reduced() and "ENABLE FULL MOTION" or "REDUCE MOTION",function()
+   P:SetAttribute("HussReducedMotion",not reduced()); for _,t in pairs(tweens) do t:Cancel() end; U.CountScale.Scale=1; U.WindowScale.Scale=1; U.NoticeScale.Scale=1; buildPage()
+  end,false,pageLinks)
+  b.Position=UDim2.fromOffset(0,y); b.Size=UDim2.new(1,-6,0,48); y+=64
+  block("SESSION PREFERENCES","Your audio and motion choices apply to this play session.",C.muted,92)
+ elseif menu=="MAPS" then
+  local names=availableMaps(); mapIndex=math.clamp(mapIndex,1,math.max(1,#names)); local name=names[mapIndex]
+  local v=view(U.Body); U.Gallery=v; v.frame.Size=UDim2.new(1,-6,0,208); loadPreview(v,name); y=220
+  local title=text(U.Body,"MapTitle",name and name:upper() or "NO MAP PREVIEW",0,y,width-6,32,22); title.TextWrapped=true; y+=38
+  local source=name and previewFolder:FindFirstChild(name); local w=source and num(source:GetAttribute("MapWidth")); local d=source and num(source:GetAttribute("MapDepth"))
+  text(U.Body,"MapDetail",name==mapName() and "CURRENT ARENA" or (w and d and string.format("%d × %d STUDS",w,d) or "RUN / SPRINT / DODGE"),0,y,width-6,20,11,C.green); y+=32
+  local prev=button(U.Body,"Previous","‹  PREVIOUS",function() if #names>0 then mapIndex=(mapIndex-2)%#names+1; buildPage() end end,false,pageLinks)
+  prev.Position=UDim2.fromOffset(0,y); prev.Size=UDim2.new(.5,-9,0,48)
+  local nextButton=button(U.Body,"Next","NEXT  ›",function() if #names>0 then mapIndex=mapIndex%#names+1; buildPage() end end,false,pageLinks)
+  nextButton.Position=UDim2.new(.5,3,0,y); nextButton.Size=UDim2.new(.5,-9,0,48); y+=60
+ end
+ U.Body.CanvasSize=UDim2.fromOffset(0,y)
+end
+openMenu=function(name)
+ if inRound() then return end
+ menu=menu==name and nil or name;ecoMessage=nil;refresh()
+ if menu and Input:GetLastInputType().Name:find("Gamepad") then Gui.SelectedObject=U.Close end
+end
+layout=function()
+ local size=U.Root.AbsoluteSize; if size.X<1 or size.Y<1 then return end
+ lastSize=size; local w,h=size.X,size.Y; local short=h<430; local landscape=short and w>=500; local compact=w<780 and not landscape; U.Short=short
+ U.Top.Size=UDim2.fromOffset(math.min(landscape and 210 or 302,w-24),74); align(U.Top,w/2,12,.5,0)
+ local identityWidth=landscape and 128 or (compact and math.min(206,(w-36)/2) or 206)
+ U.Identity.Size=UDim2.fromOffset(identityWidth,66); align(U.Identity,12,compact and 96 or 12)
+ local ix=landscape and 12 or 64; U.Avatar.Visible=not landscape
+ U.Identity.Player.Position=UDim2.fromOffset(ix,9); U.Identity.Player.Size=UDim2.new(1,-ix-10,0,17); U.HealthText.Position=UDim2.fromOffset(ix,29); U.HealthText.Size=UDim2.new(1,-ix-10,0,16); U.HealthTrack.Position=UDim2.fromOffset(ix,52); U.HealthTrack.Size=UDim2.new(1,-ix-10,0,4)
+ U.Top.Brand.Size=UDim2.new(1,-82,0,14); U.Phase.Size=UDim2.new(1,-30,0,22); U.Phase.TextSize=landscape and 13 or 17; U.Timer.Position=UDim2.new(1,-72,0,7); U.Sub.Size=UDim2.new(1,-30,0,12)
+ U.Info.Size=UDim2.fromOffset((compact or landscape) and identityWidth or 202,66); align(U.Info,w-12,compact and 96 or 12,1,0)
+ U.Alive.Size=UDim2.new(1,-24,0,23); U.Alive.TextSize=landscape and 14 or 20; U.Map.TextSize=landscape and 9 or 11; U.Map.Size=UDim2.new(1,-24,0,16)
+ local bw=short and 180 or math.min(234,w-24); local bh=short and (landscape and h<280 and 76 or 86) or 138
+ U.Bomb.Size=UDim2.fromOffset(bw,bh); align(U.Bomb,landscape and 12 or w-12,(compact and 174 or 96),landscape and 0 or 1,0)
+ U.BombCaption.Size=UDim2.new(1,-28,0,17); U.BombTime.Position=UDim2.fromOffset(12,short and 26 or 31); U.BombTime.Size=UDim2.fromOffset(bw-60,short and 31 or 54); U.BombTime.TextSize=short and 29 or 43
+ U.Bomb.Unit.Position=UDim2.new(1,-45,0,short and 39 or 62)
+ U.Carrier.Visible=bh>=86; U.Carrier.Position=UDim2.fromOffset(14,short and 59 or 91); U.Carrier.Size=UDim2.new(1,-28,0,17)
+ U.FuseTrack.Position=UDim2.fromOffset(14,short and bh-7 or 121); U.FuseTrack.Size=UDim2.new(1,-28,0,5)
+ local dashW=math.min(358,w-24); U.Dash.Size=UDim2.fromOffset(dashW,77); align(U.Dash,w/2,h-14,.5,1)
+ U.DashState.Position=UDim2.new(1,-124,0,10); U.DashTitle.Size=UDim2.new(1,-142,0,22); U.Immunity.Position=UDim2.new(1,-159,0,36)
+ for i,seg in ipairs(U.Segments) do seg.Position=UDim2.fromOffset(14+(i-1)*(dashW-28)/12,62); seg.Size=UDim2.fromOffset((dashW-28)/12-3,4) end
+ -- Keep desktop's upper-right clear for Roblox's native player list.
+ U.Tight=compact or landscape
+ U.Wallet.Size=UDim2.fromOffset(landscape and 128 or identityWidth,42)
+ U.WalletLobbyY=compact and 96 or 12;align(U.Wallet,12,U.WalletLobbyY)
+ U.Coins.TextSize=U.Tight and 11 or 15;U.Coins.Size=UDim2.new(1,-54,0,26)
+ if not compact and not landscape then align(U.Info,w/2,94,.5,0);align(U.Bomb,12,140) end
+ local top=compact and 174 or 102; local available=math.max(78,h-top-112); local menuH=math.min(318,available)
+ U.Lobby.Size=UDim2.fromOffset(w<420 and 180 or 214,menuH); align(U.Lobby,12,math.max(top,(h-menuH)/2-16))
+ U.LobbyFooter.Size=UDim2.fromOffset(math.min(246,w-24),81); align(U.LobbyFooter,landscape and w-12 or 12,h-12,landscape and 1 or 0,1)
+ U.AFK.Size=UDim2.new(1,-20,0,44); align(U.VoteReopen,w-12,h-12,1,1)
+ local nw=math.min(362,w-24); U.Notice.Size=UDim2.fromOffset(nw,62); align(U.Notice,w/2,compact and math.min(324,h-165) or 180,.5,0)
+ U.NoticeTitle.Size=UDim2.new(1,-28,0,17); U.NoticeBody.Size=UDim2.new(1,-28,0,17)
+ align(U.Count,w/2,h*.45,.5,.5)
+ local ww=math.min(1040,w-24);local wh=math.min(w<540 and 690 or 680,h-24)
+ U.Window.Size=UDim2.fromOffset(ww,wh); align(U.Window,w/2,h/2,.5,.5)
+ U.WindowTitle.Size=UDim2.new(1,-104,0,37); U.WindowBrand.Size=UDim2.new(1,-104,0,17)
+ local vw,vh=ww-44,wh-157; U.Vote.Size=UDim2.fromOffset(vw,vh)
+ local vertical=w<540
+ for i,e in ipairs(U.Cards) do
+  local cw=vertical and vw or (vw-20)/3; local ch=vertical and math.max(96,(vh-16)/3) or vh
+  e.button.Size=UDim2.fromOffset(cw,ch); e.button.Position=UDim2.fromOffset(vertical and 0 or (i-1)*(cw+10),vertical and (i-1)*(ch+8) or 0)
+  local pw=vertical and math.min(112,cw*.36) or cw-12; local ph=vertical and ch-12 or math.max(38,ch-105)
+  e.view.frame.Position=UDim2.fromOffset(6,6); e.view.frame.Size=UDim2.fromOffset(pw,ph)
+  local small=not vertical and ch<150; e.view.frame.Visible=not small
+  local tx=vertical and pw+17 or 10; local tw=cw-tx-8
+  e.title.Position=UDim2.fromOffset(tx,(vertical or small) and 8 or ph+15); e.title.Size=UDim2.fromOffset(tw,vertical and math.min(38,ch-44) or 37); e.title.TextSize=vertical and 13 or 14
+  e.count.Position=UDim2.fromOffset(tx,vertical and ch-42 or (small and 48 or ch-49)); e.count.Size=UDim2.fromOffset(tw,18)
+  e.status.Position=UDim2.fromOffset(tx,vertical and ch-23 or ch-25); e.status.Size=UDim2.fromOffset(tw,16); fit(e.view)
+ end
+ U.Vote.CanvasSize=UDim2.fromOffset(0,vertical and 3*(math.max(96,(vh-16)/3)+8)-8 or vh)
+ U.VoteFooter.Position=UDim2.fromOffset(22,wh-35); U.VoteFooter.Size=UDim2.new(1,-44,0,21)
+ if U.Mode and U.Mode~="vote" then buildPage() end
+end
+refresh=function()
+ if not U.Gui then return end
+ local now,server=time(),workspace:GetServerTimeNow(); local playing=inRound(); local afk=P:GetAttribute("BombTagAFK")==true
+ if playing then menu=nil; voteDismissed=true end
+ local voting=(voteOpen or now<voteResultUntil) and not playing and not afk and not voteDismissed
+ local mode=voting and "vote" or (phase=="RESULT" and not resultDismissed and "result") or (menu and "menu") or nil
+ local key=mode=="menu" and menu or mode
+ if key~=pageName then
+  pageName=key; U.Mode=mode
+  U.WindowScale.Scale=(not mode or reduced()) and 1 or .965; motion(U.WindowScale,{Scale=1},.22)
+  clear(pageLinks); U.Body:ClearAllChildren(); U.Gallery=nil; U.Vote.CanvasPosition=Vector2.zero
+  U.Body.Visible=mode~=nil and mode~="vote"; U.Vote.Visible=mode=="vote"; U.VoteFooter.Visible=mode=="vote"
+  if mode and mode~="vote" then buildPage() end
+ end
+ local tight=U.Window.Size.Y.Offset<340;local tabs=mode=='menu' and not tight
+ U.Navigation.Visible=tabs
+ U.WindowBrand.Visible=not tight;U.WindowTitle.Position=UDim2.fromOffset(22,tight and 8 or 35);U.WindowTitle.TextSize=tight and 25 or 34;U.Close.Position=UDim2.new(1,-60,0,tight and 8 or 16)
+ U.Window.Divider.Position=UDim2.fromOffset(22,tight and 52 or 81)
+ U.Body.Position=UDim2.fromOffset(22,tight and 57 or tabs and 170 or 107);U.Body.Size=UDim2.new(1,-44,1,tight and -67 or tabs and -190 or -125)
+ local small=U.Window.Size.X.Offset<520
+ for _,b in ipairs(U.Navigation:GetChildren()) do if b:IsA('TextButton') then
+  b.Illustration.Visible=not small;b.ButtonCaption.Position=UDim2.fromOffset(small and 5 or 59,-2);b.ButtonCaption.Size=UDim2.new(1,small and -10 or -65,1,0);b.TextSize=small and 17 or 26
+ end end
+ U.Shade.Visible=mode~=nil; U.WindowTitle.Text=mode=="vote" and (voteOpen and "CHOOSE YOUR ARENA" or "ARENA SELECTED") or (mode=="result" and "ROUND RESULTS" or menu or "")
+ U.WindowBrand.Text=mode=="vote" and "N E X T  M A T C H  /  M A P  V O T E" or "H U S S  A  B O M B"
+ U.Lobby.Visible=not playing and not mode and not voteOpen and countdown==nil
+ U.LobbyFooter.Visible=not playing and not mode and not voteOpen
+ U.VoteReopen.Visible=voteOpen and voteDismissed and not playing and not afk and not mode
+ U.Identity.Visible=playing and not mode and phase~="RESULT"
+ U.Wallet.Visible=not mode and (not playing or not U.Tight);U.Wallet.Position=UDim2.fromOffset(12,playing and 86 or U.WalletLobbyY);local coins=profile and profile.ready and numberStat("Coins") or nil;U.Coins.Text=coins~=nil and (coins>=1000000 and string.format("%.1f%s",coins/(coins>=1000000000 and 1000000000 or 1000000),coins>=1000000000 and "B" or "M") or formatted(coins)).." COINS" or (profile and profile.mode=="unavailable" and "UNAVAILABLE" or "LOADING…")
+ U.Info.Visible=not mode; U.Top.Visible=not mode
+ U.Dash.Visible=playing and not mode and phase~="RESULT"
+ U.Bomb.Visible=bomb and not mode and (phase=="ROUND" or phase=="FINAL_DUEL" or phase=="PRACTICE")
+ U.Notice.Visible=now<noticeUntil and not mode and countdown==nil and not U.Short
+ U.Count.Visible=countdown~=nil and now<countUntil and not mode
+ if countdown and now>=countUntil then countdown=nil end
+ U.Phase.Text=(phase=="WAITING" and duration>0) and "NEXT MATCH" or (phases[phase] or "HUSS A BOMB")
+ local remaining=math.max(0,math.ceil(duration-(now-phaseAt)))
+ U.Timer.Text=(phase=="ROUND" or phase=="FINAL_DUEL" or (phase=="WAITING" and duration<=0)) and "" or tostring(remaining).."s"
+ U.Sub.Text=afk and "AFK / MATCHMAKING PAUSED" or (phase=="FINAL_DUEL" and "ONE FUSE. TWO PLAYERS." or "RUN. PASS. SURVIVE.")
+ U.Alive.Text=tostring(alive or #Players:GetPlayers())..(alive and "  ALIVE" or "  PLAYERS")
+ U.Map.Text=playing and U.Tight and U.Coins.Text or mapName():upper()
+ local wins=numberStat("Wins"); U.Wins.Text=wins and formatted(wins).."  WINS" or "READY FOR YOUR NEXT ROUND"
+ U.AFK.Text=afk and "RETURN TO PLAY" or "GO AFK"
+ U.AFK.TextColor3=afk and C.gold or C.green
+ if humanoid then
+  local hp,max=math.max(0,humanoid.Health),math.max(1,humanoid.MaxHealth)
+  U.HealthText.Text=string.format("%d / %d",math.ceil(hp),math.ceil(max)); U.HealthFill.Size=UDim2.fromScale(math.clamp(hp/max,0,1),1); U.HealthFill.BackgroundColor3=hp/max<=.3 and C.red or C.green
+ end
+ local wait=math.max(0,1.5-(now-dodgeAt)); local immunity=character and server<num(character:GetAttribute("BombTagIFrameUntil"),0)
+ U.DashTitle.Text=now-dodgeAt<num(workspace:GetAttribute("HussDodgeDuration"),.95) and direction or "DODGE / WEAVE"
+ U.DashState.Text=wait<=0 and "READY" or string.format("%.1fs",wait); U.DashState.TextColor3=wait<=0 and C.green or C.gold
+ U.DashHint.Text=Input:GetLastInputType()==Enum.UserInputType.Touch and "KEYBOARD: MOVE + SPACE" or (Input:GetLastInputType().Name:find("Gamepad") and "KEYBOARD: MOVE + SPACE" or "MOVE + SPACE  /  DODGE")
+ U.Immunity.Text=immunity and "IMMUNE" or ""
+ local charge=1-wait/1.5; for i,seg in ipairs(U.Segments) do seg.BackgroundColor3=charge>=i/12 and C.green or C.line; seg.BackgroundTransparency=charge>=i/12 and 0 or .7 end
+ if bomb then
+  local left=math.max(0,fuseEnd-server); local mine=owner==P.UserId; local danger=left<=3
+  U.BombCaption.Text=mine and "YOU HAVE THE BOMB" or "BOMB IN PLAY"; U.BombCaption.TextColor3=mine and C.red or C.gold
+  U.BombTime.Text=string.format("%04.1f",left); U.BombTime.TextColor3=danger and C.red or C.white
+  U.Carrier.Text=mine and "CLOSE THE GAP. PASS IT." or carrier
+  U.BombRim.Color=(mine or danger) and C.red or C.gold; U.Bomb.BackgroundColor3=(mine or danger) and rgb(117,35,64) or panelTones.Bomb; U.FuseFill.BackgroundColor3=(mine or danger) and C.red or C.gold
+  U.FuseFill.Size=UDim2.fromScale(math.clamp(left/math.max(.1,fuseLength),0,1),1)
+ end
+ if mode=="vote" then
+  for i,e in ipairs(U.Cards) do
+   local name=options[i]; e.button.Visible=name~=nil
+   if name then
+    e.title.Text=name:upper(); e.count.Text=tostring(counts[name] or 0).." VOTES"; local selected=selection==name
+    e.status.Text=voteChosen==name and not voteOpen and "SELECTED ARENA" or (selected and "YOUR VOTE" or "TAP TO VOTE")
+    e.button:SetAttribute("HussSelected",selected or (not voteOpen and voteChosen==name))
+    e.button:SetAttribute("HussDisabled",not voteOpen or server>=voteEnd)
+    e.status.TextColor3=(selected or voteChosen==name) and C.green or C.muted
+    if voteOpen and server>=voteEnd then e.status.Text="VOTING CLOSED" end
+    loadPreview(e.view,name)
+   end
+  end
+  U.VoteFooter.Text=voteOpen and (string.format("%ds REMAINING",math.max(0,math.ceil(voteEnd-server))).."  /  PICK YOUR NEXT CHASE") or tostring(voteChosen or "")
+ end
+end
+local function bindCharacter(new)
+ clear(charLinks); character=new; humanoid=nil; dodgeAt=-math.huge
+ if not new then return end
+ humanoid=new:FindFirstChildOfClass("Humanoid")
+ connect(new.ChildAdded,function(child) if child:IsA("Humanoid") then humanoid=child end end,charLinks)
+ local last=new:GetAttribute("MovementActionId")
+ connect(new:GetAttributeChangedSignal("MovementActionId"),function()
+  local id=new:GetAttribute("MovementActionId"); if id==last then return end; last=id
+  local action=tostring(new:GetAttribute("MovementAction") or "")
+  if action:sub(1,4)=="Dive" and action~="DiveEnd" and action~="DiveRecover" then
+   dodgeAt=time(); direction=(action:sub(5):gsub("(%l)(%u)","%1 %2")):upper(); direction="WEAVE "..direction
+  end
+ end,charLinks)
+end
+local function onRound(data)
+ if type(data)~="table" or type(data.State)~="string" then return end
+ local previous=phase; phase=data.State; duration=math.max(0,num(data.TimeLeft,0)); phaseAt=time()
+ alive=(phase=="ROUND" or phase=="FINAL_DUEL" or phase=="PRACTICE") and num(data.Alive,phase=="FINAL_DUEL" and 2 or nil) or nil; if alive then alive=math.max(0,math.floor(alive)) end
+ if phase=="STARTING" and duration>=1 and duration<=3 then
+  local value=tostring(math.ceil(duration)); if countdown~=value then
+   countdown=value; countUntil=time()+1.2; U.CountText.Text=value; U.CountText.TextColor3=C.white; U.CountLabel.Text="GET READY TO RUN"; U.CountScale.Scale=reduced() and 1 or .82; motion(U.CountScale,{Scale=1},.23)
+  end
+ elseif (phase=="ROUND" or phase=="FINAL_DUEL" or phase=="PRACTICE") and previous=="STARTING" then
+  countdown="GO!"; countUntil=time()+.7; U.CountText.Text="GO!"; U.CountText.TextColor3=C.green; U.CountLabel.Text="RUN. PASS. SURVIVE."
+ else countdown=nil end
+ if phase=="RESULT" and previous~="RESULT" then winner=type(data.Winner)=="string" and data.Winner or ""; resultDismissed=false; menu=nil; noticeUntil=0 end
+ if phase=="RESULT" or phase=="WAITING" or phase=="INTERMISSION" then bomb=false end
+ refresh()
+end
+local function onBomb(data)
+ if type(data)~="table" then return end
+ local previousOwner=owner; local event=type(data.Event)=="string" and data.Event or ""
+ bomb=data.Active==true; owner=num(data.CarrierUserId,0); carrier=type(data.CarrierName)=="string" and data.CarrierName or "PLAYER"
+ fuseEnd=num(data.EndTime,0)
+ if event=="Started" then fuseLength=math.max(.1,fuseEnd-workspace:GetServerTimeNow()) end
+ if event=="Exploded" then announce(owner==P.UserId and "ELIMINATED" or "PLAYER ELIMINATED",carrier.." ran out of time.",C.red)
+ elseif bomb and owner==P.UserId and previousOwner~=owner then announce("YOU HAVE THE BOMB","Find a player. Pass the pressure.",C.red)
+ elseif event=="Transferred" and previousOwner==P.UserId then announce("BOMB PASSED","Keep moving. The fuse is still live.",C.green) end
+ refresh()
+end
+local function onVote(kind,data)
+ if type(data)~="table" then return end
+ if kind=="Open" or kind=="Sync" then
+  local valid={}; if type(data.Options)=="table" then for _,name in ipairs(data.Options) do if type(name)=="string" and #valid<3 then table.insert(valid,name) end end end
+  options=valid; voteOpen=data.Open==true and #options>0; voteEnd=num(data.EndsAt,0); voteChosen=nil; voteResultUntil=0
+  if kind=="Open" then selection=nil; voteDismissed=false end
+  if voteOpen then menu=nil; resultDismissed=true end
+ elseif kind=="Result" then
+  voteOpen=false; voteChosen=type(data.Chosen)=="string" and data.Chosen or nil; voteResultUntil=time()+1
+ elseif kind=="Close" then voteOpen=false; voteResultUntil=0
+ elseif kind~="Counts" then return end
+ if type(data.Counts)=="table" then
+  local clean={}; for _,name in ipairs(options) do clean[name]=math.max(0,math.floor(num(data.Counts[name],0))) end; counts=clean
+ end
+ refresh()
+end
+function HUD.Init()
+ if started then return end
+ started=true; epoch+=1; local session=epoch
+ previewFolder=nil; voteRemote=nil; afkRemote=nil; voteLink=nil
+ options={}; counts={}; selection=nil; tickTime=0; statTime=0; phase="WAITING"; phaseAt=time(); duration=0; alive=nil; menu=nil; pageName=nil; voteOpen=false; voteResultUntil=0; voteDismissed=false; bomb=false; owner=0; resultDismissed=false; countdown=nil; noticeUntil=0
+ profile=nil;board=nil;busy=nil;economy=nil;ecoLink=nil;ecoMessage=nil;cosmetics=nil;category="Bombs";collectionPageNumber=1
+ makeUI(); layout()
+ connect(P:GetAttributeChangedSignal('HussShopBrowsingV12'),function()
+  if P:GetAttribute('HussShopBrowsingV12') then menu=nil;Gui.SelectedObject=nil;refresh() end
+ end)
+ connect(Players.PlayerAdded,watchPlayer)
+ connect(Players.PlayerRemoving,function(p) if rosterLinks[p] then clear(rosterLinks[p]);rosterLinks[p]=nil end;task.defer(function() if started and epoch==session then ecoRefresh() end end) end)
+ for _,p in ipairs(Players:GetPlayers()) do watchPlayer(p) end
+ connect(Remotes.Get("RoundState").OnClientEvent,onRound); connect(Remotes.Get("BombState").OnClientEvent,onBomb)
+ local function attach(child)
+  if child.Name=='HussCosmeticsV11' and child:IsA('RemoteEvent') then cosmetics=child;ecoRefresh()
+  elseif child.Name=='HussEconomyV9' and child:IsA('RemoteEvent') and child~=economy then
+   if ecoLink then ecoLink:Disconnect() end;economy=child;ecoLink=connect(child.OnClientEvent,receive);busy=nil;request('Sync')
+  elseif child.Name=="BombTagVoteV6" and child:IsA("RemoteEvent") and child~=voteRemote then
+   if voteLink then voteLink:Disconnect() end
+   voteRemote=child; voteLink=connect(child.OnClientEvent,onVote); child:FireServer("Sync")
+  elseif child.Name=="BombTagAFKRequest" and child:IsA("RemoteEvent") then afkRemote=child
+  elseif child.Name=="BombTagV6Previews" and child:IsA("Folder") and child~=previewFolder then
+   previewFolder=child; for _,e in ipairs(U.Cards) do e.view.name=nil end
+   if menu=="MAPS" and U.Mode=="menu" then buildPage() end
+  end
+ end
+ connect(RS.ChildAdded,attach)
+ connect(RS.ChildRemoved,function(child)
+  if child==cosmetics then cosmetics=nil;ecoRefresh() end
+  if child==economy then economy=nil;profile=nil;busy=nil;if ecoLink then ecoLink:Disconnect();ecoLink=nil end;ecoRefresh() end
+  if child==voteRemote then voteRemote=nil; if voteLink then voteLink:Disconnect(); voteLink=nil end end
+  if child==afkRemote then afkRemote=nil end
+  if child==previewFolder then previewFolder=nil end
+ end)
+ for _,child in ipairs(RS:GetChildren()) do attach(child) end
+ connect(P.CharacterAdded,bindCharacter); connect(P.CharacterRemoving,function(old) if character==old then bindCharacter(nil) end end); bindCharacter(P.Character)
+ connect(P:GetAttributeChangedSignal("InRound"),refresh); connect(P:GetAttributeChangedSignal("BombTagAFK"),refresh)
+ local function hideLegacy(child)
+  if child:IsA("ScreenGui") and (child.Name=="PixelHealthGui" or child.Name=="BombTagV6VoteGui" or child.Name=="BombTagAFKGui") then hidden[child]=child.Enabled; child.Enabled=false end
+ end
+ local pg=P:WaitForChild("PlayerGui"); connect(pg.ChildAdded,hideLegacy); for _,child in ipairs(pg:GetChildren()) do hideLegacy(child) end
+ connect(Input.InputBegan,function(input,processed)
+  if processed or Input:GetFocusedTextBox() then return end
+  if input.KeyCode==Enum.KeyCode.Escape or input.KeyCode==Enum.KeyCode.ButtonB then
+   if U.Mode=="vote" then voteDismissed=true elseif U.Mode=="result" then resultDismissed=true else menu=nil end; Gui.SelectedObject=nil; refresh()
+  end
+ end)
+ connect(Run.RenderStepped,function(dt)
+  tickTime+=dt; statTime+=dt
+  if U.Root.AbsoluteSize~=lastSize then layout() end
+  if tickTime>=1/30 then tickTime=0; refresh() end
+  if statTime>=1 then statTime=0 end
+ end)
+ task.spawn(function()
+  local ok,url=pcall(function() return Players:GetUserThumbnailAsync(P.UserId,Enum.ThumbnailType.HeadShot,Enum.ThumbnailSize.Size100x100) end)
+  if ok and started and epoch==session then U.Avatar.Image=url end
+ end)
+ refresh()
+end
+function HUD.Destroy()
+ if not started then return end
+ started=false; epoch+=1; clear(links); clear(charLinks); clear(pageLinks)
+ for _,bucket in pairs(rosterLinks) do clear(bucket) end;table.clear(rosterLinks)
+ economy=nil;ecoLink=nil;profile=nil;board=nil;busy=nil;cosmetics=nil
+ for _,t in pairs(tweens) do t:Cancel() end; table.clear(tweens)
+ for o,enabled in pairs(hidden) do if o.Parent then o.Enabled=enabled end end; table.clear(hidden)
+ if U.Gui then if Gui.SelectedObject and Gui.SelectedObject:IsDescendantOf(U.Gui) then Gui.SelectedObject=nil end; U.Gui:Destroy() end
+ U={}; character=nil; humanoid=nil; voteLink=nil; lastSize=Vector2.zero
+end
+return HUD
+]==],
+[ [==[shop]==] ]=[==[--!nonstrict
+-- HussStandShopV13: each player browses a private shop face on a real lobby counter.
+-- The economy server validates ownership, price, readiness and proximity on every Buy.
+local Players=game:GetService('Players')
+local RS=game:GetService('ReplicatedStorage')
+local Run=game:GetService('RunService')
+local CollectionService=game:GetService('CollectionService')
+local Input=game:GetService('UserInputService')
+local Gui=game:GetService('GuiService')
+local P=Players.LocalPlayer
+local playerGui=P:WaitForChild('PlayerGui')
+local Catalog=require(RS:WaitForChild('HussCatalogV11'))
+local SkinBuilder=require(RS:WaitForChild('BombSkinBuilderV12'))
+local trailDesigns=require(RS:WaitForChild('HussTrailDesignsV13'))
+local colors={Bombs=Color3.fromRGB(255,173,37),Trails=Color3.fromRGB(45,216,245),Titles=Color3.fromRGB(196,115,255),Emotes=Color3.fromRGB(255,104,174)}
+local ink,white,gold,green=Color3.fromRGB(15,22,33),Color3.fromRGB(255,251,240),Color3.fromRGB(255,221,65),Color3.fromRGB(40,229,79)
+local links,pageLinks={},{},{}
+local active,dismissed,remote,remoteLink,cosmetics,profile,busy=nil,nil,nil,nil,nil,nil,nil
+local display,elapsed,serial,alive={},0,1000000000,true
+local page,chosen,message,messageOk=1,nil,'',true
+local priorMouseBehavior,priorMouseIcon,cursorBound=nil,nil,false
+local render,close,updateApproach
+local function connect(signal,fn,bucket) local c=signal:Connect(fn);table.insert(bucket or links,c);return c end
+local function clear(bucket) for _,c in ipairs(bucket) do c:Disconnect() end;table.clear(bucket) end
+local function make(class,parent,properties)
+ local o=Instance.new(class);for k,v in pairs(properties or {}) do o[k]=v end;o.Parent=parent;return o
+end
+local function rounded(o,r) make('UICorner',o,{CornerRadius=UDim.new(0,r or 12)}) end
+local function edge(o,color,width) return make('UIStroke',o,{Color=color,Thickness=width or 3,ApplyStrokeMode=Enum.ApplyStrokeMode.Border}) end
+local function text(parent,name,value,x,y,w,h,size,color)
+ local o=make('TextLabel',parent,{Name=name,Text=value,Position=UDim2.fromOffset(x,y),Size=UDim2.fromOffset(w,h),BackgroundTransparency=1,TextColor3=color or white,Font=size>=24 and Enum.Font.FredokaOne or Enum.Font.GothamBold,TextSize=size,TextWrapped=true,TextTruncate=Enum.TextTruncate.AtEnd,ZIndex=(parent:IsA('GuiObject') and parent.ZIndex or 1)+3})
+ make('UIStroke',o,{Color=ink,Thickness=size>=24 and 2.2 or 1.1,ApplyStrokeMode=Enum.ApplyStrokeMode.Contextual});return o
+end
+local function frame(parent,name,x,y,w,h,color)
+ return make('Frame',parent,{Name=name,Position=UDim2.fromOffset(x,y),Size=UDim2.fromOffset(w,h),BackgroundColor3=color,BorderSizePixel=0,ZIndex=(parent:IsA('GuiObject') and parent.ZIndex or 1)+1})
+end
+local function gloss(o,color)
+ rounded(o);edge(o,ink,4)
+ make('UIGradient',o,{Color=ColorSequence.new(white,Color3.fromRGB(155,202,175)),Rotation=90})
+ local checker=frame(o,'Checkers',5,5,1,1,color);checker.Size=UDim2.new(1,-10,1,-10);checker.BackgroundTransparency=1;checker.ClipsDescendants=true;rounded(checker,8)
+ for row=0,1 do for column=0,7 do if (row+column)%2==0 then
+  local tile=frame(checker,'Tile',0,0,1,1,white);tile.Position=UDim2.fromScale(column/8,row/2);tile.Size=UDim2.fromScale(1/8,.5);tile.BackgroundTransparency=.91
+ end end end
+ local shine=frame(o,'Gloss',4,4,1,1,white);shine.Size=UDim2.new(1,-8,.42,0);shine.BackgroundTransparency=.86;rounded(shine,9)
+ local rim=frame(o,'Rim',5,5,1,1,color);rim.Size=UDim2.new(1,-10,1,-10);rim.BackgroundTransparency=1;rounded(rim,8);edge(rim,color:Lerp(white,.55),2)
+end
+local function button(parent,name,caption,x,y,w,h,color,fn,disabled)
+ local b=make('TextButton',parent,{Name=name,Text='',Position=UDim2.fromOffset(x,y),Size=UDim2.fromOffset(w,h),BackgroundColor3=disabled and Color3.fromRGB(73,94,89) or color,AutoButtonColor=not disabled,BorderSizePixel=0,Selectable=not disabled,Interactable=not disabled,ZIndex=(parent:IsA('GuiObject') and parent.ZIndex or 1)+2})
+ b:SetAttribute('HussDisabled',disabled==true);gloss(b,b.BackgroundColor3)
+ text(b,'Caption',caption,5,0,w-10,h,24,disabled and Color3.fromRGB(215,224,222) or white)
+ connect(b.Activated,function() if not disabled and active then fn() end end,pageLinks);return b
+end
+local function finite(v) return type(v)=='number' and v==v and math.abs(v)<math.huge end
+local function amount(v) return finite(v) and math.clamp(math.floor(v),0,2000000000) or 0 end
+local function formatted(v) return tostring(amount(v)):reverse():gsub('(%d%d%d)','%1,'):reverse():gsub('^,','') end
+local function playerRoot()
+ if P:GetAttribute('InRound')==true or P:GetAttribute('HussPracticeActive')==true then return nil end
+ local character=P.Character;local humanoid=character and character:FindFirstChildOfClass('Humanoid')
+ local root=character and character:FindFirstChild('HumanoidRootPart')
+ return humanoid and humanoid.Health>0 and root and root:IsA('BasePart') and root or nil
+end
+local function details(anchor)
+ local lobby=workspace:FindFirstChild('Lobby')
+ if not anchor or not anchor:IsA('BasePart') or not lobby or not anchor:IsDescendantOf(lobby) or not CollectionService:HasTag(anchor,'HussShopStandV12') or anchor:GetAttribute('HussShopStandEnabled')~=true then return end
+ local category=anchor:GetAttribute('HussShopCategory')
+ local panel=anchor.Parent and anchor.Parent:FindFirstChild('ShopPanelV12')
+ if not colors[category] or not panel or not panel:IsA('BasePart') or panel:GetAttribute('HussShopPanelVersion')~=12 then return end
+ return category,panel
+end
+local function isNear(anchor,radius)
+ local root=playerRoot();local category,panel=details(anchor)
+ return root and category and (root.Position-anchor.Position).Magnitude<=radius and category or nil,panel
+end
+local function obstructingHUD()
+ local hud=playerGui:FindFirstChild('BombTagHUD');local safe=hud and hud:FindFirstChild('SafeArea');local shade=safe and safe:FindFirstChild('ModalShade')
+ return shade and shade.Visible==true
+end
+local function restoreCursor()
+ if cursorBound then Run:UnbindFromRenderStep('HussStandShopCursorV12');cursorBound=false end
+ if priorMouseBehavior then Input.MouseBehavior=priorMouseBehavior;priorMouseBehavior=nil end
+ if priorMouseIcon~=nil then Input.MouseIconEnabled=priorMouseIcon;priorMouseIcon=nil end
+end
+local function unlockCursor()
+ if cursorBound then return end
+ priorMouseBehavior=Input.MouseBehavior;priorMouseIcon=Input.MouseIconEnabled;cursorBound=true
+ Run:BindToRenderStep('HussStandShopCursorV12',Enum.RenderPriority.Last.Value,function()
+  if active and not obstructingHUD() and not Input:GetFocusedTextBox() then Input.MouseBehavior=Enum.MouseBehavior.Default;Input.MouseIconEnabled=true end
+ end)
+end
+local function dropDisplay()
+ clear(pageLinks)
+ if display.gui then
+  if Gui.SelectedObject and Gui.SelectedObject:IsDescendantOf(display.gui) then Gui.SelectedObject=nil end
+  display.gui:Destroy()
+ end
+ if display.idle and display.idle.Parent then display.idle.Enabled=display.idleEnabled end
+ display={}
+end
+close=function(suppress)
+ if suppress then dismissed=active end
+ active=nil;dropDisplay();restoreCursor();P:SetAttribute('HussShopBrowsingV12',nil)
+end
+local function inventory(category)
+ local result={};for _,item in ipairs(Catalog.Items) do if item.category==category then table.insert(result,item) end end;return result
+end
+local function request(action,id)
+ if busy or not remote or not active or not isNear(active,14) then return end
+ if action~='Sync' and (not profile or not profile.ready) then return end
+ if action~='Sync' then
+  local item=Catalog.ById[id]
+  if not item or item.category~=active:GetAttribute('HussShopCategory') then return end
+ end
+ serial+=1;if serial>=1900000000 then serial=1000000001 end
+ local ticket=serial;busy={ticket=ticket,at=time()};message='';remote:FireServer(action,id,ticket);render()
+ task.delay(10,function()
+  if alive and busy and busy.ticket==ticket then busy=nil;message='No reply yet. Refresh your record before trying again.';messageOk=false;if active then render() end end
+ end)
+end
+-- Preview the actual trail geometry once; no per-card animation or RenderStepped work.
+local function trailPreview(parent,item,width,height,z)
+ local viewport=make('ViewportFrame',parent,{Name='TrailPreview',Size=UDim2.fromOffset(width,height),BackgroundTransparency=1,Ambient=Color3.fromRGB(213,220,233),LightColor=Color3.new(1,1,1),LightDirection=Vector3.new(-1,-1,-.5),ZIndex=z})
+ local world=make('WorldModel',viewport)
+ local model=trailDesigns.Preview(world,item)
+ local bounds,size=model:GetBoundingBox();local center=bounds.Position
+ local outward=Vector3.new(0,.65,1).Unit
+ local view=CFrame.lookAt(center+outward,center)
+ local vertical=math.tan(math.rad(36)*.5);local horizontal=vertical*width/height
+ local distance=2
+ -- Fit every bounding-box corner so wide ribbons and tall motifs remain inside the card.
+ for x=-1,1,2 do for y=-1,1,2 do for z=-1,1,2 do
+  local point=bounds:PointToWorldSpace(Vector3.new(size.X*x,size.Y*y,size.Z*z)*.5)-center
+  local depth=point:Dot(outward)
+  distance=math.max(distance,depth+math.abs(point:Dot(view.RightVector))/horizontal*1.12,depth+math.abs(point:Dot(view.UpVector))/vertical*1.12)
+ end end end
+ local camera=make('Camera',viewport,{FieldOfView=36,CFrame=CFrame.lookAt(center+outward*distance,center)})
+ viewport.CurrentCamera=camera
+ return viewport
+end
+local function preview(parent,item)
+ local color=Color3.fromRGB(table.unpack(item.color))
+ if item.category=='Bombs' then
+  local viewport=make('ViewportFrame',parent,{Name='SelectedBombPreview',Position=UDim2.fromOffset(32,37),Size=UDim2.fromOffset(320,164),BackgroundTransparency=1,Ambient=Color3.fromRGB(213,220,233),LightColor=white,LightDirection=Vector3.new(-1,-1,-.5),ZIndex=parent.ZIndex+2})
+  local world=make('WorldModel',viewport)
+  local core=make('Part',world,{Name='PreviewBomb',Size=Vector3.new(2.25,2.25,2.25),Shape=Enum.PartType.Ball,Anchored=true,CanCollide=false,CanTouch=false,CanQuery=false})
+  SkinBuilder.Apply(core,item,{Preview=true})
+  local camera=make('Camera',viewport,{FieldOfView=34,CFrame=CFrame.lookAt(Vector3.new(5,3.5,6),Vector3.new(0,.15,0))});viewport.CurrentCamera=camera
+ elseif item.category=='Trails' then
+  local viewport=trailPreview(parent,item,320,156,parent.ZIndex+2)
+  viewport.Name='SelectedTrailPreview';viewport.Position=UDim2.fromOffset(32,39)
+ elseif item.category=='Titles' then
+  local badge=frame(parent,'TitleBadge',26,78,332,65,color);gloss(badge,color)
+  text(badge,'Title',item.text or item.name,10,2,312,59,29,white)
+ else
+  -- The icon advertises an emote; PLAY below runs the actual equipped pose on your avatar.
+  local head=frame(parent,'EmoteHead',164,48,44,44,color);rounded(head,24);edge(head,ink,3)
+  local body=frame(parent,'EmoteBody',167,95,38,60,color);rounded(body,12)
+  for _,limb in ipairs({{120,98,49,16,-28},{203,83,58,16,-45},{154,146,17,46,18},{204,146,17,46,-18}}) do
+   local p=frame(parent,'EmoteLimb',limb[1],limb[2],limb[3],limb[4],color);p.Rotation=limb[5];rounded(p,8)
+  end
+ end
+end
+render=function()
+ if not active then return end
+ local category,panel=details(active);if not category then close();return end
+ local hadSelection=display.gui and Gui.SelectedObject and Gui.SelectedObject:IsDescendantOf(display.gui)
+ dropDisplay()
+ local gui=make('SurfaceGui',playerGui,{Name='HussStandShopV12',Adornee=panel,Face=Enum.NormalId.Back,SizingMode=Enum.SurfaceGuiSizingMode.FixedSize,CanvasSize=Vector2.new(1140,432),LightInfluence=0,Brightness=1,AlwaysOnTop=false,MaxDistance=32,Active=true,ResetOnSpawn=false,ZIndexBehavior=Enum.ZIndexBehavior.Sibling})
+ local idle=panel:FindFirstChild('ShopIdleV12');display={gui=gui,idle=idle,idleEnabled=idle and idle.Enabled}
+ if idle then idle.Enabled=false end
+ local color=colors[category]
+ local body=frame(gui,'ShopFace',0,0,1140,432,ink);rounded(body,24);edge(body,color,8);body.SelectionGroup=true
+ local heading=frame(body,'Header',8,8,1124,56,color);gloss(heading,color)
+ text(heading,'Category',category:upper()..' EXCHANGE',15,0,500,56,37).TextXAlignment=Enum.TextXAlignment.Left
+ text(heading,'Coins',profile and profile.ready and formatted(profile.Coins)..' COINS' or 'CONNECTING…',645,0,455,56,31,gold).TextXAlignment=Enum.TextXAlignment.Right
+ local list=inventory(category);local pages=math.max(1,math.ceil(#list/6));page=math.clamp(page,1,pages)
+ if not chosen or not Catalog.ById[chosen] or Catalog.ById[chosen].category~=category then chosen=list[1] and list[1].id end
+ local selectedButton
+ for index=(page-1)*6+1,math.min(page*6,#list) do
+  local item=list[index];local slot=index-(page-1)*6-1;local owned=profile and profile.Owned[item.id]==true;local equipped=profile and profile.EquippedByCategory[category]==item.id
+  local x,y=18+(slot%2)*357,79+math.floor(slot/2)*83
+  local card=button(body,'Select_'..item.id,'',x,y,345,73,chosen==item.id and color or Color3.fromRGB(55,68,86),function() chosen=item.id;message='';render() end,false)
+  text(card,'ItemName',item.name,10,4,325,31,24,white)
+  text(card,'ItemStatus',equipped and 'EQUIPPED' or owned and 'OWNED' or formatted(item.price)..' COINS',10,38,325,24,19,equipped and gold or owned and green or white)
+  if chosen==item.id then edge(card,gold,4);selectedButton=card end
+ end
+ button(body,'Previous','‹ PREVIOUS',18,335,217,48,color,function() page=math.max(1,page-1);chosen=list[(page-1)*6+1].id;render() end,page==1)
+ text(body,'Page','PAGE '..page..' / '..pages,244,340,250,42,24,color)
+ button(body,'Next','NEXT ›',507,335,212,48,color,function() page=math.min(pages,page+1);chosen=list[(page-1)*6+1].id;render() end,page==pages)
+ local selection=frame(body,'SelectedItem',736,78,386,305,color:Lerp(ink,.87));rounded(selection,15);edge(selection,color,3)
+ local item=Catalog.ById[chosen]
+ if item then
+  text(selection,'SelectedName',item.name:upper(),10,5,366,34,27,color:Lerp(white,.25))
+  preview(selection,item)
+  text(selection,'Description',item.description or '',13,198,360,40,17,white)
+  local owned=profile and profile.Owned[item.id]==true;local equipped=profile and profile.EquippedByCategory[category]==item.id
+  local poor=not owned and profile and profile.Coins<item.price
+  local caption=busy and 'PLEASE WAIT…' or (not profile or not profile.ready) and 'CONNECTING…' or equipped and 'EQUIPPED' or owned and 'EQUIP' or poor and 'NEED '..formatted(item.price)..' COINS' or 'BUY • '..formatted(item.price)
+  local ready=profile and profile.ready and remote~=nil
+  local buy=button(selection,'BuyEquip',caption,12,247,category=='Emotes' and 222 or 362,47,green,function() request(owned and 'Equip' or 'Buy',item.id) end,busy~=nil or not ready or equipped or poor)
+  buy.Caption.TextSize=category=='Emotes' and 20 or 24
+  if category=='Emotes' then
+   local playing=P:GetAttribute('HussEmotePlaying')==item.id
+   button(selection,'PlayEmote',playing and 'STOP' or 'PLAY',244,247,130,47,color,function() if cosmetics and equipped and isNear(active,14) then cosmetics:FireServer(playing and 'StopEmote' or 'Emote',playing and nil or item.id) end end,not ready or not owned or not equipped or not cosmetics)
+  end
+ end
+ local status=message~='' and message or profile and profile.mode=='preview' and 'STUDIO PREVIEW • Temporary coins and collection. Walk away to close.' or 'Earn Coins in multiplayer • Choose an item • Walk away to close'
+ text(body,'Status',status,20,388,940,34,message~='' and 18 or 20,messageOk and white or gold)
+ button(body,'Refresh','↻',976,386,61,44,color,function() request('Sync') end,busy~=nil).Caption.TextSize=22
+ button(body,'Close','×',1048,386,64,44,Color3.fromRGB(247,65,94),function() close(true) end,false).Caption.TextSize=28
+ if (hadSelection or Input:GetLastInputType().Name:find('Gamepad')) and not obstructingHUD() then Gui.SelectedObject=selectedButton or selection:FindFirstChild('BuyEquip') end
+end
+local function receive(data)
+ if type(data)~='table' or data.kind~='Profile' then return end
+ local nextProfile={ready=data.ready==true,mode=type(data.mode)=='string' and data.mode or '',Coins=amount(data.Coins),Owned={},EquippedByCategory={}}
+ if type(data.Owned)=='table' then for index,id in ipairs(data.Owned) do if index>100 then break end;if type(id)=='string' and Catalog.ById[id] then nextProfile.Owned[id]=true end end end
+ if type(data.EquippedByCategory)=='table' then for category in pairs(colors) do local id=data.EquippedByCategory[category];if type(id)=='string' and Catalog.ById[id] and Catalog.ById[id].category==category then nextProfile.EquippedByCategory[category]=id end end end
+ profile=nextProfile
+ if busy and busy.ticket==data.requestId then busy=nil;message=type(data.message)=='string' and data.message:sub(1,130) or '';messageOk=data.ok==true end
+ if active then render() end
+end
+local function attach(child)
+ if child.Name=='HussEconomyV9' and child:IsA('RemoteEvent') and child~=remote then
+  if remoteLink then remoteLink:Disconnect() end;remote=child;profile=nil;busy=nil;remoteLink=connect(remote.OnClientEvent,receive)
+  remote:FireServer('Sync')
+ elseif child.Name=='HussCosmeticsV11' and child:IsA('RemoteEvent') then cosmetics=child end
+end
+updateApproach=function()
+ if active and not isNear(active,14) then close() end
+ if dismissed and not isNear(dismissed,14) then dismissed=nil end
+ if active then return end
+ local root=playerRoot();if not root then return end
+ local nearest,distance=nil,12
+ for _,anchor in ipairs(CollectionService:GetTagged('HussShopStandV12')) do
+  if anchor~=dismissed and details(anchor) then
+   local d=(root.Position-anchor.Position).Magnitude
+   if d<=distance then nearest=anchor;distance=d end
+  end
+ end
+ if nearest then
+  active=nearest;page=1;chosen=nil;message='';messageOk=true
+  P:SetAttribute('HussShopBrowsingV12',active:GetAttribute('HussShopCategory'))
+  render();unlockCursor()
+  if remote and not profile and not busy then request('Sync') end
+ end
+end
+connect(RS.ChildAdded,attach)
+connect(RS.ChildRemoved,function(child)
+ if child==remote then if remoteLink then remoteLink:Disconnect() end;remote=nil;profile=nil;busy=nil;if active then render() end end
+ if child==cosmetics then cosmetics=nil;if active then render() end end
+end)
+for _,child in ipairs(RS:GetChildren()) do attach(child) end
+connect(P:GetAttributeChangedSignal('InRound'),updateApproach)
+connect(P:GetAttributeChangedSignal('HussPracticeActive'),updateApproach)
+connect(P:GetAttributeChangedSignal('HussEmotePlaying'),function() if active then render() end end)
+connect(P.CharacterRemoving,function() close();dismissed=nil end)
+connect(Input.InputBegan,function(input,processed)
+ if not processed and active and not Input:GetFocusedTextBox() and (input.KeyCode==Enum.KeyCode.Escape or input.KeyCode==Enum.KeyCode.ButtonB) then close(true) end
+end)
+connect(Run.Heartbeat,function(dt)
+ elapsed+=dt;if elapsed<.1 then return end;elapsed=0;updateApproach()
+end)
+connect(script.Destroying,function()
+ if not alive then return end;alive=false;close();clear(links);clear(pageLinks)
+ remote=nil;remoteLink=nil;cosmetics=nil;profile=nil;busy=nil
+end)
+updateApproach()
+]==],
+[ [==[collection]==] ]=[==[--!nonstrict
+-- HussCollectionEffectsV13: sculpted path trails with bounded local rendering; preserves titles, emotes and perfect-weave feedback.
+local Players=game:GetService('Players')
+local RS=game:GetService('ReplicatedStorage')
+local Run=game:GetService('RunService')
+local Sound=game:GetService('SoundService')
+local C=require(RS:WaitForChild('HussCatalogV11'))
+local TrailDesigns=require(RS:WaitForChild('HussTrailDesignsV13'))
+local me=Players.LocalPlayer
+local states,links={},{}
+local stopped,allocated=false,0
+local V,CF=Vector3.new,CFrame.new
+local folder=Instance.new('Folder');folder.Name='HussCollectionEffectsV13';folder.Parent=workspace
+local MAX_TRAILS,MAX_DISTANCE,FADE_GRACE=10,90,(TrailDesigns.StopFade or .36)+.05
+local function make(class,parent,props)
+ local o=Instance.new(class);for k,v in pairs(props) do o[k]=v end;o.Parent=parent;return o
+end
+local function link(signal,fn,bucket) table.insert(bucket or links,signal:Connect(fn)) end
+local function clear(bucket) for _,c in ipairs(bucket) do c:Disconnect() end;table.clear(bucket) end
+local function reduced() return me:GetAttribute('HussReducedMotion')==true or workspace:GetAttribute('HussReducedMotion')==true end
+local function entry(s,attribute,category)
+ local i=C.ById[s.p:GetAttribute(attribute)];return i and i.category==category and i or C.ById[C.Defaults[category]]
+end
+local function tint(i) return Color3.fromRGB(table.unpack(i.color)) end
+local function destroyTrail(s)
+ if not s.trail then return end
+ s.trail.handle:Destroy();s.trail=nil;allocated-=1
+end
+local function poseEnd(s)
+ if s.pose then for joint,original in pairs(s.pose.originals) do if joint.Parent then joint.C0=original end end;s.pose=nil end
+end
+local function reset(s)
+ destroyTrail(s);poseEnd(s)
+ if s.title then s.title:Destroy();s.title=nil end
+ if s.burst then s.burst:Destroy();s.burst=nil end
+ if s.hDeath then s.hDeath:Disconnect();s.hDeath=nil end
+ clear(s.charLinks);s.character=nil;s.h=nil;s.root=nil;s.refreshParts=nil
+end
+local tones={1.45,1.9}
+local cues={}
+for n=1,2 do cues[n]=make('Sound',Sound,{Name='HussPerfectWeaveV11',SoundId='rbxasset://sounds/volume_slider.ogg',PlaybackSpeed=tones[n],Volume=0}) end
+local cueSerial=0
+local function cue()
+ if me:GetAttribute('HussSFXMuted')==true then return end
+ cueSerial+=1;local serial=cueSerial
+ for n,sound in ipairs(cues) do task.delay((n-1)*.085,function()
+  if stopped or serial~=cueSerial or me:GetAttribute('HussSFXMuted')==true then return end
+  local group=Sound:FindFirstChild('HussSFXV6');sound.SoundGroup=group and group:IsA('SoundGroup') and group or nil
+  sound.Volume=.22*(sound.SoundGroup and 1 or math.clamp(tonumber(me:GetAttribute('HussSFXVolume')) or .8,0,1));sound:Stop();sound:Play()
+ end) end
+end
+link(me:GetAttributeChangedSignal('HussSFXMuted'),function() if me:GetAttribute('HussSFXMuted')==true then cueSerial+=1;for _,sound in ipairs(cues) do sound:Stop() end end end)
+local function perfect(s)
+ if not s.character or not s.root or not s.root.Parent then return end
+ local stamp=s.character:GetAttribute('HussPerfectWeaveAt')
+ if type(stamp)~='number' or stamp~=stamp or stamp==s.lastPerfect or math.abs(workspace:GetServerTimeNow()-stamp)>1 then return end
+ s.lastPerfect=stamp;if s.p==me then cue() end
+ if reduced() then return end
+ local camera=workspace.CurrentCamera;if not camera or (camera.CFrame.Position-s.root.Position).Magnitude>100 then return end
+ if s.burst then s.burst:Destroy() end
+ s.burst=make('Highlight',s.character,{Name='HussPerfectWeave',Adornee=s.character,DepthMode=Enum.HighlightDepthMode.Occluded,FillColor=Color3.fromRGB(147,255,137),OutlineColor=Color3.new(1,1,1),FillTransparency=.85,OutlineTransparency=.2})
+ s.burstUntil=os.clock()+.3
+end
+local function bindCharacter(s,c)
+ reset(s);s.generation+=1;local generation=s.generation
+ s.character=c;s.lastPerfect=c:GetAttribute('HussPerfectWeaveAt')
+ local function refreshParts()
+  if stopped or states[s.p]~=s or s.generation~=generation or s.p.Character~=c then return end
+  local h=c:FindFirstChildOfClass('Humanoid');local root=c:FindFirstChild('HumanoidRootPart')
+  if root and not root:IsA('BasePart') then root=nil end
+  if s.root~=root then destroyTrail(s);poseEnd(s);s.root=root end
+  if s.h~=h then
+   if s.hDeath then s.hDeath:Disconnect();s.hDeath=nil end
+   poseEnd(s);s.h=h
+   if h then s.hDeath=h.Died:Connect(function() if s.h==h then reset(s) end end) end
+  end
+ end
+ s.refreshParts=refreshParts
+ link(c.DescendantAdded,function(o) if o.Name=='HumanoidRootPart' or o:IsA('Humanoid') then refreshParts() end end,s.charLinks)
+ link(c:GetAttributeChangedSignal('HussPerfectWeaveAt'),function() if s.character==c then perfect(s) end end,s.charLinks)
+ refreshParts()
+end
+local function add(p)
+ if states[p] then return end
+ local s={p=p,links={},charLinks={},generation=0};states[p]=s
+ link(p.CharacterAdded,function(c) bindCharacter(s,c) end,s.links)
+ link(p.CharacterRemoving,function() s.generation+=1;reset(s) end,s.links)
+ if p.Character then bindCharacter(s,p.Character) end
+end
+local function remove(p) local s=states[p];if s then s.generation+=1;reset(s);clear(s.links);states[p]=nil end end
+local function title(s)
+ local i=entry(s,'HussTitleId','Titles')
+ local head=s.character:FindFirstChild('Head')
+ if s.title and (not head or not head:IsA('BasePart') or s.title.Parent~=head) then s.title:Destroy();s.title=nil end
+ if not head or not head:IsA('BasePart') then return end
+ if not s.title then
+  s.title=make('BillboardGui',head,{Name='HussTitleV11',Adornee=head,Size=UDim2.fromOffset(240,34),StudsOffsetWorldSpace=V(0,2.15,0),MaxDistance=85,AlwaysOnTop=false})
+  make('TextLabel',s.title,{Name='Title',BackgroundTransparency=1,Size=UDim2.fromScale(1,1),Font=Enum.Font.FredokaOne,TextSize=20,TextStrokeTransparency=.05,TextStrokeColor3=Color3.fromRGB(12,19,28),TextColor3=tint(i),Text=i.name})
+ end
+ if s.title:GetAttribute('Item')~=i.id then s.title:SetAttribute('Item',i.id);s.title.Title.Text=i.name;s.title.Title.TextColor3=tint(i) end
+end
+local function trail(s,i)
+ if s.trail and s.trail.id~=i.id then destroyTrail(s) end
+ if s.trail then return s.trail end
+ if allocated>=MAX_TRAILS then return end
+ local handle=TrailDesigns.Create(folder,i,{Preview=false})
+ local t={id=i.id,handle=handle,lastActive=os.clock()};s.trail=t;allocated+=1
+ return t
+end
+local jointNames={RightShoulder='right',LeftShoulder='left',['Right Shoulder']='right',['Left Shoulder']='left',Waist='body',RootJoint='body',Neck='neck',RightHip='rightLeg',LeftHip='leftLeg',['Right Hip']='rightLeg',['Left Hip']='leftLeg'}
+local function emote(s,now,near)
+ local id=s.p:GetAttribute('HussEmotePlaying');local stamp=s.p:GetAttribute('HussEmoteStarted');local i=C.ById[id]
+ local action=s.character:GetAttribute('MovementAction')
+ if not near or not i or i.category~='Emotes' or type(stamp)~='number' or stamp~=stamp or s.p:GetAttribute('InRound')==true or s.h.MoveDirection.Magnitude>.05 or s.root.AssemblyLinearVelocity.Magnitude>2 or s.h.Sit or s.h.PlatformStand or (type(action)=='string' and action:sub(1,4)=='Dive' and action~='DiveEnd') then poseEnd(s);return end
+ local age=workspace:GetServerTimeNow()-stamp;if age<0 or age>6.2 then poseEnd(s);return end
+ if s.pose and (s.pose.id~=id or s.pose.stamp~=stamp) then poseEnd(s) end
+ if not s.pose then
+  local pose={id=id,stamp=stamp,originals={},joints={}};s.pose=pose
+  for _,joint in ipairs(s.character:GetDescendants()) do if joint:IsA('Motor6D') and jointNames[joint.Name] then
+   local key=jointNames[joint.Name]
+   -- Prefer the R15 waist over its root joint. Never move the physical root.
+   if key~='body' or joint.Name=='Waist' or not pose.joints.body then pose.joints[key]=joint end
+   pose.originals[joint]=joint.C0
+  end end
+ end
+ local wave=math.sin(age*7);local beat=math.sin(age*5);local step=math.sin(age*8)
+ local angles={right=V(0,0,0),left=V(0,0,0),body=V(0,0,0),neck=V(0,0,0),rightLeg=V(0,0,0),leftLeg=V(0,0,0)}
+ if i.style=='wave' then angles.right=V(0,0,2.25+wave*.25);angles.neck=V(0,0,.08)
+ elseif i.style=='cheer' then angles.right=V(0,0,2.5+beat*.2);angles.left=V(0,0,-2.5-beat*.2);angles.body=V(.08*beat,0,0)
+ elseif i.style=='salute' then angles.right=V(-.2,0,-2.6);angles.neck=V(-.08,0,0)
+ elseif i.style=='shuffle' then angles.right=V(step*.4,0,.25);angles.left=V(-step*.4,0,-.25);angles.body=V(0,beat*.25,step*.1);angles.rightLeg=V(step*.15,0,0);angles.leftLeg=V(-step*.15,0,0)
+ elseif i.style=='robot' then local tick=math.floor(age*3)%4;angles.right=V(tick%2==0 and -.8 or .4,0,.8);angles.left=V(tick%2==0 and .4 or -.8,0,-.8);angles.neck=V(0,(tick-1.5)*.16,0)
+ elseif i.style=='victory' then angles.right=V(-.25,0,2.6);angles.left=V(-.25,0,-2.6);angles.body=V(.08*beat,0,beat*.14)
+ elseif i.style=='spin' then angles.body=V(0,age*2.5,0);angles.right=V(0,0,1.25);angles.left=V(0,0,-1.25)
+ elseif i.style=='charge' then angles.right=V(.5,0,.75);angles.left=V(.5,0,-.75);angles.body=V(-.12+beat*.025,0,0);angles.neck=V(.12,0,0) end
+ local strength=math.min(1,age/.18)*(reduced() and .5 or 1)
+ for name,joint in pairs(s.pose.joints) do if joint.Parent then local a=angles[name]*strength;local original=s.pose.originals[joint];joint.C0=CF(original.Position)*CFrame.Angles(a.X,a.Y,a.Z)*original.Rotation end end
+end
+link(Players.PlayerAdded,add);link(Players.PlayerRemoving,remove)
+for _,p in ipairs(Players:GetPlayers()) do add(p) end
+link(Run.Heartbeat,function(dt)
+ local camera=workspace.CurrentCamera;local now=os.clock();local low=reduced()
+ local candidates={}
+ for _,s in pairs(states) do
+  -- Streamed characters can lose/reacquire their root without CharacterAdded firing.
+  if s.character and (not s.root or not s.root.Parent or not s.h or not s.h.Parent) and s.refreshParts then s.refreshParts() end
+  if s.root and s.h and s.character and s.root.Parent and s.character:IsDescendantOf(workspace) then
+   local distance=camera and (camera.CFrame.Position-s.root.Position).Magnitude or math.huge
+   local near=distance<MAX_DISTANCE
+   if s.burst and (low or now>=s.burstUntil) then s.burst:Destroy();s.burst=nil end
+   if near and s.h.Health>0 then title(s) elseif s.title then s.title:Destroy();s.title=nil end
+   emote(s,now,near)
+   local v=s.root.AssemblyLinearVelocity;local speed=V(v.X,0,v.Z).Magnitude
+   local i=entry(s,'HussTrailId','Trails')
+   if s.trail and s.trail.id~=i.id then destroyTrail(s) end
+   local safe=near and not low and speed<100 and s.h.Health>0 and not s.h.Sit and not s.h.PlatformStand and not s.root.Anchored and s.h.FloorMaterial~=Enum.Material.Air and s.character:GetAttribute('Ragdolled')~=true and s.character:GetAttribute('IsRagdoll')~=true and s.p:GetAttribute('HussGamePaused')~=true and workspace:GetAttribute('HussGamePaused')~=true
+   local active=safe and speed>27
+   if active or (safe and s.trail and now-s.trail.lastActive<FADE_GRACE) then
+    table.insert(candidates,{s=s,item=i,active=active,distance=distance,velocity=v})
+   end
+  else
+   destroyTrail(s);poseEnd(s)
+   if s.title then s.title:Destroy();s.title=nil end
+   if s.burst then s.burst:Destroy();s.burst=nil end
+  end
+ end
+ -- Select before allocating, so a local player's trail cannot be crowded out by remotes.
+ -- Running characters win over distant fading wakes; the nearest nine remotes get the budget.
+ table.sort(candidates,function(a,b)
+  if (a.s.p==me)~=(b.s.p==me) then return a.s.p==me end
+  if a.active~=b.active then return a.active end
+  if a.distance~=b.distance then return a.distance<b.distance end
+  return a.s.p.UserId<b.s.p.UserId
+ end)
+ local selected,rendering={},{};local remoteCount=0
+ for _,candidate in ipairs(candidates) do
+  local localPlayer=candidate.s.p==me
+  if localPlayer or remoteCount<MAX_TRAILS-1 then
+   selected[candidate.s]=true;table.insert(rendering,candidate)
+   if not localPlayer then remoteCount+=1 end
+  end
+ end
+ for _,s in pairs(states) do if not selected[s] then destroyTrail(s) end end
+ for _,candidate in ipairs(rendering) do
+  local s=candidate.s;local t=trail(s,candidate.item)
+  if t then
+   if candidate.active then t.lastActive=now end
+   t.handle:SetEnabled(candidate.active)
+   t.handle:Step(s.root.CFrame,candidate.velocity,now,math.clamp(dt,0,.1))
+  end
+ end
+end)
+link(script.Destroying,function()
+ stopped=true;cueSerial+=1;clear(links)
+ local list={};for p in pairs(states) do table.insert(list,p) end;for _,p in ipairs(list) do remove(p) end
+ for _,sound in ipairs(cues) do sound:Destroy() end;folder:Destroy()
+end)
+]==],
+[ [==[trails]==] ]=[==[--!nonstrict
+-- Twenty-five pooled, local-only trail sculptures. No assets, emitters, physics,
+-- timers or per-frame Instances. The stand previews use the same geometry.
+local Builder={Version=13,MaxParts=18,Lifetime=.72,StopFade=.36}
+local V,CF,A=Vector3.new,CFrame.new,CFrame.Angles
+local RGB=Color3.fromRGB
+local GOLD,WHITE,DARK=RGB(255,214,68),RGB(245,252,255),RGB(32,39,59)
+local CYAN,GREEN,PINK=RGB(80,233,255),RGB(114,236,107),RGB(255,135,205)
+local NEON,METAL,SMOOTH=Enum.Material.Neon,Enum.Material.Metal,Enum.Material.SmoothPlastic
+local BALL,CYL=Enum.PartType.Ball,Enum.PartType.Cylinder
+local definitions={
+ default={color={125,244,255},motion='bob',gap=1.8},
+ aqua={color={72,211,255},motion='roll',gap=1.65},
+ sunset={color={255,161,74},motion='spin',gap=1.9},
+ royal={color={172,116,255},motion='bob',gap=1.8},
+ lime={color={157,255,85},motion='rise',gap=1.7},
+ rose={color={255,117,180},motion='tumble',gap=1.9},
+ trail_ice={color={179,242,255},motion='roll',gap=1.65},
+ trail_smoke={color={170,185,202},motion='rise',gap=1.75},
+ trail_coins={color={255,224,85},motion='spin',gap=1.7},
+ trail_ocean={color={73,238,218},motion='wave',gap=1.8},
+ trail_berry={color={189,72,220},motion='tumble',gap=1.75},
+ trail_volt={color={255,242,68},motion='zap',gap=1.65},
+ trail_petals={color={255,185,214},motion='flutter',gap=1.75},
+ trail_cosmic={color={141,142,255},motion='orbit',gap=2},
+ trail_lava={color={255,79,43},motion='tumble',gap=1.8},
+ trail_ghost={color={207,244,229},motion='float',gap=1.8},
+ trail_neon={color={53,255,170},motion='circuit',gap=1.7},
+ trail_party={color={255,132,222},motion='tumble',gap=1.85},
+ trail_halo={color={255,224,125},motion='halo',gap=2.4,groups=2},
+ trail_blizzard={color={195,235,255},motion='flutter',gap=1.75},
+ trail_comet={color={93,203,255},motion='comet',gap=1.85},
+ trail_eclipse={color={175,108,255},motion='orbit',gap=2},
+ trail_overload={color={255,90,89},motion='zap',gap=1.8},
+ trail_supernova={color={255,155,95},motion='spin',gap=2},
+ trail_celebrate={color={255,223,71},motion='bob',gap=2},
+}
+Builder.Ids={}
+for id in pairs(definitions) do table.insert(Builder.Ids,id) end
+table.sort(Builder.Ids)
+
+local function finite(n) return type(n)=='number' and n==n and math.abs(n)<math.huge end
+local function finiteVector(v)
+ return typeof(v)=='Vector3' and finite(v.X) and finite(v.Y) and finite(v.Z)
+end
+local function sculpt(model,id,color,index)
+ local parts={}
+ local function part(name,pos,size,tint,shape,material,rotation,alpha)
+  local p=Instance.new(shape=='Wedge' and 'WedgePart' or 'Part')
+  p.Name=name..'_'..index
+  if p:IsA('Part') then p.Shape=shape or Enum.PartType.Block end
+  p.Size=size;p.Color=tint or color;p.Material=material or SMOOTH
+  p.Anchored=true;p.Massless=true;p.CanCollide=false;p.CanTouch=false;p.CanQuery=false;p.CastShadow=false
+  p.Reflectance=material==METAL and .12 or 0;p.Transparency=1
+  p.CFrame=CF(pos)*(rotation or CFrame.identity);p.Parent=model
+  table.insert(parts,{object=p,localCF=p.CFrame,alpha=alpha or .08,size=size})
+  return p
+ end
+ local function ball(name,pos,size,tint,material,alpha)
+  return part(name,pos,type(size)=='number' and V(size,size,size) or size,tint,BALL,material,nil,alpha)
+ end
+ local function rod(name,a,b,width,tint,material)
+  local delta=b-a
+  local up=math.abs(delta.Unit:Dot(Vector3.yAxis))>.98 and Vector3.xAxis or Vector3.yAxis
+  return part(name,(a+b)/2,V(width,width,delta.Magnitude),tint,nil,material or NEON,CFrame.lookAt(Vector3.zero,delta,up))
+ end
+ local function disk(name,pos,diameter,thickness,tint,rotation,material,alpha)
+  return part(name,pos,V(thickness,diameter,diameter),tint,CYL,material or METAL,rotation or A(0,math.pi/2,0),alpha)
+ end
+ local function leaf(name,pos,tint,rotation)
+  return part(name,pos,V(.36,.11,.2),tint or GREEN,BALL,SMOOTH,rotation)
+ end
+
+ if id=='default' then
+  ball('LittleBomb',V(0,.05,0),.56,DARK,METAL)
+  rod('BurningFuse',V(0,.3,0),V(.13,.53,0),.055,GOLD)
+  ball('FuseSpark',V(.14,.54,0),.14,color,NEON)
+  part('SpeedDash',V(0,-.25,.23),V(.09,.06,.68),WHITE,nil,NEON,A(.15,0,.1))
+ elseif id=='aqua' then
+  part('IceArrowLeft',V(-.2,0,0),V(.36,.56,.14),color,'Wedge',NEON,A(0,0,-.65))
+  part('IceArrowRight',V(.2,0,0),V(.36,.56,.14),WHITE,'Wedge',SMOOTH,A(0,math.pi,.65))
+  part('FrozenArrowTip',V(0,.4,0),V(.19,.4,.17),WHITE,'Wedge',NEON)
+  rod('WindUnderline',V(-.43,-.27,0),V(.43,-.27,0),.055,color)
+  part('ColdSlipstream',V(0,-.36,.35),V(.045,.045,.85),WHITE,nil,NEON)
+ elseif id=='sunset' then
+  ball('SunHeart',Vector3.zero,.4,GOLD,NEON)
+  for n=0,3 do local t=n*math.pi/2
+   part('SolarFlare',V(math.cos(t)*.33,math.sin(t)*.33,0),V(.09,.43,.23),n%2==0 and color or PINK,'Wedge',NEON,A(0,0,t-.65)*A(0,math.pi/2,0))
+  end
+ elseif id=='royal' then
+  part('CrownBand',V(0,-.2,0),V(.78,.19,.15),GOLD,nil,METAL)
+  for n=-1,1 do part('CrownPoint',V(n*.26,.11-math.abs(n)*.07,0),V(.15,.58-math.abs(n)*.08,.23),GOLD,'Wedge',METAL,A(0,0,n*.17)*A(0,math.pi/2,0)) end
+  ball('CrownAmethyst',V(0,-.18,.105),.18,color,NEON)
+ elseif id=='lime' then
+  ball('AcidBubble',Vector3.zero,.64,color,SMOOTH,.55)
+  ball('BubbleShine',V(-.13,.16,.26),V(.14,.22,.045),WHITE,NEON,.2)
+  ball('PoisonCore',V(0,-.08,0),.28,RGB(63,109,39),NEON,.32)
+  ball('RisingDrop',V(.4,.26,-.06),.23,color,NEON,.25)
+  ball('SmallDrop',V(-.3,-.32,.03),.16,GREEN,SMOOTH,.3)
+ elseif id=='rose' then
+  ball('WrappedSweet',Vector3.zero,V(.52,.37,.37),color,SMOOTH)
+  for _,side in ipairs({-1,1}) do part('CandyTwist',V(side*.39,0,0),V(.22,.38,.24),WHITE,'Wedge',SMOOTH,A(.15,0,side*math.pi/2)*A(0,math.pi/2,0)) end
+  for _,x in ipairs({-.09,.09}) do part('SugarStripe',V(x,0,.175),V(.08,.3,.035),CYAN,nil,NEON,A(0,0,-.25)) end
+ elseif id=='trail_ice' then
+  for n=0,3 do local angle=(n-1.5)*.47
+   part('CrystalSplinter',V(math.sin(angle)*.29,-math.abs(n-1.5)*.08,0),V(.19,.75-math.abs(n-1.5)*.2,.19),n%2==0 and WHITE or color,'Wedge',SMOOTH,A(.15,n*.6,-angle),.17)
+  end
+  ball('IceChip',V(.34,.42,.13),.11,WHITE,NEON)
+ elseif id=='trail_smoke' then
+  for n=0,3 do
+   ball('BillowingPuff',V((n%2-.5)*.31,n*.21-.25,(n%3-1)*.12),.52+n*.09,n%2==0 and color or WHITE,SMOOTH,.76)
+  end
+ elseif id=='trail_coins' then
+  disk('GoldCoin',Vector3.zero,.72,.1,GOLD)
+  disk('CoinInset',V(0,0,.06),.53,.02,RGB(231,159,36))
+  ball('StampedBomb',V(0,-.035,.09),V(.27,.27,.025),WHITE,METAL)
+  rod('StampedFuse',V(.02,.08,.09),V(.12,.22,.09),.035,WHITE,METAL)
+  part('CoinGlint',V(-.32,.34,0),V(.06,.22,.045),WHITE,nil,NEON,A(0,0,-.6))
+ elseif id=='trail_ocean' then
+  part('BreakingWave',V(0,-.08,0),V(.85,.48,.22),color,'Wedge',SMOOTH,A(0,0,-.12),.14)
+  ball('WaveCrest',V(.14,.19,0),V(.65,.16,.25),WHITE,SMOOTH,.18)
+  ball('SeaSpray',V(.47,.36,.02),.16,WHITE,NEON,.15)
+  part('WaterRibbon',V(-.24,-.27,.25),V(.47,.06,.75),RGB(44,147,204),nil,NEON,A(0,.28,0),.35)
+ elseif id=='trail_berry' then
+  for n=0,2 do local t=n*math.pi*2/3
+   ball('BerryFruit',V(math.cos(t)*.19,math.sin(t)*.19,0),.35,n%2==0 and color or RGB(105,58,182),SMOOTH)
+  end
+  leaf('BerryLeafLeft',V(-.13,.37,0),GREEN,A(0,0,-.35))
+  leaf('BerryLeafRight',V(.13,.38,0),RGB(159,249,113),A(0,0,.4))
+ elseif id=='trail_volt' then
+  local points={V(-.58,.25,0),V(-.23,.16,0),V(-.34,-.09,0),V(.12,.08,0),V(.01,-.25,0),V(.55,-.12,0)}
+  for n=1,5 do rod('LightningSegment',points[n],points[n+1],n==3 and .095 or .07,n%2==0 and WHITE or color) end
+ elseif id=='trail_petals' then
+  for n=0,4 do local t=n*math.pi*.4
+   part('BlossomPetal',V(math.sin(t)*.24,math.cos(t)*.24,0),V(.25,.39,.12),n%2==0 and color or WHITE,BALL,SMOOTH,A(0,0,-t),.17)
+  end
+  ball('BlossomCenter',V(0,0,.1),.2,GOLD,NEON)
+ elseif id=='trail_cosmic' then
+  part('StarlightVertical',V(-.16,.04,0),V(.065,.72,.06),WHITE,nil,NEON,A(0,0,.2))
+  part('StarlightHorizontal',V(-.16,.04,0),V(.56,.065,.06),color,nil,NEON,A(0,0,.2))
+  ball('LittlePlanet',V(.35,-.22,.02),.31,RGB(234,141,200),SMOOTH)
+  part('PlanetRing',V(.35,-.22,.02),V(.51,.035,.13),GOLD,nil,NEON,A(.3,0,-.35))
+  ball('DistantStar',V(.37,.35,.03),.1,WHITE,NEON)
+ elseif id=='trail_lava' then
+  ball('MoltenHeart',Vector3.zero,.48,color,NEON)
+  part('ObsidianCrust',V(-.14,-.02,.13),V(.38,.46,.19),DARK,'Wedge',SMOOTH,A(.2,.35,-.35))
+  part('MoltenCrack',V(.13,0,.24),V(.055,.47,.05),GOLD,nil,NEON,A(0,0,.45))
+  part('FallingCinder',V(.38,.38,-.08),V(.11,.27,.1),GOLD,'Wedge',NEON,A(0,0,-.2))
+  ball('CoolingEmber',V(-.33,-.31,.04),.12,color,NEON)
+ elseif id=='trail_ghost' then
+  ball('GhostBody',V(0,.1,0),V(.54,.61,.24),color,SMOOTH,.35)
+  part('GhostTail',V(.06,-.26,0),V(.19,.4,.4),WHITE,'Wedge',SMOOTH,A(0,0,.4)*A(0,math.pi/2,0),.42)
+  for _,x in ipairs({-.11,.11}) do ball('GhostEye',V(x,.17,.13),V(.075,.13,.035),DARK,SMOOTH,.07) end
+ elseif id=='trail_neon' then
+  rod('CircuitTraceA',V(-.58,-.15,0),V(-.17,-.15,0),.055,color)
+  rod('CircuitTraceB',V(-.17,-.15,0),V(-.17,.23,0),.055,color)
+  rod('CircuitTraceC',V(-.17,.23,0),V(.48,.23,0),.055,color)
+  for _,p in ipairs({V(-.58,-.15,0),V(.48,.23,0)}) do disk('CircuitTerminal',p,.16,.045,WHITE,nil,NEON) end
+  part('CircuitChip',V(-.17,.04,0),V(.18,.22,.09),DARK,nil,METAL)
+ elseif id=='trail_party' then
+  ball('PartyBomb',Vector3.zero,.43,DARK,SMOOTH)
+  rod('PartyFuse',V(0,.21,0),V(.1,.38,0),.04,GOLD)
+  part('PinkStreamer',V(-.31,.09,0),V(.09,.42,.04),PINK,nil,NEON,A(0,0,-.48))
+  part('BlueStreamer',V(.33,.17,.04),V(.09,.33,.04),CYAN,nil,NEON,A(0,0,.5))
+  part('GoldConfetti',V(-.02,-.38,.03),V(.19,.13,.035),GOLD,nil,METAL,A(0,0,.8))
+ elseif id=='trail_halo' then
+  for n=0,7 do local t=(n+.5)*math.pi/4
+   part('HaloArc',V(math.sin(t)*.52,math.cos(t)*.52,0),V(.405,.075,.075),GOLD,nil,NEON,A(0,0,-t),.18)
+  end
+  ball('HaloGleam',V(-.38,.38,.03),.18,WHITE,NEON)
+ elseif id=='trail_blizzard' then
+  for n=0,2 do local t=n*math.pi/3
+   part('SnowflakeSpoke',Vector3.zero,V(.065,.91,.06),WHITE,nil,NEON,A(0,0,t))
+   part('IceCrystalTip',V(math.sin(t)*.4,math.cos(t)*.4,0),V(.13,.22,.085),color,'Wedge',SMOOTH,A(0,0,-t))
+  end
+ elseif id=='trail_comet' then
+  ball('CometHead',V(0,.12,0),.39,WHITE,NEON)
+  for _,side in ipairs({-1,1}) do part('CometStream',V(side*.1,-.4,.03),V(.11,.99,.23),side==1 and color or RGB(114,157,255),'Wedge',NEON,A(0,0,-side*.16)*A(0,side*math.pi/2,0),.24) end
+  ball('OrbitingFragment',V(.32,-.37,.09),.13,CYAN,NEON)
+  part('TailSpark',V(-.3,-.67,0),V(.06,.29,.05),WHITE,nil,NEON,A(0,0,-.25))
+ elseif id=='trail_eclipse' then
+  disk('EclipseCorona',Vector3.zero,.79,.07,color,nil,NEON,.14)
+  disk('EclipsingMoon',V(-.13,.075,.05),.65,.055,DARK,nil,SMOOTH,.03)
+  part('DuskStar',V(.47,.34,0),V(.055,.22,.035),GOLD,nil,NEON,A(0,0,-.4))
+  part('DuskGlimmer',V(-.39,-.36,0),V(.16,.045,.035),WHITE,nil,NEON,A(0,0,.4))
+ elseif id=='trail_overload' then
+  part('CapacitorCore',Vector3.zero,V(.27,.52,.21),DARK,nil,METAL)
+  for _,y in ipairs({-.3,.3}) do part('PowerTerminal',V(0,y,0),V(.4,.105,.25),WHITE,nil,METAL) end
+  rod('ArcingBoltA',V(-.51,.3,0),V(-.21,.04,.16),.075,color)
+  rod('ArcingBoltB',V(-.21,.04,.16),V(.2,.15,.16),.08,WHITE)
+  rod('ArcingBoltC',V(.2,.15,.16),V(.5,-.3,0),.075,color)
+ elseif id=='trail_supernova' then
+  for n=0,2 do part('NovaRay',Vector3.zero,V(.09,1.06-n*.08,.085),n%2==0 and color or PINK,nil,NEON,A(0,0,n*math.pi/3),.17) end
+  ball('StarHeart',V(0,0,.08),.3,WHITE,NEON)
+  for _,side in ipairs({-1,1}) do part('NovaFragment',V(side*.47,side*.33,.05),V(.19,.33,.11),GOLD,'Wedge',NEON,A(.2,0,side*.55)) end
+ elseif id=='trail_celebrate' then
+  ball('TrophyCup',V(0,.15,0),V(.49,.42,.23),GOLD,METAL)
+  part('TrophyStem',V(0,-.16,0),V(.1,.28,.1),GOLD,nil,METAL)
+  part('TrophyBase',V(0,-.32,0),V(.46,.09,.22),DARK,nil,METAL)
+  for _,side in ipairs({-1,1}) do
+   part('VictoryHandle',V(side*.3,.14,0),V(.19,.25,.09),WHITE,'Wedge',METAL,A(0,side==1 and 0 or math.pi,side*.2))
+  end
+  ball('VictoryMedal',V(0,.16,.14),.15,WHITE,NEON)
+ end
+ return parts
+end
+
+local Handle={};Handle.__index=Handle
+function Handle:SetEnabled(enabled)
+ if self.destroyed then return end
+ enabled=enabled==true
+ if self.enabled==enabled then return end
+ self.enabled=enabled
+ if enabled then
+  table.clear(self.history);self.lastPosition=nil;self.lastTime=nil;self.stoppedAt=nil
+  for _,group in ipairs(self.groups) do for _,p in ipairs(group) do p.object.Transparency=1 end end
+ else self.stoppedAt=self.lastTime
+ end
+end
+function Handle:Destroy()
+ if self.destroyed then return end
+ self.destroyed=true;self.enabled=false;self.Model:Destroy()
+ table.clear(self.history);table.clear(self.groups)
+end
+local function motion(kind,phase,index,preview)
+ local slow=preview and 0 or phase
+ local side=math.sin(slow*2+index*1.3)
+ if kind=='bob' then return CF(.15*side,.12*math.sin(slow*3+index),0)*A(0,.15*side,.12*side)
+ elseif kind=='roll' then return CF(.17*side,.05*side,0)*A(0,.25*side,.3*side)
+ elseif kind=='spin' then return A(.12*side,0,slow*1.6+index*.4)
+ elseif kind=='rise' then return CF(.15*side,.15*index+.18*math.sin(slow+index),0)*A(0,0,.1*side)
+ elseif kind=='tumble' then return A(slow*.8+index*.12,slow*.6,slow*1.2+index*.25)
+ elseif kind=='wave' then return CF(.18*side,.14*math.sin(slow*3+index),0)*A(0,.15*side,.12*side)
+ elseif kind=='zap' then return CF(.07*math.sin(slow*9+index),.05*math.cos(slow*11+index),0)*A(0,0,.12*side)
+ elseif kind=='flutter' then return CF(.24*side,.16*math.cos(slow*2+index),0)*A(.35*side,.42*math.cos(slow+index),slow*.5)
+ elseif kind=='orbit' then return CF(.21*side,.18*math.cos(slow*2+index),0)*A(0,.24*side,.2*side)
+ elseif kind=='float' then return CF(.15*side,.22*math.sin(slow*2+index),0)*A(0,.2*side,.09*side)
+ elseif kind=='circuit' then return CF(.08*side,0,0)*A(0,0,.08*side)
+ elseif kind=='halo' then return A(.22*math.sin(slow+index),.25*math.cos(slow+index),slow*.4)
+ elseif kind=='comet' then return CF(.1*side,0,0)*A(-.2,0,.14*side)
+ end
+ return CFrame.identity
+end
+local function sample(history,distance)
+ local remaining=distance
+ for n=1,#history-1 do
+  local a,b=history[n],history[n+1];local segment=(a.position-b.position).Magnitude
+  if segment>0 and remaining<=segment then
+   local t=remaining/segment;local direction=a.direction:Lerp(b.direction,t)
+   if direction.Magnitude<.01 then direction=a.direction end
+   return a.position:Lerp(b.position,t),direction.Unit,a.time+(b.time-a.time)*t
+  end
+  remaining-=segment
+ end
+ return nil
+end
+function Handle:Step(rootCF,velocity,now,dt)
+ if self.destroyed or (not self.enabled and #self.history==0) then return end
+ if typeof(rootCF)~='CFrame' or not finiteVector(rootCF.Position) or not finiteVector(rootCF.LookVector) or not finiteVector(velocity) or not finite(now) or not finite(dt) then
+  self.enabled=false;table.clear(self.history)
+  for _,group in ipairs(self.groups) do for _,p in ipairs(group) do p.object.Transparency=1 end end
+  return
+ end
+ local preview=self.preview
+ local position=rootCF.Position+V(0,-1.65,0)
+ local flat=V(velocity.X,0,velocity.Z)
+ local direction=flat.Magnitude>.1 and flat.Unit or V(rootCF.LookVector.X,0,rootCF.LookVector.Z)
+ if direction.Magnitude<.01 then direction=V(0,0,-1) else direction=direction.Unit end
+ if not preview and self.enabled then
+  if self.lastTime and (now<self.lastTime or now-self.lastTime>.4 or (position-self.lastPosition).Magnitude>16) then table.clear(self.history) end
+  if #self.history==0 or (position-self.history[1].position).Magnitude>=.12 then
+   table.insert(self.history,1,{position=position,direction=direction,time=now})
+   while #self.history>64 do table.remove(self.history) end
+  end
+  while #self.history>1 and now-self.history[#self.history].time>1 do table.remove(self.history) end
+  self.lastTime=now;self.lastPosition=position
+ end
+ for index,group in ipairs(self.groups) do
+  local pos,dir,stamp
+  if preview then
+   pos=rootCF:PointToWorldSpace(V((index-(#self.groups+1)/2)*1.5,math.sin(index)*.18,math.sin(index*.9)*.32))
+   dir=rootCF.LookVector;stamp=now
+  else pos,dir,stamp=sample(self.history,.55+(index-1)*self.definition.gap) end
+  local stopFade=self.stoppedAt and math.clamp((now-self.stoppedAt)/Builder.StopFade,0,1) or 0
+  local visible=pos~=nil and stopFade<1 and (preview or now-stamp<Builder.Lifetime)
+  if visible then
+   local face=preview and rootCF.Rotation or CFrame.lookAt(Vector3.zero,dir)
+   local base=CF(pos)*face*motion(self.definition.motion,now,index,preview)
+   local fade=preview and 0 or math.max(stopFade,math.clamp((now-stamp-.16)/(Builder.Lifetime-.16),0,1))
+   for _,p in ipairs(group) do
+    p.object.CFrame=base*p.localCF
+    p.object.Transparency=p.alpha+(1-p.alpha)*fade
+   end
+  else for _,p in ipairs(group) do p.object.Transparency=1 end end
+ end
+end
+
+function Builder.Create(parent,item,options)
+ local id=type(item)=='table' and item.id or item
+ local definition=definitions[id]
+ if not definition or (type(item)=='table' and item.category~='Trails') then return nil end
+ if typeof(parent)~='Instance' then return nil end
+ local preview=type(options)=='table' and options.Preview==true
+ local model=Instance.new('Model');model.Name='HussTrail_'..id;model.Parent=parent
+ model:SetAttribute('HussTrailId',id);model:SetAttribute('HussTrailDesignVersion',13);model:SetAttribute('Preview',preview)
+ local color=RGB(table.unpack(definition.color))
+ local handle=setmetatable({Model=model,PartCount=0,id=id,preview=preview,enabled=false,destroyed=false,definition=definition,groups={},history={}},Handle)
+ for index=1,definition.groups or 3 do
+  local parts=sculpt(model,id,color,index);table.insert(handle.groups,parts);handle.PartCount+=#parts
+ end
+ assert(handle.PartCount>0 and handle.PartCount<=Builder.MaxParts,'Trail sculpture exceeds its bounded pool')
+ model:SetAttribute('PartCount',handle.PartCount)
+ return handle
+end
+function Builder.Preview(parent,item)
+ local handle=Builder.Create(parent,item,{Preview=true});if not handle then return nil end
+ handle:SetEnabled(true);handle:Step(CFrame.identity,Vector3.zero,2,1/60)
+ return handle.Model
+end
+return Builder
+]==],
+[ [==[animate]==] ]=[==[--!nonstrict
+-- HUSS ANIMATION RECOVERY V13
+-- Replaces only the reviewed Animate controller. Movement and procedural dodge/panic
+-- keep their existing owners. Each clip loads independently and has a bounded fallback.
+local Players = game:GetService("Players")
+local Run = game:GetService("RunService")
+local character = script.Parent
+local humanoid = character:WaitForChild("Humanoid", 10)
+local root = character:WaitForChild("HumanoidRootPart", 10)
+if not humanoid or not root then warn("[Huss V13 animations] Character is missing Humanoid or HumanoidRootPart."); return end
+local animator, animatorDeadline = nil, os.clock() + 10
+repeat
+	for _, object in ipairs(humanoid:GetChildren()) do
+		if object:IsA("Animator") and object:GetAttribute("HussServerAnimatorV13") == true then animator = object; break end
+	end
+	if not animator then task.wait(.05) end
+until animator or os.clock() >= animatorDeadline or humanoid.Health <= 0
+if not animator then
+	warn("[Huss V13 animations] Server Animator is missing. Check AnimationRuntimeV13 in ServerScriptService/Services.")
+	return
+end
+local workspaceDeadline = os.clock() + 10
+while not character:IsDescendantOf(workspace) and os.clock() < workspaceDeadline do task.wait(.1) end
+if not character:IsDescendantOf(workspace) then
+	warn("[Huss V13 animations] Character did not enter Workspace; animation loading was cancelled.")
+	return
+end
+
+-- Retained from your existing R6 Animate; the installer preserves reviewed ID edits.
+local IDLE_ID = "rbxassetid://86722180453998"
+local WALK_ID = "rbxassetid://128318370222834"
+local RUN_ID = "rbxassetid://124106396906271"
+local FALL_ID = "rbxassetid://103035488330716"
+local R6_DEFAULT = {Idle="180435571", Walk="180426354", Run="180426354", Fall="180436148"}
+local R15_DEFAULT = {Idle="507766666", Walk="507777826", Run="507767714", Fall="507767968"}
+local CUSTOM = {Idle=IDLE_ID, Walk=WALK_ID, Run=RUN_ID, Fall=FALL_ID}
+local TIMEOUT, FADE = 8, .13
+local r6 = humanoid.RigType == Enum.HumanoidRigType.R6
+local defaults = r6 and R6_DEFAULT or R15_DEFAULT
+local player = Players:GetPlayerFromCharacter(character)
+local stopped, links, resources, slots = false, {}, {}, {}
+local currentTrack, currentName, currentSpeed, lastWarning = nil, nil, nil, {}
+if not r6 then
+	warn("[Huss V13 animations] This character is R15. Using R15 fallback clips. For your custom R6 animations: Studio File > Avatar Settings > ... > R6; save settings, publish, and join a fresh server.")
+end
+local function alive()
+	return not stopped and character.Parent ~= nil and humanoid.Parent == character and humanoid.Health > 0
+end
+local function warnOnce(key, message)
+	if lastWarning[key] then return end
+	lastWarning[key] = true
+	warn("[Huss V13 animations] " .. message)
+end
+local function stopTrack(track)
+	if track then pcall(function() if track.IsPlaying then track:Stop(FADE) end end) end
+end
+local function clearCurrent()
+	stopTrack(currentTrack)
+	currentTrack, currentName, currentSpeed = nil, nil, nil
+end
+local function cleanup()
+	if stopped then return end
+	stopped = true
+	clearCurrent()
+	for _, connection in ipairs(links) do connection:Disconnect() end
+	table.clear(links)
+	for _, resource in ipairs(resources) do
+		if resource.track then pcall(function() resource.track:Stop(0); resource.track:Destroy() end) end
+		resource.animation:Destroy()
+	end
+	table.clear(resources)
+end
+local function load(name, id, custom)
+	if not alive() then return end
+	local animation = Instance.new("Animation")
+	animation.Name = "HussV13" .. name .. (custom and "Custom" or "Fallback")
+	animation.AnimationId = id
+	local resource = {animation=animation}
+	table.insert(resources, resource)
+	local ok, track = pcall(function() return animator:LoadAnimation(animation) end)
+	if not ok or not track then
+		warnOnce(name .. tostring(custom), name .. " " .. id .. " could not load. " .. (custom and "Its Roblox fallback loads separately; check the animation's experience permission/creator." or "This is the Roblox fallback; check the client animation errors if the state has no playable clip."))
+		return
+	end
+	resource.track = track
+	track.Priority = name == "Idle" and Enum.AnimationPriority.Idle or Enum.AnimationPriority.Movement
+	track.Looped = true
+	local deadline = os.clock() + TIMEOUT
+	-- LoadAnimation can succeed while a denied/private asset remains Length == 0.
+	while alive() and track.Length <= 0 and os.clock() < deadline do task.wait(.1) end
+	if not alive() then pcall(function() track:Destroy() end); return end
+	if track.Length <= 0 then
+		warnOnce(name .. tostring(custom), name .. " " .. id .. " has no playable clip after 8 seconds. " .. (custom and "Its Roblox fallback loads separately; verify this experience can use the animation." or "This is the Roblox fallback; check the client Output/F9 errors if the state has no playable clip."))
+		track:Destroy()
+		resource.track = nil
+		return
+	end
+	if custom then slots[name].custom = track else slots[name].fallback = track end
+end
+local function blocked()
+	if humanoid.Sit or humanoid.PlatformStand or character:GetAttribute("Ragdolled") == true or character:GetAttribute("IsRagdoll") == true then return true end
+	local state = humanoid:GetState()
+	if state == Enum.HumanoidStateType.Dead or state == Enum.HumanoidStateType.Ragdoll or state == Enum.HumanoidStateType.Physics or state == Enum.HumanoidStateType.Seated then return true end
+	return player and type(player:GetAttribute("HussEmotePlaying")) == "string"
+end
+local function selected()
+	local mode = character:GetAttribute("MovementState") or "Idle"
+	if root.Anchored or mode == "Locked" then return "Idle", 1 end
+	if humanoid.FloorMaterial == Enum.Material.Air then return "Fall", 1 end
+	local velocity = root.AssemblyLinearVelocity
+	local speed = Vector3.new(velocity.X, 0, velocity.Z).Magnitude
+	local moving = humanoid.MoveDirection.Magnitude > .05 and speed > .5
+	if not moving then return "Idle", 1 end
+	if mode == "Sprint" or mode == "Dive" then return "Run", math.clamp(speed / 32, .65, 1.65) end
+	return "Walk", math.clamp(speed / 24, .65, 1.5)
+end
+local function update()
+	if not alive() then cleanup(); return end
+	if blocked() then clearCurrent(); return end
+	local name, speed = selected()
+	local slot = slots[name]
+	local track = slot and (slot.custom or slot.fallback)
+	-- Keep a valid moving/idle clip until the requested clip is ready. A single
+	-- failed fall/run asset cannot stop all of the other states from animating.
+	if not track then return end
+	if currentTrack ~= track or currentName ~= name or not track.IsPlaying then
+		clearCurrent()
+		local ok = pcall(function() track:Play(FADE, 1, speed) end)
+		if not ok then
+			if slot.custom == track then slot.custom = nil else slot.fallback = nil end
+			warnOnce(name .. "play", name .. " could not play; trying its available fallback.")
+			return
+		end
+		currentTrack, currentName, currentSpeed = track, name, speed
+	elseif math.abs(speed - currentSpeed) > .025 then
+		track:AdjustSpeed(speed)
+		currentSpeed = speed
+	end
+end
+for _, name in ipairs({"Idle", "Walk", "Run", "Fall"}) do slots[name] = {} end
+table.insert(links, humanoid.Died:Connect(cleanup))
+table.insert(links, character.AncestryChanged:Connect(function() if not character:IsDescendantOf(workspace) then cleanup() end end))
+table.insert(links, script.Destroying:Connect(cleanup))
+-- Animator evaluates after PreAnimation. Existing dodge/panic overlay transforms
+-- are restored before evaluation and applied in PreSimulation by their own scripts.
+table.insert(links, Run.PreAnimation:Connect(update))
+for _, name in ipairs({"Idle", "Walk", "Run", "Fall"}) do
+	task.spawn(load, name, "rbxassetid://" .. defaults[name], false)
+	if r6 then task.spawn(load, name, CUSTOM[name], true) end
+end
+]==],
+[ [==[animationRuntime]==] ]=[==[--!nonstrict
+-- Huss V13: the Animator must originate on the server for player clips to replicate.
+-- This does not replace characters, change movement or rewrite the avatar setting.
+local Players = game:GetService("Players")
+local players, links, stopped = {}, {}, false
+local function characterAdded(player, character, record)
+	record.generation += 1
+	local generation = record.generation
+	task.spawn(function()
+		local humanoid = character:WaitForChild("Humanoid", 10)
+		if stopped or players[player] ~= record or generation ~= record.generation or player.Character ~= character or not humanoid then return end
+		local animator = humanoid:FindFirstChildOfClass("Animator")
+		if not animator then
+			animator = Instance.new("Animator")
+			animator:SetAttribute("HussServerAnimatorV13", true)
+			animator.Parent = humanoid
+		else
+			animator:SetAttribute("HussServerAnimatorV13", true)
+		end
+		if humanoid.RigType ~= Enum.HumanoidRigType.R6 and not record.warned then
+			record.warned = true
+			warn("[Huss V13 rig] " .. player.Name .. " spawned as R15. Set File > Avatar Settings > ... > R6 in Studio, save settings, publish, then test a fresh server. A Command Bar script cannot change this protected experience setting.")
+		end
+	end)
+end
+local function removePlayer(player)
+	local record = players[player]
+	if not record then return end
+	record.generation += 1
+	for _, connection in ipairs(record.links) do connection:Disconnect() end
+	players[player] = nil
+end
+local function addPlayer(player)
+	if players[player] or stopped then return end
+	local record = {generation=0, links={}}
+	players[player] = record
+	table.insert(record.links, player.CharacterAdded:Connect(function(character) characterAdded(player, character, record) end))
+	table.insert(record.links, player.CharacterRemoving:Connect(function() record.generation += 1 end))
+	if player.Character then characterAdded(player, player.Character, record) end
+end
+table.insert(links, Players.PlayerAdded:Connect(addPlayer))
+table.insert(links, Players.PlayerRemoving:Connect(removePlayer))
+for _, player in ipairs(Players:GetPlayers()) do addPlayer(player) end
+table.insert(links, script.Destroying:Connect(function()
+	stopped = true
+	for _, connection in ipairs(links) do connection:Disconnect() end
+	local copy = {}
+	for player in pairs(players) do table.insert(copy, player) end
+	for _, player in ipairs(copy) do removePlayer(player) end
+end))
+]==],
+}
+
+local preservedSource={
+[ [==[ServerMain]==] ]=[==[--!nonstrict
+
+local ReplicatedStorage =
+	game:GetService("ReplicatedStorage")
+
+local ServerScriptService =
+	game:GetService("ServerScriptService")
+
+local Shared =
+	ReplicatedStorage:WaitForChild("Shared")
+
+local Services =
+	ServerScriptService:WaitForChild("Services")
+
+------------------------------------------------------------
+-- REMOTES FIRST
+------------------------------------------------------------
+
+local Remotes =
+	require(
+		Shared.Net.Remotes
+	)
+
+Remotes.Init()
+
+------------------------------------------------------------
+-- SERVICES
+------------------------------------------------------------
+
+local BombService =
+	require(
+		Services.BombService
+	)
+
+local RoundService =
+	require(
+		Services.RoundService
+	)
+
+-- HussEconomyHooksV9
+require(Services:WaitForChild('EconomyServiceV9')).Init()
+-- HussExpansionBootV11
+require(Services:WaitForChild('CosmeticsServiceV11')).Init()
+BombService.Init()
+
+-- RoundService begins the actual game loop,
+-- so it initializes last.
+RoundService.Init()
+
+print("[ServerMain] Bomb Tag server booted")]==],
+[ [==[RoundService]==] ]=[==[--!nonstrict
+
+local Players =
+	game:GetService("Players")
+
+local ReplicatedStorage =
+	game:GetService("ReplicatedStorage")
+
+------------------------------------------------------------
+-- DEPENDENCIES
+------------------------------------------------------------
+
+local Shared =
+	ReplicatedStorage:WaitForChild("Shared")
+
+local GameConfig =
+	require(
+		Shared.Config.GameConfig
+	)
+
+local Remotes =
+	require(
+		Shared.Net.Remotes
+	)
+
+local BombService =
+	require(
+		script.Parent.BombService
+	)
+
+------------------------------------------------------------
+-- SERVICE
+------------------------------------------------------------
+
+local MapVoteService = require(script.Parent:WaitForChild("BombTagMapVoteServiceV6"))
+
+-- HussEconomyHooksV9
+local Economy=require(script.Parent:WaitForChild('EconomyServiceV9'))
+-- HussPracticeHooksV11
+local Practice=require(script.Parent:WaitForChild('PracticeServiceV11'))
+local RoundService = {}
+
+local roundRemote = nil
+local running = false
+
+------------------------------------------------------------
+-- PLAYER HELPERS
+------------------------------------------------------------
+
+local function getHumanoid(player)
+
+	local character =
+		player.Character
+
+	if not character then
+		return nil
+	end
+
+	return character:FindFirstChildOfClass(
+		"Humanoid"
+	)
+end
+
+local function getRoot(player)
+
+	local character =
+		player.Character
+
+	if not character then
+		return nil
+	end
+
+	local root =
+		character:FindFirstChild(
+			"HumanoidRootPart"
+		)
+
+	if root
+		and root:IsA("BasePart") then
+
+		return root
+	end
+
+	return nil
+end
+
+------------------------------------------------------------
+-- GET ALIVE PLAYERS
+------------------------------------------------------------
+
+-- BOMB_TAG_AFK_MATCHMAKING_V1
+local function getMatchmakingPlayers()
+    local eligible = {}
+
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player:GetAttribute("BombTagAFK") ~= true then
+            table.insert(eligible, player)
+        end
+    end
+
+    return eligible
+end
+
+local function getAlivePlayers()
+
+	local alivePlayers = {}
+
+	for _, player in ipairs(
+		Players:GetPlayers()
+		) do
+
+		if player:GetAttribute("InRound")
+			== true then
+
+			local humanoid =
+				getHumanoid(player)
+
+			if humanoid
+				and humanoid.Health > 0 then
+
+				table.insert(
+					alivePlayers,
+					player
+				)
+			end
+		end
+	end
+
+	return alivePlayers
+end
+
+------------------------------------------------------------
+-- LEADERSTATS
+------------------------------------------------------------
+
+------------------------------------------------------------
+-- LOBBY SPAWN
+------------------------------------------------------------
+
+local function getLobbySpawn()
+
+	local lobby =
+		workspace:WaitForChild(
+			"Lobby"
+		)
+
+	local lobbySpawn =
+		lobby:WaitForChild(
+			"LobbySpawn"
+		)
+
+	assert(
+		lobbySpawn:IsA("SpawnLocation"),
+
+		"Workspace > Lobby > LobbySpawn MUST be a SpawnLocation"
+	)
+
+	return lobbySpawn
+end
+
+------------------------------------------------------------
+-- CHARACTER DEATH
+------------------------------------------------------------
+
+local function hookCharacter(
+	player,
+	character
+)
+
+	local humanoid =
+		character:WaitForChild(
+			"Humanoid"
+		)
+
+	humanoid.Died:Connect(
+		function()
+
+			if player:GetAttribute(
+				"InRound"
+				) == true then
+
+				player:SetAttribute(
+					"InRound",
+					false
+				)
+			end
+		end
+	)
+end
+
+------------------------------------------------------------
+-- LOAD PLAYER INTO LOBBY
+------------------------------------------------------------
+
+local function loadLobbyCharacter(player)
+
+	if not player.Parent then
+		return
+	end
+
+	player:SetAttribute(
+		"InRound",
+		false
+	)
+
+	player.RespawnLocation =
+		getLobbySpawn()
+
+	player:LoadCharacter()
+end
+
+------------------------------------------------------------
+-- PLAYER SETUP
+------------------------------------------------------------
+
+local function setupPlayer(player)
+
+
+	player:SetAttribute(
+		"InRound",
+		false
+	)
+
+	player.RespawnLocation =
+		getLobbySpawn()
+
+	player.CharacterAdded:Connect(
+		function(character)
+
+			hookCharacter(
+				player,
+				character
+			)
+		end
+	)
+
+	task.defer(
+		function()
+
+			if player.Parent
+				and not player.Character then
+
+				loadLobbyCharacter(
+					player
+				)
+			end
+		end
+	)
+end
+
+------------------------------------------------------------
+-- SEND ROUND STATE
+------------------------------------------------------------
+
+local function sendRoundState(
+	state,
+	timeLeft,
+	winner
+)
+
+	roundRemote:FireAllClients({
+
+		State =
+			state,
+
+		TimeLeft =
+			timeLeft or 0,
+
+		Alive =
+			#getAlivePlayers(),
+
+		Winner =
+			winner
+			and winner.DisplayName
+			or "",
+	})
+end
+
+------------------------------------------------------------
+-- MAP
+------------------------------------------------------------
+
+local function getMap()
+
+	local maps =
+		workspace:WaitForChild(
+			"Maps"
+		)
+
+	local map =
+		maps:WaitForChild(
+			GameConfig.MapName
+		)
+
+	assert(
+		map:IsA("Model"),
+
+		"Workspace > Maps > "
+			.. tostring(GameConfig.MapName)
+			.. " MUST be a Model"
+	)
+
+	return map
+end
+
+------------------------------------------------------------
+-- SPAWN PARTS
+------------------------------------------------------------
+
+local function getSpawnParts()
+
+	local map =
+		getMap()
+
+	local spawnFolder =
+		map:WaitForChild(
+			"Spawns"
+		)
+
+	local spawnParts = {}
+
+	for _, object in ipairs(
+		spawnFolder:GetChildren()
+		) do
+
+		if object:IsA("BasePart") then
+
+			table.insert(
+				spawnParts,
+				object
+			)
+		end
+	end
+
+	table.sort(
+		spawnParts,
+
+		function(a, b)
+
+			return a.Name
+				< b.Name
+		end
+	)
+
+	assert(
+		#spawnParts > 0,
+
+		"Workspace > Maps > "
+			.. tostring(GameConfig.MapName)
+			.. " > Spawns has NO spawn Parts"
+	)
+
+	return spawnParts
+end
+
+------------------------------------------------------------
+-- PUT CHARACTER FEET ON FLOOR
+------------------------------------------------------------
+
+local function groundCharacter(
+	character,
+	spawnPart
+)
+
+	local root =
+		character:WaitForChild(
+			"HumanoidRootPart"
+		)
+
+	--------------------------------------------------------
+	-- FIRST PUT CHARACTER ABOVE THE SPAWN LOCATION.
+	--
+	-- We intentionally place them high for a moment.
+	-- They will NOT be left here.
+	--------------------------------------------------------
+
+	character:PivotTo(
+		CFrame.new(
+			spawnPart.Position
+				+ Vector3.new(
+					0,
+					10,
+					0
+				)
+		)
+			* CFrame.Angles(
+				0,
+				math.rad(
+					spawnPart.Orientation.Y
+				),
+				0
+			)
+	)
+
+	--------------------------------------------------------
+	-- RAYCAST DOWNWARD TO FIND THE REAL FLOOR.
+	--------------------------------------------------------
+
+	local raycastParameters =
+		RaycastParams.new()
+
+	raycastParameters.FilterType =
+		Enum.RaycastFilterType.Exclude
+
+	raycastParameters.FilterDescendantsInstances =
+		{
+			character,
+		}
+
+	raycastParameters.IgnoreWater =
+		true
+
+	local rayOrigin =
+		spawnPart.Position
+		+ Vector3.new(
+			0,
+			25,
+			0
+		)
+
+	local rayDirection =
+		Vector3.new(
+			0,
+			-60,
+			0
+		)
+
+	local result =
+		workspace:Raycast(
+			rayOrigin,
+			rayDirection,
+			raycastParameters
+		)
+
+	--------------------------------------------------------
+	-- FALLBACK
+	--------------------------------------------------------
+
+	if not result then
+
+		warn(
+			"[RoundService] Could not find floor under",
+			spawnPart.Name
+		)
+
+		character:PivotTo(
+			spawnPart.CFrame
+				+ Vector3.new(
+					0,
+					3,
+					0
+				)
+		)
+
+		return
+	end
+
+	--------------------------------------------------------
+	-- GET CURRENT CHARACTER BOUNDING BOX.
+	--------------------------------------------------------
+
+	local boundingCFrame,
+		boundingSize =
+		character:GetBoundingBox()
+
+	--------------------------------------------------------
+	-- FIND BOTTOM OF CHARACTER.
+	--------------------------------------------------------
+
+	local currentBottomY =
+		boundingCFrame.Position.Y
+	- (
+		boundingSize.Y
+			/ 2
+	)
+
+	--------------------------------------------------------
+	-- FLOOR SURFACE HEIGHT.
+	--------------------------------------------------------
+
+	local desiredBottomY =
+		result.Position.Y
+		+ 0.05
+
+	--------------------------------------------------------
+	-- CALCULATE HOW FAR CHARACTER NEEDS TO MOVE DOWN.
+	--------------------------------------------------------
+
+	local verticalAdjustment =
+		desiredBottomY
+	- currentBottomY
+
+	--------------------------------------------------------
+	-- MOVE WHOLE CHARACTER DOWN SO FEET TOUCH FLOOR.
+	--------------------------------------------------------
+
+	local currentPivot =
+		character:GetPivot()
+
+	character:PivotTo(
+		currentPivot
+			+ Vector3.new(
+				0,
+				verticalAdjustment,
+				0
+			)
+	)
+
+	--------------------------------------------------------
+	-- CLEAR ALL VELOCITY.
+	--------------------------------------------------------
+
+	root.AssemblyLinearVelocity =
+		Vector3.zero
+
+	root.AssemblyAngularVelocity =
+		Vector3.zero
+end
+
+------------------------------------------------------------
+-- LOAD ONE PLAYER INTO ARENA
+------------------------------------------------------------
+
+local function loadRoundCharacter(
+	player,
+	spawnPart
+)
+
+	if not player.Parent then
+		return
+	end
+
+	--------------------------------------------------------
+	-- TEMPORARILY NOT ACTIVE
+	--------------------------------------------------------
+
+	player:SetAttribute(
+		"InRound",
+		false
+	)
+
+	--------------------------------------------------------
+	-- FRESH CHARACTER
+	--------------------------------------------------------
+
+	player:LoadCharacter()
+
+	local character =
+		player.Character
+		or player.CharacterAdded:Wait()
+
+	local root =
+		character:WaitForChild(
+			"HumanoidRootPart"
+		)
+
+	local humanoid =
+		character:WaitForChild(
+			"Humanoid"
+		)
+
+	--------------------------------------------------------
+	-- FULL HEALTH
+	--------------------------------------------------------
+
+	humanoid.Health =
+		humanoid.MaxHealth
+
+	--------------------------------------------------------
+	-- PUT THE PLAYER ON THE ACTUAL FLOOR.
+	--
+	-- THIS FIXES THE FLOATING PROBLEM.
+	--------------------------------------------------------
+
+	groundCharacter(
+		character,
+		spawnPart
+	)
+
+	--------------------------------------------------------
+	-- CLEAR VELOCITY AGAIN AFTER POSITIONING.
+	--------------------------------------------------------
+
+	root.AssemblyLinearVelocity =
+		Vector3.zero
+
+	root.AssemblyAngularVelocity =
+		Vector3.zero
+
+	--------------------------------------------------------
+	-- NOW FREEZE THEM.
+	--
+	-- Because their feet are already sitting on the floor,
+	-- they look planted instead of floating.
+	--------------------------------------------------------
+
+	root.Anchored =
+		true
+
+	--------------------------------------------------------
+	-- PLAYER IS ACTIVE IN ROUND
+	--------------------------------------------------------
+
+	player:SetAttribute(
+		"InRound",
+		true
+	)
+end
+
+------------------------------------------------------------
+-- PREPARE PLAYERS
+------------------------------------------------------------
+
+local function preparePlayers()
+
+	local players =
+		getMatchmakingPlayers()
+
+	local spawnParts =
+		getSpawnParts()
+
+	if GameConfig.DebugPrints then
+
+		print(
+			"[RoundService] Preparing",
+			#players,
+			"player(s) for arena"
+		)
+	end
+
+	for index, player in ipairs(
+		players
+		) do
+
+		local spawnIndex =
+			((index - 1)
+				% #spawnParts)
+			+ 1
+
+		local spawnPart =
+			spawnParts[
+		spawnIndex
+		]
+
+		loadRoundCharacter(
+			player,
+			spawnPart
+		)
+	end
+
+	if GameConfig.DebugPrints then
+
+		print(
+			"[RoundService] Players grounded and frozen"
+		)
+	end
+end
+
+------------------------------------------------------------
+-- FREEZE PLAYERS
+------------------------------------------------------------
+
+local function freezeRoundPlayers()
+
+	for _, player in ipairs(
+		getAlivePlayers()
+		) do
+
+		local root =
+			getRoot(player)
+
+		if root then
+
+			root.AssemblyLinearVelocity =
+				Vector3.zero
+
+			root.AssemblyAngularVelocity =
+				Vector3.zero
+
+			root.Anchored =
+				true
+		end
+	end
+
+	if GameConfig.DebugPrints then
+
+		print(
+			"[RoundService] Movement LOCKED"
+		)
+	end
+end
+
+------------------------------------------------------------
+-- RELEASE PLAYERS
+------------------------------------------------------------
+
+local function releaseRoundPlayers()
+
+	for _, player in ipairs(
+		getAlivePlayers()
+		) do
+
+		local root =
+			getRoot(player)
+
+		if root then
+
+			root.AssemblyLinearVelocity =
+				Vector3.zero
+
+			root.AssemblyAngularVelocity =
+				Vector3.zero
+
+			root.Anchored =
+				false
+		end
+	end
+
+	if GameConfig.DebugPrints then
+
+		print(
+			"[RoundService] GO! Movement UNLOCKED"
+		)
+	end
+end
+
+------------------------------------------------------------
+-- RETURN TO LOBBY
+------------------------------------------------------------
+
+local function returnEveryoneToLobby()
+	Practice.Stop()
+	Economy.AbortRound()
+
+	BombService.Stop()
+
+	for _, player in ipairs(
+		Players:GetPlayers()
+		) do
+
+		player:SetAttribute(
+			"InRound",
+			false
+		)
+	end
+
+	for _, player in ipairs(
+		Players:GetPlayers()
+		) do
+
+		if player.Parent then
+
+			loadLobbyCharacter(
+				player
+			)
+		end
+	end
+end
+
+------------------------------------------------------------
+-- WAIT FOR PLAYER
+------------------------------------------------------------
+
+local function waitForAtLeastOnePlayer()
+
+	if GameConfig.DebugPrints then
+
+		print(
+			"[RoundService] Waiting until server has at least one player..."
+		)
+	end
+
+	while running do
+
+		if #getMatchmakingPlayers()
+			>= GameConfig.AbsoluteMinimumPlayers then
+
+			if GameConfig.DebugPrints then
+
+				print(
+					"[RoundService] Player detected. Starting auto-start timer."
+				)
+			end
+
+			return true
+		end
+
+		task.wait(0.25)
+	end
+
+	return false
+end
+
+------------------------------------------------------------
+-- RANDOM START TIME
+------------------------------------------------------------
+
+local function chooseStartSeconds()
+
+	local minimum =
+		math.floor(
+			GameConfig.AutoStartMinSeconds
+		)
+
+	local maximum =
+		math.floor(
+			GameConfig.AutoStartMaxSeconds
+		)
+
+	if minimum > maximum then
+
+		minimum,
+			maximum =
+			maximum,
+			minimum
+	end
+
+	return math.random(
+		minimum,
+		maximum
+	)
+end
+
+------------------------------------------------------------
+-- LOBBY TIMER
+------------------------------------------------------------
+
+local function runLobbyStartTimer()
+
+	local totalSeconds =
+		chooseStartSeconds()
+
+	local dramaticSeconds =
+		GameConfig.RoundStartCountdownSeconds
+
+	local lobbySeconds =
+		totalSeconds
+	- dramaticSeconds
+
+	lobbySeconds =
+		math.max(
+			1,
+			lobbySeconds
+		)
+
+	if GameConfig.DebugPrints then
+
+		print(
+			"[RoundService] --------------------------------"
+		)
+
+		print(
+			"[RoundService] NEW ROUND TIMER"
+		)
+
+		print(
+			"[RoundService] Total start time:",
+			totalSeconds
+		)
+
+		print(
+			"[RoundService] Lobby portion:",
+			lobbySeconds
+		)
+
+		print(
+			"[RoundService] --------------------------------"
+		)
+	end
+
+	for remaining =
+		lobbySeconds,
+		1,
+		-1
+	do
+
+		----------------------------------------------------
+		-- CANCEL ONLY IF SERVER IS EMPTY
+		----------------------------------------------------
+
+		if #getMatchmakingPlayers()
+			< GameConfig.AbsoluteMinimumPlayers then
+
+			return false
+		end
+
+		local totalRemaining =
+			remaining
+			+ dramaticSeconds
+
+		sendRoundState(
+			"WAITING",
+			totalRemaining,
+			nil
+		)
+
+		task.wait(1)
+	end
+
+	return true
+end
+
+------------------------------------------------------------
+-- DRAMATIC COUNTDOWN
+------------------------------------------------------------
+
+local function runDramaticCountdown()
+
+	--------------------------------------------------------
+	-- PLAYER IS ALREADY GROUNDED.
+	--
+	-- KEEP THEM LOCKED THROUGH 3 / 2 / 1.
+	--------------------------------------------------------
+
+	freezeRoundPlayers()
+
+	for remaining =
+		GameConfig.RoundStartCountdownSeconds,
+		1,
+		-1
+	do
+
+		sendRoundState(
+			"STARTING",
+			remaining,
+			nil
+		)
+
+		if GameConfig.DebugPrints then
+
+			print(
+				"[RoundService] Countdown:",
+				remaining
+			)
+		end
+
+		task.wait(1)
+	end
+
+	--------------------------------------------------------
+	-- GO!
+	--------------------------------------------------------
+
+	releaseRoundPlayers()
+end
+
+------------------------------------------------------------
+-- SOLO PRACTICE
+------------------------------------------------------------
+
+local function runSoloPractice()
+ Economy.AbortRound()
+ local players=getMatchmakingPlayers()
+ if #players~=1 then return end
+ local player=players[1]
+ Practice.Run(player,{
+  Spawns=getSpawnParts(),Ground=groundCharacter,Duration=math.max(60,GameConfig.SoloPracticeSeconds),
+  Running=function() return running end,
+  Send=function(state,timeLeft,alive)
+   roundRemote:FireAllClients({State=state,TimeLeft=timeLeft,Alive=alive,Winner=''})
+  end,
+ })
+end
+
+------------------------------------------------------------
+-- AWARD WIN
+------------------------------------------------------------
+
+------------------------------------------------------------
+-- BOMB MATCH
+------------------------------------------------------------
+
+local function runBombMatch()
+	Economy.BeginRound(getAlivePlayers())
+
+	local finalDuelAnnounced =
+		false
+
+	while running do
+
+		local alivePlayers =
+			getAlivePlayers()
+
+		if #alivePlayers <= 1 then
+			break
+		end
+
+		local finalDuel =
+			#alivePlayers == 2
+
+		if finalDuel
+			and not finalDuelAnnounced then
+			-- HussFinalStandV11
+			Economy.FinalStand(alivePlayers)
+
+			finalDuelAnnounced =
+				true
+
+			sendRoundState(
+				"FINAL_DUEL",
+				0,
+				nil
+			)
+
+			task.wait(0.75)
+
+		else
+
+			sendRoundState(
+				"ROUND",
+				0,
+				nil
+			)
+		end
+
+		local fuseSeconds
+
+		if finalDuel then
+
+			fuseSeconds =
+				GameConfig.FinalDuelBombFuseSeconds
+
+		else
+
+			fuseSeconds =
+				GameConfig.NormalBombFuseSeconds
+		end
+
+		BombService.RunBombCycle(
+			getAlivePlayers,
+			fuseSeconds
+		)
+
+		task.wait(
+			GameConfig.BetweenBombsSeconds
+		)
+	end
+
+	--------------------------------------------------------
+	-- WINNER
+	--------------------------------------------------------
+
+	BombService.Stop()
+
+	local survivors =
+		getAlivePlayers()
+
+	local winner = nil
+
+	if #survivors == 1 then
+
+		winner =
+			survivors[1]
+
+	end
+
+	--------------------------------------------------------
+	-- RESULTS
+	--------------------------------------------------------
+
+	Economy.EndRound(winner)
+
+	for remaining =
+		GameConfig.ResultsSeconds,
+		1,
+		-1
+	do
+
+		sendRoundState(
+			"RESULT",
+			remaining,
+			winner
+		)
+
+		task.wait(1)
+	end
+end
+
+------------------------------------------------------------
+-- ROUND CYCLE
+------------------------------------------------------------
+
+local function runRoundCycle()
+
+	local playerExists =
+		waitForAtLeastOnePlayer()
+
+	if not playerExists then
+		return
+	end
+
+	--------------------------------------------------------
+	-- 10-15 SECOND START
+	--------------------------------------------------------
+
+	MapVoteService.RunVote(7)
+
+	local timerFinished = runLobbyStartTimer()
+
+	if not timerFinished then
+		return
+	end
+
+	--------------------------------------------------------
+	-- TELEPORT + GROUND + FREEZE
+	--------------------------------------------------------
+
+	preparePlayers()
+
+	--------------------------------------------------------
+	-- 3 / 2 / 1
+	--------------------------------------------------------
+
+	runDramaticCountdown()
+
+	--------------------------------------------------------
+	-- DETERMINE ROUND TYPE
+	--------------------------------------------------------
+
+	local alivePlayers =
+		getAlivePlayers()
+
+	if #alivePlayers == 0 then
+
+		returnEveryoneToLobby()
+
+		return
+	end
+
+	if #alivePlayers == 1 then
+
+		runSoloPractice()
+
+	else
+
+		runBombMatch()
+	end
+
+	--------------------------------------------------------
+	-- BACK TO LOBBY
+	--------------------------------------------------------
+
+	returnEveryoneToLobby()
+
+	task.wait(0.5)
+end
+
+------------------------------------------------------------
+-- MAIN LOOP
+------------------------------------------------------------
+
+local function gameLoop()
+
+	print(
+		"[RoundService] GAME LOOP IS RUNNING"
+	)
+
+	while running do
+
+		local success,
+			errorMessage =
+			pcall(
+				runRoundCycle
+			)
+
+		if not success then
+			Practice.Stop()
+			Economy.AbortRound()
+
+			warn(
+				"[RoundService] ROUND ERROR:",
+				errorMessage
+			)
+
+			------------------------------------------------
+			-- NEVER LEAVE PLAYERS FROZEN AFTER AN ERROR
+			------------------------------------------------
+
+			releaseRoundPlayers()
+
+			task.wait(2)
+		end
+	end
+end
+
+------------------------------------------------------------
+-- INIT
+------------------------------------------------------------
+
+function RoundService.Init()
+
+	if running then
+		return
+	end
+
+	running =
+		true
+
+	Players.CharacterAutoLoads =
+		false
+
+	roundRemote =
+		Remotes.Get(
+			"RoundState"
+		)
+
+	for _, player in ipairs(
+		Players:GetPlayers()
+		) do
+
+		setupPlayer(
+			player
+		)
+
+		if not player.Character then
+
+			loadLobbyCharacter(
+				player
+			)
+		end
+	end
+
+	Players.PlayerAdded:Connect(
+		function(player)
+
+			setupPlayer(
+				player
+			)
+		end
+	)
+
+	task.spawn(
+		gameLoop
+	)
+
+	print(
+		"[RoundService] INITIALIZED"
+	)
+end
+
+return RoundService]==],
+[ [==[SnappyMovement]==] ]=[==[--!nonstrict
+
+------------------------------------------------------------
+-- BOMB TAG - CONTINUOUS FLUID DIVE + I-FRAME REQUEST
+--
+-- WASD          = Move
+-- Shift         = Sprint
+-- WASD + Space  = Directional Dive
+--
+-- Space alone   = Nothing
+-- Normal jumping is disabled
+--
+-- Dive start requests a short server-authoritative
+-- Bomb Tag i-frame window.
+------------------------------------------------------------
+
+local Players =
+	game:GetService("Players")
+
+local ReplicatedStorage =
+	game:GetService("ReplicatedStorage")
+
+local UserInputService =
+	game:GetService("UserInputService")
+
+local ContextActionService =
+	game:GetService("ContextActionService")
+
+local RunService =
+	game:GetService("RunService")
+
+------------------------------------------------------------
+-- PLAYER
+------------------------------------------------------------
+
+local player =
+	Players.LocalPlayer
+
+------------------------------------------------------------
+-- I-FRAME REMOTE
+------------------------------------------------------------
+
+local Shared =
+	ReplicatedStorage:WaitForChild("Shared")
+
+local Net =
+	Shared:WaitForChild("Net")
+
+local DodgeIFrameRequest =
+	Net:WaitForChild("DodgeIFrameRequest")
+
+------------------------------------------------------------
+-- NORMAL MOVEMENT
+------------------------------------------------------------
+
+local WALK_SPEED = 24
+local SPRINT_SPEED = 32
+
+------------------------------------------------------------
+-- DIVE DISTANCE / POWER
+------------------------------------------------------------
+
+local DIVE_MIN_START_SPEED = 74
+
+local DIVE_MOMENTUM_BONUS = 44
+
+local DIVE_MAX_START_SPEED = 84
+
+local DIVE_DURATION = 0.72
+
+local DIVE_COOLDOWN = 1.5
+
+------------------------------------------------------------
+-- DIVE DRAG
+------------------------------------------------------------
+
+local DIVE_EARLY_DRAG = 1
+local DIVE_LATE_DRAG = 2.7
+
+local DIVE_STOP_SPEED = 5
+
+------------------------------------------------------------
+-- DIVE STEERING
+------------------------------------------------------------
+
+local CONTROL_RETURN_START = 0.34
+
+local FULL_CONTROL_POINT = 0.86
+
+local DIVE_STEER_RESPONSE = 5.5
+
+------------------------------------------------------------
+-- RUNNING HANDOFF
+------------------------------------------------------------
+
+local HANDOFF_START = 0.55
+
+local HANDOFF_RESPONSE = 8.5
+
+------------------------------------------------------------
+-- DIRECTION MULTIPLIERS
+------------------------------------------------------------
+
+local FORWARD_MULTIPLIER = 1.00
+
+local SIDE_MULTIPLIER = 0.98
+
+local BACKWARD_MULTIPLIER = 0.91
+
+local DIAGONAL_MULTIPLIER = 0.99
+
+------------------------------------------------------------
+-- CHARACTER TURNING
+------------------------------------------------------------
+
+local DIVE_TURN_RESPONSE = 13
+
+------------------------------------------------------------
+-- CAMERA
+------------------------------------------------------------
+
+local NORMAL_FOV = 70
+local SPRINT_FOV = 74
+local DIVE_FOV = 77
+
+local FOV_RESPONSE = 14
+
+------------------------------------------------------------
+-- CHARACTER
+------------------------------------------------------------
+
+local character = nil
+local humanoid = nil
+local root = nil
+
+------------------------------------------------------------
+-- INPUT
+------------------------------------------------------------
+
+local held = {
+	W = false,
+	A = false,
+	S = false,
+	D = false,
+}
+
+local sprintHeld =
+	false
+
+------------------------------------------------------------
+-- DIVE STATE
+------------------------------------------------------------
+
+local diving =
+	false
+
+local diveVelocity =
+	Vector3.zero
+
+local diveDirection =
+	Vector3.zero
+
+local diveStartedAt =
+	0
+
+local lastDiveAt =
+	-math.huge
+
+------------------------------------------------------------
+-- HELPERS
+------------------------------------------------------------
+
+-- HussShiftLockV7: inspect the actual facing constraint, not a delayed flag.
+-- HussPerfectMovementV11
+local function boostedSpeed(base)
+ local untilTime=character and character:GetAttribute('HussPerfectBoostUntil')
+ if player:GetAttribute('InRound')==true and type(untilTime)=='number' and workspace:GetServerTimeNow()<untilTime then return base+6 end
+ return base
+end
+local function cameraOwnsFacing()
+ local lock=root and root:FindFirstChild('ForcedShiftLockOrientation')
+ return lock~=nil and lock:IsA('AlignOrientation') and lock.Enabled
+end
+
+local function horizontal(
+	vector
+)
+
+	return Vector3.new(
+		vector.X,
+		0,
+		vector.Z
+	)
+end
+
+------------------------------------------------------------
+
+local function smoothStep(
+	value
+)
+
+	value =
+		math.clamp(
+			value,
+			0,
+			1
+		)
+
+	return value
+		* value
+		* (
+			3
+			- 2
+			* value
+		)
+end
+
+------------------------------------------------------------
+
+local function getHorizontalSpeed()
+
+	if not root then
+		return 0
+	end
+
+	return horizontal(
+		root.AssemblyLinearVelocity
+	).Magnitude
+end
+
+------------------------------------------------------------
+
+local function isGrounded()
+
+	if not humanoid then
+		return false
+	end
+
+	return humanoid.FloorMaterial
+		~= Enum.Material.Air
+end
+
+------------------------------------------------------------
+
+local function movementLocked()
+
+	if not character
+		or not humanoid
+		or not root then
+
+		return true
+	end
+
+	if humanoid.Health <= 0 or humanoid.PlatformStand or humanoid.Sit
+  or character:GetAttribute('Ragdolled')==true or character:GetAttribute('IsRagdoll')==true
+  or player:GetAttribute('HussGamePaused')==true or workspace:GetAttribute('HussGamePaused')==true
+  or humanoid:GetState()==Enum.HumanoidStateType.Physics
+  or humanoid:GetState()==Enum.HumanoidStateType.Ragdoll
+  or humanoid:GetState()==Enum.HumanoidStateType.Seated then
+		return true
+	end
+
+	--------------------------------------------------------
+	-- RoundService anchors the root during 3 / 2 / 1.
+	--------------------------------------------------------
+
+	if root.Anchored then
+		return true
+	end
+
+	return false
+end
+
+------------------------------------------------------------
+-- ATTRIBUTES
+------------------------------------------------------------
+
+local function setMovementState(
+	state
+)
+
+	if not character then
+		return
+	end
+
+	character:SetAttribute(
+		"MovementState",
+		state
+	)
+end
+
+------------------------------------------------------------
+
+local function fireMovementAction(
+	action
+)
+
+	if not character then
+		return
+	end
+
+	character:SetAttribute(
+		"MovementAction",
+		action
+	)
+
+	local actionId =
+		character:GetAttribute(
+			"MovementActionId"
+		) or 0
+
+	character:SetAttribute(
+		"MovementActionId",
+		actionId + 1
+	)
+end
+
+------------------------------------------------------------
+-- CAMERA RELATIVE DIRECTIONS
+------------------------------------------------------------
+
+local function getCameraDirections()
+
+	local camera =
+		workspace.CurrentCamera
+
+	if not camera then
+
+		return
+			Vector3.new(
+				0,
+				0,
+				-1
+			),
+
+			Vector3.new(
+				1,
+				0,
+				0
+			)
+	end
+
+	local forward =
+		horizontal(
+			camera.CFrame.LookVector
+		)
+
+	local right =
+		horizontal(
+			camera.CFrame.RightVector
+		)
+
+	if forward.Magnitude <= 0.01 then
+
+		forward =
+			Vector3.new(
+				0,
+				0,
+				-1
+			)
+
+	else
+
+		forward =
+			forward.Unit
+	end
+
+	if right.Magnitude <= 0.01 then
+
+		right =
+			Vector3.new(
+				1,
+				0,
+				0
+			)
+
+	else
+
+		right =
+			right.Unit
+	end
+
+	return forward,
+		right
+end
+
+------------------------------------------------------------
+-- HELD WASD DIRECTION
+------------------------------------------------------------
+
+local function getInputDirection()
+
+	local forward,
+		right =
+		getCameraDirections()
+
+	local direction =
+		Vector3.zero
+
+	if held.W then
+
+		direction +=
+			forward
+	end
+
+	if held.S then
+
+		direction -=
+			forward
+	end
+
+	if held.D then
+
+		direction +=
+			right
+	end
+
+	if held.A then
+
+		direction -=
+			right
+	end
+
+	--------------------------------------------------------
+	-- SPACE ALONE DOES NOTHING
+	--------------------------------------------------------
+
+	if direction.Magnitude <= 0.01 then
+
+		return nil
+	end
+
+	return direction.Unit
+end
+
+------------------------------------------------------------
+-- DETERMINE DIVE TYPE
+------------------------------------------------------------
+
+local function getDiveType(
+	direction
+)
+
+	local forward,
+		right =
+		getCameraDirections()
+
+	local forwardDot =
+		direction:Dot(
+			forward
+		)
+
+	local rightDot =
+		direction:Dot(
+			right
+		)
+
+	local absForward =
+		math.abs(
+			forwardDot
+		)
+
+	local absRight =
+		math.abs(
+			rightDot
+		)
+
+	--------------------------------------------------------
+	-- DIAGONALS
+	--------------------------------------------------------
+
+	if absForward > 0.35
+		and absRight > 0.35 then
+
+		if forwardDot > 0
+			and rightDot > 0 then
+
+			return
+				DIAGONAL_MULTIPLIER,
+				"DiveForwardRight"
+
+		elseif forwardDot > 0
+			and rightDot < 0 then
+
+			return
+				DIAGONAL_MULTIPLIER,
+				"DiveForwardLeft"
+
+		elseif forwardDot < 0
+			and rightDot > 0 then
+
+			return
+				DIAGONAL_MULTIPLIER,
+				"DiveBackRight"
+
+		else
+
+			return
+				DIAGONAL_MULTIPLIER,
+				"DiveBackLeft"
+		end
+	end
+
+	--------------------------------------------------------
+	-- FORWARD
+	--------------------------------------------------------
+
+	if forwardDot > 0.5 then
+
+		return
+			FORWARD_MULTIPLIER,
+			"DiveForward"
+	end
+
+	--------------------------------------------------------
+	-- BACKWARD
+	--------------------------------------------------------
+
+	if forwardDot < -0.5 then
+
+		return
+			BACKWARD_MULTIPLIER,
+			"DiveBack"
+	end
+
+	--------------------------------------------------------
+	-- LEFT
+	--------------------------------------------------------
+
+	if rightDot < 0 then
+
+		return
+			SIDE_MULTIPLIER,
+			"DiveLeft"
+	end
+
+	--------------------------------------------------------
+	-- RIGHT
+	--------------------------------------------------------
+
+	return
+		SIDE_MULTIPLIER,
+		"DiveRight"
+end
+
+------------------------------------------------------------
+-- FACE MOVEMENT DIRECTION
+------------------------------------------------------------
+
+local function faceDirection(
+	direction,
+	dt
+)
+ if cameraOwnsFacing() then return end
+
+	if not root then
+		return
+	end
+
+	direction =
+		horizontal(
+			direction
+		)
+
+	if direction.Magnitude <= 0.01 then
+		return
+	end
+
+	direction =
+		direction.Unit
+
+	local position =
+		root.Position
+
+	local target =
+		CFrame.lookAt(
+			position,
+			position + direction,
+			Vector3.yAxis
+		)
+
+	local alpha =
+		1
+	- math.exp(
+		-DIVE_TURN_RESPONSE
+			* dt
+	)
+
+	root.CFrame =
+		root.CFrame:Lerp(
+			target,
+			alpha
+		)
+end
+
+------------------------------------------------------------
+-- END DIVE
+------------------------------------------------------------
+
+local function finishDive()
+
+	if not diving then
+		return
+	end
+
+	diving =
+		false
+
+	humanoid.AutoRotate = not cameraOwnsFacing()
+
+	--------------------------------------------------------
+	-- DO NOT ZERO VELOCITY.
+	--------------------------------------------------------
+
+	if sprintHeld
+		and humanoid.MoveDirection.Magnitude
+		> 0.05 then
+
+		humanoid.WalkSpeed =
+			boostedSpeed(SPRINT_SPEED)
+
+	else
+
+		humanoid.WalkSpeed =
+			boostedSpeed(WALK_SPEED)
+	end
+
+	fireMovementAction(
+		"DiveEnd"
+	)
+end
+
+------------------------------------------------------------
+-- START DIVE
+------------------------------------------------------------
+
+local function attemptDive()
+
+	if movementLocked() then
+		return
+	end
+
+	if diving then
+		return
+	end
+
+	if not isGrounded() then
+		return
+	end
+
+	local now =
+		time()
+
+	if now - lastDiveAt
+		< DIVE_COOLDOWN then
+
+		return
+	end
+
+	local direction =
+		getInputDirection()
+
+	if not direction then
+		return
+	end
+
+	--------------------------------------------------------
+	-- CURRENT MOMENTUM
+	--------------------------------------------------------
+
+	local currentSpeed =
+		getHorizontalSpeed()
+
+	local startingSpeed =
+		math.clamp(
+			currentSpeed
+			+ DIVE_MOMENTUM_BONUS,
+
+			DIVE_MIN_START_SPEED,
+
+			DIVE_MAX_START_SPEED
+		)
+
+	--------------------------------------------------------
+	-- DIRECTION TYPE
+	--------------------------------------------------------
+
+	local multiplier,
+		action =
+		getDiveType(
+			direction
+		)
+
+	startingSpeed =
+		startingSpeed
+		* multiplier
+
+	--------------------------------------------------------
+	-- START DIVE
+	--------------------------------------------------------
+
+	lastDiveAt =
+		now
+
+	diveStartedAt =
+		now
+
+	diveDirection =
+		direction
+
+	diveVelocity =
+		direction
+		* startingSpeed
+
+	diving =
+		true
+
+	humanoid.AutoRotate =
+		false
+
+	humanoid.WalkSpeed =
+		0
+
+	--------------------------------------------------------
+	-- ASK SERVER FOR DODGE I-FRAMES
+	--------------------------------------------------------
+
+	DodgeIFrameRequest:FireServer(direction, action) -- HussDodgeV5
+
+	--------------------------------------------------------
+	-- APPLY INITIAL DIVE VELOCITY
+	--------------------------------------------------------
+
+	local oldVelocity =
+		root.AssemblyLinearVelocity
+
+	root.AssemblyLinearVelocity =
+		Vector3.new(
+			diveVelocity.X,
+			oldVelocity.Y,
+			diveVelocity.Z
+		)
+
+	setMovementState(
+		"Dive"
+	)
+
+	fireMovementAction(
+		action
+	)
+end
+
+------------------------------------------------------------
+-- KEY INPUT
+------------------------------------------------------------
+
+UserInputService.InputBegan:Connect(
+	function(
+		input,
+		gameProcessed
+	)
+
+		if gameProcessed then
+			return
+		end
+
+		local key =
+			input.KeyCode
+
+		if key == Enum.KeyCode.W then
+
+			held.W =
+				true
+
+		elseif key == Enum.KeyCode.A then
+
+			held.A =
+				true
+
+		elseif key == Enum.KeyCode.S then
+
+			held.S =
+				true
+
+		elseif key == Enum.KeyCode.D then
+
+			held.D =
+				true
+
+		elseif key == Enum.KeyCode.LeftShift then
+
+			sprintHeld =
+				true
+		end
+	end
+)
+
+------------------------------------------------------------
+
+UserInputService.InputEnded:Connect(
+	function(input)
+
+		local key =
+			input.KeyCode
+
+		if key == Enum.KeyCode.W then
+
+			held.W =
+				false
+
+		elseif key == Enum.KeyCode.A then
+
+			held.A =
+				false
+
+		elseif key == Enum.KeyCode.S then
+
+			held.S =
+				false
+
+		elseif key == Enum.KeyCode.D then
+
+			held.D =
+				false
+
+		elseif key == Enum.KeyCode.LeftShift then
+
+			sprintHeld =
+				false
+		end
+	end
+)
+
+------------------------------------------------------------
+-- SPACE = DIVE
+------------------------------------------------------------
+
+local function handleSpace(
+	actionName,
+	inputState,
+	inputObject
+)
+
+	if inputState
+		== Enum.UserInputState.Begin then
+
+		attemptDive()
+	end
+
+	return Enum.ContextActionResult.Sink
+end
+
+ContextActionService:BindActionAtPriority(
+	"BombTagDirectionalDive",
+	handleSpace,
+	false,
+	3000,
+	Enum.KeyCode.Space
+)
+
+------------------------------------------------------------
+-- CHARACTER SETUP
+------------------------------------------------------------
+
+local function setupCharacter(
+	newCharacter
+)
+
+	character =
+		newCharacter
+
+	humanoid =
+		newCharacter:WaitForChild(
+			"Humanoid"
+		)
+
+	root =
+		newCharacter:WaitForChild(
+			"HumanoidRootPart"
+		)
+
+	--------------------------------------------------------
+	-- DISABLE NORMAL JUMPING
+	--------------------------------------------------------
+
+	humanoid.UseJumpPower =
+		true
+
+	humanoid.JumpPower =
+		0
+
+	humanoid.JumpHeight =
+		0
+
+	humanoid:SetStateEnabled(
+		Enum.HumanoidStateType.Jumping,
+		false
+	)
+
+	humanoid.Jump =
+		false
+
+	--------------------------------------------------------
+	-- NORMAL MOVEMENT
+	--------------------------------------------------------
+
+	humanoid.WalkSpeed =
+		boostedSpeed(WALK_SPEED)
+
+	humanoid.AutoRotate = not cameraOwnsFacing()
+
+	diving =
+		false
+
+	sprintHeld =
+		false
+
+	diveVelocity =
+		Vector3.zero
+
+	diveDirection =
+		Vector3.zero
+
+	character:SetAttribute(
+		"MovementState",
+		"Idle"
+	)
+
+	character:SetAttribute(
+		"MovementAction",
+		""
+	)
+
+	character:SetAttribute(
+		"MovementActionId",
+		0
+	)
+
+	print(
+		"[SnappyMovement] Character ready"
+	)
+end
+
+------------------------------------------------------------
+-- RESPAWN
+------------------------------------------------------------
+
+player.CharacterAdded:Connect(
+	setupCharacter
+)
+
+if player.Character then
+
+	setupCharacter(
+		player.Character
+	)
+end
+
+------------------------------------------------------------
+-- PHYSICS
+------------------------------------------------------------
+
+RunService.Heartbeat:Connect(
+	function(dt)
+
+		if not character
+			or not humanoid
+			or not root then
+
+			return
+		end
+
+		----------------------------------------------------
+		-- NEVER ALLOW NORMAL JUMP
+		----------------------------------------------------
+
+		humanoid.Jump =
+			false
+
+		----------------------------------------------------
+		-- ROUND COUNTDOWN LOCK
+		----------------------------------------------------
+
+		if movementLocked() then
+
+			diving =
+				false
+
+			humanoid.WalkSpeed =
+				0
+
+			setMovementState(
+				"Locked"
+			)
+
+			return
+		end
+
+		----------------------------------------------------
+		-- ACTIVE DIVE
+		----------------------------------------------------
+
+		if diving then
+
+			local elapsed =
+				time()
+			- diveStartedAt
+
+			local progress =
+				math.clamp(
+					elapsed
+					/ DIVE_DURATION,
+
+					0,
+					1
+				)
+
+			local speed =
+				diveVelocity.Magnitude
+
+			if elapsed >= DIVE_DURATION
+				or speed <= DIVE_STOP_SPEED then
+
+				finishDive()
+
+				return
+			end
+
+			------------------------------------------------
+			-- CURRENT INPUT
+			------------------------------------------------
+
+			local inputDirection =
+				getInputDirection()
+
+			------------------------------------------------
+			-- STEERING CONTROL CURVE
+			------------------------------------------------
+
+			local controlAmount =
+				0
+
+			if progress
+				> CONTROL_RETURN_START then
+
+				controlAmount =
+					(
+						progress
+						- CONTROL_RETURN_START
+					)
+					/
+					(
+						FULL_CONTROL_POINT
+						- CONTROL_RETURN_START
+					)
+
+				controlAmount =
+					smoothStep(
+						controlAmount
+					)
+			end
+
+			------------------------------------------------
+			-- CURVE DIVE
+			------------------------------------------------
+
+			if inputDirection
+				and controlAmount > 0 then
+
+				local desiredVelocity =
+					inputDirection
+					* speed
+
+				local steerAlpha =
+					1
+				- math.exp(
+					-DIVE_STEER_RESPONSE
+						* controlAmount
+						* dt
+				)
+
+				diveVelocity =
+					diveVelocity:Lerp(
+						desiredVelocity,
+						steerAlpha
+					)
+
+				if diveVelocity.Magnitude
+					> 0.01 then
+
+					diveDirection =
+						diveVelocity.Unit
+				end
+			end
+
+			------------------------------------------------
+			-- VARIABLE DRAG
+			------------------------------------------------
+
+			local dragProgress =
+				smoothStep(
+					progress
+				)
+
+			local currentDrag =
+				DIVE_EARLY_DRAG
+				+ (
+					DIVE_LATE_DRAG
+					- DIVE_EARLY_DRAG
+				)
+				* dragProgress
+
+			local dragMultiplier =
+				math.exp(
+					-currentDrag
+					* dt
+				)
+
+			diveVelocity *=
+				dragMultiplier
+
+			------------------------------------------------
+			-- RUNNING HANDOFF
+			------------------------------------------------
+
+			local handoffAmount =
+				0
+
+			if progress
+				> HANDOFF_START then
+
+				handoffAmount =
+					(
+						progress
+						- HANDOFF_START
+					)
+					/
+					(
+						1
+						- HANDOFF_START
+					)
+
+				handoffAmount =
+					smoothStep(
+						handoffAmount
+					)
+			end
+
+			local desiredSpeed =
+				boostedSpeed(WALK_SPEED)
+
+			if sprintHeld then
+
+				desiredSpeed =
+					boostedSpeed(SPRINT_SPEED)
+			end
+
+			------------------------------------------------
+			-- BLEND INTO NORMAL RUNNING
+			------------------------------------------------
+
+			if inputDirection
+				and handoffAmount > 0 then
+
+				local targetRunVelocity =
+					inputDirection
+					* desiredSpeed
+
+				local handoffAlpha =
+					1
+				- math.exp(
+					-HANDOFF_RESPONSE
+						* handoffAmount
+						* dt
+				)
+
+				diveVelocity =
+					diveVelocity:Lerp(
+						targetRunVelocity,
+						handoffAlpha
+					)
+			end
+
+			------------------------------------------------
+			-- HUMANOID CONTROL GRADUALLY RETURNS
+			------------------------------------------------
+
+			humanoid.WalkSpeed =
+				desiredSpeed
+				* handoffAmount
+
+			------------------------------------------------
+			-- APPLY VELOCITY
+			------------------------------------------------
+
+			local currentVelocity =
+				root.AssemblyLinearVelocity
+
+			root.AssemblyLinearVelocity =
+				Vector3.new(
+					diveVelocity.X,
+					currentVelocity.Y,
+					diveVelocity.Z
+				)
+
+			------------------------------------------------
+			-- SMOOTH FACING
+			------------------------------------------------
+
+			if diveVelocity.Magnitude
+				> 0.01 then
+
+				faceDirection(
+					diveVelocity.Unit,
+					dt
+				)
+			end
+
+			setMovementState(
+				"Dive"
+			)
+
+			return
+		end
+
+		----------------------------------------------------
+		-- NORMAL MOVEMENT
+		----------------------------------------------------
+
+		local moving =
+			humanoid.MoveDirection.Magnitude
+			> 0.05
+
+		if sprintHeld
+			and moving then
+
+			humanoid.WalkSpeed =
+				boostedSpeed(SPRINT_SPEED)
+
+			setMovementState(
+				"Sprint"
+			)
+
+		else
+
+			humanoid.WalkSpeed =
+				boostedSpeed(WALK_SPEED)
+
+			if moving then
+
+				setMovementState(
+					"Run"
+				)
+
+			else
+
+				setMovementState(
+					"Idle"
+				)
+			end
+		end
+	end
+)
+
+------------------------------------------------------------
+-- CAMERA
+------------------------------------------------------------
+
+RunService.RenderStepped:Connect(
+	function(dt)
+
+		local camera =
+			workspace.CurrentCamera
+
+		if not camera
+			or not humanoid then
+
+			return
+		end
+
+		local targetFOV =
+			NORMAL_FOV
+
+		if diving then
+
+			local progress =
+				math.clamp(
+					(
+						time()
+						- diveStartedAt
+					)
+					/ DIVE_DURATION,
+
+					0,
+					1
+				)
+
+			local normalTarget =
+				NORMAL_FOV
+
+			if sprintHeld then
+
+				normalTarget =
+					SPRINT_FOV
+			end
+
+			local handoff =
+				smoothStep(
+					math.clamp(
+						(
+							progress
+							- HANDOFF_START
+						)
+						/
+						(
+							1
+							- HANDOFF_START
+						),
+
+						0,
+						1
+					)
+				)
+
+			targetFOV =
+				DIVE_FOV
+				+ (
+					normalTarget
+					- DIVE_FOV
+				)
+				* handoff
+
+		elseif sprintHeld
+			and humanoid.MoveDirection.Magnitude
+			> 0.05 then
+
+			targetFOV =
+				SPRINT_FOV
+		end
+
+		local alpha =
+			1
+		- math.exp(
+			-FOV_RESPONSE
+				* dt
+		)
+
+		camera.FieldOfView =
+			camera.FieldOfView
+			+ (
+				targetFOV
+				- camera.FieldOfView
+			)
+			* alpha
+	end
+)
+
+print(
+	"[SnappyMovement] FLUID DIVE + I-FRAME CLIENT INITIALIZED"
+)
+-- HussActionV6: .72s burst; 1.5s cooldown and .45s server immunity are unchanged.
+]==],
+[ [==[MovementEffectsV8]==] ]=[==[--!nonstrict
+-- HussMovementEffectsV8: narrow action wakes and small ground puffs; cosmetic only.
+local Players=game:GetService('Players')
+local Run=game:GetService('RunService')
+local RS=game:GetService('ReplicatedStorage')
+local me=Players.LocalPlayer
+local V=Vector3.new
+local states,records,links={},{},{}
+local stopped,allocated,rayTokens=false,0,12
+local actions={DiveForward=true,DiveBack=true,DiveLeft=true,DiveRight=true,DiveForwardLeft=true,DiveForwardRight=true,DiveBackLeft=true,DiveBackRight=true}
+local cyan=ColorSequence.new(Color3.fromRGB(125,244,255),Color3.fromRGB(44,163,255))
+local gold=ColorSequence.new(Color3.fromRGB(255,250,193),Color3.fromRGB(255,193,75))
+local function link(signal,fn,list) table.insert(list or links,signal:Connect(fn)) end
+local function make(class,parent,properties)
+ local o=Instance.new(class);for k,v in pairs(properties) do o[k]=v end;o.Parent=parent;return o
+end
+local function reduced() return me:GetAttribute('HussReducedMotion')==true or workspace:GetAttribute('HussReducedMotion')==true end
+local function blocked(s)
+ local h,c,r=s.h,s.c,s.r
+ local mode=h:GetState()
+ return not c.Parent or not h.Parent or not r.Parent or h.Health<=0 or r.Anchored or h.Sit or h.PlatformStand
+  or s.p:GetAttribute('HussGamePaused')==true or workspace:GetAttribute('HussGamePaused')==true
+  or c:GetAttribute('Ragdolled')==true or c:GetAttribute('IsRagdoll')==true
+  or mode==Enum.HumanoidStateType.Dead or mode==Enum.HumanoidStateType.Ragdoll
+  or mode==Enum.HumanoidStateType.Physics or mode==Enum.HumanoidStateType.Seated
+end
+local function clear(s,destroy)
+ s.untilAt=nil;s.pending=false
+ for _,t in ipairs(s.trails) do t.Enabled=false;t:Clear() end
+ if s.dust then s.dust:Clear() end
+ if destroy and #s.objects>0 then
+  for _,o in ipairs(s.objects) do o:Destroy() end
+  table.clear(s.objects);table.clear(s.trails);s.dust=nil;s.mode=nil;allocated-=1
+ end
+end
+-- HussTrailShopV9
+local function palette(s)
+ local color=s.p:GetAttribute('HussTrailColor')
+ s.sprintColor=cyan;s.dodgeColor=gold
+ if typeof(color)=='Color3' then
+  s.sprintColor=ColorSequence.new(color:Lerp(Color3.new(1,1,1),.38),color)
+  s.dodgeColor=ColorSequence.new(color:Lerp(Color3.new(1,1,1),.72),color)
+ end
+ for _,t in ipairs(s.trails) do t.Color=s.mode=='dodge' and s.dodgeColor or s.sprintColor end
+end
+local function effects(s)
+ if #s.objects>0 then return true end
+ -- Reserve one slot for the local player. At most 12 sets / 24 trails.
+ if allocated>=(s.p==me and 12 or 11) then return false end
+ allocated+=1
+ local function obj(class,parent,props) local o=make(class,parent,props);table.insert(s.objects,o);return o end
+ for _,side in ipairs({-1,1}) do
+  local a=obj('Attachment',s.r,{Name='HussWakeTop',Position=V(side*.7,-.45,.3)})
+  local b=obj('Attachment',s.r,{Name='HussWakeBottom',Position=V(side*.7,-.62,.3)})
+  local t=obj('Trail',s.r,{Name='HussMovementWake',Attachment0=a,Attachment1=b,Lifetime=.09,MinLength=.1,MaxLength=8,LightEmission=.75,FaceCamera=true,Enabled=false,Color=cyan,
+   Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,.36),NumberSequenceKeypoint.new(1,1)}),
+   WidthScale=NumberSequence.new({NumberSequenceKeypoint.new(0,1),NumberSequenceKeypoint.new(1,0)})})
+  table.insert(s.trails,t)
+ end
+ s.at=obj('Attachment',s.r,{Name='HussGroundPuff'})
+ s.dust=obj('ParticleEmitter',s.at,{Name='HussGroundDust',Texture='rbxasset://textures/particles/smoke_main.dds',Rate=0,Enabled=false,
+  Lifetime=NumberRange.new(.16,.3),Speed=NumberRange.new(1.2,3.2),SpreadAngle=Vector2.new(60,60),EmissionDirection=Enum.NormalId.Top,
+  Acceleration=V(0,1.5,0),VelocityInheritance=.04,Drag=3,Rotation=NumberRange.new(0,360),RotSpeed=NumberRange.new(-35,35),LightInfluence=.7,
+  Color=ColorSequence.new(Color3.fromRGB(212,217,220)),
+  Size=NumberSequence.new({NumberSequenceKeypoint.new(0,.2),NumberSequenceKeypoint.new(.65,.7),NumberSequenceKeypoint.new(1,.9)}),
+  Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,.55),NumberSequenceKeypoint.new(.5,.75),NumberSequenceKeypoint.new(1,1)})})
+ return true
+end
+local function ground(s,now)
+ if s.p==me and s.h.FloorMaterial==Enum.Material.Air then return nil end
+ if now>=s.groundAt then
+  if s.p~=me then if rayTokens<1 then return nil end;rayTokens-=1 end
+  s.groundAt=now+.14
+  local leg=s.c:FindFirstChild('Left Leg')
+  local height=math.clamp(s.h.HipHeight+s.r.Size.Y*.5+(leg and leg.Size.Y or 0),1.5,8)
+  local hit=workspace:Raycast(s.r.Position,V(0,-height-.7,0),s.ray)
+  s.hit=hit and hit.Normal.Y>.45 and hit or nil
+ end
+ return s.hit
+end
+local function start(s,action,age)
+ if not actions[action] or age<0 or age>=.72 or blocked(s) or reduced() or workspace:GetAttribute('HussDodgeV5')~=true then return end
+ s.untilAt=os.clock()+.32-age;s.dodgeUntil=os.clock()+.72-age;s.pending=age<.14;s.groundAt=0
+end
+local function dispose(p)
+ local s=states[p];if not s then return end
+ clear(s,true);for _,c in ipairs(s.links) do c:Disconnect() end;states[p]=nil
+end
+local function character(p,c)
+ local record=records[p];record.generation+=1;local generation=record.generation;dispose(p)
+ task.spawn(function()
+  local h=c:WaitForChild('Humanoid',10);local r=c:WaitForChild('HumanoidRootPart',10)
+  if stopped or records[p]~=record or record.generation~=generation or p.Character~=c or not h or not r then return end
+  local ray=RaycastParams.new();ray.FilterType=Enum.RaycastFilterType.Exclude;ray.FilterDescendantsInstances={c};ray.IgnoreWater=true;ray.RespectCanCollide=true
+  local s={p=p,c=c,h=h,r=r,ray=ray,trails={},objects={},links={},groundAt=0,nextDust=0};states[p]=s
+  palette(s)
+  link(p:GetAttributeChangedSignal('HussTrailColor'),function() palette(s) end,s.links)
+  link(h.Died,function() clear(s,true) end,s.links)
+  if p==me then link(c:GetAttributeChangedSignal('MovementActionId'),function()
+   local action=c:GetAttribute('MovementAction')
+   if action=='DiveEnd' then clear(s,false) else start(s,action,0) end
+  end,s.links) end
+ end)
+end
+local function remove(p)
+ local record=records[p];if not record then return end
+ record.generation+=1;for _,c in ipairs(record.links) do c:Disconnect() end;dispose(p);records[p]=nil
+end
+local function add(p)
+ if records[p] then return end
+ local record={generation=0,links={}};records[p]=record
+ link(p.CharacterAdded,function(c) character(p,c) end,record.links)
+ link(p.CharacterRemoving,function() record.generation+=1;dispose(p) end,record.links)
+ if p.Character then character(p,p.Character) end
+end
+link(Players.PlayerAdded,add);link(Players.PlayerRemoving,remove)
+for _,p in ipairs(Players:GetPlayers()) do add(p) end
+link(Run.Heartbeat,function(dt)
+ rayTokens=math.min(12,rayTokens+math.min(dt,.25)*80)
+ local now=os.clock();local camera=workspace.CurrentCamera
+ local origin=camera and camera.CFrame.Position
+ local low=reduced()
+ for _,s in pairs(states) do
+  local near=origin and (s.r.Position-origin).Magnitude<100
+  if low or not near or blocked(s) then clear(s,true)
+  else
+   local v=s.r.AssemblyLinearVelocity;local speed=V(v.X,0,v.Z).Magnitude
+   local dodge=s.untilAt and now<s.untilAt
+   local sprint=speed>4 and now>=(s.dodgeUntil or 0) and (s.p~=me or s.c:GetAttribute('MovementState')=='Sprint')
+   local slot=#s.objects>0 or allocated<(s.p==me and 12 or 11)
+   local hit=slot and (dodge or sprint) and ground(s,now)
+   if hit and not dodge then
+    local floor=hit.Instance
+    if floor:IsA('BasePart') then v-=floor:GetVelocityAtPosition(s.r.Position) end
+    speed=V(v.X,0,v.Z).Magnitude
+    if speed<=27 or speed>=44 then hit=nil end
+   end
+   if hit and effects(s) then
+    s.usedAt=now
+    local mode=dodge and 'dodge' or 'sprint'
+    for _,t in ipairs(s.trails) do
+     if s.mode~=mode then t.Color=dodge and s.dodgeColor or s.sprintColor;t.Lifetime=dodge and .145 or .09 end
+     t.Enabled=speed>4
+    end
+    s.mode=mode
+    if s.pending or (sprint and now>=s.nextDust) then
+     s.at.Position=s.r.CFrame:PointToObjectSpace(hit.Position+V(0,.12,0))
+     s.dust:Emit(s.pending and 6 or 1);s.pending=false;s.nextDust=now+.24
+    end
+   else
+    for _,t in ipairs(s.trails) do t.Enabled=false end
+    s.pending=false
+    if now-(s.usedAt or 0)>1 then clear(s,true) end
+   end
+  end
+ end
+end)
+task.spawn(function()
+ local remote=RS:WaitForChild('Shared'):WaitForChild('Net'):WaitForChild('DodgeIFrameRequest')
+ if stopped then return end
+ link(remote.OnClientEvent,function(p,action,stamp)
+  if p==me or not actions[action] or type(stamp)~='number' or stamp~=stamp then return end
+  local age=workspace:GetServerTimeNow()-stamp
+  local s=states[p]
+  if s and age>=0 and age<.72 and (not s.lastStamp or stamp>s.lastStamp) then s.lastStamp=stamp;start(s,action,age) end
+ end)
+end)
+link(script.Destroying,function()
+ stopped=true;for _,c in ipairs(links) do c:Disconnect() end
+ local list={};for p in pairs(records) do table.insert(list,p) end;for _,p in ipairs(list) do remove(p) end
+end)
+]==],
+[ [==[BombService]==] ]=[==[--!nonstrict
+-- HussBombContactV12: coherent swept contacts, deterministic selection and carrier presentation.
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Shared =
+	ReplicatedStorage:WaitForChild("Shared")
+
+local GameConfig =
+	require(Shared.Config.GameConfig)
+
+local Remotes =
+	require(Shared.Net.Remotes)
+
+-- HussEconomyHooksV9
+local Economy=require(script.Parent:WaitForChild('EconomyServiceV9'))
+-- HussCombatHooksV11
+local Cosmetics=require(script.Parent:WaitForChild('CosmeticsServiceV11'))
+local PerfectWeave=require(script.Parent:WaitForChild('PerfectWeaveServiceV11'))
+local currentActor=nil
+local carrierCharacter=nil
+local carrierDiedConnection=nil
+local carrierRemovedConnection=nil
+local cycleGeneration=0
+
+local function clearCarrierStatus()
+ if carrierDiedConnection then carrierDiedConnection:Disconnect();carrierDiedConnection=nil end
+ if carrierRemovedConnection then carrierRemovedConnection:Disconnect();carrierRemovedConnection=nil end
+ if carrierCharacter then carrierCharacter:SetAttribute('HussBombCarrier',false);carrierCharacter=nil end
+ currentActor=nil
+end
+
+local function updateCarrierStatus(actor)
+ local character=actor and actor.Character
+ if currentActor==actor and carrierCharacter==character then return end
+ clearCarrierStatus()
+ if not character then return end
+ currentActor=actor
+ carrierCharacter=character
+ character:SetAttribute('HussBombCarrier',true)
+ local function lostCharacter()
+  if carrierCharacter==character then clearCarrierStatus() end
+ end
+ local humanoid=character:FindFirstChildOfClass('Humanoid')
+ if humanoid then carrierDiedConnection=humanoid.Died:Connect(lostCharacter) end
+ carrierRemovedConnection=character.AncestryChanged:Connect(function(_,parent)
+  if parent==nil then lostCharacter() end
+ end)
+end
+local BombService = {}
+
+local bombRemote = nil
+
+local activeBombPart = nil
+local activeHighlight = nil
+
+------------------------------------------------------------
+-- PLAYER HELPERS
+------------------------------------------------------------
+
+local function getHumanoid(player)
+
+	local character = player.Character
+
+	if not character then
+		return nil
+	end
+
+	return character:FindFirstChildOfClass("Humanoid")
+end
+
+local function getRoot(player)
+
+	local character = player.Character
+
+	if not character then
+		return nil
+	end
+
+	local root =
+		character:FindFirstChild("HumanoidRootPart")
+
+	if root and root:IsA("BasePart") then
+		return root
+	end
+
+	return nil
+end
+
+local function isAlive(player)
+
+	if not player then
+		return false
+	end
+
+	if not player.Parent or not player.Character or not player.Character.Parent then
+		return false
+	end
+
+	if player:GetAttribute("InRound") ~= true then
+		return false
+	end
+
+	local humanoid = getHumanoid(player)
+
+	if not humanoid then
+		return false
+	end
+
+	return humanoid.Health > 0
+end
+
+------------------------------------------------------------
+-- DODGE I-FRAMES
+------------------------------------------------------------
+
+local function hasDodgeIFrames(player)
+
+	if not player then
+		return false
+	end
+
+	local character = player.Character
+
+	if not character then
+		return false
+	end
+
+	local immuneUntil =
+		character:GetAttribute("BombTagIFrameUntil")
+		or 0
+
+	return workspace:GetServerTimeNow()
+		< immuneUntil
+end
+
+------------------------------------------------------------
+-- BOMB VISUAL
+------------------------------------------------------------
+
+local function clearBombVisual()
+
+	if activeBombPart then
+		activeBombPart:Destroy()
+		activeBombPart = nil
+	end
+
+	if activeHighlight then
+		activeHighlight:Destroy()
+		activeHighlight = nil
+	end
+end
+
+local function attachBombVisual(player)
+
+	clearBombVisual()
+
+	local character = player.Character
+
+	if not character then
+		return
+	end
+
+	local torso =
+		character:FindFirstChild("UpperTorso")
+		or character:FindFirstChild("Torso")
+		or character:FindFirstChild("HumanoidRootPart")
+
+	if not torso or not torso:IsA("BasePart") then
+		return
+	end
+
+	--------------------------------------------------------
+	-- BOMB
+	--------------------------------------------------------
+
+	local bomb = Instance.new("Part")
+
+	bomb.Name = "ActiveBomb"
+
+	bomb.Shape = Enum.PartType.Ball
+
+	bomb.Size =
+		Vector3.new(2.25, 2.25, 2.25)
+
+	bomb.Color =
+		Color3.fromRGB(32, 32, 38)
+
+	bomb.Material =
+		Enum.Material.Metal
+
+	bomb.CanCollide = false
+	bomb.CanTouch = false
+	bomb.CanQuery = false
+
+	bomb.Massless = true
+	bomb.Anchored = false
+
+	bomb.CFrame =
+		torso.CFrame
+		* CFrame.new(0, 1.2, 1.15)
+
+	bomb.Parent = character
+
+	local weld =
+		Instance.new("WeldConstraint")
+
+	weld.Part0 = torso
+	weld.Part1 = bomb
+	weld.Parent = bomb
+
+	--------------------------------------------------------
+	-- RED LIGHT
+	--------------------------------------------------------
+
+	local light =
+		Instance.new("PointLight")
+
+	light.Color =
+		Color3.fromRGB(255, 60, 60)
+
+	light.Brightness = 4
+	light.Range = 13
+
+	light.Parent = bomb
+
+	--------------------------------------------------------
+	-- BILLBOARD
+	--------------------------------------------------------
+
+	local billboard =
+		Instance.new("BillboardGui")
+
+	billboard.Name = "BombBillboard"
+
+	billboard.Size =
+		UDim2.fromOffset(160, 48)
+
+	billboard.StudsOffset =
+		Vector3.new(0, 2.6, 0)
+
+	billboard.AlwaysOnTop = true
+	billboard.Adornee = bomb
+
+	billboard.Parent = bomb
+
+	local label =
+		Instance.new("TextLabel")
+
+	label.Size =
+		UDim2.fromScale(1, 1)
+
+	label.BackgroundTransparency = 1
+
+	label.Font =
+		Enum.Font.GothamBlack
+
+	label.Text = "💣 BOMB"
+
+	label.TextColor3 =
+		Color3.fromRGB(255, 80, 80)
+
+	label.TextStrokeTransparency = 0.1
+	label.TextScaled = true
+
+	label.Parent = billboard
+
+	--------------------------------------------------------
+	-- CARRIER HIGHLIGHT
+	--------------------------------------------------------
+
+	local highlight =
+		Instance.new("Highlight")
+
+	highlight.Name =
+		"BombCarrierHighlight"
+
+	highlight.FillColor =
+		Color3.fromRGB(255, 55, 55)
+
+	highlight.FillTransparency = 0.72
+
+	highlight.OutlineColor =
+		Color3.fromRGB(255, 80, 80)
+
+	highlight.OutlineTransparency = 0
+
+	highlight.Parent = character
+
+	activeBombPart = bomb
+	activeHighlight = highlight
+	Cosmetics.ApplyBomb(player,bomb)
+end
+
+------------------------------------------------------------
+-- NETWORK
+------------------------------------------------------------
+
+local function sendBombState(
+	active,
+	carrier,
+	endTime,
+	eventName
+)
+
+	updateCarrierStatus(active and carrier or nil)
+	bombRemote:FireAllClients({
+		Active = active,
+
+		CarrierUserId =
+			carrier and carrier.UserId or 0,
+
+		CarrierName =
+			carrier and carrier.DisplayName or "",
+
+		EndTime = endTime or 0,
+
+		Event = eventName or "",
+	})
+end
+
+local function setCarrier(
+	player,
+	endTime,
+	eventName
+)
+
+	attachBombVisual(player)
+
+	sendBombState(
+		true,
+		player,
+		endTime,
+		eventName
+	)
+end
+
+------------------------------------------------------------
+-- HIGH SPEED TAG DETECTION
+------------------------------------------------------------
+
+-- Samples belong to one server tick and one root instance. A new character,
+-- long server stall or teleport must not leave a damaging path behind it.
+local MAX_SWEEP_SECONDS=.12
+local MAX_SWEEP_SPEED=120 -- covers the existing 84 stud/s weave with network slack
+local SAMPLE_SLACK=2
+local MAX_CONTACT_SEPARATION=6
+local DISTANCE_EPSILON=.0001
+
+local function finitePosition(position)
+ return typeof(position)=='Vector3' and position.X==position.X
+  and position.Y==position.Y and position.Z==position.Z
+  and position.Magnitude<1000000
+end
+
+local function capture(actors,now)
+ local samples={}
+ for _,actor in ipairs(actors) do
+  local root=getRoot(actor)
+  if root and finitePosition(root.Position) then
+   samples[actor.UserId]={Root=root,Position=root.Position,Time=now}
+  end
+ end
+ return samples
+end
+
+local function previousPosition(actor,current,previous,now,lockedUntil)
+ local old=previous[actor.UserId]
+ if not old or old.Root~=current.Root or old.Time<lockedUntil then return nil end
+ local elapsed=now-old.Time
+ if elapsed<=0 or elapsed>MAX_SWEEP_SECONDS then return nil end
+ local travel=(current.Position-old.Position).Magnitude
+ if travel>MAX_SWEEP_SPEED*elapsed+SAMPLE_SLACK then return nil end
+ return old.Position
+end
+
+local function closestContact(a0,a1,b0,b1)
+ local start=b0-a0
+ local delta=(b1-a1)-start
+ local denominator=delta:Dot(delta)
+ local alpha=denominator>1e-5 and math.clamp(-start:Dot(delta)/denominator,0,1) or 0
+ return (start+delta*alpha).Magnitude,a0+(a1-a0)*alpha,b0+(b1-b0)*alpha
+end
+
+local function lineClear(a,b,parameters)
+ local delta=b-a
+ return delta.Magnitude<=.001 or workspace:Raycast(a,delta,parameters)==nil
+end
+
+local function contact(a,b,ap,bp,parameters)
+ local direct=(b-a).Magnitude
+ local distance=direct
+ local ca,cb=a,b
+ if ap and bp then
+  local swept,sa,sb=closestContact(ap,a,bp,b)
+  -- Check traveled segments as well: interpolation cannot cut through a wall.
+  if swept<distance and lineClear(ap,a,parameters) and lineClear(bp,b,parameters) then
+   distance,ca,cb=swept,sa,sb
+  end
+ end
+ if distance>GameConfig.BombTagRadius then return nil end
+ -- Never deliver a delayed-looking tag to someone who has already escaped.
+ if direct>GameConfig.BombTagRadius+MAX_CONTACT_SEPARATION then return nil end
+ if not lineClear(a,b,parameters) then return nil end
+ if not lineClear(ca,cb,parameters) then
+  if direct>GameConfig.BombTagRadius then return nil end
+  distance=direct
+ end
+ return distance,direct
+end
+
+local function betterCandidate(candidate,distance,direct,best,bestDistance,bestDirect)
+ if not best or distance<bestDistance-DISTANCE_EPSILON then return true end
+ if math.abs(distance-bestDistance)>DISTANCE_EPSILON then return false end
+ if direct<bestDirect-DISTANCE_EPSILON then return true end
+ return math.abs(direct-bestDirect)<=DISTANCE_EPSILON and candidate.UserId<best.UserId
+end
+
+------------------------------------------------------------
+-- INIT
+------------------------------------------------------------
+
+function BombService.GetCarrier() return currentActor end
+function BombService.Init()
+
+	bombRemote =
+		Remotes.Get("BombState")
+
+	if GameConfig.DebugPrints then
+		print("[BombService] Initialized")
+	end
+end
+
+------------------------------------------------------------
+-- STOP
+------------------------------------------------------------
+
+function BombService.Stop()
+
+	cycleGeneration+=1
+
+	clearBombVisual()
+
+	sendBombState(
+		false,
+		nil,
+		0,
+		"Stopped"
+	)
+end
+
+------------------------------------------------------------
+-- BOMB CYCLE
+------------------------------------------------------------
+
+local function livingActors(aliveProvider)
+ local actors,seen={},{}
+ for _,actor in ipairs(aliveProvider()) do
+  if not seen[actor] and isAlive(actor) then
+   seen[actor]=true
+   table.insert(actors,actor)
+  end
+ end
+ return actors
+end
+
+function BombService.RunBombCycle(aliveProvider,fuseSeconds)
+ local alivePlayers=livingActors(aliveProvider)
+ if #alivePlayers<=1 then return nil end
+ cycleGeneration+=1
+ local cycle=cycleGeneration
+ local carrier=alivePlayers[math.random(1,#alivePlayers)]
+ local lastPasser=nil
+ local startedAt=workspace:GetServerTimeNow()
+ local endTime=startedAt+fuseSeconds
+ local protectedUserId=nil
+ local protectedUntil=0
+ local carrierLockedUntil=startedAt+GameConfig.NewCarrierLockSeconds
+ local previous=capture(alivePlayers,startedAt)
+ setCarrier(carrier,endTime,'Started')
+
+ while workspace:GetServerTimeNow()<endTime do
+  if cycle~=cycleGeneration then return nil end
+  local now=workspace:GetServerTimeNow()
+  alivePlayers=livingActors(aliveProvider)
+  if #alivePlayers<=1 then BombService.Stop();return nil end
+  local samples=capture(alivePlayers,now)
+
+  if not isAlive(carrier) then
+   lastPasser=nil
+   carrier=alivePlayers[math.random(1,#alivePlayers)]
+   carrierLockedUntil=now+GameConfig.NewCarrierLockSeconds
+   setCarrier(carrier,endTime,'Reassigned')
+  elseif carrierCharacter~=carrier.Character then
+   -- A refreshed character must never leave panic effects on the old rig.
+   lastPasser=nil
+   carrierLockedUntil=now+GameConfig.NewCarrierLockSeconds
+   setCarrier(carrier,endTime,'Reassigned')
+  end
+
+  local carrierSample=samples[carrier.UserId]
+  if now>=carrierLockedUntil and isAlive(carrier) and carrierSample then
+   local excluded={}
+   for _,actor in ipairs(alivePlayers) do
+    if actor.Character then table.insert(excluded,actor.Character) end
+   end
+   local parameters=RaycastParams.new()
+   parameters.FilterType=Enum.RaycastFilterType.Exclude
+   parameters.FilterDescendantsInstances=excluded
+   parameters.IgnoreWater=true
+   parameters.RespectCanCollide=true
+   local carrierPrevious=previousPosition(carrier,carrierSample,previous,now,carrierLockedUntil)
+   local best,bestDistance,bestDirect=nil,math.huge,math.huge
+
+   for _,candidate in ipairs(alivePlayers) do
+    if candidate==carrier or not isAlive(candidate) then continue end
+    if candidate.UserId==protectedUserId and now<protectedUntil then continue end
+    local sample=samples[candidate.UserId]
+    if not sample then continue end
+    local candidateUnlockedAt=carrierLockedUntil
+    if candidate.UserId==protectedUserId then candidateUnlockedAt=math.max(candidateUnlockedAt,protectedUntil) end
+    local immuneUntil=candidate.Character:GetAttribute('BombTagIFrameUntil')
+    if type(immuneUntil)=='number' and immuneUntil==immuneUntil then
+     -- Active dodges may earn a perfect-weave cue from their accepted window;
+     -- expired dodges must not expose that protected path to a later transfer.
+     local boundary=immuneUntil>now and immuneUntil-.45 or immuneUntil
+     candidateUnlockedAt=math.max(candidateUnlockedAt,boundary)
+    end
+    local candidatePrevious=previousPosition(candidate,sample,previous,now,candidateUnlockedAt)
+    local distance,direct=contact(carrierSample.Position,sample.Position,carrierPrevious,candidatePrevious,parameters)
+    if not distance then continue end
+    if hasDodgeIFrames(candidate) then
+     PerfectWeave.Try(carrier,candidate,carrierPrevious,candidatePrevious,protectedUserId,protectedUntil)
+     continue
+    end
+    if betterCandidate(candidate,distance,direct,best,bestDistance,bestDirect) then
+     best,bestDistance,bestDirect=candidate,distance,direct
+    end
+   end
+
+   if best then
+    local oldCarrier=carrier
+    carrier=best
+    protectedUserId=oldCarrier.UserId
+    protectedUntil=now+GameConfig.AntiTagBackSeconds
+    carrierLockedUntil=now+GameConfig.NewCarrierLockSeconds
+    setCarrier(carrier,endTime,'Transferred')
+    lastPasser=oldCarrier
+    Economy.Pass(oldCarrier,carrier)
+    if GameConfig.DebugPrints then print('[BombService]',oldCarrier.Name,'tagged',carrier.Name) end
+   end
+  end
+
+  -- Replace rather than append: departed actors and old roots leave no history.
+  previous=samples
+  task.wait(GameConfig.TagCheckInterval)
+ end
+
+ if cycle~=cycleGeneration then return nil end
+ if #livingActors(aliveProvider)<=1 then BombService.Stop();return nil end
+ local victim=carrier
+ if victim and isAlive(victim) then
+  Economy.Elimination(lastPasser,victim)
+  sendBombState(false,victim,0,'Exploded')
+  clearBombVisual()
+  local humanoid=getHumanoid(victim)
+  if humanoid then humanoid.Health=0 end
+  if GameConfig.DebugPrints then print('[BombService]',victim.Name,'exploded') end
+ else
+  BombService.Stop()
+ end
+ return victim
+end
+
+return BombService
+]==],
+[ [==[EconomyServiceV9]==] ]=[==[--!nonstrict
+-- HussEconomyV9: persisted store identity is permanent.
+-- HussEconomyV12: additive collections, proximity purchases and owner-only self grants.
+local Players=game:GetService('Players')
+local RS=game:GetService('ReplicatedStorage')
+local DS=game:GetService('DataStoreService')
+local Run=game:GetService('RunService')
+local Http=game:GetService('HttpService')
+local CollectionService=game:GetService('CollectionService')
+local OwnerCommands=require(script.Parent:WaitForChild('OwnerCommandsV12'))
+local E={}
+local PREVIEW=Run:IsStudio()
+local MAX,LEASE=2000000000,180
+local Catalog=require(RS:WaitForChild('HussCatalogV11'))
+local catalog,items,defaults=Catalog.Items,Catalog.ById,Catalog.Defaults
+local quests={{id='rounds',title='Complete 3 rounds',target=3,reward=100},{id='passes',title='Pass the bomb 10 times',target=10,reward=150},{id='wins',title='Win a round',target=1,reward=200}}
+local records,byUser,match={},{},nil
+local remote,store,ordered,started,closing
+local board={kind='Board',status=PREVIEW and 'preview' or 'loading',rows={},updatedAt=0}
+local boardAt,boardBusy,boardWanted=0,false,false
+local names={}
+local save
+local function integer(n) return type(n)=='number' and n==n and n>=0 and n<=MAX and n%1==0 end
+local function copy(t) local out={};for k,v in pairs(t) do out[k]=type(v)=='table' and copy(v) or v end;return out end
+local function day() return math.floor(os.time()/86400) end
+local function migrate(old)
+ local d=copy(old)
+ d.Kills=d.Kills or 0;d.FinalStands=d.FinalStands or 0
+ d.EquippedByCategory=d.EquippedByCategory or {}
+ for category,id in pairs(defaults) do
+  d.Owned[id]=true
+  if not d.EquippedByCategory[category] then d.EquippedByCategory[category]=category=='Trails' and d.Equipped or id end
+ end
+ return d
+end
+local function fresh()
+ return migrate({v=1,Coins=0,Wins=0,GamesPlayed=0,Passes=0,Owned={default=true},Equipped='default',Day=day(),Progress={rounds=0,passes=0,wins=0},Claimed={}})
+end
+local function valid(d)
+ if type(d)~='table' or d.v~=1 or not integer(d.Coins) or not integer(d.Wins) or not integer(d.GamesPlayed) or not integer(d.Passes) or not integer(d.Day) then return false end
+ if type(d.Owned)~='table' or type(d.Progress)~='table' or type(d.Claimed)~='table' or not items[d.Equipped] or items[d.Equipped].category~='Trails' or d.Owned[d.Equipped]~=true or d.Owned.default~=true then return false end
+ -- Optional fields permit old V9 saves. Invalid new fields fail closed instead of being reset.
+ if (d.Kills~=nil and not integer(d.Kills)) or (d.FinalStands~=nil and not integer(d.FinalStands)) then return false end
+ if d.EquippedByCategory~=nil then
+  if type(d.EquippedByCategory)~='table' then return false end
+  for _,category in ipairs(Catalog.Categories) do
+   local id=d.EquippedByCategory[category]
+   if id~=nil and (not items[id] or items[id].category~=category or d.Owned[id]~=true) then return false end
+  end
+  if d.EquippedByCategory.Trails~=nil and d.EquippedByCategory.Trails~=d.Equipped then return false end
+ end
+ for id,owned in pairs(d.Owned) do if type(id)~='string' or type(owned)~='boolean' then return false end end
+ for _,q in ipairs(quests) do if not integer(d.Progress[q.id]) or (d.Claimed[q.id]~=nil and type(d.Claimed[q.id])~='boolean') then return false end end
+ if d.Lease~=nil and (type(d.Lease)~='table' or type(d.Lease.token)~='string' or not integer(d.Lease.expires)) then return false end
+ return true
+end
+local function touch(r) r.revision+=1 end
+local function rollover(r)
+ if r.data and r.data.Day~=day() then r.data.Day=day();r.data.Progress={rounds=0,passes=0,wins=0};r.data.Claimed={};touch(r) end
+end
+local function writable(r)
+ return r and r.ready and not r.closed and not r.lost and (PREVIEW or os.time()<r.expires-10)
+end
+local function sync(r,requestId,ok,message)
+ if not r.player.Parent then return end
+ local ready=writable(r)==true
+ if ready then rollover(r) end
+ local d=r.data
+ local out={kind='Profile',requestId=requestId,ok=ok~=false,ready=ready,mode=ready and (PREVIEW and 'preview' or 'live') or (r.loading and 'loading' or 'unavailable'),message=message or r.message,Catalog=catalog,Quests={},Owned={},Coins=d and d.Coins or 0,Wins=d and d.Wins or 0,GamesPlayed=d and d.GamesPlayed or 0,Passes=d and d.Passes or 0,Equipped=d and d.Equipped or 'default',EquippedByCategory=d and copy(d.EquippedByCategory) or copy(defaults),Kills=d and d.Kills or 0,FinalStands=d and d.FinalStands or 0,resetsAt=(day()+1)*86400}
+ for _,q in ipairs(quests) do local row=copy(q);row.progress=d and math.min(d.Progress[q.id],q.target) or 0;row.claimed=d and d.Claimed[q.id]==true or false;table.insert(out.Quests,row) end
+ for _,item in ipairs(catalog) do if d and d.Owned[item.id] then table.insert(out.Owned,item.id) end end
+ r.player:SetAttribute('HussEconomyReady',ready)
+ if d then
+  r.coins.Value=d.Coins;r.wins.Value=d.Wins;r.kills.Value=d.Kills;r.finalStands.Value=d.FinalStands
+  r.player:SetAttribute('GamesPlayed',d.GamesPlayed);r.player:SetAttribute('Passes',d.Passes)
+  r.player:SetAttribute('HussBombId',d.EquippedByCategory.Bombs)
+  r.player:SetAttribute('HussTitleId',d.EquippedByCategory.Titles)
+  r.player:SetAttribute('HussEmoteId',d.EquippedByCategory.Emotes)
+  local item=items[d.Equipped];r.player:SetAttribute('HussTrailId',item.id)
+  r.player:SetAttribute('HussTrailColor',item.id~='default' and Color3.fromRGB(table.unpack(item.color)) or nil)
+ end
+ remote:FireClient(r.player,out)
+end
+local function retire(r)
+ r.done=true
+ if records[r.player]==r then records[r.player]=nil end
+ if byUser[r.player.UserId]==r then byUser[r.player.UserId]=nil end
+end
+local function retry(fn)
+ for attempt=1,3 do
+  local ok,value=pcall(fn)
+  if ok then return true,value end
+  if attempt<3 then task.wait(attempt) end
+ end
+ return false,nil
+end
+local function boardWrite(r)
+ if PREVIEW or r.boardBusy or not ordered or not r.savedWins or r.savedWins<1 or r.savedWins<=(r.boardWins or 0) then return end
+ r.boardBusy=true
+ local value=r.savedWins
+ task.spawn(function()
+  local ok=pcall(function()
+   if DS:GetRequestBudgetForRequestType(Enum.DataStoreRequestType.SetIncrementSortedAsync)<1 then error('Budget') end
+   ordered:UpdateAsync(tostring(r.player.UserId),function(old) return math.max(type(old)=='number' and old or 0,value) end)
+  end)
+  if ok then r.boardWins=math.max(r.boardWins or 0,value) end
+  r.boardBusy=false
+ end)
+end
+save=function(r,release)
+ if release then r.release=true end
+ if r.saving or r.loading or r.done then return end
+ if PREVIEW or not r.data or r.lost then if r.release then retire(r) end;return end
+ r.saving=true
+ task.spawn(function()
+  repeat
+   while not r.release and os.clock()<(r.nextSaveAt or 0) do task.wait(math.min(.25,r.nextSaveAt-os.clock())) end
+   local final=r.release==true
+   local snapshot,revision=copy(r.data),r.revision
+   local expiry=os.time()+LEASE
+   if final then snapshot.Lease=nil else snapshot.Lease={token=r.token,expires=expiry} end
+   local ok,result=retry(function()
+    return store:UpdateAsync('u'..r.player.UserId,function(old)
+     -- Never reacquire an expired lease using stale in-memory currency.
+     if not valid(old) or not old.Lease or old.Lease.token~=r.token or old.Lease.expires<=os.time() then return nil end
+     return copy(snapshot)
+    end)
+   end)
+   r.nextSaveAt=os.clock()+10
+   if ok and result and (final or (result.Lease and result.Lease.token==r.token)) then
+    r.savedRevision=revision;r.savedWins=snapshot.Wins;r.expires=expiry;r.message=nil
+    boardWrite(r)
+    if final then retire(r);break end
+    sync(r)
+   elseif ok then
+    r.lost=true;r.ready=false;r.message='Progress is locked because this session expired. Rejoin to reload safely.'
+    sync(r,nil,false,r.message)
+    if r.release then retire(r) end
+    break
+   else
+    r.message='Saving is delayed. Progress is not yet confirmed saved.'
+    sync(r)
+    if r.release then retire(r);warn('[HussEconomyV9] Final save failed for '..r.player.UserId) end
+    break
+   end
+  until not r.release and r.revision==revision
+  r.saving=false
+ end)
+end
+local function load(r,previous)
+ if previous and not previous.done then
+  local deadline=os.clock()+20
+  repeat task.wait(.2) until previous.done or os.clock()>=deadline or r.closed
+ end
+ if r.closed then r.loading=false;retire(r);return end
+ if previous and not previous.done then r.loading=false;r.message='Your previous session is still closing. Rejoin shortly.';sync(r);return end
+ byUser[r.player.UserId]=r
+ if PREVIEW then r.data=fresh();r.expires=math.huge
+ else
+  local ok,result=retry(function()
+   return store:UpdateAsync('u'..r.player.UserId,function(old)
+    if old~=nil and not valid(old) then return nil end
+    local d=old or fresh()
+    if d.Lease and d.Lease.token~=r.token and d.Lease.expires>os.time() then return nil end
+    local value=migrate(d);value.Lease={token=r.token,expires=os.time()+LEASE};return value
+   end)
+  end)
+  if ok and valid(result) and result.Lease and result.Lease.token==r.token then
+   r.data=copy(result);r.data.Lease=nil;r.expires=result.Lease.expires
+  else r.message='Progress could not be loaded safely. Rejoin shortly; purchases and rewards are paused.' end
+ end
+ r.loading=false
+ if r.closed then save(r,true);return end
+ r.ready=r.data~=nil;sync(r)
+end
+local function setup(p)
+ if records[p] then return end
+ local stats=p:FindFirstChild('leaderstats')
+ if not stats then stats=Instance.new('Folder');stats.Name='leaderstats';stats.Parent=p end
+ assert(stats:IsA('Folder'),'leaderstats must be a Folder')
+ local function stat(name)
+  local n=stats:FindFirstChild(name)
+  if not n then n=Instance.new('IntValue');n.Name=name;n.Parent=stats end
+  assert(n:IsA('IntValue'),name..' must be an IntValue');return n
+ end
+ local previous=byUser[p.UserId]
+ local r={player=p,coins=stat('Coins'),wins=stat('Wins'),kills=stat('Kills'),finalStands=stat('FinalStands'),token=game.JobId..':'..Http:GenerateGUID(false),loading=true,revision=0,savedRevision=0,tokens=8,rateAt=os.clock()}
+ local primary=r.wins:FindFirstChild('IsPrimary')
+ if not primary then primary=Instance.new('BoolValue');primary.Name='IsPrimary';primary.Parent=r.wins end
+ if primary:IsA('BoolValue') then primary.Value=true end
+ records[p]=r;p:SetAttribute('HussEconomyReady',false)
+ task.spawn(load,r,previous)
+end
+local function refreshBoard()
+ if PREVIEW or boardBusy or os.clock()<boardAt then return end
+ boardBusy=true;boardAt=os.clock()+120
+ task.spawn(function()
+  local ok,rows=pcall(function()
+   if DS:GetRequestBudgetForRequestType(Enum.DataStoreRequestType.GetSortedAsync)<1 then error('Budget') end
+   local page=ordered:GetSortedAsync(false,20):GetCurrentPage();local result={}
+   for _,row in ipairs(page) do
+    local id=tonumber(row.key)
+    if id and id>0 and id%1==0 and integer(row.value) and row.value>0 then
+     local name=names[id]
+     if not name then local found,value=pcall(Players.GetNameFromUserIdAsync,Players,id);name=found and value or ('Player '..id);names[id]=name end
+     table.insert(result,{userId=id,name=name,wins=row.value})
+    end
+   end
+   return result
+  end)
+  if ok then board.rows=rows;board.updatedAt=os.time();board.status='ready';board.message=nil
+  else board.status='unavailable';board.message='Global rankings are temporarily unavailable.' end
+  boardBusy=false;remote:FireAllClients(board)
+ end)
+end
+function E.GetBoard()
+ boardWanted=true;refreshBoard();return copy(board)
+end
+local function nearShop(p,category)
+ if p.Parent~=Players or p:GetAttribute('InRound')==true or p:GetAttribute('HussPracticeActive')==true then return false end
+ local character=p.Character
+ local humanoid=character and character:FindFirstChildOfClass('Humanoid')
+ local root=character and character:FindFirstChild('HumanoidRootPart')
+ local lobby=workspace:FindFirstChild('Lobby')
+ local exchange=lobby and lobby:FindFirstChild('V11 Bomb Exchange')
+ local station=exchange and exchange:FindFirstChild(category..' kiosk')
+ if not humanoid or not (humanoid.Health>0) or not root or not root:IsA('BasePart') or not station then return false end
+ for _,anchor in ipairs(CollectionService:GetTagged('HussShopStandV12')) do
+  if anchor:IsA('BasePart') and anchor.Parent==station and anchor.Name=='Browse '..category and anchor:GetAttribute('HussShopCategory')==category and anchor:GetAttribute('HussShopStandEnabled')==true and (root.Position-anchor.Position).Magnitude<=16 then return true end
+ end
+ return false
+end
+function E.GrantOwner(p,kind,value)
+ -- This API is never dispatched from OnServerEvent; repeat the authoritative check
+ -- even when a caller has already checked a TextChatCommand's sender.
+ if not OwnerCommands.IsOwner(p) then return false,'This command is only available to the game owner.' end
+ local r=records[p]
+ if not writable(r) then return false,'Progress is unavailable. Wait for your profile to load or rejoin safely.' end
+ local now=os.clock()
+ if now<(r.ownerGrantAt or -math.huge) then return false,'Please wait a moment before another grant.' end
+ r.ownerGrantAt=now+.5
+ if type(kind)~='string' or #kind>12 then return false,'Use /grant help for the owner commands.' end
+ kind=kind:lower()
+ local d=r.data;local message
+ if kind=='coins' then
+  if type(value)=='string' then
+   if #value>10 or not value:match('^%d+$') then return false,'Enter a whole Coin amount from 1 to 2000000000.' end
+   value=tonumber(value)
+  end
+  if not integer(value) or value<1 then return false,'Enter a whole Coin amount from 1 to 2000000000.' end
+  local added=math.min(value,MAX-d.Coins)
+  if added==0 then return false,'Your balance has reached the 2000000000 Coin limit.' end
+  d.Coins+=added;message='Granted '..tostring(added)..' Coins. Balance: '..tostring(d.Coins)..'.'
+ elseif kind=='all' then
+  if value~=nil then return false,'Use /grant all without extra arguments.' end
+  local count=0
+  for _,item in ipairs(catalog) do if not d.Owned[item.id] then d.Owned[item.id]=true;count+=1 end end
+  if count==0 then return true,'You already own every cosmetic. Coins are granted separately with /grant coins <amount>.' end
+  message='Unlocked '..count..' cosmetics. Your current equipment is unchanged.'
+ else
+  local categories={bomb='Bombs',bombs='Bombs',trail='Trails',trails='Trails',title='Titles',titles='Titles',emote='Emotes',emotes='Emotes'}
+  local category=categories[kind]
+  if not category or type(value)~='string' or #value>64 then return false,'Use /grant help for the owner commands.' end
+  local wanted=value:lower();local item=items[wanted]
+  if not item then for _,entry in ipairs(catalog) do if entry.category==category and entry.name:lower()==wanted then item=entry;break end end end
+  if not item or item.category~=category then return false,'Unknown '..category..' item. Use /grant list '..category:lower()..' for the exact names and IDs.' end
+  if d.Owned[item.id] and d.EquippedByCategory[category]==item.id then return true,item.name..' is already owned and equipped.' end
+  d.Owned[item.id]=true;d.EquippedByCategory[category]=item.id
+  if category=='Trails' then d.Equipped=item.id end
+  message=item.name..' unlocked and equipped.'
+ end
+ touch(r);sync(r);save(r)
+ return true,message..(PREVIEW and ' Studio preview: not saved.' or ' Profile save requested.')
+end
+local function request(p,action,id,requestId)
+ local r=records[p]
+ if not r or r.closed or type(action)~='string' or #action>12 then return end
+ if requestId~=nil and not integer(requestId) then return end
+ local now=os.clock();r.tokens=math.min(8,r.tokens+(now-r.rateAt)*3);r.rateAt=now
+ if r.tokens<1 then return end;r.tokens-=1
+ if action=='Board' then
+  boardWanted=true;refreshBoard();local response=copy(board);response.requestId=requestId;response.ok=board.status=='ready' or board.status=='preview';remote:FireClient(p,response);return
+ end
+ if action=='Sync' then sync(r,requestId);return end
+ if action~='Buy' and action~='Equip' and action~='Claim' then return end
+ if type(id)~='string' or #id>20 then sync(r,requestId,false,'Unknown item.');return end
+ if not writable(r) then sync(r,requestId,false,'Progress is unavailable. Try rejoining shortly.');return end
+ rollover(r)
+ local d=r.data
+ if action=='Claim' then
+  local q;for _,entry in ipairs(quests) do if entry.id==id then q=entry;break end end
+  if not q or d.Claimed[id] or d.Progress[id]<q.target then sync(r,requestId,false,'This quest is not ready to claim.');return end
+  d.Claimed[id]=true;d.Coins=math.min(MAX,d.Coins+q.reward);touch(r);sync(r,requestId,true,'Quest reward claimed!');save(r);return
+ end
+ local item=items[id]
+ if not item then sync(r,requestId,false,'Unknown item.');return end
+ if action=='Buy' and not nearShop(p,item.category) then sync(r,requestId,false,'Walk up to the '..item.category..' stand in the lobby to shop.');return end
+ if d.Owned[id] and d.EquippedByCategory[item.category]==id then sync(r,requestId,true,'Already equipped.');return end
+ if action=='Buy' and not d.Owned[id] then
+  if d.Coins<item.price then sync(r,requestId,false,'You need more Coins.');return end
+  d.Coins-=item.price;d.Owned[id]=true
+ elseif not d.Owned[id] then sync(r,requestId,false,'Unlock this item first.');return end
+ d.EquippedByCategory[item.category]=id
+ if item.category=='Trails' then d.Equipped=id end
+ touch(r);sync(r,requestId,true,item.name..' equipped!');save(r)
+end
+local function eligible(p)
+ if typeof(p)~='Instance' or not p:IsA('Player') or p.Parent~=Players or p:GetAttribute('BombTagAFK')==true or p:GetAttribute('InRound')~=true then return false end
+ local h=p.Character and p.Character:FindFirstChildOfClass('Humanoid')
+ return h~=nil and h.Health>0
+end
+function E.BeginRound(players)
+ match=nil
+ local members,count={},0
+ for _,p in ipairs(players) do if not members[p] and eligible(p) then members[p]={record=writable(records[p]) and records[p] or nil,passes=0,kills=0,finalStands=0,lastPass=-math.huge};count+=1 end end
+ if count>=2 then match={members=members,lastPasser={},started=os.clock()} end
+end
+function E.Pass(from,to)
+ local current=match
+ if not current or from==to or not current.members[from] or not current.members[to] or current.members[from].eliminated or current.members[to].eliminated or not eligible(from) or not eligible(to) then return end
+ current.lastPasser[to]=from
+ local member=current.members[from];local now=os.clock()
+ if now-member.lastPass<.25 then return end
+ member.lastPass=now;member.passes=math.min(MAX,member.passes+1)
+end
+function E.FinalStand(players)
+ local current=match
+ if not current or current.finalStand or type(players)~='table' or #players~=2 or players[1]==players[2] then return end
+ for _,p in ipairs(players) do if not current.members[p] or current.members[p].eliminated or not eligible(p) then return end end
+ local living=0;for p,member in pairs(current.members) do if not member.eliminated and eligible(p) then living+=1 end end
+ if living~=2 then return end
+ current.finalStand=true
+ for _,p in ipairs(players) do current.members[p].finalStands=1 end
+end
+function E.Elimination(killer,victim)
+ local current=match;local member=current and current.members[victim]
+ if not member or member.eliminated or not eligible(victim) then return end
+ member.eliminated=true
+ local attacker=current.members[killer]
+ if killer~=victim and attacker and current.lastPasser[victim]==killer and typeof(killer)=='Instance' and killer.Parent==Players then
+  attacker.kills=math.min(MAX,attacker.kills+1)
+ end
+ current.lastPasser[victim]=nil
+end
+function E.AbortRound() match=nil end
+function E.EndRound(winner)
+ local current=match;match=nil
+ if not current then return end
+ if winner and (not current.members[winner] or current.members[winner].eliminated or not eligible(winner)) then winner=nil end
+ for p,member in pairs(current.members) do
+  local r=member.record
+  if r and records[p]==r and p.Parent==Players and writable(r) then
+   rollover(r);local d=r.data;local won=p==winner
+   d.GamesPlayed=math.min(MAX,d.GamesPlayed+1);d.Passes=math.min(MAX,d.Passes+member.passes)
+   d.Kills=math.min(MAX,d.Kills+member.kills);d.FinalStands=math.min(MAX,d.FinalStands+member.finalStands)
+   d.Coins=math.min(MAX,d.Coins+20+(won and 80 or 0));d.Wins=math.min(MAX,d.Wins+(won and 1 or 0))
+   d.Progress.rounds=math.min(3,d.Progress.rounds+1);d.Progress.passes=math.min(10,d.Progress.passes+member.passes);d.Progress.wins=math.min(1,d.Progress.wins+(won and 1 or 0))
+   touch(r);sync(r,nil,true,won and '+100 Coins • Victory!' or '+20 Coins • Round complete');save(r)
+  end
+ end
+end
+function E.Init()
+ if started then return end;started=true
+ if not PREVIEW then store=DS:GetDataStore('HussEconomyV9');ordered=DS:GetOrderedDataStore('HussWinsV9') end
+ remote=RS:FindFirstChild('HussEconomyV9')
+ if not remote then remote=Instance.new('RemoteEvent');remote.Name='HussEconomyV9';remote.Parent=RS end
+ assert(remote:IsA('RemoteEvent'),'HussEconomyV9 must be a RemoteEvent')
+ remote.OnServerEvent:Connect(request)
+ Players.PlayerAdded:Connect(setup)
+ Players.PlayerRemoving:Connect(function(p) local r=records[p];if r then r.closed=true;r.ready=false;save(r,true) end end)
+ for _,p in ipairs(Players:GetPlayers()) do setup(p) end
+ OwnerCommands.Init(E)
+ task.spawn(function()
+  local saveAt=os.clock()+45
+  while not closing do
+   task.wait(5)
+   for _,r in pairs(records) do if r.ready and not writable(r) and not r.closed then sync(r) end end
+   if os.clock()>=saveAt then saveAt=os.clock()+45;for _,r in pairs(records) do save(r) end end
+   if boardWanted then refreshBoard() end
+  end
+ end)
+ game:BindToClose(function()
+  closing=true;local deadline=os.clock()+25
+  for _,r in pairs(records) do r.closed=true;r.ready=false;save(r,true) end
+  repeat
+   local pending=false;for _,r in pairs(records) do if not r.done then pending=true;break end end
+   if not pending then break end;task.wait(.1)
+  until os.clock()>=deadline
+ end)
+end
+return E
+]==],
+[ [==[CosmeticsServiceV11]==] ]=[==[--!nonstrict
+-- HussCosmeticsV12: sculpted bombs and stationary lobby emotes; never changes movement.
+local Players=game:GetService('Players')
+local RS=game:GetService('ReplicatedStorage')
+local Run=game:GetService('RunService')
+local C=require(RS:WaitForChild('HussCatalogV11'))
+local BombSkinBuilder=require(RS:WaitForChild('BombSkinBuilderV12'))
+local S={};local states={};local started=false
+local function item(p,attribute,category)
+ local entry=p and C.ById[p:GetAttribute(attribute)]
+ return entry and entry.category==category and entry or C.ById[C.Defaults[category]]
+end
+function S.ApplyBomb(player,bomb)
+ return BombSkinBuilder.Apply(bomb,item(player,'HussBombId','Bombs'))
+end
+local function stop(p)
+ local s=states[p];if s then s.active=nil end
+ p:SetAttribute('HussEmotePlaying',nil);p:SetAttribute('HussEmoteStarted',nil)
+end
+local function stationary(p)
+ local c=p.Character;local h=c and c:FindFirstChildOfClass('Humanoid');local r=c and c:FindFirstChild('HumanoidRootPart')
+ if not h or not r or h.Health<=0 or p:GetAttribute('InRound')==true or h.MoveDirection.Magnitude>.05 or r.AssemblyLinearVelocity.Magnitude>2 or h.Sit or h.PlatformStand or r.Anchored or h.FloorMaterial==Enum.Material.Air then return end
+ if p:GetAttribute('HussGamePaused')==true or workspace:GetAttribute('HussGamePaused')==true or c:GetAttribute('Ragdolled')==true or c:GetAttribute('IsRagdoll')==true then return end
+ local action=c:GetAttribute('MovementAction');if type(action)=='string' and action:sub(1,4)=='Dive' and action~='DiveEnd' then return end
+ return c,h,r
+end
+function S.Init()
+ if started then return end;started=true
+ local remote=RS:FindFirstChild('HussCosmeticsV11') or Instance.new('RemoteEvent');assert(remote:IsA('RemoteEvent'),'HussCosmeticsV11 must be a RemoteEvent');remote.Name='HussCosmeticsV11';remote.Parent=RS
+ local function add(p) states[p]={nextAt=0};stop(p) end
+ Players.PlayerAdded:Connect(add);Players.PlayerRemoving:Connect(function(p) states[p]=nil end)
+ for _,p in ipairs(Players:GetPlayers()) do add(p) end
+ remote.OnServerEvent:Connect(function(p,action,id)
+  local s=states[p];if not s then return end
+  if action=='StopEmote' then if s.active then stop(p) end;return end
+  if action~='Emote' or os.clock()<s.nextAt or p:GetAttribute('HussEconomyReady')~=true then return end
+  local equipped=p:GetAttribute('HussEmoteId');local entry=C.ById[equipped]
+  if not entry or entry.category~='Emotes' or (id~=nil and id~=equipped) then return end
+  local c,h,r=stationary(p);if not c then return end
+  s.nextAt=os.clock()+1.25;s.active={character=c,health=h.Health,position=r.Position,untilAt=os.clock()+6}
+  p:SetAttribute('HussEmoteStarted',workspace:GetServerTimeNow());p:SetAttribute('HussEmotePlaying',equipped)
+ end)
+ local elapsed=0
+ Run.Heartbeat:Connect(function(dt)
+  elapsed+=dt;if elapsed<.1 then return end;elapsed=0
+  for p,s in pairs(states) do if s.active then
+   local c,h,r=stationary(p);local a=s.active
+   if not c or c~=a.character or h.Health<a.health or (r.Position-a.position).Magnitude>.3 or os.clock()>=a.untilAt then stop(p) end
+  end end
+ end)
+end
+return S
+]==],
+[ [==[OwnerCommandsV12]==] ]=[==[--!nonstrict
+-- Server-only owner tools. No RemoteEvent accepts a grant or an owner identity.
+local Players=game:GetService('Players')
+local GroupService=game:GetService('GroupService')
+local TextChatService=game:GetService('TextChatService')
+local RS=game:GetService('ReplicatedStorage')
+local Catalog=require(RS:WaitForChild('HussCatalogV11'))
+local O={}
+local started=false
+local cache={group=0,id=nil,expires=0,busy=false}
+local buckets={}
+local aliases={['/grant']=true,['/hussgrant']=true}
+local categories={bomb='Bombs',bombs='Bombs',trail='Trails',trails='Trails',title='Titles',titles='Titles',emote='Emotes',emotes='Emotes'}
+local function realPlayer(player)
+ return typeof(player)=='Instance' and player:IsA('Player') and player.Parent==Players and type(player.UserId)=='number' and player.UserId>0 and player.UserId%1==0
+end
+function O.IsOwner(player)
+ if not realPlayer(player) or type(game.CreatorId)~='number' or game.CreatorId<=0 or game.CreatorId%1~=0 then return false end
+ if game.CreatorType==Enum.CreatorType.User then return player.UserId==game.CreatorId end
+ if game.CreatorType~=Enum.CreatorType.Group then return false end
+ local group=game.CreatorId
+ if cache.group~=group then cache={group=group,id=nil,expires=0,busy=false} end
+ if os.clock()>=cache.expires then
+  if cache.busy then return false end
+  cache.busy=true
+  local ok,info=pcall(GroupService.GetGroupInfoAsync,GroupService,group)
+  local id=ok and type(info)=='table' and type(info.Owner)=='table' and info.Owner.Id or nil
+  -- Refresh transfers within 30 seconds. A failed/ownerless lookup never retains access.
+  cache.id=type(id)=='number' and id>0 and id%1==0 and id or nil
+  cache.expires=os.clock()+(cache.id and 30 or 5)
+  cache.busy=false
+ end
+ return realPlayer(player) and game.CreatorType==Enum.CreatorType.Group and game.CreatorId==group and player.UserId==cache.id
+end
+local function allow(player)
+ local now=os.clock()
+ local b=buckets[player] or {at=now,tokens=2};buckets[player]=b
+ b.tokens=math.min(2,b.tokens+math.max(0,now-b.at));b.at=now
+ if b.tokens<1 then return false end
+ b.tokens-=1;return true
+end
+local function feedback(player,ok,message)
+ if not realPlayer(player) then return end
+ local remote=RS:FindFirstChild('HussEconomyV9')
+ if remote and remote:IsA('RemoteEvent') then remote:FireClient(player,{kind='OwnerCommand',ok=ok,message=message}) end
+end
+local function handle(economy,player,message)
+ if type(message)~='string' or #message>160 or message:find('[%z\1-\8\11\12\14-\31]') then return end
+ local words={};for word in message:gmatch('%S+') do table.insert(words,word);if #words>8 then return end end
+ if not words[1] or not aliases[words[1]:lower()] or not O.IsOwner(player) or not allow(player) then return end
+ local kind=words[2] and words[2]:lower() or 'help'
+ if kind=='help' and #words<=2 then
+  feedback(player,true,'Owner only: /grant coins 10000 | /grant all (unlock every cosmetic; keep equipment).')
+  feedback(player,true,'/grant bomb bomb_nova | /grant trail trail_comet | /grant title title_legend | /grant emote emote_robot. An individual item is unlocked and equipped.')
+  feedback(player,true,'/grant list bombs (also trails, titles, emotes) lists item IDs. Self grants do not change wins, kills, final stands or quests. Studio balances are temporary.')
+  return
+ end
+ if kind=='list' and #words==3 and categories[words[3]:lower()] then
+  local wanted=categories[words[3]:lower()];local rows={}
+  for _,item in ipairs(Catalog.Items) do if item.category==wanted then
+   table.insert(rows,item.id..' = '..item.name)
+   if #rows==5 then feedback(player,true,table.concat(rows,' | '));table.clear(rows) end
+  end end
+  if #rows>0 then feedback(player,true,table.concat(rows,' | ')) end
+  return
+ end
+ if (kind=='all' and #words~=2) or (kind=='coins' and #words~=3) or (kind~='all' and kind~='coins' and (not categories[kind] or #words<3)) then
+  feedback(player,false,'Use /grant help for the owner commands.');return
+ end
+ local value=#words>=3 and table.concat(words,' ',3) or nil
+ local ok,messageOut=economy.GrantOwner(player,kind,value)
+ feedback(player,ok,messageOut)
+end
+function O.Init(economy)
+ if started then return end
+ assert(type(economy)=='table' and type(economy.GrantOwner)=='function','OwnerCommandsV12 needs the V12 economy API')
+ started=true
+ Players.PlayerRemoving:Connect(function(player) buckets[player]=nil end)
+ if TextChatService.ChatVersion==Enum.ChatVersion.TextChatService then
+  -- Leave other developers' commands untouched and disable this feature on conflicts.
+  for _,child in ipairs(TextChatService:GetDescendants()) do
+   if child:IsA('TextChatCommand') and (aliases[child.PrimaryAlias:lower()] or aliases[child.SecondaryAlias:lower()] or child.Name=='HussOwnerGrantV12') then
+    warn('[Huss V12 owner commands] /grant or /hussgrant already belongs to '..child:GetFullName()..'. Owner commands were not registered.');return
+   end
+  end
+  local command=Instance.new('TextChatCommand');command.Name='HussOwnerGrantV12'
+  command.PrimaryAlias='/grant';command.SecondaryAlias='/hussgrant';command.AutocompleteVisible=false;command.Enabled=true
+  command:SetAttribute('HussOwnerCommandVersion',12)
+  command.Triggered:Connect(function(source,message)
+   if typeof(source)~='Instance' or not source:IsA('TextSource') then return end
+   local player=Players:GetPlayerByUserId(source.UserId)
+   if player then handle(economy,player,message) end
+  end)
+  command.Parent=TextChatService
+ elseif TextChatService.ChatVersion==Enum.ChatVersion.LegacyChatService then
+  local function attach(player) player.Chatted:Connect(function(message) handle(economy,player,message) end) end
+  Players.PlayerAdded:Connect(attach)
+  for _,player in ipairs(Players:GetPlayers()) do attach(player) end
+ else warn('[Huss V12 owner commands] Unsupported chat version; owner commands are disabled.') end
+end
+return O
+]==],
+[ [==[OwnerFeedbackV12]==] ]=[==[--!nonstrict
+-- Private server responses for owner commands, independent of open HUD menus.
+local RS=game:GetService('ReplicatedStorage')
+local TextChatService=game:GetService('TextChatService')
+local StarterGui=game:GetService('StarterGui')
+local queue={}
+local working=false
+local alive=true
+local remote,connection
+local function escape(text)
+ return (text:gsub('&','&amp;'):gsub('<','&lt;'):gsub('>','&gt;'))
+end
+local function flush()
+ if working then return end;working=true
+ while alive and #queue>0 do
+  local row=table.remove(queue,1);local shown=false
+  for attempt=1,10 do
+   if not alive then break end
+   local ok,result=pcall(function()
+    if TextChatService.ChatVersion==Enum.ChatVersion.TextChatService then
+     local channels=TextChatService:FindFirstChild('TextChannels')
+     local channel=channels and (channels:FindFirstChild('RBXGeneral') or channels:FindFirstChild('RBXSystem') or channels:FindFirstChildOfClass('TextChannel'))
+     if not channel then return false end
+     channel:DisplaySystemMessage('<font color="'..(row.ok and '#72F5A8' or '#FFD166')..'">[Owner] '..escape(row.message)..'</font>')
+    else StarterGui:SetCore('ChatMakeSystemMessage',{Text='[Owner] '..row.message,Color=row.ok and Color3.fromRGB(114,245,168) or Color3.fromRGB(255,209,102)}) end
+    return true
+   end)
+   if ok and result then shown=true;break end
+   if attempt<10 then task.wait(.5) end
+  end
+  if alive and not shown then pcall(StarterGui.SetCore,StarterGui,'SendNotification',{Title='Owner command',Text=row.message,Duration=10}) end
+ end
+ working=false
+end
+local function attach(child)
+ if child.Name~='HussEconomyV9' or not child:IsA('RemoteEvent') or child==remote then return end
+ if connection then connection:Disconnect() end
+ remote=child
+ connection=remote.OnClientEvent:Connect(function(data)
+  if type(data)~='table' or data.kind~='OwnerCommand' or type(data.message)~='string' or #data.message>2048 then return end
+  if #queue>=12 then table.remove(queue,1) end
+  table.insert(queue,{ok=data.ok==true,message=data.message});task.spawn(flush)
+ end)
+end
+local added=RS.ChildAdded:Connect(attach)
+local removed=RS.ChildRemoved:Connect(function(child)
+ if child==remote then if connection then connection:Disconnect() end;connection=nil;remote=nil end
+end)
+for _,child in ipairs(RS:GetChildren()) do attach(child) end
+script.Destroying:Connect(function()
+ alive=false;table.clear(queue);added:Disconnect();removed:Disconnect()
+ if connection then connection:Disconnect() end
+end)
+]==],
+[ [==[CarrierPanicV12]==] ]=[==[--!nonstrict
+-- HussCarrierPanicV12: cosmetic panic run and pooled tears for the authoritative carrier.
+-- Normal locomotion, shift lock, speed, collision, dodge and immunity remain with their controllers.
+local Players = game:GetService("Players")
+local Run = game:GetService("RunService")
+local RS = game:GetService("ReplicatedStorage")
+local me = Players.LocalPlayer
+local V, CF = Vector3.new, CFrame.new
+local DODGE_DURATION, IFRAME_DURATION, VIEW_DISTANCE = .72, .45, 110
+local DROPS_PER_CARRIER, MAX_DROPS = 12, 36
+local states, players, botFolders, links = {}, {}, {}, {}
+local stopped, allocated = false, 0
+local folder = Instance.new("Folder")
+folder.Name = "HussCarrierTearsV12"
+folder.Parent = workspace
+local diveActions = {
+	DiveForward=true, DiveBack=true, DiveLeft=true, DiveRight=true,
+	DiveForwardLeft=true, DiveForwardRight=true, DiveBackLeft=true, DiveBackRight=true,
+}
+local jointRoles = {
+	Torso="body", UpperTorso="body", Head="neck",
+	["Left Arm"]="leftArm", ["Right Arm"]="rightArm",
+	LeftUpperArm="leftArm", RightUpperArm="rightArm",
+	LeftLowerArm="leftElbow", RightLowerArm="rightElbow",
+}
+local function connect(signal, callback, bucket)
+	table.insert(bucket or links, signal:Connect(callback))
+end
+local function disconnect(bucket)
+	for _, connection in ipairs(bucket) do connection:Disconnect() end
+	table.clear(bucket)
+end
+local function finite(value)
+	return type(value)=="number" and value==value and math.abs(value)<math.huge
+end
+local function reduced()
+	return me:GetAttribute("HussReducedMotion")==true or workspace:GetAttribute("HussReducedMotion")==true
+end
+local function restoreJoint(joint)
+	-- Another controller may already own the joint. Never restore over its new pose.
+	if joint.base then
+		if joint.motor.Parent and joint.motor.Transform==joint.applied then
+			joint.motor.Transform=joint.base
+		end
+		joint.base, joint.applied=nil, nil
+	end
+end
+local function restore(state)
+	for _, joint in ipairs(state.joints) do restoreJoint(joint) end
+end
+local function clearDrops(state)
+	if not state.drops then return end
+	for _, drop in ipairs(state.drops) do drop.part:Destroy() end
+	allocated-=#state.drops
+	state.drops=nil
+	state.nextDrop=0
+end
+local function cancel(state)
+	restore(state)
+	state.weight=0
+	clearDrops(state)
+end
+local function dispose(character)
+	local state=states[character]
+	if not state then return end
+	cancel(state)
+	disconnect(state.links)
+	states[character]=nil
+end
+local function addJoint(state, motor)
+	if not motor:IsA("Motor6D") or not motor.Part0 or not motor.Part1 then return end
+	local role=jointRoles[motor.Part1.Name]
+	if not role then return end
+	for _, joint in ipairs(state.joints) do if joint.motor==motor then return end end
+	table.insert(state.joints, {motor=motor, role=role})
+end
+local function beginDodge(state, age)
+	if not finite(age) or age<0 or age>=DODGE_DURATION then return end
+	state.dodgeUntil=math.max(state.dodgeUntil, os.clock()+DODGE_DURATION-age)
+	cancel(state)
+end
+local function actionChanged(state)
+	local action=state.character:GetAttribute("MovementAction")
+	if diveActions[action] then beginDodge(state, 0) end
+	-- Keep the short exclusion through recovery, even if DiveEnd arrived early.
+end
+local function characterAdded(character, player, sourceFolder)
+	if stopped or states[character] or not character:IsA("Model") then return end
+	local state={character=character, player=player, sourceFolder=sourceFolder,
+		joints={}, links={}, weight=0, dodgeUntil=0, nextDrop=0, phase=0}
+	states[character]=state
+	local function refresh()
+		state.h=character:FindFirstChildOfClass("Humanoid")
+		state.root=character:FindFirstChild("HumanoidRootPart")
+		state.head=character:FindFirstChild("Head")
+		if state.h and state.boundHumanoid~=state.h then
+			state.boundHumanoid=state.h
+			connect(state.h.Died, function() cancel(state) end, state.links)
+		end
+	end
+	refresh()
+	for _, object in ipairs(character:GetDescendants()) do addJoint(state, object) end
+	connect(character.DescendantAdded, function(object)
+		addJoint(state, object)
+		if object.Parent==character then refresh() end
+	end, state.links)
+	connect(character.DescendantRemoving, function(object)
+		for index=#state.joints,1,-1 do
+			local joint=state.joints[index]
+			if joint.motor==object then restoreJoint(joint); table.remove(state.joints,index) end
+		end
+		if object==state.root or object==state.h or object==state.head then
+			cancel(state)
+			if object==state.root then state.root=nil end
+			if object==state.h then state.h=nil end
+			if object==state.head then state.head=nil end
+		end
+	end, state.links)
+	connect(character:GetAttributeChangedSignal("HussBombCarrier"), function()
+		if character:GetAttribute("HussBombCarrier")~=true then cancel(state) end
+	end, state.links)
+	connect(character:GetAttributeChangedSignal("MovementActionId"), function() actionChanged(state) end, state.links)
+	local function immunityChanged()
+		local untilTime=character:GetAttribute("BombTagIFrameUntil")
+		local serverNow=workspace:GetServerTimeNow()
+		if finite(untilTime) and untilTime>serverNow then
+			-- The reviewed server publishes a .45-second immunity window, including to
+			-- clients that do not receive the optional dodge animation broadcast.
+			beginDodge(state,math.max(0,IFRAME_DURATION-(untilTime-serverNow)))
+		end
+	end
+	connect(character:GetAttributeChangedSignal("BombTagIFrameUntil"),immunityChanged,state.links)
+	immunityChanged()
+	connect(character.AncestryChanged, function()
+		if not character:IsDescendantOf(workspace) then dispose(character) end
+	end, state.links)
+end
+local function addPlayer(player)
+	if players[player] then return end
+	local bucket={}
+	players[player]=bucket
+	connect(player.CharacterAdded, function(character) characterAdded(character, player) end, bucket)
+	connect(player.CharacterRemoving, dispose, bucket)
+	if player.Character then characterAdded(player.Character, player) end
+end
+local function removePlayer(player)
+	local bucket=players[player]
+	if bucket then disconnect(bucket); players[player]=nil end
+	local characters={}
+	for character,state in pairs(states) do if state.player==player then table.insert(characters,character) end end
+	for _, character in ipairs(characters) do dispose(character) end
+end
+local function bindBots(object)
+	if stopped or object.Name~="HussPracticeBots" or not object:IsA("Folder") or botFolders[object] then return end
+	local bucket={}
+	botFolders[object]=bucket
+	local function add(character)
+		if character:IsA("Model") and character:GetAttribute("HussPracticeBot")==true then characterAdded(character,nil,object) end
+	end
+	connect(object.ChildAdded, add, bucket)
+	connect(object.ChildRemoved, dispose, bucket)
+	for _, character in ipairs(object:GetChildren()) do add(character) end
+end
+local function removeBots(object)
+	local bucket=botFolders[object]
+	if not bucket then return end
+	disconnect(bucket)
+	botFolders[object]=nil
+	local characters={}
+	for character,state in pairs(states) do if state.sourceFolder==object then table.insert(characters,character) end end
+	for _, character in ipairs(characters) do dispose(character) end
+end
+local function blocked(state, now, serverNow)
+	local c,h,r,head=state.character,state.h,state.root,state.head
+	if c:GetAttribute("HussBombCarrier")~=true or not c.Parent or not h or not r or not head
+		or not h.Parent or not r.Parent or not head.Parent or h.Health<=0 or r.Anchored or h.Sit or h.PlatformStand then return true end
+	if reduced() or workspace:GetAttribute("HussGamePaused")==true or c:GetAttribute("HussGamePaused")==true
+		or state.player and state.player:GetAttribute("HussGamePaused")==true then return true end
+	if c:GetAttribute("Ragdolled")==true or c:GetAttribute("IsRagdoll")==true then return true end
+	local mode=h:GetState()
+	if mode==Enum.HumanoidStateType.Dead or mode==Enum.HumanoidStateType.Ragdoll
+		or mode==Enum.HumanoidStateType.Physics or mode==Enum.HumanoidStateType.Seated then return true end
+	-- Emotes use C0 in CollectionEffects; panic uses Transform and gives emotes priority.
+	if state.player and type(state.player:GetAttribute("HussEmotePlaying"))=="string" then return true end
+	if now<state.dodgeUntil then return true end
+	local started=c:GetAttribute("HussDodgeStartedAt")
+	if finite(started) and serverNow>=started-.1 and serverNow<started+DODGE_DURATION then return true end
+	local immuneUntil=c:GetAttribute("BombTagIFrameUntil")
+	if finite(immuneUntil) and immuneUntil>serverNow then return true end
+	local camera=workspace.CurrentCamera
+	return not camera or (camera.CFrame.Position-r.Position).Magnitude>VIEW_DISTANCE
+end
+local function pose(role, phase, running, r15)
+	local swing=math.sin(phase)
+	local flutter=math.sin(phase*1.9)
+	local pitch,yaw,roll=0,0,0
+	if role=="body" then
+		pitch=-4-7*running
+		yaw=swing*(2+3*running)
+		roll=swing*(1.5+2.5*running)
+	elseif role=="neck" then
+		pitch=8+flutter*3
+		yaw=math.sin(phase*.48)*17
+		roll=-swing*4
+	elseif role=="leftArm" then
+		pitch=136+swing*(14+10*running)
+		yaw=-12
+		roll=-38-flutter*8
+	elseif role=="rightArm" then
+		pitch=136-swing*(14+10*running)
+		yaw=12
+		roll=38+flutter*8
+	elseif role=="leftElbow" then pitch=48-swing*12
+	elseif role=="rightElbow" then pitch=48+swing*12 end
+	if role=="body" and not r15 then pitch*=.65; roll*=.7 end
+	if not r15 and (role=="leftArm" or role=="rightArm") then pitch+=14 end
+	return CFrame.Angles(math.rad(pitch),math.rad(yaw),math.rad(roll))
+end
+local function makeDrops(state)
+	if state.drops then return true end
+	if allocated+DROPS_PER_CARRIER>MAX_DROPS then return false end
+	state.drops={}
+	for index=1,DROPS_PER_CARRIER do
+		local part=Instance.new("Part")
+		part.Name="PanicTear"
+		part.Shape=Enum.PartType.Ball
+		part.Size=V(.12,.22,.12)
+		part.Color=Color3.fromRGB(97,225,255)
+		part.Material=Enum.Material.Neon
+		part.Anchored=true
+		part.CanCollide=false
+		part.CanTouch=false
+		part.CanQuery=false
+		part.CastShadow=false
+		part.Transparency=1
+		part.Parent=folder
+		table.insert(state.drops,{part=part})
+	end
+	allocated+=DROPS_PER_CARRIER
+	return true
+end
+local function tears(state, now)
+	if not makeDrops(state) then return end
+	if now>=state.nextDrop then
+		state.nextDrop=now+.075
+		local head=state.head
+		for _, side in ipairs({-1,1}) do
+			for _, drop in ipairs(state.drops) do
+				if not drop.born then
+					drop.born=now
+					drop.origin=head.CFrame*V(side*head.Size.X*.18,head.Size.Y*.09,-head.Size.Z*.5-.055)
+					local velocity=state.root.AssemblyLinearVelocity
+					drop.velocity=V(velocity.X,0,velocity.Z)*.42+head.CFrame.RightVector*(side*3.3)+head.CFrame.LookVector*1.3+V(0,1.2,0)
+					break
+				end
+			end
+		end
+	end
+	for _, drop in ipairs(state.drops) do
+		if drop.born then
+			local age=now-drop.born
+			if age>=.38 then drop.born=nil; drop.part.Transparency=1
+			else
+				local position=drop.origin+drop.velocity*age+V(0,-9*age*age,0)
+				local velocity=drop.velocity+V(0,-18*age,0)
+				-- A fixed roll avoids lookAt singularities for nearly vertical droplets.
+				drop.part.CFrame=CF(position)*CFrame.Angles(0,0,math.atan2(-velocity.X,math.max(.1,math.abs(velocity.Y))))
+				drop.part.Transparency=.08+.92*(age/.38)^1.6
+			end
+		end
+	end
+end
+connect(Players.PlayerAdded, addPlayer)
+connect(Players.PlayerRemoving, removePlayer)
+for _, player in ipairs(Players:GetPlayers()) do addPlayer(player) end
+connect(workspace.ChildAdded, bindBots)
+connect(workspace.ChildRemoved, removeBots)
+for _, child in ipairs(workspace:GetChildren()) do bindBots(child) end
+-- Existing remote broadcasts validated dodge actions to spectators; no new request protocol.
+local dodgeRemote=RS:WaitForChild("Shared"):WaitForChild("Net"):WaitForChild("DodgeIFrameRequest")
+connect(dodgeRemote.OnClientEvent, function(player, action, stamp)
+	if player==me or not diveActions[action] or not finite(stamp) then return end
+	local state=player and states[player.Character]
+	local age=workspace:GetServerTimeNow()-stamp
+	if state and age>=-.1 and age<DODGE_DURATION then beginDodge(state,math.max(0,age)) end
+end)
+-- Restore before Animator evaluation, then layer over its fresh upper-body result.
+-- Legs and physical root position remain untouched.
+connect(Run.PreAnimation, function()
+	for _, state in pairs(states) do restore(state) end
+end)
+connect(Run.PreSimulation, function(dt)
+	local now,serverNow=os.clock(),workspace:GetServerTimeNow()
+	for _, state in pairs(states) do
+		if blocked(state,now,serverNow) then cancel(state)
+		else
+			state.weight=math.min(1,state.weight+math.clamp(dt,0,.1)*7)
+			local velocity=state.root.AssemblyLinearVelocity
+			local running=math.clamp(V(velocity.X,0,velocity.Z).Magnitude/32,0,1)
+			state.phase=(state.phase+math.clamp(dt,0,.1)*(8+running*7))%(math.pi*2)
+			local phase=state.phase
+			for _, joint in ipairs(state.joints) do
+				local motor=joint.motor
+				if motor.Parent and motor.Enabled then
+					local axes=motor.C0.Rotation
+					local offset=axes:Inverse()*pose(joint.role,phase,running,state.h.RigType==Enum.HumanoidRigType.R15)*axes
+					joint.base=motor.Transform
+					local upperArm=joint.role=="leftArm" or joint.role=="rightArm" or joint.role=="leftElbow" or joint.role=="rightElbow"
+					joint.applied=upperArm and joint.base:Lerp(offset,state.weight*.86)
+						or joint.base:Lerp(joint.base*offset,state.weight)
+					motor.Transform=joint.applied
+				end
+			end
+			tears(state,now)
+		end
+	end
+end)
+connect(script.Destroying, function()
+	stopped=true
+	disconnect(links)
+	local characters={}
+	for character in pairs(states) do table.insert(characters,character) end
+	for _, character in ipairs(characters) do dispose(character) end
+	for _, bucket in pairs(players) do disconnect(bucket) end
+	for _, bucket in pairs(botFolders) do disconnect(bucket) end
+	table.clear(players)
+	table.clear(botFolders)
+	folder:Destroy()
+end)
+]==],
+[ [==[BombSkinBuilderV12]==] ]=[==[--!nonstrict
+-- Shared, deterministic bomb sculptures for the carrier and the stand's 3D preview.
+-- All extras are welded cosmetic geometry. The gameplay collision sphere is unchanged.
+local Builder={}
+local V,CF,A=Vector3.new,CFrame.new,CFrame.Angles
+local RGB=Color3.fromRGB
+local BALL,CYL=Enum.PartType.Ball,Enum.PartType.Cylinder
+local METAL,NEON,GLASS=Enum.Material.Metal,Enum.Material.Neon,Enum.Material.Glass
+local DARK,WHITE,GOLD=RGB(25,29,40),RGB(255,245,211),RGB(255,203,49)
+local GREEN=RGB(79,165,65)
+
+function Builder.Apply(bomb,skin,options)
+ if not bomb or not bomb:IsA('BasePart') or type(skin)~='table' or skin.category~='Bombs' then return nil end
+ local preview=type(options)=='table' and options.Preview==true
+ local old=bomb:FindFirstChild('HussBombSkin');if old then old:Destroy() end
+ local folder=Instance.new('Folder');folder.Name='HussBombSkin';folder.Parent=bomb
+ local color=RGB(table.unpack(skin.color));local id=skin.id
+ bomb.Color=color;bomb.Material=METAL;bomb.Reflectance=.16;bomb.Transparency=0
+ bomb.CanCollide=false;bomb.CanTouch=false;bomb.CanQuery=false;bomb.Massless=true
+ if preview then bomb.Anchored=true end
+ if bomb:IsA('Part') then bomb.Shape=BALL end
+ bomb:SetAttribute('HussBombId',id);bomb:SetAttribute('HussBombSculptureVersion',12)
+ local count=0
+ local function part(name,pos,size,tint,shape,material,rotation,transparency)
+  local p=Instance.new(shape=='Wedge' and 'WedgePart' or 'Part')
+  p.Name=name;if p:IsA('Part') then p.Shape=shape or Enum.PartType.Block end
+  p.Size=size;p.Color=tint or color;p.Material=material or METAL;p.Reflectance=p.Material==METAL and .12 or 0
+  p.Transparency=transparency or 0;p.Massless=true;p.CanCollide=false;p.CanTouch=false;p.CanQuery=false;p.CastShadow=false;p.Anchored=preview
+  p.CFrame=bomb.CFrame*CF(pos)*(rotation or CFrame.identity);p.Parent=folder
+  if not preview then local w=Instance.new('WeldConstraint');w.Name='CosmeticWeld';w.Part0=bomb;w.Part1=p;w.Parent=p end
+  count+=1;return p
+ end
+ local function ball(name,pos,size,tint,material,rotation,transparency)
+  return part(name,pos,type(size)=='number' and V(size,size,size) or size,tint,BALL,material,rotation,transparency)
+ end
+ -- Roblox cylinders use their X axis for length. The default disk lies in XZ.
+ local function disk(name,pos,diameter,thickness,tint,rotation,material)
+  return part(name,pos,V(thickness,diameter,diameter),tint,CYL,material,rotation or A(0,0,math.pi/2))
+ end
+ local function rod(name,a,b,width,tint,material)
+  local delta=b-a;local up=math.abs(delta.Unit:Dot(Vector3.yAxis))>.98 and Vector3.xAxis or Vector3.yAxis
+  return part(name,(a+b)/2,V(width,width,delta.Magnitude),tint,nil,material,CF():ToObjectSpace(CFrame.lookAt(Vector3.zero,delta,up)))
+ end
+ local function leaf(name,pos,size,tint,rotation)
+  return ball(name,pos,size,tint or GREEN,METAL,rotation or A(0,0,.4))
+ end
+ local function ring(name,tint,radius,rotation,center,segments,width,material)
+  local axis=rotation or CFrame.identity;center=center or Vector3.zero;segments=segments or 10;width=width or .12
+  local chord=2*radius*math.sin(math.pi/segments)*1.06
+  for n=0,segments-1 do local a=(n+.5)*math.pi*2/segments
+   local offset=axis:VectorToWorldSpace(V(math.cos(a)*radius,0,math.sin(a)*radius))
+   part(name..tostring(n+1),center+offset,V(width,width,chord),tint,nil,material or METAL,axis*A(0,-a,0))
+  end
+ end
+ local function star(name,pos,size,tint,material)
+  disk(name..'Center',pos,size*.55,.09,tint,A(0,math.pi/2,0),material)
+  for n=0,4 do local a=n*math.pi*.4
+   part(name..'Point'..n,pos+V(math.sin(a)*size*.25,math.cos(a)*size*.25,0),V(size*.22,size*.5,.1),tint,'Wedge',material,A(0,0,-a))
+  end
+ end
+ local function particles(name,host,tint,rate,kind)
+  if preview then return end
+  local at=Instance.new('Attachment');at.Name=name..'Origin';at.Parent=host
+  local emitter=Instance.new('ParticleEmitter');emitter.Name=name
+  emitter.Texture=kind=='smoke' and 'rbxasset://textures/particles/smoke_main.dds' or 'rbxasset://textures/particles/sparkles_main.dds'
+  emitter.Color=ColorSequence.new(tint,tint:Lerp(WHITE,.55));emitter.Rate=rate;emitter.Lifetime=NumberRange.new(.28,.6)
+  emitter.Speed=NumberRange.new(.3,1.25);emitter.SpreadAngle=Vector2.new(35,35);emitter.EmissionDirection=Enum.NormalId.Top
+  emitter.Acceleration=V(0,.7,0);emitter.Drag=2;emitter.LightEmission=kind=='smoke' and .25 or .65;emitter.LightInfluence=.4
+  emitter.Size=NumberSequence.new({NumberSequenceKeypoint.new(0,kind=='smoke' and .2 or .09),NumberSequenceKeypoint.new(.3,kind=='smoke' and .35 or .14),NumberSequenceKeypoint.new(1,0)})
+  emitter.Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,.25),NumberSequenceKeypoint.new(.7,.55),NumberSequenceKeypoint.new(1,1)})
+  emitter.Rotation=NumberRange.new(0,360);emitter.RotSpeed=NumberRange.new(-45,45);emitter.LockedToPart=false;emitter.Parent=at
+ end
+ local function glow(host,tint)
+  if preview then return end
+  local light=Instance.new('PointLight');light.Name='SkinGlow';light.Color=tint;light.Range=4;light.Brightness=.35;light.Shadows=false;light.Parent=host
+ end
+
+ -- Every sculpture keeps a round, readable bomb body and the same unmistakable fuse.
+ disk('FuseCollar',V(0,1.08,0),.48,.24,DARK)
+ rod('FuseLower',V(0,1.16,0),V(.08,1.46,0),.13,GOLD)
+ rod('FuseCurl',V(.08,1.46,0),V(.27,1.62,0),.12,WHITE)
+ local tip=ball('FuseSpark',V(.29,1.65,0),.19,WHITE,NEON)
+ particles('FuseSparks',tip,GOLD,3,'spark')
+
+ if id=='bomb_classic' then
+  disk('CopperEquator',V(0,-.08,0),2.265,.12,RGB(167,108,63))
+  for _,x in ipairs({-.48,0,.48}) do ball('CopperRivet',V(x,.25,1.02-math.abs(x)*.13),.13,GOLD) end
+  part('FoundryPlate',V(0,-.4,1.025),V(.74,.33,.1),DARK)
+  part('FoundryStripe',V(0,-.4,1.09),V(.45,.065,.04),RGB(188,201,213))
+ elseif id=='bomb_cherry' then
+  bomb.Material=Enum.Material.SmoothPlastic;bomb.Reflectance=.24
+  rod('CherryStem',V(-.25,.95,0),V(-.48,1.42,0),.1,RGB(98,72,42))
+  leaf('CherryLeaf',V(-.76,1.32,0),V(.76,.12,.37),GREEN,A(0,.1,-.35))
+  local fruit=ball('CherryCompanion',V(.95,.54,.22),.64,RGB(182,27,50))
+  rod('CompanionStem',V(.94,.77,.22),V(.67,1.21,.02),.07,GREEN)
+  ball('CherryShine',V(-.4,.5,.9),V(.18,.38,.06),WHITE,Enum.Material.SmoothPlastic,A(0,0,-.3))
+  ball('CompanionShine',V(1.03,.67,.5),.1,WHITE)
+ elseif id=='bomb_cobalt' then
+  disk('TurbineHousing',V(0,0,1.02),1.46,.22,DARK,A(0,math.pi/2,0))
+  disk('TurbineCore',V(0,0,1.17),.53,.08,RGB(150,239,255),A(0,math.pi/2,0),NEON)
+  for n=0,6 do local a=n*math.pi*2/7
+   part('TurbineBlade',V(math.sin(a)*.45,math.cos(a)*.45,1.15),V(.18,.44,.1),RGB(168,199,228),nil,METAL,A(0,0,-a+.38))
+  end
+  for _,s in ipairs({-1,1}) do
+   part('CobaltSideArmor',V(s*.91,.1,0),V(.3,1.35,.75),color,nil,METAL,A(0,0,-s*.25))
+   rod('CoolingPipe',V(s*.82,-.6,.49),V(s*.72,.77,.49),.14,WHITE)
+  end
+  glow(tip,color)
+ elseif id=='bomb_mint' then
+  disk('PeppermintRim',V(0,0,1.035),1.65,.15,WHITE,A(0,math.pi/2,0))
+  disk('MintFace',V(0,0,1.13),1.44,.08,RGB(52,197,146),A(0,math.pi/2,0))
+  for n=0,5 do local a=n*math.pi/3
+   leaf('PeppermintSwirl',V(math.sin(a)*.37,math.cos(a)*.37,1.19),V(.28,.73,.07),WHITE,A(0,0,-a+.36))
+  end
+  ball('MintCenter',V(0,0,1.24),.22,WHITE)
+  leaf('MintLeafLeft',V(-.7,.89,.1),V(.74,.13,.33),GREEN,A(0,.2,-.35))
+  leaf('MintLeafRight',V(-.33,1,.16),V(.48,.1,.26),RGB(122,205,72),A(0,.2,.5))
+ elseif id=='bomb_taxi' then
+  part('TaxiWindscreen',V(0,.3,1.02),V(1.15,.46,.15),RGB(32,71,92),nil,GLASS)
+  part('WindowDivider',V(0,.3,1.115),V(.07,.47,.04),DARK)
+  for _,s in ipairs({-1,1}) do
+   ball('Headlight',V(s*.51,-.17,1.03),V(.31,.24,.13),WHITE,NEON)
+   for _,z in ipairs({-.47,.47}) do
+    disk('TaxiTire',V(s*1.01,-.54,z),.64,.3,DARK,CFrame.identity)
+    disk('TaxiWheelHub',V(s*1.19,-.54,z),.33,.05,RGB(199,213,220),CFrame.identity)
+   end
+  end
+  part('TaxiBumper',V(0,-.56,.96),V(1.31,.15,.19),DARK)
+  part('TaxiRoofSign',V(-.4,1.02,0),V(.66,.36,.38),WHITE)
+  for n=0,3 do part('TaxiChecker',V(-.49+n*.325,-.02,1.12),V(.15,.13,.04),n%2==0 and DARK or WHITE) end
+  part('TaxiSignStripe',V(-.4,1.03,.205),V(.48,.1,.025),DARK)
+ elseif id=='bomb_candy' then
+  bomb.Material=Enum.Material.SmoothPlastic
+  for _,s in ipairs({-1,1}) do
+   part('CandyWrapper',V(s*1.25,0,0),V(.58,.94,.67),WHITE,'Wedge',Enum.Material.SmoothPlastic,A(.4,0,s*math.pi/2))
+   disk('WrapperKnot',V(s*1.05,0,0),.59,.17,RGB(244,70,143),CFrame.identity)
+  end
+  disk('SugarRibbon',Vector3.zero,2.29,.2,WHITE,A(.18,0,.55))
+  for n=0,4 do local a=n*math.pi*.4
+   part('CandySprinkle',V(math.sin(a)*.61,math.cos(a)*.61,1.01),V(.12,.25,.07),n%2==0 and RGB(93,234,249) or GOLD,nil,Enum.Material.SmoothPlastic,A(0,0,a))
+  end
+ elseif id=='bomb_orange' then
+  bomb.Material=Enum.Material.SmoothPlastic
+  disk('CitrusPith',V(0,0,1.015),1.68,.15,WHITE,A(0,math.pi/2,0))
+  disk('CitrusFlesh',V(0,0,1.11),1.45,.08,RGB(255,177,37),A(0,math.pi/2,0))
+  for n=0,7 do local a=n*math.pi/4
+   rod('CitrusSegment',V(0,0,1.17),V(math.sin(a)*.7,math.cos(a)*.7,1.17),.045,WHITE)
+  end
+  ball('CitrusHeart',V(0,0,1.19),.16,WHITE)
+  leaf('OrangeLeaf',V(-.47,1.08,0),V(.78,.12,.37),GREEN,A(0,0,-.28))
+  rod('PeelCurlUpper',V(-.88,.56,.1),V(-1.25,.15,.2),.17,color)
+  rod('PeelCurlLower',V(-1.25,.15,.2),V(-1.04,-.32,.24),.17,color)
+ elseif id=='bomb_arctic' then
+  bomb.Material=GLASS;bomb.Transparency=.24
+  ball('FrozenHeart',Vector3.zero,1.67,RGB(114,212,244),NEON)
+  for n=0,4 do local a=n*math.pi*2/5
+   part('IceCrownShard',V(math.sin(a)*.87,.64,math.cos(a)*.87),V(.33,.96,.32),WHITE,'Wedge',GLASS,A(.15,a,.2),.18)
+  end
+  for _,s in ipairs({-1,1}) do
+   part('HangingIcicle',V(s*.51,-.92,.47),V(.23,.71,.3),RGB(190,246,255),'Wedge',GLASS,A(0,0,math.pi),.16)
+  end
+  star('Snowflake',V(0,.05,1.08),.75,WHITE,NEON)
+  particles('IceCrystals',tip,RGB(160,240,255),3,'spark')
+ elseif id=='bomb_ember' then
+  bomb.Color=RGB(47,37,36);bomb.Material=Enum.Material.Slate;bomb.Reflectance=0
+  local points={V(-.7,.62,.68),V(-.32,.34,1.02),V(-.1,-.07,1.14),V(.42,-.23,1.05),V(.63,-.72,.66)}
+  for n=1,#points-1 do rod('MoltenCrack',points[n],points[n+1],.11,RGB(255,133,28),NEON) end
+  rod('CrackFork',points[2],V(.2,.74,.82),.08,GOLD,NEON)
+  rod('CrackFork',points[3],V(-.63,-.39,.88),.075,color,NEON)
+  for n=0,4 do local a=n*math.pi*2/5
+   part('ObsidianShellShard',V(math.sin(a)*.94,.04,math.cos(a)*.94),V(.52,.77,.22),RGB(63,49,46),'Wedge',Enum.Material.Slate,A(.08,a,.18))
+  end
+  ball('ExposedEmber',V(.7,.41,.74),V(.28,.5,.1),color,NEON,A(0,.7,-.4))
+  particles('EscapingEmbers',tip,color,5,'spark');glow(tip,color)
+ elseif id=='bomb_toxic' then
+  bomb.Material=GLASS;bomb.Transparency=.22
+  ball('AcidReservoir',V(0,-.18,0),V(1.75,1.55,1.75),RGB(146,255,51),NEON)
+  disk('TankBase',V(0,-.84,0),1.75,.25,DARK);disk('TankLid',V(0,.81,0),1.8,.24,DARK)
+  for _,s in ipairs({-1,1}) do
+   part('TankRail',V(s*.92,0,-.22),V(.16,1.6,.17),RGB(173,192,117))
+   rod('PressureHose',V(s*.93,.55,-.2),V(s*1.2,.27,-.05),.17,DARK)
+   rod('PressureHose',V(s*1.2,.27,-.05),V(s*1.13,-.4,.2),.17,DARK)
+  end
+  disk('WarningBadge',V(0,.05,1.045),.88,.12,GOLD,A(0,math.pi/2,0))
+  for n=0,2 do local a=n*math.pi*2/3
+   part('RadiationBlade',V(math.sin(a)*.23,.05+math.cos(a)*.23,1.125),V(.22,.3,.035),DARK,'Wedge',METAL,A(0,0,-a))
+  end
+  ball('RadiationDot',V(0,.05,1.15),.13,DARK)
+  particles('ToxicVapor',tip,color,3,'smoke')
+ elseif id=='bomb_royal' then
+  bomb.Material=Enum.Material.SmoothPlastic
+  disk('CrownBand',V(0,.78,0),1.95,.22,GOLD)
+  for n=0,4 do local a=n*math.pi*2/5
+   part('CrownPoint',V(math.sin(a)*.79,1.075,math.cos(a)*.79),V(.33,.67,.2),GOLD,'Wedge',METAL,A(0,a,0))
+   ball('CrownJewel',V(math.sin(a)*.88,.8,math.cos(a)*.88),.2,n%2==0 and RGB(246,74,131) or RGB(91,224,255),GLASS)
+  end
+  part('RoyalSash',V(0,-.17,.98),V(1.65,.2,.11),GOLD,nil,METAL,A(0,0,-.4))
+  part('RoyalCrest',V(0,.08,1.12),V(.39,.51,.16),RGB(253,84,134),nil,GLASS,A(0,0,math.pi/4))
+ elseif id=='bomb_disco' then
+  bomb.Reflectance=.3
+  for row=-1,1 do local radius=row==0 and 1.05 or .91
+   for n=0,5 do local a=n*math.pi/3+row*.15
+    part('MirrorTile',V(math.sin(a)*radius,row*.5,math.cos(a)*radius),V(.56,.44,.09),Color3.fromHSV((n+row*2)%9/9,.34,1),nil,METAL,A(row*-.35,a,0))
+   end
+  end
+  for _,s in ipairs({-1,1}) do
+   disk('HeadphoneCushion',V(s*1.11,.17,0),.82,.19,DARK,CFrame.identity)
+   disk('HeadphoneShell',V(s*1.25,.17,0),.64,.13,RGB(232,90,244),CFrame.identity,NEON)
+   rod('HeadphoneBand',V(s*1.14,.47,0),V(s*.8,1.03,0),.12,DARK)
+  end
+  particles('DiscoGlints',tip,RGB(246,142,255),3,'spark')
+ elseif id=='bomb_gift' then
+  bomb.Material=Enum.Material.SmoothPlastic
+  disk('RibbonVertical',Vector3.zero,2.29,.2,GOLD,CFrame.identity)
+  disk('RibbonHorizontal',Vector3.zero,2.29,.21,GOLD)
+  leaf('BowLoopLeft',V(-.37,1.04,.27),V(.8,.2,.42),WHITE,A(0,0,-.45))
+  leaf('BowLoopRight',V(.37,1.04,.27),V(.8,.2,.42),WHITE,A(0,0,.45))
+  ball('BowKnot',V(0,1.05,.34),.24,GOLD)
+  rod('GiftTagString',V(.79,.56,.36),V(1.12,.11,.48),.045,WHITE)
+  part('GiftTag',V(1.08,-.09,.54),V(.38,.53,.08),WHITE,nil,METAL,A(0,-.4,-.25))
+  ball('GiftTagSeal',V(1.08,-.09,.61),.18,color)
+ elseif id=='bomb_bee' then
+  bomb.Material=Enum.Material.SmoothPlastic
+  for _,y in ipairs({-.52,0,.52}) do disk('BeeStripe',V(0,y,0),y==0 and 2.27 or 2.01,.2,DARK) end
+  for _,s in ipairs({-1,1}) do
+   leaf('BeeWing',V(s*1.17,.46,-.14),V(1.05,.13,1.25),WHITE,A(0,s*.3,s*.48)).Transparency=.25
+   rod('BeeAntenna',V(s*.35,.94,.25),V(s*.63,1.38,.26),.065,DARK)
+   ball('AntennaTip',V(s*.63,1.38,.26),.16,DARK)
+   ball('BeeEye',V(s*.32,.25,1.025),V(.19,.29,.09),DARK)
+  end
+  part('BeeStinger',V(0,-.28,-1.12),V(.38,.35,.54),DARK,'Wedge',METAL,A(math.pi/2,0,0))
+ elseif id=='bomb_prism' then
+  bomb.Material=GLASS;bomb.Transparency=.2
+  ball('OpalHeart',Vector3.zero,1.45,RGB(185,227,255),NEON)
+  local pastel={RGB(170,236,255),RGB(241,173,255),RGB(161,255,218),RGB(248,213,132),RGB(170,188,255),RGB(255,166,202)}
+  for n=0,5 do local a=n*math.pi/3
+   part('CrystalFacet',V(math.sin(a)*.99,0,math.cos(a)*.99),V(.65,1.5,.24),pastel[n+1],nil,GLASS,A(0,a,.24),.13)
+   part('CrystalTooth',V(math.sin(a)*.72,-.86,math.cos(a)*.72),V(.35,.63,.28),pastel[n+1],'Wedge',GLASS,A(0,a,math.pi),.12)
+  end
+  particles('PrismaticGlints',tip,WHITE,3,'spark')
+ elseif id=='bomb_saturn' then
+  for _,y in ipairs({-.52,0,.52}) do disk('PlanetBand',V(0,y,0),y==0 and 2.27 or 2.01,.12,RGB(205,135,92)) end
+  ring('SaturnRing',RGB(255,228,166),1.51,A(.38,0,-.28),Vector3.zero,12,.17)
+  ball('SmallMoon',V(1.51,.82,.27),.43,RGB(195,221,249))
+  ball('TinyMoon',V(-1.4,-.72,-.19),.24,WHITE)
+ elseif id=='bomb_abyss' then
+  bomb.Color=RGB(57,48,99);bomb.Material=GLASS;bomb.Transparency=.22
+  ball('PearlHeart',Vector3.zero,1.5,color,NEON)
+  for n=0,6 do local a=n*math.pi*2/7
+   part('ClamShellFlute',V(math.sin(a)*.78,-.74,math.cos(a)*.78),V(.57,.7,.4),RGB(61,92,110),'Wedge',METAL,A(-.3,a,0))
+   ball('PearlRim',V(math.sin(a)*.99,-.46,math.cos(a)*.99),.15,RGB(121,230,218),NEON)
+  end
+  for _,s in ipairs({-1,1}) do leaf('DeepSeaFin',V(s*1.01,.25,-.22),V(.65,.1,.82),RGB(85,125,151),A(.3,0,s*.6)) end
+  particles('AbyssMist',tip,RGB(119,126,238),2,'smoke')
+ elseif id=='bomb_spike' then
+  bomb.Color=RGB(87,104,122);bomb.Reflectance=.3
+  disk('IronSeam',Vector3.zero,2.28,.15,DARK)
+  for n=0,7 do local a=n*math.pi/4
+   part('UrchinSpike',V(math.sin(a)*1.05,.1,math.cos(a)*1.05),V(.4,.57,.68),RGB(169,188,201),'Wedge',METAL,A(math.pi/2,a,0))
+  end
+  for _,s in ipairs({-1,1}) do part('ShoulderSpike',V(s*.68,.88,0),V(.39,.72,.38),RGB(188,204,215),'Wedge',METAL,A(0,0,-s*.5)) end
+  disk('IronFacePlate',V(0,.08,1.03),.75,.18,DARK,A(0,math.pi/2,0))
+  part('IronBolt',V(0,.08,1.15),V(.38,.38,.12),WHITE,nil,METAL,A(0,0,math.pi/4))
+ elseif id=='bomb_plasma' then
+  bomb.Material=GLASS;bomb.Transparency=.38
+  ball('PlasmaHeart',Vector3.zero,1.7,RGB(81,255,223),NEON)
+  disk('ReactorUpperCap',V(0,.84,0),1.66,.23,DARK);disk('ReactorLowerCap',V(0,-.84,0),1.66,.23,DARK)
+  for n=0,5 do local a=n*math.pi/3
+   part('PlasmaCageRib',V(math.sin(a)*.94,0,math.cos(a)*.94),V(.14,1.68,.16),RGB(118,144,153),nil,METAL,A(0,a,0))
+  end
+  ring('PlasmaCoil',RGB(176,255,234),1.16,A(.4,0,0),Vector3.zero,10,.09,NEON)
+  for _,s in ipairs({-1,1}) do
+   disk('PowerTerminal',V(s*1.05,0,0),.53,.36,DARK,CFrame.identity)
+   disk('TerminalLight',V(s*1.255,0,0),.32,.06,color,CFrame.identity,NEON)
+  end
+  glow(tip,color)
+ elseif id=='bomb_sakura' then
+  bomb.Material=Enum.Material.SmoothPlastic;bomb.Reflectance=.24
+  rod('BlossomBranch',V(-.74,-.5,.73),V(.5,.7,.75),.08,RGB(101,63,62))
+  rod('BlossomTwig',V(-.07,.14,1.08),V(-.61,.53,.89),.055,RGB(101,63,62))
+  for index,center in ipairs({V(-.47,.32,1.04),V(.42,.57,.91),V(.1,-.35,1.08)}) do
+   for n=0,4 do local a=n*math.pi*.4
+    leaf('SakuraPetal'..index,center+V(math.sin(a)*.16,math.cos(a)*.16,0),V(.2,.3,.075),index==2 and WHITE or RGB(255,217,232),A(0,0,-a))
+   end
+   ball('BlossomCenter',center+V(0,0,.04),.13,GOLD)
+  end
+  leaf('SakuraLeaf',V(-.84,.64,.17),V(.63,.1,.28),RGB(133,187,104),A(0,.2,-.4))
+  particles('FallingBlossomGlints',tip,RGB(255,180,212),2,'spark')
+ elseif id=='bomb_gold' then
+  bomb.Reflectance=.36
+  disk('MintedCoinRim',V(0,0,1.03),1.31,.18,RGB(152,99,20),A(0,math.pi/2,0))
+  disk('MintedCoinFace',V(0,0,1.145),1.12,.075,RGB(255,228,116),A(0,math.pi/2,0))
+  star('GoldenSeal',V(0,0,1.205),.64,RGB(178,111,24),METAL)
+  for _,s in ipairs({-1,1}) do for n=0,3 do
+   leaf('GildedLaurel',V(s*(.7+.09*math.sin(n)),(n-1.5)*.32,.91),V(.18,.39,.09),RGB(255,236,140),A(0,0,s*(.45+n*.1)))
+  end end
+  particles('GoldDust',tip,GOLD,3,'spark')
+ elseif id=='bomb_void' then
+  bomb.Color=RGB(25,21,39);bomb.Reflectance=.05
+  disk('VoidAperture',V(0,.04,1.02),1.25,.1,RGB(128,54,245),A(0,math.pi/2,0),NEON)
+  star('VoidStarArmor',V(0,.04,1.105),1.56,RGB(51,36,78),METAL)
+  ball('BlackHole',V(0,.04,1.205),V(.4,.4,.08),RGB(12,9,24),Enum.Material.SmoothPlastic)
+  for n=0,3 do local a=n*math.pi/2+.45
+   part('VoidArmorShard',V(math.sin(a)*1.035,.04,math.cos(a)*1.035),V(.5,.84,.36),RGB(67,45,108),'Wedge',METAL,A(0,a,.45))
+  end
+  particles('VoidWisp',tip,RGB(142,82,231),3,'smoke');glow(tip,RGB(125,57,213))
+ elseif id=='bomb_solar' then
+  bomb.Material=NEON;bomb.Color=RGB(255,157,29)
+  for n=0,7 do local a=n*math.pi/4
+   part('SolarHeatFin',V(math.sin(a)*1.08,.02,math.cos(a)*1.08),V(.23,1.02,.51),RGB(97,61,38),'Wedge',METAL,A(0,a,.21))
+  end
+  disk('FurnaceCrown',V(0,.84,0),1.62,.18,RGB(95,62,36));disk('FurnaceBase',V(0,-.86,0),1.55,.2,RGB(95,62,36))
+  disk('FurnaceDoorRim',V(0,0,1.035),1.31,.16,RGB(90,55,32),A(0,math.pi/2,0))
+  disk('FurnaceWindow',V(0,0,1.135),1.03,.07,RGB(255,229,80),A(0,math.pi/2,0),NEON)
+  for _,y in ipairs({-.31,0,.31}) do part('FurnaceGrate',V(0,y,1.19),V(.94,.08,.06),RGB(97,61,38)) end
+  particles('SolarEmbers',tip,RGB(255,167,54),5,'spark');glow(tip,GOLD)
+ elseif id=='bomb_nova' then
+  bomb.Material=GLASS;bomb.Transparency=.24
+  ball('NovaCore',Vector3.zero,1.67,RGB(255,74,151),NEON)
+  ring('NovaCyanOrbit',RGB(111,232,255),1.48,A(.66,0,-.38),Vector3.zero,10,.11,NEON)
+  ring('NovaRoseOrbit',RGB(255,177,219),1.39,A(-.62,0,.51),Vector3.zero,10,.09,NEON)
+  star('NovaBurst',V(0,.08,1.06),.89,WHITE,NEON)
+  particles('StellarSparks',tip,RGB(255,190,236),4,'spark');glow(tip,RGB(234,96,183))
+ elseif id=='bomb_champion' then
+  bomb.Reflectance=.27
+  for _,s in ipairs({-1,1}) do
+   local points={V(s*.94,.57,0),V(s*1.42,.66,0),V(s*1.63,.28,0),V(s*1.54,-.2,0),V(s*1.13,-.43,0),V(s*.86,-.28,0)}
+   for n=1,#points-1 do rod('TrophyHandle',points[n],points[n+1],.15,GOLD) end
+   for n=0,2 do leaf('VictoryLaurel',V(s*(.68+n*.04),(n-1)*.32,.94),V(.18,.36,.09),RGB(255,242,171),A(0,0,s*.52)) end
+  end
+  disk('TrophyStem',V(0,-1.07,0),.36,.42,GOLD)
+  part('TrophyPlinth',V(0,-1.34,0),V(1.06,.19,.9),DARK)
+  part('WinnerPlaque',V(0,-1.33,.465),V(.58,.11,.025),GOLD)
+  for n=-1,1 do part('VictoryRibbon',V(n*.13,-.04,1.1),V(.12,1.17,.06),n==0 and WHITE or n==-1 and RGB(239,74,89) or RGB(55,151,239)) end
+  disk('ChampionMedal',V(0,-.25,1.15),.76,.12,GOLD,A(0,math.pi/2,0))
+  star('ChampionStar',V(0,-.25,1.24),.43,WHITE,METAL)
+  particles('ChampionGlints',tip,GOLD,3,'spark')
+ end
+ folder:SetAttribute('DetailPartCount',count);folder:SetAttribute('Preview',preview)
+ return folder
+end
+return Builder
+]==],
+[ [==[PracticeServiceV11]==] ]=[==[--!nonstrict
+-- HussPracticeV11: server-owned NPC practice, never economy participants.
+local Players=game:GetService('Players')
+local RunService=game:GetService('RunService')
+local Paths=game:GetService('PathfindingService')
+local Bomb=require(script.Parent:WaitForChild('BombService'))
+local Config=require(game:GetService('ReplicatedStorage').Shared.Config.GameConfig)
+local P={}
+local active
+local V=Vector3.new
+local names={'Fuse','Sparky','Boomer'}
+local colors={Color3.fromRGB(49,205,255),Color3.fromRGB(255,188,44),Color3.fromRGB(183,107,250)}
+local function flat(v) return V(v.X,0,v.Z) end
+local function unit(v) return v.Magnitude>.01 and v.Unit or V(1,0,0) end
+local function root(actor) return actor and actor.Character and actor.Character:FindFirstChild('HumanoidRootPart') end
+local function living(actor)
+ local h=actor and actor.Character and actor.Character:FindFirstChildOfClass('Humanoid')
+ return actor and actor.Parent and actor:GetAttribute('InRound')==true and h and h.Health>0 and root(actor)~=nil
+end
+local function solo(player)
+ local count=0
+ for _,p in ipairs(Players:GetPlayers()) do if p:GetAttribute('BombTagAFK')~=true then count+=1;if p~=player then return false end end end
+ return count==1 and player.Parent==Players and player:GetAttribute('BombTagAFK')~=true
+end
+local function valid(session)
+ return active==session and not session.cancelled and solo(session.player) and living(session.player) and session.context.Running() and workspace:GetServerTimeNow()<session.deadline
+end
+local function actors(session)
+ if not valid(session) then return {} end
+ local list={session.player}
+ for _,bot in ipairs(session.bots) do if living(bot.actor) then table.insert(list,bot.actor) end end
+ return list
+end
+function P.Stop()
+ local session=active;if not session then return end
+ session.cancelled=true;active=nil
+ for _,connection in ipairs(session.connections) do connection:Disconnect() end
+ for _,bot in ipairs(session.bots) do
+  bot.token+=1;bot.actor.Parent=nil
+  if bot.path then bot.path:Destroy();bot.path=nil end
+ end
+ if session.folder then session.folder:Destroy() end
+ Bomb.Stop()
+end
+local function createBot(session,index,spawnPart)
+ local model=Instance.new('Model');model.Name=names[index];model:SetAttribute('HussPracticeBot',true)
+ local collisionGroup=root(session.player).CollisionGroup
+ local function part(name,size,position,color,collide)
+  local p=Instance.new('Part');p.Name=name;p.Size=size;p.CFrame=CFrame.new(position);p.Color=color;p.Material=Enum.Material.SmoothPlastic
+  p.CanCollide=collide==true;p.CanTouch=false;p.CollisionGroup=collisionGroup;p.TopSurface=Enum.SurfaceType.Smooth;p.BottomSurface=Enum.SurfaceType.Smooth;p.Parent=model;return p
+ end
+ local ink=Color3.fromRGB(29,35,51);local color=colors[index]
+ local r=part('HumanoidRootPart',V(2,2,1),V(0,3,0),ink,false);r.Transparency=1
+ local torso=part('Torso',V(2,2,1),V(0,3,0),color,true)
+ local head=part('Head',V(2,1,1),V(0,4.5,0),Color3.fromRGB(255,222,141),true)
+ local leftArm=part('Left Arm',V(1,2,1),V(-1.5,3,0),color,false)
+ local rightArm=part('Right Arm',V(1,2,1),V(1.5,3,0),color,false)
+ local leftLeg=part('Left Leg',V(1,2,1),V(-.5,1,0),ink,false)
+ local rightLeg=part('Right Leg',V(1,2,1),V(.5,1,0),ink,false)
+ local joints={}
+ local function joint(name,a,b,offset)
+  local j=Instance.new('Motor6D');j.Name=name;j.Part0=a;j.Part1=b;j.C0=CFrame.new(offset);j.C1=CFrame.new();j.Parent=a;joints[name]={motor=j,base=j.C0};return j
+ end
+ joint('RootJoint',r,torso,V(0,0,0));joint('Neck',torso,head,V(0,1.5,0))
+ joint('Left Shoulder',torso,leftArm,V(-1.5,0,0));joint('Right Shoulder',torso,rightArm,V(1.5,0,0))
+ joint('Left Hip',torso,leftLeg,V(-.5,-2,0));joint('Right Hip',torso,rightLeg,V(.5,-2,0))
+ local face=Instance.new('SurfaceGui');face.Name='Face';face.Face=Enum.NormalId.Front;face.CanvasSize=Vector2.new(256,128);face.Parent=head
+ local expression=Instance.new('TextLabel');expression.Size=UDim2.fromScale(1,1);expression.BackgroundTransparency=1;expression.Text='• ᴗ •';expression.Font=Enum.Font.GothamBlack;expression.TextSize=80;expression.TextColor3=ink;expression.Parent=face
+ local badge=Instance.new('BillboardGui');badge.Name='PracticeBadge';badge.Size=UDim2.fromOffset(190,35);badge.StudsOffset=V(0,2,0);badge.AlwaysOnTop=false;badge.MaxDistance=120;badge.Adornee=head;badge.Parent=head
+ local label=Instance.new('TextLabel');label.Size=UDim2.fromScale(1,1);label.BackgroundTransparency=1;label.Font=Enum.Font.FredokaOne;label.TextSize=20;label.TextStrokeTransparency=0;label.TextColor3=color;label.Text=names[index]..' • PRACTICE';label.Parent=badge
+ local humanoid=Instance.new('Humanoid');humanoid.DisplayDistanceType=Enum.HumanoidDisplayDistanceType.None;humanoid.WalkSpeed=24;humanoid.UseJumpPower=true;humanoid.JumpPower=0;humanoid.JumpHeight=0;humanoid.AutoJumpEnabled=false;humanoid.MaxSlopeAngle=38;humanoid.Parent=model;humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
+ model.PrimaryPart=r;model.Parent=session.folder
+ session.context.Ground(model,spawnPart)
+ for _,o in ipairs(model:GetChildren()) do if o:IsA('BasePart') then o.Anchored=false;o:SetNetworkOwner(nil) end end
+ local actor={UserId=-index,Name=names[index],DisplayName=names[index],Character=model,Parent=session.folder}
+ function actor:GetAttribute(name) return model:GetAttribute(name) end
+ function actor:SetAttribute(name,value) model:SetAttribute(name,value) end
+ actor:SetAttribute('InRound',true)
+ local bot={actor=actor,root=r,h=humanoid,joints=joints,side=index%2==0 and 1 or -1,nextThink=0,nextPath=0,token=0,lastDodge=-math.huge,position=r.Position,stuckAt=workspace:GetServerTimeNow(),waypoints={},waypoint=1}
+ table.insert(session.bots,bot)
+ table.insert(session.connections,humanoid.Died:Connect(function() actor:SetAttribute('InRound',false);bot.token+=1 end))
+ return bot
+end
+local function params(session)
+ local rp=RaycastParams.new();rp.FilterType=Enum.RaycastFilterType.Exclude;rp.FilterDescendantsInstances={session.folder,session.player.Character};rp.IgnoreWater=true;rp.RespectCanCollide=true;return rp
+end
+local function floorAt(session,position)
+ local hit=workspace:Raycast(position+V(0,4,0),V(0,-16,0),session.ray)
+ return hit and hit.Normal.Y>.65 and hit.Position or nil
+end
+local function free(session,from,direction,distance)
+ if workspace:Raycast(from,direction*distance,session.ray) then return false end
+ return floorAt(session,from+direction*distance)~=nil
+end
+local function steer(session,bot,desired)
+ local dir=unit(flat(desired));local from=bot.root.Position
+ if free(session,from,dir,6) then return dir end
+ for _,angle in ipairs({.65,-.65,1.3,-1.3,2,-2,math.pi}) do
+  local rotated=CFrame.Angles(0,angle*bot.side,0):VectorToWorldSpace(dir)
+  if free(session,from,rotated,6) then return rotated end
+ end
+ return Vector3.zero
+end
+local function route(session,bot,goal,now)
+ if bot.pending or now<bot.nextPath then return end
+ bot.nextPath=now+1.1;bot.pending=true;bot.token+=1;local token=bot.token;local start=bot.root.Position
+ task.spawn(function()
+  local path=Paths:CreatePath({AgentRadius=2,AgentHeight=5,AgentCanJump=false,AgentCanClimb=false,WaypointSpacing=5,Costs={Water=math.huge}})
+  local ok=pcall(function() path:ComputeAsync(start,goal) end)
+  -- ComputeAsync cannot be interrupted, so allow just one worker per bot and
+  -- discard stale results. A late result can never recreate a stopped session.
+  if active~=session or session.cancelled or bot.token~=token or not living(bot.actor) then path:Destroy();return end
+  bot.pending=false
+  if ok and path.Status==Enum.PathStatus.Success and workspace:GetServerTimeNow()-now<3 then
+   if bot.path then bot.path:Destroy() end;bot.path=path;bot.waypoints=path:GetWaypoints();bot.waypoint=math.min(2,#bot.waypoints)
+  else path:Destroy();bot.waypoints={};bot.waypoint=1 end
+ end)
+end
+local function dodge(session,bot,direction,now)
+ if direction.Magnitude<.1 or now-bot.lastDodge<1.5 or bot.h.FloorMaterial==Enum.Material.Air or not free(session,bot.root.Position,direction,10) then return end
+ bot.lastDodge=now;bot.dodgeAt=now;bot.velocity=direction*math.clamp(bot.h.WalkSpeed+44,74,84);bot.h.AutoRotate=false
+ local character=bot.actor.Character
+ character:SetAttribute('BombTagIFrameUntil',now+.45);character:SetAttribute('HussDodgeStartedAt',now)
+ character:SetAttribute('MovementAction','DiveForward');character:SetAttribute('MovementActionId',(character:GetAttribute('MovementActionId') or 0)+1)
+end
+local function think(session,bot,now)
+ if now<bot.nextThink then return end;bot.nextThink=now+.16+math.random()*.16
+ local carrier=Bomb.GetCarrier();local current=bot.root.Position;local goal
+ local danger=carrier and carrier~=bot.actor and root(carrier)
+ if carrier==bot.actor then
+  local distance=math.huge
+  for _,actor in ipairs(actors(session)) do if actor~=bot.actor then
+   local other=root(actor);local d=(other.Position-current).Magnitude
+   if d<distance then distance=d;goal=other.Position+flat(other.AssemblyLinearVelocity)*.12 end
+  end end
+ elseif danger and (danger.Position-current).Magnitude<65 then
+  local away=unit(flat(current-danger.Position));local side=V(-away.Z,0,away.X)*bot.side
+  local candidate=current+unit(away+side*.42)*32
+  goal=floorAt(session,candidate) and candidate or nil
+  local distance=(danger.Position-current).Magnitude
+  if distance<14 and distance>3 and math.random()<.7 then dodge(session,bot,steer(session,bot,away+side),now) end
+ end
+ if not goal then
+  if not bot.roam or (bot.roam-current).Magnitude<8 or now>(bot.roamAt or 0) then
+   local spawn=session.context.Spawns[math.random(1,#session.context.Spawns)];bot.roam=spawn.Position+V(0,3,0);bot.roamAt=now+5
+  end
+  goal=bot.roam
+ end
+ if (current-bot.position).Magnitude>2 then bot.position=current;bot.stuckAt=now
+ elseif now-bot.stuckAt>1.4 then bot.side=-bot.side;bot.roam=nil;bot.nextPath=0;bot.waypoints={};bot.stuckAt=now;goal=current+V(17*bot.side,0,11) end
+ bot.goal=goal
+ local distance=(goal-current).Magnitude
+ bot.speed=(carrier==bot.actor or danger and (danger.Position-current).Magnitude<45 or distance>30) and 32 or 24
+ if distance>7 then route(session,bot,goal,now) end
+end
+local function animate(bot,now,speed,diving)
+ local swing=math.sin(now*(speed>25 and 15 or 11))*math.min(speed/32,.85)
+ for name,record in pairs(bot.joints) do
+  local pose=CFrame.new()
+  if name=='RootJoint' then pose=CFrame.Angles(diving and -.65 or -.08,0,diving and bot.side*.18 or 0)
+  elseif name:find('Shoulder',1,true) then pose=CFrame.Angles(diving and -1.2 or (name=='Left Shoulder' and swing or -swing),0,0)
+  elseif name:find('Hip',1,true) then pose=CFrame.Angles(diving and .45 or (name=='Left Hip' and -swing or swing),0,0) end
+  record.motor.C0=record.base*pose
+ end
+end
+local function move(session,bot,dt,now)
+ if not living(bot.actor) then return end
+ think(session,bot,now)
+ local target=bot.goal or bot.root.Position
+ local waypoint=bot.waypoints[bot.waypoint]
+ if waypoint then
+  if (waypoint.Position-bot.root.Position).Magnitude<6 then bot.waypoint+=1;waypoint=bot.waypoints[bot.waypoint] end
+  if waypoint and waypoint.Action~=Enum.PathWaypointAction.Jump then target=waypoint.Position end
+ end
+ local direction=steer(session,bot,target-bot.root.Position)
+ local boost=(bot.actor.Character:GetAttribute('HussPerfectBoostUntil') or 0)>now and 6 or 0
+ local speed=(bot.speed or 24)+boost
+ local elapsed=bot.dodgeAt and now-bot.dodgeAt or 1
+ local diving=elapsed<.72
+ if diving then
+  local t=math.clamp(elapsed/.72,0,1);local smooth=t*t*(3-2*t)
+  if t>.34 then local control=math.clamp((t-.34)/(.86-.34),0,1);control=control*control*(3-2*control);bot.velocity=bot.velocity:Lerp(direction*bot.velocity.Magnitude,1-math.exp(-5.5*control*dt)) end
+  bot.velocity*=math.exp(-(1+1.7*smooth)*dt)
+  local handoff=math.clamp((t-.55)/.45,0,1);handoff=handoff*handoff*(3-2*handoff)
+  bot.velocity=bot.velocity:Lerp(direction*speed,1-math.exp(-8.5*handoff*dt))
+  if not free(session,bot.root.Position,unit(bot.velocity),math.max(4,bot.velocity.Magnitude*dt+2)) then bot.velocity=Vector3.zero end
+  bot.h.WalkSpeed=speed*handoff
+  local v=bot.root.AssemblyLinearVelocity;bot.root.AssemblyLinearVelocity=V(bot.velocity.X,v.Y,bot.velocity.Z)
+  if bot.velocity.Magnitude>.1 then bot.root.CFrame=CFrame.lookAt(bot.root.Position,bot.root.Position+unit(bot.velocity)) end
+ else bot.h.AutoRotate=true;bot.h.WalkSpeed=speed end
+ bot.h:Move(direction,false);animate(bot,now,flat(bot.root.AssemblyLinearVelocity).Magnitude,diving)
+end
+function P.Run(player,context)
+ P.Stop()
+ if not solo(player) or not living(player) or #context.Spawns<2 then return end
+ local session={player=player,character=player.Character,context=context,bots={},connections={},deadline=workspace:GetServerTimeNow()+math.clamp(context.Duration or 30,15,180)}
+ active=session
+ local ok,message=xpcall(function()
+  local folder=Instance.new('Folder');folder.Name='HussPracticeBots';folder.Parent=workspace;session.folder=folder
+  local spawns=table.clone(context.Spawns);local playerRoot=root(player)
+  table.sort(spawns,function(a,b) return (a.Position-playerRoot.Position).Magnitude>(b.Position-playerRoot.Position).Magnitude end)
+  for index=1,math.min(3,#spawns-1) do createBot(session,index,spawns[index]) end
+  session.ray=params(session)
+  local function check() if not valid(session) then P.Stop() end end
+  local function watch(p) table.insert(session.connections,p:GetAttributeChangedSignal('BombTagAFK'):Connect(check));check() end
+  table.insert(session.connections,Players.PlayerAdded:Connect(watch));table.insert(session.connections,Players.PlayerRemoving:Connect(function(p) if p==player then P.Stop() end end))
+  for _,p in ipairs(Players:GetPlayers()) do watch(p);if active~=session then return end end
+  table.insert(session.connections,player.CharacterAdded:Connect(function() P.Stop() end))
+  table.insert(session.connections,session.character:FindFirstChildOfClass('Humanoid').Died:Connect(function() P.Stop() end))
+  local nextUpdate=0
+  table.insert(session.connections,RunService.Heartbeat:Connect(function(dt)
+   local moved,err=pcall(function()
+    if not valid(session) then P.Stop();return end
+    local now=workspace:GetServerTimeNow()
+    for _,bot in ipairs(session.bots) do move(session,bot,math.min(dt,.1),now) end
+    if now>=nextUpdate then nextUpdate=now+.25;context.Send('PRACTICE',math.ceil(session.deadline-now),#actors(session)) end
+   end)
+   if not moved then session.error=err;P.Stop() end
+  end))
+  while valid(session) and #actors(session)>1 do
+   Bomb.RunBombCycle(function() return actors(session) end,#actors(session)==2 and Config.FinalDuelBombFuseSeconds or Config.NormalBombFuseSeconds)
+   local untilTime=workspace:GetServerTimeNow()+Config.BetweenBombsSeconds
+   while valid(session) and workspace:GetServerTimeNow()<untilTime do task.wait(.05) end
+  end
+ end,debug.traceback)
+ if active==session then P.Stop() end
+ if not ok or session.error then error(message or session.error) end
+end
+return P
+]==],
+[ [==[PerfectWeaveServiceV11]==] ]=[==[--!nonstrict
+-- HussPerfectWeaveV11: a server-confirmed avoided tag, once per accepted dodge.
+local Config=require(game:GetService('ReplicatedStorage').Shared.Config.GameConfig)
+local W={}
+local function root(actor)
+ local c=actor and actor.Character
+ local h=c and c:FindFirstChildOfClass('Humanoid')
+ local r=c and c:FindFirstChild('HumanoidRootPart')
+ if not h or h.Health<=0 or not r or r.Anchored or h.Sit or h.PlatformStand then return nil end
+ if actor:GetAttribute('InRound')~=true then return nil end
+ return r,c
+end
+local function finite(v)
+ return typeof(v)=='Vector3' and v.X==v.X and v.Y==v.Y and v.Z==v.Z and v.Magnitude<1000000
+end
+function W.Try(carrier,target,previousCarrier,previousTarget,protectedId,protectedUntil)
+ if carrier==target or not carrier or not target then return false end
+ local now=workspace:GetServerTimeNow()
+ if target.UserId==protectedId and now<(protectedUntil or 0) then return false end
+ local a,ca=root(carrier);local b,cb=root(target)
+ if not a or not b then return false end
+ local ends=cb:GetAttribute('BombTagIFrameUntil')
+ if type(ends)~='number' or ends~=ends then return false end
+ local age=now-(ends-.45)
+ if age<0 or age>.22 or now>=ends or cb:GetAttribute('HussPerfectDodgeUsed')==ends then return false end
+ local ac,bc=a.Position,b.Position
+ local ap=finite(previousCarrier) and previousCarrier or ac
+ local bp=finite(previousTarget) and previousTarget or bc
+ if not finite(ac) or not finite(bc) or (ac-ap).Magnitude>20 or (bc-bp).Magnitude>20 then return false end
+ local start=bp-ap;local finish=bc-ac;local delta=finish-start
+ local t=delta:Dot(delta)>1e-5 and math.clamp(-start:Dot(delta)/delta:Dot(delta),0,1) or 0
+ local distance=math.min(finish.Magnitude,(start+delta*t).Magnitude)
+ if distance>Config.BombTagRadius or finish.Magnitude>Config.BombTagRadius+6 then return false end
+ local ray=RaycastParams.new();ray.FilterType=Enum.RaycastFilterType.Exclude;ray.FilterDescendantsInstances={ca,cb};ray.IgnoreWater=true
+ if finish.Magnitude>.01 and workspace:Raycast(ac,finish,ray) then return false end
+ cb:SetAttribute('HussPerfectDodgeUsed',ends)
+ cb:SetAttribute('HussPerfectBoostUntil',now+2)
+ cb:SetAttribute('HussPerfectWeaveAt',now)
+ return true
+end
+return W
+]==],
+[ [==[LobbyBoardsV11]==] ]=[==[--!nonstrict
+-- HussLobbyBoardsV11: public lobby signs share the authoritative player stats.
+local Players=game:GetService('Players')
+local RS=game:GetService('ReplicatedStorage')
+local Run=game:GetService('RunService')
+local P=Players.LocalPlayer
+local valid={Wins=true,Kills=true,FinalStands=true,GlobalWins=true}
+local boards,watchers,links={},{},{}
+local remote,remoteLink,global,nextRequest=nil,nil,nil,0
+local dirty,elapsed,alive=true,0,true
+local function connect(signal,fn,list) local c=signal:Connect(fn);table.insert(list or links,c);return c end
+local function clear(list) for _,c in ipairs(list) do c:Disconnect() end;table.clear(list) end
+local function number(v) return type(v)=='number' and v==v and math.clamp(math.floor(v),0,2000000000) or 0 end
+local function stat(p,key) local f=p:FindFirstChild('leaderstats');local v=f and f:FindFirstChild(key);return v and (v:IsA('IntValue') or v:IsA('NumberValue')) and number(v.Value) or 0 end
+local function watch(p)
+ if watchers[p] then clear(watchers[p]) end
+ local list={};watchers[p]=list
+ local function changed() dirty=true end
+ connect(p.ChildAdded,function() watch(p) end,list);connect(p.ChildRemoved,function() watch(p) end,list)
+ connect(p:GetPropertyChangedSignal('DisplayName'),changed,list)
+ local f=p:FindFirstChild('leaderstats')
+ if f then
+  connect(f.ChildAdded,function() watch(p) end,list);connect(f.ChildRemoved,function() watch(p) end,list)
+  for _,v in ipairs(f:GetChildren()) do if v:IsA('IntValue') or v:IsA('NumberValue') then connect(v.Changed,changed,list) end end
+ end
+ dirty=true
+end
+local function detect(o)
+ if o:IsA('SurfaceGui') and o.Name=='BoardGui' then
+  local part=o.Parent
+  if part and part:IsA('BasePart') and valid[part:GetAttribute('HussBoardStat')] then boards[o]=part:GetAttribute('HussBoardStat');dirty=true end
+ end
+end
+local function attach(o)
+ if o.Name~='HussEconomyV9' or not o:IsA('RemoteEvent') or o==remote then return end
+ if remoteLink then remoteLink:Disconnect() end;remote=o;global=nil;nextRequest=0;dirty=true
+ remoteLink=connect(o.OnClientEvent,function(data)
+  if type(data)~='table' or data.kind~='Board' then return end
+  global={status=type(data.status)=='string' and data.status or 'unavailable',rows={}}
+  if type(data.rows)=='table' then for i,row in ipairs(data.rows) do
+   if i>10 then break end
+   if type(row)=='table' and type(row.name)=='string' then table.insert(global.rows,{name=row.name:sub(1,64),value=number(row.wins)}) end
+  end end
+  dirty=true
+ end)
+end
+local function render()
+ local roster=Players:GetPlayers();local sorted={}
+ for gui,key in pairs(boards) do
+  if not gui:IsDescendantOf(workspace) then boards[gui]=nil;continue end
+  local body=gui:FindFirstChild('Body');if not body then continue end
+  local rows,status={}
+  if key=='GlobalWins' then
+   rows=global and global.rows or {}
+   status=not global and 'LOADING GLOBAL WINS…' or global.status=='ready' and 'ALL SERVERS • UPDATES EVERY 2 MINUTES' or global.status=='preview' and 'GLOBAL RANKINGS IN THE PUBLISHED GAME' or global.status=='loading' and 'LOADING GLOBAL WINS…' or 'GLOBAL RANKINGS TEMPORARILY UNAVAILABLE'
+  else
+   if not sorted[key] then
+    local list=table.clone(roster);table.sort(list,function(a,b) local av,bv=stat(a,key),stat(b,key);return av==bv and a.UserId<b.UserId or av>bv end)
+    local result={};for i,p in ipairs(list) do if i>10 then break end;table.insert(result,{name=p.DisplayName,value=stat(p,key)}) end;sorted[key]=result
+   end
+   rows=sorted[key];status='THIS SERVER • MULTIPLAYER RECORDS'
+  end
+  for i=1,10 do local label=body:FindFirstChild('Row'..i);if label and label:IsA('TextLabel') then local row=rows[i];label.Text=row and string.format('%02d   %s   •   %d',i,row.name,row.value) or '';label.TextTruncate=Enum.TextTruncate.AtEnd end end
+  local label=body:FindFirstChild('Status');if label and label:IsA('TextLabel') then label.Text=status end
+ end
+end
+connect(Players.PlayerAdded,watch)
+connect(Players.PlayerRemoving,function(p) if watchers[p] then clear(watchers[p]);watchers[p]=nil end;dirty=true end)
+for _,p in ipairs(Players:GetPlayers()) do watch(p) end
+connect(workspace.DescendantAdded,function(o) task.defer(function() if alive then detect(o);if o.Name=='Body' or o.Name=='Status' or o.Name:match('^Row%d+$') then dirty=true end end end) end)
+connect(workspace.DescendantRemoving,function(o) if boards[o] then boards[o]=nil end end)
+for _,o in ipairs(workspace:GetDescendants()) do detect(o) end
+connect(RS.ChildAdded,attach)
+connect(RS.ChildRemoved,function(o) if o==remote then if remoteLink then remoteLink:Disconnect() end;remote=nil;global=nil;dirty=true end end)
+for _,o in ipairs(RS:GetChildren()) do attach(o) end
+connect(Run.Heartbeat,function(dt)
+ elapsed+=dt;if elapsed<.5 then return end;elapsed=0
+ if dirty then dirty=false;render() end
+ if remote and P:GetAttribute('InRound')~=true and time()>=nextRequest then
+  for _,key in pairs(boards) do if key=='GlobalWins' then nextRequest=time()+120;remote:FireServer('Board');break end end
+ end
+end)
+connect(script.Destroying,function() alive=false;clear(links);for _,list in pairs(watchers) do clear(list) end;table.clear(watchers);table.clear(boards) end)
+]==],
+[ [==[DodgeActionV6]==] ]=[==[--!nonstrict
+-- V6 ACTION DODGE: shoulder drive, lateral power-step, braced backstep.
+-- Cosmetic R6/R15 joints only. SnappyMovement owns speed, collisions and cooldown.
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local me = Players.LocalPlayer
+local remote = ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Net"):WaitForChild("DodgeIFrameRequest")
+local DURATION = .72
+local CF, V = CFrame.new, Vector3.new
+local active, players, connections = {}, {}, {}
+local stopped = false
+
+local directions = {
+	DiveForward={0,1}, DiveBack={0,-1}, DiveLeft={-1,0}, DiveRight={1,0},
+	DiveForwardLeft={-.7071,.7071}, DiveForwardRight={.7071,.7071},
+	DiveBackLeft={-.7071,-.7071}, DiveBackRight={.7071,-.7071},
+}
+-- time, blend, compression, lean, guard, stride: snap-load, burst, reach, plant, recover.
+local keys = {
+	{0,0,0,0,0,0}, {.045,.88,.58,-.18,.85,-.5},
+	{.135,1,1,1,1,1}, {.28,1,.84,.92,.94,.68},
+	{.46,.84,.48,.48,.58,-.32}, {.60,.30,.1,.09,.15,.12},
+	{DURATION,0,0,0,0,0},
+}
+local roles = {
+	Torso="root", LowerTorso="root", UpperTorso="waist", Head="neck",
+	["Left Arm"]="leftArm", ["Right Arm"]="rightArm",
+	["Left Leg"]="leftHip", ["Right Leg"]="rightHip",
+	LeftUpperArm="leftArm", RightUpperArm="rightArm",
+	LeftLowerArm="leftElbow", RightLowerArm="rightElbow",
+	LeftUpperLeg="leftHip", RightUpperLeg="rightHip",
+	LeftLowerLeg="leftKnee", RightLowerLeg="rightKnee",
+	LeftFoot="leftAnkle", RightFoot="rightAnkle",
+}
+local function sample(t)
+	for i=2,#keys do
+		local b,a = keys[i],keys[i-1]
+		if t<=b[1] then
+			local u=math.clamp((t-a[1])/(b[1]-a[1]),0,1)
+			u=u*u*(3-2*u)
+			local result={}
+			for j=2,6 do result[j-1]=a[j]+(b[j]-a[j])*u end
+			return result
+		end
+	end
+	return {0,0,0,0,0}
+end
+local function pose(role,r15,d,s)
+	local _,dip,lean,guard,stride=table.unpack(s)
+	local side,front=d[1],d[2]
+	local forward,back=math.max(front,0),math.max(-front,0)
+	local bank=side~=0 and side or (front>0 and -.26 or .18)
+	local pitch=(-34*forward+19*back-12*math.abs(side))*lean
+	local roll=-bank*27*lean
+	local yaw=(side*16+(side==0 and front*12 or 0))*lean
+	local hip=(r15 and 32*dip or 0)-(r15 and pitch*.34 or pitch*.92)
+	local lead=(side<0 and -1 or 1)*(25*stride+12*back*lean)
+	local armDrive=(front*42+side*32)*lean
+	local x,y,z,rx,ry,rz=0,0,0,0,0,0
+	if role=="root" then
+		x,y,z=side*.32*lean,(r15 and -.18 or .12+.26*math.abs(side))*dip,-forward*.22*lean
+		rx,ry,rz=pitch*(r15 and .34 or 1),yaw,roll*(r15 and .52 or 1)
+	elseif role=="waist" then rx,ry,rz=pitch*.66,side*14*lean,roll*.48
+	elseif role=="neck" then rx,ry,rz=-pitch*.70,-yaw*.65,-roll*.5
+	elseif role=="leftArm" then
+		rx,ry,rz=16+47*guard+armDrive,-18*guard,-14-16*guard+side*9*lean
+	elseif role=="rightArm" then
+		rx,ry,rz=16+47*guard-armDrive,18*guard,14+16*guard+side*9*lean
+	elseif role=="leftElbow" then rx=30+45*guard+math.max(armDrive,0)*.3
+	elseif role=="rightElbow" then rx=30+45*guard+math.max(-armDrive,0)*.3
+	elseif role=="leftHip" then rx,ry,rz=hip+lead,-side*8*lean,-9*dip-roll*.42
+	elseif role=="rightHip" then rx,ry,rz=hip-lead,-side*8*lean,9*dip-roll*.42
+	elseif role=="leftKnee" then rx=-56*dip-math.max(lead,0)*.45
+	elseif role=="rightKnee" then rx=-56*dip-math.max(-lead,0)*.45
+	elseif role=="leftAnkle" or role=="rightAnkle" then rx=26*dip
+	end
+	return CF(x,y,z)*CFrame.Angles(math.rad(rx),math.rad(ry),math.rad(rz))
+end
+local function restore(state)
+	for _,j in ipairs(state.joints) do
+		if j.base then
+			if j.motor.Parent and j.motor.Transform==j.applied then
+				j.motor.Transform=j.base
+			end
+			j.base,j.applied=nil,nil
+		end
+	end
+end
+local function cancel(state)
+	restore(state)
+	state.started=nil
+	for _,trail in ipairs(state.trails) do trail.Enabled=false end
+end
+local function blocked(state)
+	local h,c,r=state.humanoid,state.character,state.root
+	if not c.Parent or not h.Parent or h.Health<=0 or not r.Parent or r.Anchored then return true end
+	if state.player:GetAttribute("HussGamePaused")==true or workspace:GetAttribute("HussGamePaused")==true then return true end
+	if c:GetAttribute("Ragdolled")==true or c:GetAttribute("IsRagdoll")==true or h.PlatformStand or h.Sit then return true end
+	local mode=h:GetState()
+	return mode==Enum.HumanoidStateType.Dead or mode==Enum.HumanoidStateType.Ragdoll
+		or mode==Enum.HumanoidStateType.Physics or mode==Enum.HumanoidStateType.Seated
+end
+local function trailFor(state,part)
+	if not part then return end
+	local a,b=Instance.new("Attachment"),Instance.new("Attachment")
+	a.Name,b.Name="HussDodgeTrailTop","HussDodgeTrailBottom"
+	a.Position,b.Position=V(0,-part.Size.Y*.2,0),V(0,-part.Size.Y*.45,0)
+	a.Parent,b.Parent=part,part
+	local t=Instance.new("Trail")
+	t.Name="HussActionBurst"
+	t.Attachment0,t.Attachment1=a,b
+	t.Lifetime=.115
+	t.MinLength=.12
+	t.LightEmission=.7
+	t.Color=ColorSequence.new(Color3.fromRGB(225,255,238),Color3.fromRGB(137,244,177))
+	t.Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,.52),NumberSequenceKeypoint.new(1,1)})
+	t.WidthScale=NumberSequence.new({NumberSequenceKeypoint.new(0,1),NumberSequenceKeypoint.new(1,0)})
+	t.FaceCamera=true
+	t.Enabled=false
+	t.Parent=part
+	table.insert(state.trails,t)
+	for _,object in ipairs({a,b,t}) do table.insert(state.effects,object) end
+end
+local function start(state,action,age)
+	if not directions[action] or blocked(state) or workspace:GetAttribute("HussDodgeV5")~=true then return end
+	age=age or 0
+	if age>=DURATION then return end
+	cancel(state)
+	state.direction=directions[action]
+	state.started=os.clock()-math.max(age,0)
+	if #state.effects==0 then
+		trailFor(state,state.character:FindFirstChild(state.r15 and "LeftHand" or "Left Arm"))
+		trailFor(state,state.character:FindFirstChild(state.r15 and "RightHand" or "Right Arm"))
+	end
+end
+local function dispose(state)
+	if not state then return end
+	cancel(state)
+	for _,connection in ipairs(state.connections) do connection:Disconnect() end
+	for _,effect in ipairs(state.effects) do effect:Destroy() end
+	active[state.player]=nil
+end
+local function characterAdded(player,character)
+	local record=players[player]
+	if not record then return end
+	record.generation+=1
+	local generation=record.generation
+	dispose(active[player])
+	task.spawn(function()
+		local h=character:WaitForChild("Humanoid",10)
+		local root=character:WaitForChild("HumanoidRootPart",10)
+		if stopped or players[player]~=record or record.generation~=generation
+			or player.Character~=character or not h or not root then return end
+		local state={player=player,character=character,humanoid=h,root=root,
+			r15=h.RigType==Enum.HumanoidRigType.R15,joints={},connections={},effects={},trails={}}
+		local function add(j)
+			if not j:IsA("Motor6D") or not j.Part1 or not j.Part0 then return end
+			local role=roles[j.Part1.Name]
+			if role then table.insert(state.joints,{motor=j,role=role}) end
+		end
+		for _,j in ipairs(character:GetDescendants()) do add(j) end
+		table.insert(state.connections,character.DescendantAdded:Connect(add))
+		table.insert(state.connections,h.Died:Connect(function() cancel(state) end))
+		active[player]=state
+		if player==me then
+			table.insert(state.connections,character:GetAttributeChangedSignal("MovementActionId"):Connect(function()
+				local action=character:GetAttribute("MovementAction")
+				if action=="DiveEnd" then cancel(state) else start(state,action,0) end
+			end))
+		end
+	end)
+end
+local function addPlayer(player)
+	if players[player] then return end
+	local record={generation=0}
+	players[player]=record
+	record.added=player.CharacterAdded:Connect(function(c) characterAdded(player,c) end)
+	record.removing=player.CharacterRemoving:Connect(function()
+		record.generation+=1
+		dispose(active[player])
+	end)
+	if player.Character then characterAdded(player,player.Character) end
+end
+local function removePlayer(player)
+	local record=players[player]
+	if not record then return end
+	record.generation+=1
+	record.added:Disconnect()
+	record.removing:Disconnect()
+	dispose(active[player])
+	players[player]=nil
+end
+table.insert(connections,Players.PlayerAdded:Connect(addPlayer))
+table.insert(connections,Players.PlayerRemoving:Connect(removePlayer))
+for _,player in ipairs(Players:GetPlayers()) do addPlayer(player) end
+table.insert(connections,remote.OnClientEvent:Connect(function(player,action,stamp)
+	if player==me or type(stamp)~="number" or stamp~=stamp or math.abs(stamp)==math.huge
+		or stamp>workspace:GetServerTimeNow()+1 or not directions[action] then return end
+	local state=active[player]
+	if state and (not state.lastStamp or stamp>state.lastStamp) then
+		state.lastStamp=stamp
+		start(state,action,workspace:GetServerTimeNow()-stamp)
+	end
+end))
+-- Restore before Animator evaluation; sample its fresh result after evaluation.
+table.insert(connections,RunService.PreAnimation:Connect(function()
+	for _,state in pairs(active) do restore(state) end
+end))
+table.insert(connections,RunService.PreSimulation:Connect(function()
+	for _,state in pairs(active) do
+		if state.started then
+			local elapsed=os.clock()-state.started
+			if elapsed>=DURATION or blocked(state) or workspace:GetAttribute("HussDodgeV5")~=true then
+				cancel(state)
+			else
+				local s=sample(elapsed)
+				for _,j in ipairs(state.joints) do
+					local motor=j.motor
+					if motor.Parent and motor.Enabled then
+						local axes=motor.C0.Rotation
+						local target=axes:Inverse()*pose(j.role,state.r15,state.direction,s)*axes
+						j.base=motor.Transform
+						j.applied=j.base:Lerp(target,s[1])
+						motor.Transform=j.applied
+					end
+				end
+				local trails=elapsed>.035 and elapsed<.30 and me:GetAttribute("HussReducedMotion")~=true
+					and workspace:GetAttribute("HussReducedMotion")~=true
+				for _,trail in ipairs(state.trails) do trail.Enabled=trails end
+			end
+		end
+	end
+end))
+table.insert(connections,script.Destroying:Connect(function()
+	stopped=true
+	for _,connection in ipairs(connections) do connection:Disconnect() end
+	local list={}
+	for player in pairs(players) do table.insert(list,player) end
+	for _,player in ipairs(list) do removePlayer(player) end
+end))
+]==],
+}
+
+local starter=unique(starterRoot,'StarterPlayerScripts','StarterPlayerScripts',false)
+local characters=unique(starterRoot,'StarterCharacterScripts','StarterCharacterScripts',false)
+local services=unique(server,'Services','Folder',false)
+local main=unique(server,'ServerMain','Script',true)
+local hud=unique(starter,'HudController','ModuleScript',true)
+local round=unique(services,'RoundService','ModuleScript',false)
+local bomb=unique(services,'BombService','ModuleScript',false)
+local economy=unique(services,'EconomyServiceV9','ModuleScript',false)
+local movement=unique(starter,'SnappyMovement','LocalScript',true)
+local effects=unique(starter,'MovementEffectsV8','LocalScript',true)
+local library=unique(storage,'MapLibrary','Folder',false)
+local lobby=unique(workspace,'Lobby','Model',false)
+local maps=unique(workspace,'Maps','Folder',false)
+local anchor=unique(workspace,'ActiveArenaAnchor','BasePart',false)
+local arena
+if maps then for _,o in ipairs(maps:GetChildren()) do if o:IsA('Model') then
+ if arena then problem('Workspace.Maps has multiple active arenas; the V12 world must have one active arena.') end
+ arena=o
+end end end
+if not arena then problem('Workspace.Maps has no active arena Model.') end
+if workspace:GetAttribute('HussExpansionVersion')~=12 then problem('This update requires the completed V12 installation (Workspace.HussExpansionVersion = 12). Run the V12 installer first; existing scripts were preserved.') end
+local priorVersion=workspace:GetAttribute('HussTrailAnimationVersion')
+if priorVersion~=nil and priorVersion~=13 then problem('Unknown HussTrailAnimationVersion '..tostring(priorVersion)..'; a newer or custom update will not be overwritten.') end
+local priorDodge=workspace:GetAttribute('HussDodgeV5')
+if priorDodge~=nil and type(priorDodge)~='boolean' then problem('Workspace.HussDodgeV5 must be a boolean or absent; its custom value was preserved.') end
+local compileObjects,edits,additions={},{},{}
+local seenCompile={}
+local function compileLater(object)
+ if object and not seenCompile[object] then seenCompile[object]=true;table.insert(compileObjects,object) end
+end
+local function enabled(object)
+ if object and object:IsA('BaseScript') and object.Disabled then problem(path(object)..' is disabled. Its existing disabled setting will not be overwritten.') end
+end
+local function verify(object,expected)
+ if not object then return end
+ local readable,actual=pcall(function() return object.Source end)
+ if not readable then problem(path(object)..': Source is not readable.')
+ elseif canonical(actual)~=canonical(expected) then problem(path(object)..' differs from the reviewed V12 source; compatibility must be checked before replacing dependencies.') end
+ enabled(object);compileLater(object)
+end
+for _,pair in ipairs({{main,'ServerMain'},{round,'RoundService'},{bomb,'BombService'},{economy,'EconomyServiceV9'},{movement,'SnappyMovement'},{effects,'MovementEffectsV8'}}) do verify(pair[1],preservedSource[pair[2]]) end
+for _,entry in ipairs({
+ {replicated,'BombSkinBuilderV12','ModuleScript'},
+ {services,'CosmeticsServiceV11','ModuleScript'},
+ {services,'OwnerCommandsV12','ModuleScript'},
+ {services,'PracticeServiceV11','ModuleScript'},
+ {services,'PerfectWeaveServiceV11','ModuleScript'},
+ {starter,'OwnerFeedbackV12','LocalScript'},
+ {starter,'CarrierPanicV12','LocalScript'},
+ {starter,'LobbyBoardsV11','LocalScript'},
+ {starter,'DodgeActionV6','LocalScript'},
+}) do
+ local object=unique(entry[1],entry[2],entry[3],true)
+ -- These reviewed V12 services/controllers live directly in their designated folder.
+ if object and object.Parent~=entry[1] then problem(path(object)..' is in an unexpected container; expected '..path(entry[1])..'.') end
+ verify(object,preservedSource[entry[2]])
+end
+local function upgrade(parent,name,class,old,target,recursive,mayAdd)
+ local object=unique(parent,name,class,true,mayAdd)
+ if object then
+  local actual=attempt(path(object)..' Source',function() return canonical(object.Source) end)
+  if actual and actual~=canonical(target) and (not old or actual~=canonical(old)) then
+   problem(path(object)..' has unsupported or customized source. It will not be replaced.')
+  else table.insert(edits,{object,target}) end
+  if object.Parent~=parent and not recursive then problem(path(object)..' is in an unexpected container.') end
+  enabled(object)
+ elseif mayAdd and parent then table.insert(additions,{parent,class,name,target}) end
+ return object
+end
+if hud then
+ local actual=attempt(path(hud)..' Source',function() return canonical(hud.Source) end)
+ if actual~=canonical(source.oldHUD) and actual~=canonical(source.hud) then problem(path(hud)..' is not the verified V12/V13 HUD. Existing customizations were preserved.')
+ else table.insert(edits,{hud,source.hud}) end
+end
+upgrade(replicated,'HussCatalogV11','ModuleScript',source.oldCatalog,source.catalog,false,false)
+upgrade(starter,'CollectionEffectsV11','LocalScript',source.oldCollection,source.collection,false,false)
+upgrade(starter,'StandShopV12','LocalScript',source.oldShop,source.shop,false,false)
+-- Search recursively before adding a system so a misplaced copy never gets duplicated.
+for _,entry in ipairs({
+ {replicated,'HussTrailDesignsV13','ModuleScript',source.trails},
+ {services,'AnimationRuntimeV13','Script',source.animationRuntime,server},
+}) do
+ local object=unique(entry[5] or entry[1],entry[2],entry[3],true,true)
+ if object then
+  if object.Parent~=entry[1] then problem(path(object)..' is in an unexpected container; no second copy will be installed.') end
+  verify(object,entry[4])
+ else if entry[1] then table.insert(additions,{entry[1],entry[3],entry[2],entry[4]}) end end
+end
+local animate=unique(characters,'Animate','LocalScript',true,true)
+if animate then
+ if animate.Parent~=characters then problem(path(animate)..' must be directly under StarterCharacterScripts; its current location was preserved.') end
+ enabled(animate)
+ local adapted=attempt(path(animate)..' compatibility',function() return animationAdapter.Adapt(animate.Source,source.animate) end)
+ if type(adapted)=='string' then table.insert(edits,{animate,adapted}) end
+ if animationAdapter.ValidateChildren then attempt(path(animate)..' animation configuration',function() return animationAdapter.ValidateChildren(animate) end) end
+elseif characters then table.insert(additions,{characters,'LocalScript','Animate',source.animate}) end
+if characters then for _,object in ipairs(characters:GetDescendants()) do
+ if object~=animate and object:IsA('LocalScript') and not object.Disabled then
+  local text=attempt(path(object)..' Source',function() return object.Source end)
+  if type(text)=='string' and (text:find('LoadAnimation',1,true) or text:find('Motor6D',1,true) or text:find('Animator',1,true)) then
+   problem(path(object)..' is another enabled character animation controller. Resolve its ownership before installing this Animate repair; it was not disabled or overwritten.')
+  end
+ end
+end end
+-- Reject an alternative character template: it can override the experience's R6 setting.
+local starterCharacter=unique(starterRoot,'StarterCharacter','Model',false,true)
+if starterCharacter then problem(path(starterCharacter)..' is a custom character template. Its rig and animation setup require review before this standard-avatar repair can be installed.') end
+local validation=attempt('Existing gameplay dependencies',function()
+ return dependencyValidator.Validate({server=server,replicated=replicated,storage=storage,starter=starter,services=services,main=main,round=round,bomb=bomb,hud=hud,movement=movement,effects=effects,library=library,lobby=lobby,maps=maps,anchor=anchor,economy=economy})
+end)
+if type(validation)=='table' then
+ for _,message in ipairs(validation.issues or {}) do problem(message) end
+ for _,object in ipairs(validation.sources or {}) do compileLater(object) end
+end
+local function validateArena(model)
+ if not model then return end
+ unique(model,'Floor','BasePart',false)
+ local spawns=unique(model,'Spawns','Folder',false)
+ if spawns then local count=0;for _,object in ipairs(spawns:GetChildren()) do if object:IsA('BasePart') then count+=1 end end
+  if count<16 then problem(path(spawns)..' requires sixteen or more existing spawn parts; found '..count..'.') end
+ end
+end
+validateArena(arena)
+if library then
+ local count,names=0,{}
+ for _,model in ipairs(library:GetChildren()) do
+  if names[model.Name] then problem('Duplicate existing map name: '..model.Name) end;names[model.Name]=true
+  if model:IsA('Model') then count+=1;validateArena(model) end
+ end
+ if count<15 then problem('V12 MapLibrary requires the existing fifteen maps; found '..count..'. This update never rebuilds missing geometry.') end
+end
+if lobby then
+ unique(lobby,'Floor','BasePart',false);unique(lobby,'LobbySpawn','SpawnLocation',false)
+ if lobby:GetAttribute('HussLobbyVersion')~=11 then problem(path(lobby)..' must be the existing V11 lobby with V12 shops.') end
+ attempt('Existing lobby walk-up shops',function() assert(shopValidator.Validate(lobby),'V12 shop validation failed.') end)
+end
+stopPreflight()
+note('ServerMain preserved at '..path(main)..'. Economy, practice gates, voting, AFK, movement and bomb gameplay verified.')
+note('All existing maps, lobby stands, lighting and world geometry remain in place.')
+local staging=Instance.new('Folder');staging.Name='TrailAnimationV13Preflight_'..os.time()
+while storage:FindFirstChild(staging.Name) do staging.Name..='_' end
+staging.Parent=storage
+local function compileSource(label,text)
+ -- This outer return only compiles the body; it never runs gameplay modules.
+ local probe=Instance.new('ModuleScript');probe.Name='SyntaxProbe';probe.Parent=staging
+ local ok,message=pcall(function()
+  probe.Source='return function()\n'..text..'\nend\n'
+  assert(probe.Source=='return function()\n'..text..'\nend\n','Source write/read verification failed')
+  assert(type(require(probe))=='function','Syntax probe returned unexpected content')
+ end)
+ probe:Destroy()
+ if not ok then problem(label..': Luau syntax check failed: '..tostring(message)) end
+end
+for _,entry in ipairs(edits) do compileSource(path(entry[1]),entry[2]) end
+for _,entry in ipairs(additions) do compileSource(path(entry[1])..'.'..entry[3],entry[4]) end
+for _,object in ipairs(compileObjects) do compileSource(path(object),object.Source) end
+if #issues>0 then staging:Destroy();stopPreflight() end
+local changes={}
+for _,entry in ipairs(edits) do if entry[1].Source~=entry[2] then table.insert(changes,entry) end end
+if #changes==0 and #additions==0 and priorVersion==13 and priorDodge==true then
+ staging:Destroy()
+ for _,message in ipairs(notes) do print('[V13] '..message) end
+ print('V13 already installed: source compatibility, dependencies and Luau syntax verified. No duplicate systems or backups created.')
+ r6Reminder();return
+end
+local backup=Instance.new('Folder');backup.Name='TrailAnimationV13Backup_'..os.time()
+while storage:FindFirstChild(backup.Name) do backup.Name..='_' end
+local sourceBackups=Instance.new('Folder');sourceBackups.Name='Scripts';sourceBackups.Parent=backup
+local originals,newObjects={},{}
+local ok,err=pcall(function()
+ for _,entry in ipairs(changes) do
+  local object=entry[1];assert(object.Archivable,path(object)..' must be Archivable so it can be backed up.')
+  originals[object]=object.Source
+  local copy=object:Clone();assert(copy,'Unable to back up '..path(object));copy.Parent=sourceBackups
+  copy:SetAttribute('OriginalPath',path(object))
+  if copy:IsA('BaseScript') then copy:SetAttribute('OriginalDisabled',copy.Disabled);copy.Disabled=true end
+ end
+ for _,entry in ipairs(additions) do
+  local object=Instance.new(entry[2]);object.Name=entry[3];object.Parent=staging;object.Source=entry[4]
+  if object:IsA('BaseScript') then object.Disabled=false end
+  assert(object.Source==entry[4],'Source write/read verification failed for '..entry[3]);table.insert(newObjects,{object,entry[1]})
+ end
+ local manifest={'V13 movement animation and trail update backup','ServerMain: '..path(main),'','RESTORE SOURCES: copies under Scripts have OriginalPath and OriginalDisabled. Copy Source back to the same existing instance; do not run backup copies.'}
+ for _,entry in ipairs(changes) do table.insert(manifest,path(entry[1])) end
+ table.insert(manifest,'');table.insert(manifest,'ADDED SYSTEMS: remove only these objects to undo this update:')
+ for _,entry in ipairs(newObjects) do table.insert(manifest,path(entry[2])..'.'..entry[1].Name) end
+ table.insert(manifest,'');table.insert(manifest,'Restore Workspace.HussTrailAnimationVersion from OriginalTrailAnimationVersion on this backup folder. Missing means remove the Workspace attribute. HussExpansionVersion stays 12.')
+ table.insert(manifest,'Restore Workspace.HussDodgeV5 from OriginalDodgeV5Enabled on this backup folder. Missing means remove the attribute. V13 enables the exact source-verified procedural dodge animation controller; speed and cooldown are unchanged.')
+ table.insert(manifest,'No maps, lobby geometry, player saves, economy rules or rig/avatar settings were changed by this installer.')
+ local record=Instance.new('StringValue');record.Name='RestoreManifest';record.Value=table.concat(manifest,'\n');record.Parent=backup
+ backup:SetAttribute('OriginalTrailAnimationVersion',priorVersion);backup:SetAttribute('OriginalDodgeV5Enabled',priorDodge);backup:SetAttribute('Installer','V13 movement animation and trail installer');backup:SetAttribute('ServerMainPath',path(main))
+end)
+if not ok then staging:Destroy();backup:Destroy();error('V13 staging stopped; originals preserved: '..tostring(err),0) end
+ok,err=pcall(function()
+ backup.Parent=storage
+ for _,entry in ipairs(newObjects) do entry[1].Parent=entry[2] end
+ for _,entry in ipairs(changes) do entry[1].Source=entry[2];assert(entry[1].Source==entry[2],'Source write failed: '..path(entry[1])) end
+ workspace:SetAttribute('HussDodgeV5',true)
+ workspace:SetAttribute('HussTrailAnimationVersion',13)
+end)
+if not ok then
+ local failures={}
+ local function restore(fn) local success,message=pcall(fn);if not success then table.insert(failures,tostring(message)) end end
+ for _,entry in ipairs(newObjects) do restore(function() entry[1]:Destroy() end) end
+ for object,text in pairs(originals) do restore(function() object.Source=text;assert(object.Source==text,'Source restoration readback failed: '..path(object)) end) end
+ restore(function() workspace:SetAttribute('HussTrailAnimationVersion',priorVersion) end)
+ restore(function() workspace:SetAttribute('HussDodgeV5',priorDodge) end)
+ staging:Destroy()
+ if #failures==0 then backup:Destroy();error('V13 installation rolled back: '..tostring(err)..'. Originals restored.',0) end
+ error('V13 stopped. Restore from ServerStorage/'..backup.Name..'. Restore errors: '..table.concat(failures,'; ')..'. Original error: '..tostring(err),0)
+end
+staging:Destroy()
+for _,message in ipairs(notes) do print('[V13] '..message) end
+print('V13 scripts installed: source compatibility, dependencies and Luau syntax checks passed. Twenty-five trail designs, collection previews and animation repair installed.')
+print('Backup: ServerStorage/'..backup.Name..'. Practice still awards no Coins, persistent stats or quest progress. Publish after the REQUIRED avatar step below.')
+r6Reminder()

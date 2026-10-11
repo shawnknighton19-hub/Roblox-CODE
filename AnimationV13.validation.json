@@ -1,0 +1,26 @@
+{
+  "checks": 107,
+  "actual_source_executed": true,
+  "syntax_checked": true,
+  "native_studio_tested": false,
+  "coverage": [
+    "R6 custom IDs",
+    "R15 rig-matched fallback",
+    "one failed state isolation",
+    "pcall failure",
+    "async zero-Length failure",
+    "delayed playable track replacement",
+    "server Animator marker",
+    "Workspace startup wait",
+    "emote/ragdoll priority",
+    "walk/sprint/fall/idle transitions",
+    "death/removal cleanup",
+    "stale spawn callback",
+    "reviewed source/ID preservation"
+  ],
+  "source_sha256": {
+    "AnimateV13.client.luau": "2336d6fd8d56d4d9b5d98c98e03c532286afa574165ac7f72a9d71606a9092d6",
+    "AnimationRuntimeV13.server.luau": "a5c72996b4a72d75cb78489527dc3bc0766ecc0bee733b19fb7ba259e766ec9a",
+    "tools/v13/animation_adapter.luau": "28ef0135128fddd309d057cdb29301b9706595daa611c5f7a3916ba06f60b3ef"
+  }
+}

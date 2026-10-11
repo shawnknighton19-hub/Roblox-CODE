@@ -1,0 +1,68 @@
+{
+  "reviewed": "2026-10-11",
+  "api_source": "https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/roblox/API-Dump.json",
+  "official_avatar_settings_documentation": "https://create.roblox.com/docs/studio/avatar-settings",
+  "official_documentation_excerpt": "Avatar Settings modifies underlying game defaults that are not visible outside of the settings interface or accessible with scripts.",
+  "manual_r6_path": "File > Avatar Settings (or Avatar tab) > top bar ... > R6; save settings, publish, join a fresh server.",
+  "api_members": {
+    "AvatarSettings.Publish": {
+      "MemberType": "Function",
+      "Name": "Publish",
+      "Parameters": [],
+      "ReturnType": {
+        "Category": "Primitive",
+        "Name": "null"
+      },
+      "Security": "RobloxScriptSecurity",
+      "ThreadSafety": "Unsafe"
+    },
+    "StarterPlayer.CharacterRigType_exists": false,
+    "StarterPlayer.GameSettingsAvatar": {
+      "Capabilities": {
+        "Read": [
+          "Players"
+        ]
+      },
+      "Category": "Character",
+      "MemberType": "Property",
+      "Name": "GameSettingsAvatar",
+      "Security": {
+        "Read": "RobloxScriptSecurity",
+        "Write": "RobloxScriptSecurity"
+      },
+      "Serialization": {
+        "CanLoad": true,
+        "CanSave": true
+      },
+      "Tags": [
+        "Hidden"
+      ],
+      "ThreadSafety": "ReadSafe",
+      "ValueType": {
+        "Category": "Enum",
+        "Name": "GameAvatarType"
+      }
+    }
+  },
+  "r15_fallback_source": "https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/roblox/avatar/scripts/humanoidAnimateR15.lua",
+  "r15_fallback_source_lines": {
+    "idle507766666": 44,
+    "walk507777826": 49,
+    "run507767714": 52,
+    "fall507767968": 64
+  },
+  "r6_fallback_ids": {
+    "idle": "180435571",
+    "walk_and_run": "180426354",
+    "fall": "180436148"
+  },
+  "r6_fallback_evidence": "Legacy Roblox R6 default IDs; runtime playability is checked by AnimationTrack.Length with an eight-second timeout. No authenticated live asset fetch or Studio playback verification was available.",
+  "original_custom_asset_permissions": "Not accessible from this workspace; no claim that those private IDs are permitted for the published experience.",
+  "original_controller_findings": [
+    "Enabled StarterPlayer/StarterCharacterScripts/Animate is a custom R6 controller with unconditional asset loads before its update handler.",
+    "LoadAnimation calls have no pcall or async zero-Length handling in the original.",
+    "MovementAnimationController is intentionally not initialized by ClientMain.",
+    "Actual uploaded Animate has no WaitForChild(Torso) call.",
+    "Crouching and FallSystem are disabled in the uploaded place."
+  ]
+}

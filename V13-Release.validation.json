@@ -1,0 +1,65 @@
+{
+  "status": "passed",
+  "checks": [
+    "Current source equals assembled payload",
+    "All V13 payloads and installer compile",
+    "Windows TXT copies contain the full installer",
+    "Recorded source hashes match the tested files"
+  ],
+  "files": {
+    "Install-R6-Trails-V13.command.luau": {
+      "bytes": 450419,
+      "sha256": "155c336295682f06c5c217337edc2ec9a51ed68c42893d572720a583359427b0"
+    },
+    "HussCatalogV13.luau": {
+      "bytes": 9258,
+      "sha256": "bd7d375bc41bf74f16e5f577646b8ea083fe3f220926093948d4e4ef1f9da93f"
+    },
+    "HudControllerV13.luau": {
+      "bytes": 64533,
+      "sha256": "1113d9fa1739462052facf98d0524d8e28538e31e6308b076638c0e010bf61b8"
+    },
+    "StandShopV13.client.luau": {
+      "bytes": 19024,
+      "sha256": "ace9e1e5ec113845ae40e19530dcb869e9c31ff9c460f72fc1f9d12ec4f7c6da"
+    },
+    "CollectionEffectsV13.client.luau": {
+      "bytes": 12414,
+      "sha256": "7200c4624f8a3059d944000643c64637731e8ad5bff47ed7664ed4645c96a5e1"
+    },
+    "TrailDesignsV13.luau": {
+      "bytes": 17838,
+      "sha256": "6af896d2173d275489e8470b01295a1ed10e8ffbde92354616e20457b1a1ea5e"
+    },
+    "AnimateV13.client.luau": {
+      "bytes": 7711,
+      "sha256": "2336d6fd8d56d4d9b5d98c98e03c532286afa574165ac7f72a9d71606a9092d6"
+    },
+    "AnimationRuntimeV13.server.luau": {
+      "bytes": 2406,
+      "sha256": "a5c72996b4a72d75cb78489527dc3bc0766ecc0bee733b19fb7ba259e766ec9a"
+    },
+    "Install-R6-Trails-V13.txt": {
+      "bytes": 460200,
+      "sha256": "ea2c7e049906ddf4377fe03fcddfdf89516436d963d7b81b21e6fbe0c8e26d0d"
+    },
+    "Huss-A-Bomb-V13.txt": {
+      "bytes": 460200,
+      "sha256": "ea2c7e049906ddf4377fe03fcddfdf89516436d963d7b81b21e6fbe0c8e26d0d"
+    }
+  },
+  "component_reports_sha256": {
+    "AnimationV13.validation.json": "28c4c18382ec6ef00a41f4eb236c0acda3d930bbddf522e95d2bcf8db37a622d",
+    "TrailDesignsV13.validation.json": "c6bc5159c9c80e077011c711e89fbdbfe1167979e4cc95c23a18213ad2929dee",
+    "CollectionEffectsV13.validation.json": "391e9a10c3c770974e76a852d38ec890e88088d9de25a5ee6021c677e0a43fc9",
+    "TrailShopV13.validation.json": "864b72b48bc966f851ac140f494ec6583abd142834751b6097546c8352daa110",
+    "TrailApiV13.validation.json": "ecb4dbf530d2ffa80eca8a56a0dd6a69774e996bb10cb8f6cf625cd260957169",
+    "Install-R6-Trails-V13.validation.json": "6db5f44162be83452ee71fe827ab719542adf19b399f99032cec8353952c4f3a",
+    "tools/v13/assembly.json": "12cecb7c4cd450c18f406da58fa73b05699a71e3afe10ad71b1408f39486a1f0"
+  },
+  "required_user_step": "File > Avatar Settings > top ... menu > R6; save, publish, join a new server.",
+  "limits": [
+    "Native Studio rendering, live animation permissions and published multiplayer were not available.",
+    "The installer cannot change Roblox experience avatar settings."
+  ]
+}

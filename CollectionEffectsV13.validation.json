@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "syntax_compile": "passed",
+  "runtime_assertions": 137,
+  "run_command": "python3 tools/v13/tests/test_trail_runtime.py",
+  "all_catalog_trails_tested": 25,
+  "max_visible_trails": 10,
+  "max_remote_trails": 9,
+  "culling_distance_studs": 90,
+  "checks": [
+    "Actual runtime and geometry builder execute together.",
+    "Moving path displays geometry without per-frame Instance allocation.",
+    "All 25 equipment IDs, invalid IDs and wrong categories.",
+    "Local priority, nearest remote selection and reserved remote budget.",
+    "Complete stop fade before destruction and threshold-jitter pool reuse.",
+    "Reduced Motion, player/workspace pause, seating, anchoring, air and ragdolls.",
+    "High velocity, missing camera and distance culling.",
+    "Character, root, humanoid and head streaming without listener growth.",
+    "Respawns, player departures, death and repeated teardown.",
+    "Existing titles, emotes, perfect-weave cue and mute behavior."
+  ],
+  "limitations": "Deterministic Instance/math/lifecycle harness. Native Roblox rendering, Animator, physics, networking and published-client behavior require Studio or live playtesting.",
+  "sha256": {
+    "CollectionEffectsV13.client.luau": "7200c4624f8a3059d944000643c64637731e8ad5bff47ed7664ed4645c96a5e1",
+    "TrailDesignsV13.luau": "6af896d2173d275489e8470b01295a1ed10e8ffbde92354616e20457b1a1ea5e",
+    "HussCatalogV13.luau": "bd7d375bc41bf74f16e5f577646b8ea083fe3f220926093948d4e4ef1f9da93f"
+  }
+}

@@ -1,0 +1,64 @@
+-- Lifecycle tests wrap the real geometry builder to measure runtime allocation.
+-- Separate TrailDesignsV13 tests cover each sculpture and path sampler in detail.
+local realBuilder=(function()
+{{TRAIL_DESIGNS}}
+end)()
+services.SoundService=Instance.new('SoundService')
+function methods:Stop() self.Stopped=(self.Stopped or 0)+1 end
+function methods:Play() self.Played=(self.Played or 0)+1 end
+task.delay=function(_,fn) task.spawn(fn) end
+local catalogObject=Instance.new('ModuleScript',services.ReplicatedStorage);catalogObject.Name='HussCatalogV11'
+local designObject=Instance.new('ModuleScript',services.ReplicatedStorage);designObject.Name='HussTrailDesignsV13'
+local trailCreates,trailDestroys,trailSteps,liveTrails=0,0,0,0
+local adapters={}
+local mockBuilder={Lifetime=realBuilder.Lifetime or .72,StopFade=realBuilder.StopFade or .36}
+function mockBuilder.Create(parent,item,options)
+ assert(parent.Name=='HussCollectionEffectsV13','own folder')
+ assert(item.category=='Trails' and options.Preview==false,'live trail contract')
+ trailCreates+=1;liveTrails+=1
+ local generated=realBuilder.Create(parent,item,options)
+ assert(generated and generated.PartCount>0 and generated.PartCount<=18,'real bounded sculpture')
+ local handle={id=item.id,Enabled=true,Destroyed=false,Model=generated.Model,PartCount=generated.PartCount}
+ table.insert(adapters,handle)
+ function handle:SetEnabled(enabled) assert(not self.Destroyed);self.Enabled=enabled;generated:SetEnabled(enabled) end
+ function handle:Step(cf,velocity,now,dt)
+  assert(not self.Destroyed and typeof(cf)=='CFrame' and typeof(velocity)=='Vector3','valid geometry input')
+  assert(type(now)=='number' and dt>=0 and dt<=.1,'finite clamped step')
+  self.LastFrame=cf;self.LastVelocity=velocity;self.StepCount=(self.StepCount or 0)+1;trailSteps+=1
+  generated:Step(cf,velocity,now,dt)
+ end
+ function handle:Destroy()
+  assert(not self.Destroyed,'handle destroyed exactly once')
+  self.Destroyed=true;generated:Destroy();trailDestroys+=1;liveTrails-=1
+ end
+ return handle
+end
+local require=function(object)
+ if object==catalogObject then return catalog elseif object==designObject then return mockBuilder end
+ error('Unexpected module '..object.Name)
+end
+local nextUser=0
+local function readyPlayer(p,x)
+ nextUser+=1;p.UserId=nextUser
+ local h=p.Character.Humanoid;local root=p.Character.HumanoidRootPart
+ h.MoveDirection=Vector3.new(1,0,0);h.Sit=false;h.PlatformStand=false
+ root.CFrame=CFrame.new(x or 0,3,0);root.AssemblyLinearVelocity=Vector3.new(32,0,0)
+ initialize(p,32)
+ return p
+end
+for _,p in ipairs(playerService:GetPlayers()) do readyPlayer(p,p==owner and 0 or 4) end
+local function added(name,x)
+ local p=readyPlayer(newCharacter(name,false),x)
+ playerService.PlayerAdded:Fire(p)
+ return p
+end
+local function beat(dt)
+ clock+=(dt or 1/60)
+ services.RunService.Heartbeat:Fire(dt or 1/60)
+end
+local runtimeExports
+do
+{{RUNTIME}}
+runtimeExports={states=states,allocated=function() return allocated end,folder=folder,add=add,remove=remove}
+end
+{{REGRESSIONS}}

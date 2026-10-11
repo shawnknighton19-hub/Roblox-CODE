@@ -1,0 +1,211 @@
+local baseIsA=methods.IsA
+function methods:IsA(class)
+ if class=='BaseScript' then return self.ClassName=='Script' or self.ClassName=='LocalScript' end
+ if class=='LuaSourceContainer' then return self.ClassName=='ModuleScript' or self:IsA('BaseScript') end
+ return baseIsA(self,class)
+end
+local warningCount=0
+local function warn(message) assert(message:find('R6',1,true));warningCount+=1 end
+local assertions=0
+local function check(ok,message) assert(ok,message);assertions+=1 end
+local modes={'normal','repeat','missingAnimate','rootMain','customIDs','v5Animate','disabledUnrelated','enabledUnrelated','missingTrailAfterV13','missingRuntimeAfterV13','playMode','notStudio','badExpansion','badVersion','noCharacters','wrongCharacters','duplicateMain','duplicateHUD','noMain','noEconomy','noDodge','noVote','badVote','badConfig','literalConfig','missingMap','badMapSpawns','badArenaSpawns','noLobbySpawn','badShop','customCharacter','customAnimate','duplicateAnimate','nestedAnimate','disabledAnimate','otherAnimator','unknownNewTrail','unknownNewRuntime','nestedTrail','nestedRuntime','syntaxFailure','unarchivable','stageSourceFailure','backupParentFailure','versionWriteFailure','readbackFailure','aggregateErrors'}
+for _,name in ipairs({'missingDodgeFlag','falseDodgeFlag','invalidDodgeFlag','dodgeFlagWriteFailure','rootRuntime','nestedCollection','nestedShop','disabledRuntime','wrongTrailClass','duplicateRuntime','crlfSources','falseDodgeRollback'}) do table.insert(modes,name) end
+local changedNames={'HudController','HussCatalogV11','CollectionEffectsV11','StandShopV12','Animate'}
+local criticalNames={'ServerMain','RoundService','BombService','EconomyServiceV9','SnappyMovement','MovementEffectsV8','CosmeticsServiceV11','OwnerCommandsV12','OwnerFeedbackV12','CarrierPanicV12','BombSkinBuilderV12','PracticeServiceV11','PerfectWeaveServiceV11','LobbyBoardsV11','DodgeActionV6'}
+for _,name in ipairs(changedNames) do table.insert(modes,'write_'..name);table.insert(modes,'custom_'..name) end
+for _,name in ipairs(criticalNames) do table.insert(modes,'custom_'..name) end
+for _,name in ipairs({'HussTrailDesignsV13','AnimationRuntimeV13','Animate'}) do table.insert(modes,'parent_'..name) end
+local results={}
+local function runCase(mode)
+ workspace=Instance.new('Workspace');services.Workspace=workspace
+ for _,name in ipairs({'StarterPlayer','ServerStorage','ReplicatedStorage','ServerScriptService','Lighting','TextChatService'}) do services[name]=Instance.new(name) end
+ services.RunService={IsStudio=function() return mode~='notStudio' end,IsRunning=function() return mode=='playMode' end}
+ services.CollectionService={AddTag=function(_,o,t) o:SetAttribute('_TestTag_'..t,true) end,HasTag=function(_,o,t) return o:GetAttribute('_TestTag_'..t)==true end}
+ local function make(class,parent,name,source)
+  local object=Instance.new(class);object.Name=name;object.Disabled=false;if source then object.Source=source end;object.Parent=parent;return object
+ end
+ local root,ss,rs,sss=services.StarterPlayer,services.ServerStorage,services.ReplicatedStorage,services.ServerScriptService
+ local sp=make('StarterPlayerScripts',root,'StarterPlayerScripts')
+ local sc=make('StarterCharacterScripts',root,'StarterCharacterScripts')
+ local sf=make('Folder',sss,'Services')
+ local objects={}
+ for _,entry in ipairs(dependencyFixture) do
+  local segments=string.split(entry.path,'/');local parent=services[segments[1]]
+  for i=2,#segments-1 do parent=parent:FindFirstChild(segments[i]) or make('Folder',parent,segments[i]) end
+  local old=parent:FindFirstChild(segments[#segments]);if old then old:Destroy() end
+  local object=make(entry.class,parent,segments[#segments],entry.source);object.Disabled=entry.disabled;objects[object.Name]=object
+ end
+ for name,text in pairs(preserved) do
+  local parent,class=sf,'ModuleScript'
+  if name=='ServerMain' then class='Script'
+  elseif name=='BombSkinBuilderV12' then parent=rs
+  elseif name=='SnappyMovement' or name=='MovementEffectsV8' or name=='OwnerFeedbackV12' or name=='CarrierPanicV12' or name=='LobbyBoardsV11' or name=='DodgeActionV6' then parent=sp;class='LocalScript' end
+  local old=parent:FindFirstChild(name);if old then old:Destroy() end
+  objects[name]=make(class,parent,name,text)
+ end
+ local controllers=sp:FindFirstChild('Controllers') or make('Folder',sp,'Controllers')
+ if controllers:FindFirstChild('HudController') then controllers.HudController:Destroy() end
+ objects.HudController=make('ModuleScript',controllers,'HudController',source.oldHUD)
+ objects.HussCatalogV11=make('ModuleScript',rs,'HussCatalogV11',source.oldCatalog)
+ objects.CollectionEffectsV11=make('LocalScript',sp,'CollectionEffectsV11',source.oldCollection)
+ objects.StandShopV12=make('LocalScript',sp,'StandShopV12',source.oldShop)
+ objects.Animate=make('LocalScript',sc,'Animate',oldAnimate)
+ local idleFolder=make('Folder',objects.Animate,'idle');local childAnimation=make('Animation',idleFolder,'UserAnimation');childAnimation.AnimationId='rbxassetid://123456'
+ local disabledController=make('LocalScript',sc,'Crouching','Animator custom C0');disabledController.Disabled=true
+ local sentinel=make('LocalScript',sp,'UnrelatedExistingClient','print("retain unrelated code")')
+ make('RemoteEvent',rs,'BombTagVoteV6');make('RemoteEvent',rs,'BombTagAFKRequest')
+ local names={'Sky Garden','Sunset Docks','Frostfall Village','Sunstone Bazaar','Neon District','Clockwork Foundry','Orbital Station','Stardust Carnival','Crystal Cavern','Emerald Ruins','Pirate Cove','Ember Keep','Fuseworks','Detonator Plaza','Payload Port'}
+ local library=make('Folder',ss,'MapLibrary')
+ for i,name in ipairs(names) do
+  local map=make('Model',library,name);map:SetAttribute('BombTagGenerated','HussWorld11')
+  local floor=make('Part',map,'Floor');floor.Size=Vector3.new(180+i,4,170+i)
+  local spawns=make('Folder',map,'Spawns');for j=1,16 do make('Part',spawns,'Spawn'..j) end
+ end
+ local maps=make('Folder',workspace,'Maps');local arena=library:GetChildren()[1]:Clone();arena.Name='Arena01';arena.Parent=maps
+ local anchor=make('Part',workspace,'ActiveArenaAnchor')
+ local previews=make('Folder',rs,'BombTagV6Previews')
+ local lobby=make('Model',workspace,'Lobby');lobby:SetAttribute('HussLobbyVersion',11)
+ make('Part',lobby,'Floor');local spawn=make('SpawnLocation',lobby,'LobbySpawn');spawn.Position=Vector3.new(0,1,450)
+ local exchange=make('Model',lobby,'V11 Bomb Exchange')
+ for _,category in ipairs({'Bombs','Trails','Titles','Emotes'}) do
+  local kiosk=make('Model',exchange,category..' kiosk')
+  make('Part',kiosk,'Counter')
+  local approach=make('Part',kiosk,'Browse '..category)
+  local prompt=make('ProximityPrompt',approach,'BrowseShop');prompt:SetAttribute('HussShopCategory',category)
+ end
+ local shopBuilder=(function()
+__SHOP_BUILDER__
+ end)()
+ shopBuilder.Apply(lobby)
+ local sky=make('Sky',services.Lighting,'ExistingSky');sky.SkyboxBk='preserve sky';services.Lighting.ClockTime=9.5
+ workspace:SetAttribute('HussExpansionVersion',12);workspace:SetAttribute('CurrentVotedMap','Sky Garden');workspace:SetAttribute('HussDodgeDuration',.72);workspace:SetAttribute('HussLobbyMusicId','rbxassetid://321');workspace:SetAttribute('HussDodgeV5',true)
+ if mode=='missingDodgeFlag' then workspace:SetAttribute('HussDodgeV5',nil) end
+ if mode=='falseDodgeFlag' or mode=='falseDodgeRollback' then workspace:SetAttribute('HussDodgeV5',false) end
+ if mode=='invalidDodgeFlag' then workspace:SetAttribute('HussDodgeV5','custom') end
+ if mode=='rootMain' then objects.ServerMain.Parent=sss end
+ if mode=='missingAnimate' or mode=='parent_Animate' then objects.Animate:Destroy();objects.Animate=nil end
+ if mode=='customIDs' then objects.Animate.Source=objects.Animate.Source:gsub('86722180453998','12345678901234') end
+ if mode=='v5Animate' then objects.Animate.Source=v5Animate end
+ if mode=='disabledUnrelated' then disabledController.Source='arbitrary preserved character behavior' end
+ if mode=='enabledUnrelated' then local other=make('LocalScript',sc,'Unrelated','print("keep UI sounds")');objects.Unrelated=other end
+ if mode=='badExpansion' then workspace:SetAttribute('HussExpansionVersion',11) end
+ if mode=='badVersion' then workspace:SetAttribute('HussTrailAnimationVersion',99) end
+ if mode=='noCharacters' then sc:Destroy() end
+ if mode=='wrongCharacters' then sc:Destroy();make('Folder',root,'StarterCharacterScripts') end
+ if mode=='duplicateMain' then objects.ServerMain:Clone().Parent=sss end
+ if mode=='duplicateHUD' then objects.HudController:Clone().Parent=sp end
+ if mode=='noMain' then objects.ServerMain:Destroy() end
+ if mode=='noEconomy' then objects.EconomyServiceV9:Destroy() end
+ if mode=='noDodge' then objects.DodgeActionV6:Destroy() end
+ if mode=='noVote' then objects.BombTagMapVoteServiceV6:Destroy() end
+ if mode=='badVote' then objects.BombTagMapVoteServiceV6.Source='return {}' end
+ if mode=='badConfig' then objects.GameConfig.Source=objects.GameConfig.Source:gsub('GameConfig.TagCheckInterval = 0.03','GameConfig.TagCheckInterval = 0') end
+ if mode=='literalConfig' then objects.GameConfig.Source=objects.GameConfig.Source:gsub('GameConfig.NormalBombFuseSeconds = 14','GameConfig.NormalBombFuseSeconds = 16') end
+ if mode=='missingMap' then library:GetChildren()[1]:Destroy() end
+ if mode=='badMapSpawns' then library:GetChildren()[2].Spawns:ClearAllChildren() end
+ if mode=='badArenaSpawns' then arena.Spawns:ClearAllChildren() end
+ if mode=='noLobbySpawn' then spawn:Destroy() end
+ if mode=='badShop' then exchange['Trails kiosk'].ShopPanelV12:Destroy() end
+ if mode=='customCharacter' then make('Model',root,'StarterCharacter') end
+ if mode=='customAnimate' then objects.Animate.Source='print("Custom Animate")' end
+ if mode=='duplicateAnimate' then objects.Animate:Clone().Parent=sc end
+ if mode=='nestedAnimate' then objects.Animate.Parent=make('Folder',sc,'Nested') end
+ if mode=='disabledAnimate' then objects.Animate.Disabled=true end
+ if mode=='otherAnimator' then disabledController.Disabled=false end
+ if mode=='unknownNewTrail' then make('ModuleScript',rs,'HussTrailDesignsV13','return {}') end
+ if mode=='unknownNewRuntime' then make('Script',sf,'AnimationRuntimeV13','print("custom")') end
+ if mode=='nestedTrail' then make('ModuleScript',make('Folder',rs,'Nested'),'HussTrailDesignsV13',source.trails) end
+ if mode=='nestedRuntime' then make('Script',make('Folder',sf,'Nested'),'AnimationRuntimeV13',source.animationRuntime) end
+ if mode=='rootRuntime' then make('Script',sss,'AnimationRuntimeV13',source.animationRuntime) end
+ if mode=='nestedCollection' then objects.CollectionEffectsV11:Clone().Parent=controllers end
+ if mode=='nestedShop' then objects.StandShopV12:Clone().Parent=controllers end
+ if mode=='disabledRuntime' then local runtime=make('Script',sf,'AnimationRuntimeV13',source.animationRuntime);runtime.Disabled=true end
+ if mode=='wrongTrailClass' then make('Folder',rs,'HussTrailDesignsV13') end
+ if mode=='duplicateRuntime' then make('Script',sf,'AnimationRuntimeV13',source.animationRuntime);make('Script',sss,'AnimationRuntimeV13',source.animationRuntime) end
+ if mode=='crlfSources' then for _,object in pairs(objects) do if object.Source then object.Source=object.Source:gsub('\n','\r\n') end end end
+ if mode=='unarchivable' then objects.HudController.Archivable=false end
+ if mode=='aggregateErrors' then objects.ServerMain:Destroy();objects.HudController.Source='return {}';objects.Animate.Disabled=true;spawn:Destroy() end
+ if mode:sub(1,7)=='custom_' then objects[mode:sub(8)].Source..='\n-- user customization retained' end
+ local baseline={sources={},parents={},disabled={},world={},version=workspace:GetAttribute('HussTrailAnimationVersion'),dodge=workspace:GetAttribute('HussDodgeV5'),backups=#ss:GetChildren()}
+ for _,rootObject in ipairs({sss,root,rs}) do for _,object in ipairs(rootObject:GetDescendants()) do if object:IsA('LuaSourceContainer') then baseline.sources[object]=object.Source;baseline.parents[object]=object.Parent;baseline.disabled[object]=object.Disabled end end end
+ for _,rootObject in ipairs({library,lobby,maps,previews,anchor}) do
+  baseline.world[rootObject]={rootObject.Parent,rootObject.CFrame,rootObject.Size,json(rootObject:GetAttributes())}
+  for _,object in ipairs(rootObject:GetDescendants()) do baseline.world[object]={object.Parent,object.CFrame,object.Size,json(object:GetAttributes())} end
+ end
+ local originalIndex,originalAttribute=mt.__newindex,methods.SetAttribute
+ local armed=true
+ mt.__newindex=function(object,key,value)
+  local failure=false
+  if armed then
+   if mode=='stageSourceFailure' then failure=object.Name=='HussTrailDesignsV13' and key=='Source'
+   elseif mode=='backupParentFailure' then failure=key=='Parent' and value==ss and object.Name:find('TrailAnimationV13Backup_',1,true)==1
+   elseif mode=='readbackFailure' and object==objects.HudController and key=='Source' and value~=baseline.sources[object] then armed=false;return
+   elseif mode:sub(1,6)=='write_' then failure=object==objects[mode:sub(7)] and key=='Source' and value~=baseline.sources[object]
+   elseif mode:sub(1,7)=='parent_' then failure=object.Name==mode:sub(8) and key=='Parent' and (value==rs or value==sf or value==sc) end
+  end
+  if failure then armed=false;error('Injected '..mode) end
+  originalIndex(object,key,value)
+ end
+ methods.SetAttribute=function(object,key,value)
+  if armed and (mode=='versionWriteFailure' or mode=='falseDodgeRollback') and object==workspace and key=='HussTrailAnimationVersion' then armed=false;error('Injected marker write failure') end
+  if armed and mode=='dodgeFlagWriteFailure' and object==workspace and key=='HussDodgeV5' then armed=false;error('Injected dodge enable failure') end
+  originalAttribute(object,key,value)
+ end
+ local requires=0
+ local function require(module)
+  check(module.Name=='SyntaxProbe' and module.Parent.Parent==ss,'Only fresh syntax probes required')
+  check(module.Source:sub(1,18)=='return function()\n','Original body remains inert')
+  requires+=1
+  if mode=='syntaxFailure' and requires==1 then module.Source='return function()\nlocal =\nend' end
+  local fn,message=loadstring(module.Source);assert(fn,message);return fn()
+ end
+ local function install()
+__INSTALLER__
+ end
+ local warningsBefore=warningCount
+ local ok,err=pcall(install)
+ mt.__newindex=originalIndex;methods.SetAttribute=originalAttribute
+ local expected=mode=='normal' or mode=='repeat' or mode=='missingAnimate' or mode=='rootMain' or mode=='customIDs' or mode=='v5Animate' or mode=='disabledUnrelated' or mode=='enabledUnrelated' or mode=='literalConfig' or mode=='missingTrailAfterV13' or mode=='missingRuntimeAfterV13' or mode=='missingDodgeFlag' or mode=='falseDodgeFlag' or mode=='crlfSources'
+ check(ok==expected,mode..' unexpected result: '..tostring(err))
+ if ok then
+  check(workspace:GetAttribute('HussTrailAnimationVersion')==13,'V13 marker committed')
+  check(workspace:GetAttribute('HussDodgeV5')==true,'Reviewed procedural dodge owner enabled')
+  check(rs.HussCatalogV11.Source==source.catalog and sp.Controllers.HudController.Source==source.hud,'Catalog and HUD payload installed')
+  check(sp.CollectionEffectsV11.Source==source.collection and sp.StandShopV12.Source==source.shop,'Collection and physical shop upgraded in place')
+  check(rs.HussTrailDesignsV13.Source==source.trails and sf.AnimationRuntimeV13.Source==source.animationRuntime,'New dependencies installed')
+  check(sc.Animate and sc.Animate.Source:find('HUSS ANIMATION RECOVERY V13',1,true),'Animation repair installed')
+  if mode=='customIDs' then check(sc.Animate.Source:find('12345678901234',1,true)~=nil,'Approved custom animation ID preserved') end
+  if objects.Animate then check(childAnimation.Parent==idleFolder and idleFolder.Parent==objects.Animate,'Animate children preserved') end
+  check(warningCount==warningsBefore+1,'Required manual R6 and publish step reported')
+  check(requires>=28,'Targets and critical dependencies syntax checked')
+  for _,name in ipairs(criticalNames) do check(objects[name].Source==baseline.sources[objects[name]],'Gameplay/controller source unchanged: '..name) end
+  local backup
+  for _,object in ipairs(ss:GetChildren()) do if object.Name:find('TrailAnimationV13Backup_',1,true)==1 then backup=object end end
+  check(backup and backup.RestoreManifest and backup.Scripts,'Reviewable backup includes manifest and sources')
+  for _,copy in ipairs(backup.Scripts:GetChildren()) do check(copy:GetAttribute('OriginalPath')~=nil,'Backup records original path');if copy:IsA('BaseScript') then check(copy.Disabled,'Backup executable disabled') end end
+  if mode=='repeat' or mode=='customIDs' or mode=='missingTrailAfterV13' or mode=='missingRuntimeAfterV13' then
+   local before=#ss:GetChildren();local firstHUD=objects.HudController;local firstAnimate=sc.Animate
+   if mode=='missingTrailAfterV13' then rs.HussTrailDesignsV13:Destroy() end
+   if mode=='missingRuntimeAfterV13' then sf.AnimationRuntimeV13:Destroy() end
+   check(pcall(install),'Verified rerun succeeds')
+   check(sc.Animate==firstAnimate and objects.HudController==firstHUD,'Rerun preserves source object identity')
+   check(rs:FindFirstChild('HussTrailDesignsV13')~=nil and sf:FindFirstChild('AnimationRuntimeV13')~=nil,'Missing owned dependency repaired')
+   if mode=='repeat' or mode=='customIDs' then check(#ss:GetChildren()==before,'Complete rerun creates no backup') end
+  end
+ else
+  check(workspace:GetAttribute('HussTrailAnimationVersion')==baseline.version,'Failed install restores original marker')
+  check(workspace:GetAttribute('HussDodgeV5')==baseline.dodge,'Failed install restores original dodge flag')
+  for object,text in pairs(baseline.sources) do check(object.Source==text and object.Parent==baseline.parents[object] and object.Disabled==baseline.disabled[object],'Failed install preserves '..object.Name) end
+  check(#ss:GetChildren()==baseline.backups,'Failed install leaves no backup/staging debris')
+  if mode=='aggregateErrors' then check(tostring(err):find('ServerMain',1,true) and tostring(err):find('HudController',1,true) and tostring(err):find('Animate',1,true) and tostring(err):find('LobbySpawn',1,true),'Reports independent compatibility failures together') end
+ end
+ for object,values in pairs(baseline.world) do check(object.Parent==values[1] and object.CFrame==values[2] and object.Size==values[3] and json(object:GetAttributes())==values[4],'All world instances retain identity, placement and attributes') end
+ check(workspace:GetAttribute('HussExpansionVersion')==(mode=='badExpansion' and 11 or 12),'V12 marker remains independent')
+ check(workspace:GetAttribute('HussDodgeDuration')==.72 and workspace:GetAttribute('HussLobbyMusicId')=='rbxassetid://321','Movement duration/music settings preserved')
+ check(services.Lighting.ClockTime==9.5 and sky.SkyboxBk=='preserve sky','Lighting untouched')
+ check(sentinel.Source=='print("retain unrelated code")','Unrelated scripts unchanged')
+ for _,object in ipairs(ss:GetChildren()) do check(not object.Name:find('Preflight',1,true),'No temporary syntax probes survive') end
+ table.insert(results,{mode=mode,result=ok and 'installed' or 'originals preserved',syntax_probes=requires,error=ok and '' or tostring(err)})
+end
+for _,mode in ipairs(modes) do runCase(mode) end
+print('INSTALL_REPORT '..json({assertions=assertions,cases=#modes,results=results}))

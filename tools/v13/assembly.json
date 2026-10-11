@@ -1,0 +1,145 @@
+{
+  "bytes": 450419,
+  "sha256": "155c336295682f06c5c217337edc2ec9a51ed68c42893d572720a583359427b0",
+  "luau_compile": "passed",
+  "scope": "Verified V12 -> V13 update. Existing maps and lobby geometry are not rewritten.",
+  "required_publish_step": "Set Avatar Settings to R6, save, publish, join a new server. Installer cannot set experience rig settings.",
+  "windows_text": {
+    "Install-R6-Trails-V13.txt": {
+      "bytes": 460200,
+      "sha256": "ea2c7e049906ddf4377fe03fcddfdf89516436d963d7b81b21e6fbe0c8e26d0d",
+      "normalized_matches_command": true
+    },
+    "Huss-A-Bomb-V13.txt": {
+      "bytes": 460200,
+      "sha256": "ea2c7e049906ddf4377fe03fcddfdf89516436d963d7b81b21e6fbe0c8e26d0d",
+      "normalized_matches_command": true
+    }
+  },
+  "components": {
+    "HussCatalogV12.luau": {
+      "bytes": 8480,
+      "sha256": "07df2c25a345e1be23a4b554b65e91cd7c4548192d11694bec7649986931abce"
+    },
+    "HudControllerV12.luau": {
+      "bytes": 63009,
+      "sha256": "529d2cebaebb2e16f9fd761692d2da2ca405c3a09e2b0aa5a22f208c1c2b4f73"
+    },
+    "StandShopV12.client.luau": {
+      "bytes": 17769,
+      "sha256": "fb7315fa555dc558714cd8747d2b6b19a6a0b585b678d48e6e171777df3e5ed5"
+    },
+    "CollectionEffectsV11.client.luau": {
+      "bytes": 12914,
+      "sha256": "97e06e70b97bcd2d2d32a19cd25cce748d1bf6d199a138353698bae339b680f0"
+    },
+    "HussCatalogV13.luau": {
+      "bytes": 9258,
+      "sha256": "bd7d375bc41bf74f16e5f577646b8ea083fe3f220926093948d4e4ef1f9da93f"
+    },
+    "HudControllerV13.luau": {
+      "bytes": 64533,
+      "sha256": "1113d9fa1739462052facf98d0524d8e28538e31e6308b076638c0e010bf61b8"
+    },
+    "StandShopV13.client.luau": {
+      "bytes": 19024,
+      "sha256": "ace9e1e5ec113845ae40e19530dcb869e9c31ff9c460f72fc1f9d12ec4f7c6da"
+    },
+    "CollectionEffectsV13.client.luau": {
+      "bytes": 12414,
+      "sha256": "7200c4624f8a3059d944000643c64637731e8ad5bff47ed7664ed4645c96a5e1"
+    },
+    "TrailDesignsV13.luau": {
+      "bytes": 17838,
+      "sha256": "6af896d2173d275489e8470b01295a1ed10e8ffbde92354616e20457b1a1ea5e"
+    },
+    "AnimateV13.client.luau": {
+      "bytes": 7711,
+      "sha256": "2336d6fd8d56d4d9b5d98c98e03c532286afa574165ac7f72a9d71606a9092d6"
+    },
+    "AnimationRuntimeV13.server.luau": {
+      "bytes": 2406,
+      "sha256": "a5c72996b4a72d75cb78489527dc3bc0766ecc0bee733b19fb7ba259e766ec9a"
+    },
+    "tools/v13/fixtures/ServerMainV12.luau": {
+      "bytes": 1050,
+      "sha256": "cc28aa182a31eca4705df640caa33db01991c12104e6b076d69fb431774bf372"
+    },
+    "tools/v13/fixtures/RoundServiceV12.luau": {
+      "bytes": 21043,
+      "sha256": "08ff6d80706b859e642aa93ad5db15311e5b7b373bca045c4e98f4accc5704c7"
+    },
+    "tools/v13/fixtures/SnappyMovementV12.luau": {
+      "bytes": 22463,
+      "sha256": "abe594e457812041501c5fbcb42da0ac6491c9d8d51fe47663d5b7e5f90f88b1"
+    },
+    "tools/v13/fixtures/MovementEffectsV12.luau": {
+      "bytes": 8875,
+      "sha256": "28c544451850cccf5017c73a1f65eec1f56d5b558fb70d9fcabaa998274228e8"
+    },
+    "BombServiceV12.luau": {
+      "bytes": 15276,
+      "sha256": "7af25b2848bdb6291f52f34e52387919d2d401d10e92acbd6140072355666983"
+    },
+    "EconomyServiceV12.luau": {
+      "bytes": 21780,
+      "sha256": "01e08f6cb90c6b78dd6826356d5c6d2793ac833e02998db588424bfb98847d94"
+    },
+    "CosmeticsServiceV12.luau": {
+      "bytes": 3115,
+      "sha256": "e67b4beb8d2a6d497beb2884dc8062b2f802cdfe37d5b9b3882ebc681e7de0e0"
+    },
+    "OwnerCommandsV12.luau": {
+      "bytes": 5869,
+      "sha256": "399c41619eef86db7156d375a97384150034e3224fb89e35472ac3ce91f8c779"
+    },
+    "OwnerFeedbackV12.client.luau": {
+      "bytes": 2505,
+      "sha256": "568ebd8829b50e065dc249717f90480f6b8e9d8bc7a9403b6e6a064e4625db89"
+    },
+    "CarrierPanicV12.client.luau": {
+      "bytes": 13720,
+      "sha256": "f7ddcc5c41d731441b99676b0a526941f0a868d9971d45029e950533b5615759"
+    },
+    "BombSkinBuilderV12.luau": {
+      "bytes": 20184,
+      "sha256": "dcf81a2df076465ad354836b8c8f88a8689464adccd229fe192d33b94e893f8d"
+    },
+    "PracticeServiceV11.luau": {
+      "bytes": 14965,
+      "sha256": "62db98fdde18275dc95877f7641e4e356a0218d9f248e2fc52136067698d2938"
+    },
+    "PerfectWeaveServiceV11.luau": {
+      "bytes": 2229,
+      "sha256": "d0b74f2cbaecb1dbe3745a71ff95e8a9bd2b6a6d8acae50a702724dd724c1ff2"
+    },
+    "LobbyBoardsV11.client.luau": {
+      "bytes": 5189,
+      "sha256": "70c3a0ac56d52882191f8811a6838a087210efb30452b8cc6142852ebfe39629"
+    },
+    "DodgeActionV6.client.luau": {
+      "bytes": 10066,
+      "sha256": "c1cba67bedd59efb0a33da64842049db985e7ad95ccc905041f0e93173423550"
+    },
+    "tools/v12/dependencies.luau": {
+      "bytes": 6386,
+      "sha256": "2ceb502e35bd6c81713ad9c38f98aa61b723d907e3ab6e2297bddcfc382304be"
+    },
+    "ShopStandsV12.luau": {
+      "bytes": 6133,
+      "sha256": "470f6b746600aef070c1aefaa2e9c3eaa7f1974e000c39f69b14e964e6ea0e62"
+    },
+    "tools/v13/animation_adapter.luau": {
+      "bytes": 15398,
+      "sha256": "28ef0135128fddd309d057cdb29301b9706595daa611c5f7a3916ba06f60b3ef"
+    },
+    "tools/v13/installer_head.luau": {
+      "bytes": 2476,
+      "sha256": "52f8825926408fb5234e7e02824673dd726c0390bf259a14f60f162e89e38942"
+    },
+    "tools/v13/installer_tail.luau": {
+      "bytes": 15245,
+      "sha256": "77bcd4a289fc0ffd9fd829952497b6a2573b7f0e93a22120f9adf04188b7d64f"
+    }
+  }
+}

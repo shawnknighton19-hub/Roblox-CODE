@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "designs": 25,
+  "property_writes_checked": 128515,
+  "sourceSha256": {
+    "TrailDesignsV13.luau": "6af896d2173d275489e8470b01295a1ed10e8ffbde92354616e20457b1a1ea5e",
+    "HussCatalogV13.luau": "bd7d375bc41bf74f16e5f577646b8ea083fe3f220926093948d4e4ef1f9da93f"
+  },
+  "api_provenance": {
+    "source": "https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/roblox/API-Dump.json",
+    "retrieved_utc": "2026-10-11",
+    "full_api_sha256": "4ba5c2149033fd5401855f182d030302e87b2bac197570f8f0976b0141869d32",
+    "scope": "Property existence/read-only status and enum membership only. Does not simulate native Studio behavior."
+  },
+  "checks": [
+    "Actual builder execution for every catalog trail",
+    "120 moving frames and 35 stationary frames per trail",
+    "All preview models created and destroyed",
+    "Every Model, Part and WedgePart write names an existing writable API property",
+    "Material and PartType enum names verified against Roblox API metadata"
+  ],
+  "limits": [
+    "Roblox-compatible math/Instance test doubles; native rendering, networking, replication and physics were not executed.",
+    "Property write count is repeated runtime coverage, not that many distinct behavior tests."
+  ]
+}

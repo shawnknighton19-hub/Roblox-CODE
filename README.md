@@ -1,3 +1,19 @@
+## Published animation repair and sculpted trails (V13)
+
+**Set R6 before publishing:** in Studio, open **File → Avatar Settings → the top ⋯ menu → R6**. Save the avatar settings, publish, and join a new server. Roblox protects this experience setting; a Command Bar script cannot change it.
+
+With V12 installed, open [Huss-A-Bomb-V13.txt](Huss-A-Bomb-V13.txt), click **Raw**, select all and copy. Stop Play, paste the complete file into Studio's **Command Bar**, and press Enter. Check Output, save, and publish. The [V13 guide](V13-Animation-Trails-Guide.md) includes animation-permission help and the published-server checks.
+
+The repaired Animate controller retains your custom R6 IDs, isolates failed animation loads, and loads rig-matched defaults independently. The server supplies the Animator needed for replication. The installer also restores the enable flag required by the verified procedural dodge controller. Existing movement speeds, dodge cooldowns, bomb passing, panic poses and gameplay remain intact. If a custom clip is private or unauthorized, it still needs permission for this experience.
+
+All **25 trails** now have distinct models and motion: bombs with fuses, crowns, candy, coins, flowers, ghosts, lightning circuits, halos, comets and more. The physical shop and Index show the same geometry used in play. See the [trail gallery](TrailDesignsV13-Preview.png), an offline render of the authored models. Existing IDs, prices, purchases and equipped selections are preserved. Effects have bounded part/player budgets, follow actual movement paths and respect Reduced Motion.
+
+The incremental installer verifies actual V12 dependencies, preserves unknown edits with diagnostics, compiles proposed sources, and backs up changes under `ServerStorage/TrailAnimationV13Backup_<timestamp>`. It supports rollback and safe reruns without rebuilding maps or duplicating systems. Practice still awards no Coins, persistent stats or quest progress.
+
+Validation passed **87 installation scenarios**, component syntax checks, and animation, geometry, runtime and preview regressions. [V13-Release.validation.json](V13-Release.validation.json) links the final payloads to their tested source hashes; reproducible tools are in [tools/v13](tools/v13). Native Studio rendering, live animation permissions and multiplayer replication still require playtesting.
+
+---
+
 ## Owner tools, walk-up shops and bomb presentation (V12)
 
 Open [Huss-A-Bomb-V12.txt](Huss-A-Bomb-V12.txt), click **Raw**, copy everything, then paste into Roblox Studio’s **Command Bar with Play stopped**. The complete installer checks compatibility, stages the update, and creates a backup before applying changes. Save after Output confirms **V12 installed**. You do not need to run the individual modules. See the [V12 player and installation guide](V12-Player-Guide.md).

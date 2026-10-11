@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "assertions": 471,
+  "sourceSha256": {
+    "HussCatalogV13.luau": "bd7d375bc41bf74f16e5f577646b8ea083fe3f220926093948d4e4ef1f9da93f",
+    "BombSkinBuilderV12.luau": "dcf81a2df076465ad354836b8c8f88a8689464adccd229fe192d33b94e893f8d",
+    "TrailDesignsV13.luau": "6af896d2173d275489e8470b01295a1ed10e8ffbde92354616e20457b1a1ea5e",
+    "ShopStandsV12.luau": "470f6b746600aef070c1aefaa2e9c3eaa7f1974e000c39f69b14e964e6ea0e62",
+    "HudControllerV13.luau": "1113d9fa1739462052facf98d0524d8e28538e31e6308b076638c0e010bf61b8",
+    "StandShopV13.client.luau": "ace9e1e5ec113845ae40e19530dcb869e9c31ff9c460f72fc1f9d12ec4f7c6da"
+  },
+  "command": "python tools/v13/tests/test_trail_shop.py --report",
+  "checks": [
+    "All V12 walk-up shop and inventory integration regressions retained",
+    "All 25 trail sculptures previewed using the actual shared design module",
+    "Every preview part bounding corner fits its viewport camera with a margin",
+    "Only one stand preview and at most six inventory trail previews exist",
+    "Previews have no emitters, beams, physics, or per-frame rendering callbacks",
+    "Paging, category switching and closing destroy the old preview models",
+    "Reduced-motion keeps preview geometry fixed",
+    "Inventory remains equip-only; physical stands retain the purchase path"
+  ],
+  "limits": [
+    "Standalone Luau mocks; native Studio GUI rendering, touch interaction and replication were unavailable."
+  ]
+}

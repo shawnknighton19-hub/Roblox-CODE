@@ -1,0 +1,531 @@
+{
+  "assertions": 46231,
+  "cases": 87,
+  "results": [
+    {
+      "error": "",
+      "mode": "normal",
+      "result": "installed",
+      "syntax_probes": 28
+    },
+    {
+      "error": "",
+      "mode": "repeat",
+      "result": "installed",
+      "syntax_probes": 56
+    },
+    {
+      "error": "",
+      "mode": "missingAnimate",
+      "result": "installed",
+      "syntax_probes": 28
+    },
+    {
+      "error": "",
+      "mode": "rootMain",
+      "result": "installed",
+      "syntax_probes": 28
+    },
+    {
+      "error": "",
+      "mode": "customIDs",
+      "result": "installed",
+      "syntax_probes": 56
+    },
+    {
+      "error": "",
+      "mode": "v5Animate",
+      "result": "installed",
+      "syntax_probes": 28
+    },
+    {
+      "error": "",
+      "mode": "disabledUnrelated",
+      "result": "installed",
+      "syntax_probes": 28
+    },
+    {
+      "error": "",
+      "mode": "enabledUnrelated",
+      "result": "installed",
+      "syntax_probes": 28
+    },
+    {
+      "error": "",
+      "mode": "missingTrailAfterV13",
+      "result": "installed",
+      "syntax_probes": 56
+    },
+    {
+      "error": "",
+      "mode": "missingRuntimeAfterV13",
+      "result": "installed",
+      "syntax_probes": 56
+    },
+    {
+      "error": "/tmp/huss-v13-installer-tests/installer-cases.luau:14763: V13: Stop Play before installing. Nothing changed.",
+      "mode": "playMode",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "/tmp/huss-v13-installer-tests/installer-cases.luau:14763: V13: Stop Play before installing. Nothing changed.",
+      "mode": "notStudio",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- This update requires the completed V12 installation (Workspace.HussExpansionVersion = 12). Run the V12 installer first; existing scripts were preserved.",
+      "mode": "badExpansion",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- Unknown HussTrailAnimationVersion 99; a newer or custom update will not be overwritten.",
+      "mode": "badVersion",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterCharacterScripts is missing; expected StarterCharacterScripts.",
+      "mode": "noCharacters",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterCharacterScripts is Folder; expected StarterCharacterScripts.",
+      "mode": "wrongCharacters",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- Ambiguous ServerMain: ServerScriptService.Services.ServerMain (Script), ServerScriptService.ServerMain (Script). No duplicate system will be added.",
+      "mode": "duplicateMain",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- Ambiguous HudController: StarterPlayer.StarterPlayerScripts.Controllers.HudController (ModuleScript), StarterPlayer.StarterPlayerScripts.HudController (ModuleScript). No duplicate system will be added.",
+      "mode": "duplicateHUD",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.ServerMain is missing; expected Script.",
+      "mode": "noMain",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.EconomyServiceV9 is missing; expected ModuleScript.",
+      "mode": "noEconomy",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.DodgeActionV6 is missing; expected LocalScript.",
+      "mode": "noDodge",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.BombTagMapVoteServiceV6: expected exactly one ModuleScript, found 0",
+      "mode": "noVote",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.BombTagMapVoteServiceV6: unknown MapVote source (9:316801977); preserve it and review compatibility before installation",
+      "mode": "badVote",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.Shared.Config.GameConfig: TagCheckInterval must be positive",
+      "mode": "badConfig",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "",
+      "mode": "literalConfig",
+      "result": "installed",
+      "syntax_probes": 28
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- V12 MapLibrary requires the existing fifteen maps; found 14. This update never rebuilds missing geometry.",
+      "mode": "missingMap",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ServerStorage.MapLibrary.Sunset Docks.Spawns requires sixteen or more existing spawn parts; found 0.",
+      "mode": "badMapSpawns",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- Workspace.Maps.Arena01.Spawns requires sixteen or more existing spawn parts; found 0.",
+      "mode": "badArenaSpawns",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- Workspace.Lobby.LobbySpawn is missing; expected SpawnLocation.",
+      "mode": "noLobbySpawn",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- Existing lobby walk-up shops: /tmp/huss-v13-installer-tests/installer-cases.luau:14955: Missing V12 physical panel for Trails.",
+      "mode": "badShop",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterCharacter is a custom character template. Its rig and animation setup require review before this standard-avatar repair can be installed.",
+      "mode": "customCharacter",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterCharacterScripts.Animate compatibility: /tmp/huss-v13-installer-tests/installer-cases.luau:15833: Animate IDLE_ID definition differs from the reviewed controller.",
+      "mode": "customAnimate",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- Ambiguous Animate: StarterPlayer.StarterCharacterScripts.Animate (LocalScript), StarterPlayer.StarterCharacterScripts.Animate (LocalScript). No duplicate system will be added.\n- StarterPlayer.StarterCharacterScripts.Animate is another enabled character animation controller. Resolve its ownership before installing this Animate repair; it was not disabled or overwritten.\n- StarterPlayer.StarterCharacterScripts.Animate is another enabled character animation controller. Resolve its ownership before installing this Animate repair; it was not disabled or overwritten.",
+      "mode": "duplicateAnimate",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterCharacterScripts.Nested.Animate must be directly under StarterCharacterScripts; its current location was preserved.",
+      "mode": "nestedAnimate",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterCharacterScripts.Animate is disabled. Its existing disabled setting will not be overwritten.",
+      "mode": "disabledAnimate",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterCharacterScripts.Crouching is another enabled character animation controller. Resolve its ownership before installing this Animate repair; it was not disabled or overwritten.",
+      "mode": "otherAnimator",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.HussTrailDesignsV13 differs from the reviewed V12 source; compatibility must be checked before replacing dependencies.",
+      "mode": "unknownNewTrail",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.AnimationRuntimeV13 differs from the reviewed V12 source; compatibility must be checked before replacing dependencies.",
+      "mode": "unknownNewRuntime",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.Nested.HussTrailDesignsV13 is in an unexpected container; no second copy will be installed.",
+      "mode": "nestedTrail",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.Nested.AnimationRuntimeV13 is in an unexpected container; no second copy will be installed.",
+      "mode": "nestedRuntime",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.Controllers.HudController: Luau syntax check failed: /tmp/huss-v13-installer-tests/installer-cases.luau:14754: [string \"return function()...\"]:2: Expected identifier when parsing variable name, got '='",
+      "mode": "syntaxFailure",
+      "result": "originals preserved",
+      "syntax_probes": 28
+    },
+    {
+      "error": "V13 staging stopped; originals preserved: /tmp/huss-v13-installer-tests/installer-cases.luau:24493: StarterPlayer.StarterPlayerScripts.Controllers.HudController must be Archivable so it can be backed up.",
+      "mode": "unarchivable",
+      "result": "originals preserved",
+      "syntax_probes": 28
+    },
+    {
+      "error": "V13 staging stopped; originals preserved: /tmp/huss-v13-installer-tests/installer-cases.luau:14740: Injected stageSourceFailure",
+      "mode": "stageSourceFailure",
+      "result": "originals preserved",
+      "syntax_probes": 28
+    },
+    {
+      "error": "V13 installation rolled back: /tmp/huss-v13-installer-tests/installer-cases.luau:14740: Injected backupParentFailure. Originals restored.",
+      "mode": "backupParentFailure",
+      "result": "originals preserved",
+      "syntax_probes": 28
+    },
+    {
+      "error": "V13 installation rolled back: /tmp/huss-v13-installer-tests/installer-cases.luau:14744: Injected marker write failure. Originals restored.",
+      "mode": "versionWriteFailure",
+      "result": "originals preserved",
+      "syntax_probes": 28
+    },
+    {
+      "error": "V13 installation rolled back: /tmp/huss-v13-installer-tests/installer-cases.luau:24518: Source write failed: StarterPlayer.StarterPlayerScripts.Controllers.HudController. Originals restored.",
+      "mode": "readbackFailure",
+      "result": "originals preserved",
+      "syntax_probes": 28
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.ServerMain is missing; expected Script.\n- StarterPlayer.StarterPlayerScripts.Controllers.HudController is not the verified V12/V13 HUD. Existing customizations were preserved.\n- StarterPlayer.StarterCharacterScripts.Animate is disabled. Its existing disabled setting will not be overwritten.\n- Workspace.Lobby.LobbySpawn is missing; expected SpawnLocation.",
+      "mode": "aggregateErrors",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "",
+      "mode": "missingDodgeFlag",
+      "result": "installed",
+      "syntax_probes": 28
+    },
+    {
+      "error": "",
+      "mode": "falseDodgeFlag",
+      "result": "installed",
+      "syntax_probes": 28
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- Workspace.HussDodgeV5 must be a boolean or absent; its custom value was preserved.",
+      "mode": "invalidDodgeFlag",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 installation rolled back: /tmp/huss-v13-installer-tests/installer-cases.luau:14745: Injected dodge enable failure. Originals restored.",
+      "mode": "dodgeFlagWriteFailure",
+      "result": "originals preserved",
+      "syntax_probes": 28
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.AnimationRuntimeV13 is in an unexpected container; no second copy will be installed.",
+      "mode": "rootRuntime",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- Ambiguous CollectionEffectsV11: StarterPlayer.StarterPlayerScripts.Controllers.CollectionEffectsV11 (LocalScript), StarterPlayer.StarterPlayerScripts.CollectionEffectsV11 (LocalScript). No duplicate system will be added.",
+      "mode": "nestedCollection",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- Ambiguous StandShopV12: StarterPlayer.StarterPlayerScripts.Controllers.StandShopV12 (LocalScript), StarterPlayer.StarterPlayerScripts.StandShopV12 (LocalScript). No duplicate system will be added.",
+      "mode": "nestedShop",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.AnimationRuntimeV13 is disabled. Its existing disabled setting will not be overwritten.",
+      "mode": "disabledRuntime",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.HussTrailDesignsV13 is Folder; expected ModuleScript.",
+      "mode": "wrongTrailClass",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- Ambiguous AnimationRuntimeV13: ServerScriptService.Services.AnimationRuntimeV13 (Script), ServerScriptService.AnimationRuntimeV13 (Script). No duplicate system will be added.",
+      "mode": "duplicateRuntime",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "",
+      "mode": "crlfSources",
+      "result": "installed",
+      "syntax_probes": 28
+    },
+    {
+      "error": "V13 installation rolled back: /tmp/huss-v13-installer-tests/installer-cases.luau:14744: Injected marker write failure. Originals restored.",
+      "mode": "falseDodgeRollback",
+      "result": "originals preserved",
+      "syntax_probes": 28
+    },
+    {
+      "error": "V13 installation rolled back: /tmp/huss-v13-installer-tests/installer-cases.luau:14740: Injected write_HudController. Originals restored.",
+      "mode": "write_HudController",
+      "result": "originals preserved",
+      "syntax_probes": 28
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.Controllers.HudController is not the verified V12/V13 HUD. Existing customizations were preserved.",
+      "mode": "custom_HudController",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 installation rolled back: /tmp/huss-v13-installer-tests/installer-cases.luau:14740: Injected write_HussCatalogV11. Originals restored.",
+      "mode": "write_HussCatalogV11",
+      "result": "originals preserved",
+      "syntax_probes": 28
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.HussCatalogV11 has unsupported or customized source. It will not be replaced.",
+      "mode": "custom_HussCatalogV11",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 installation rolled back: /tmp/huss-v13-installer-tests/installer-cases.luau:14740: Injected write_CollectionEffectsV11. Originals restored.",
+      "mode": "write_CollectionEffectsV11",
+      "result": "originals preserved",
+      "syntax_probes": 28
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.CollectionEffectsV11 has unsupported or customized source. It will not be replaced.",
+      "mode": "custom_CollectionEffectsV11",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 installation rolled back: /tmp/huss-v13-installer-tests/installer-cases.luau:14740: Injected write_StandShopV12. Originals restored.",
+      "mode": "write_StandShopV12",
+      "result": "originals preserved",
+      "syntax_probes": 28
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.StandShopV12 has unsupported or customized source. It will not be replaced.",
+      "mode": "custom_StandShopV12",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 installation rolled back: /tmp/huss-v13-installer-tests/installer-cases.luau:14740: Injected write_Animate. Originals restored.",
+      "mode": "write_Animate",
+      "result": "originals preserved",
+      "syntax_probes": 28
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterCharacterScripts.Animate compatibility: /tmp/huss-v13-installer-tests/installer-cases.luau:15842: StarterCharacterScripts.Animate contains unreviewed source. Original preserved; compare it with the uploaded/V5 Animate before adapting.",
+      "mode": "custom_Animate",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.ServerMain differs from the reviewed V12 source; compatibility must be checked before replacing dependencies.",
+      "mode": "custom_ServerMain",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.RoundService differs from the reviewed V12 source; compatibility must be checked before replacing dependencies.",
+      "mode": "custom_RoundService",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.BombService differs from the reviewed V12 source; compatibility must be checked before replacing dependencies.",
+      "mode": "custom_BombService",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.EconomyServiceV9 differs from the reviewed V12 source; compatibility must be checked before replacing dependencies.",
+      "mode": "custom_EconomyServiceV9",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.SnappyMovement differs from the reviewed V12 source; compatibility must be checked before replacing dependencies.",
+      "mode": "custom_SnappyMovement",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.MovementEffectsV8 differs from the reviewed V12 source; compatibility must be checked before replacing dependencies.",
+      "mode": "custom_MovementEffectsV8",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.CosmeticsServiceV11 differs from the reviewed V12 source; compatibility must be checked before replacing dependencies.",
+      "mode": "custom_CosmeticsServiceV11",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.OwnerCommandsV12 differs from the reviewed V12 source; compatibility must be checked before replacing dependencies.",
+      "mode": "custom_OwnerCommandsV12",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.OwnerFeedbackV12 differs from the reviewed V12 source; compatibility must be checked before replacing dependencies.",
+      "mode": "custom_OwnerFeedbackV12",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.CarrierPanicV12 differs from the reviewed V12 source; compatibility must be checked before replacing dependencies.",
+      "mode": "custom_CarrierPanicV12",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.BombSkinBuilderV12 differs from the reviewed V12 source; compatibility must be checked before replacing dependencies.",
+      "mode": "custom_BombSkinBuilderV12",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.PracticeServiceV11 differs from the reviewed V12 source; compatibility must be checked before replacing dependencies.",
+      "mode": "custom_PracticeServiceV11",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.PerfectWeaveServiceV11 differs from the reviewed V12 source; compatibility must be checked before replacing dependencies.",
+      "mode": "custom_PerfectWeaveServiceV11",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.LobbyBoardsV11 differs from the reviewed V12 source; compatibility must be checked before replacing dependencies.",
+      "mode": "custom_LobbyBoardsV11",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.DodgeActionV6 differs from the reviewed V12 source; compatibility must be checked before replacing dependencies.",
+      "mode": "custom_DodgeActionV6",
+      "result": "originals preserved",
+      "syntax_probes": 0
+    },
+    {
+      "error": "V13 installation rolled back: /tmp/huss-v13-installer-tests/installer-cases.luau:14740: Injected parent_HussTrailDesignsV13. Originals restored.",
+      "mode": "parent_HussTrailDesignsV13",
+      "result": "originals preserved",
+      "syntax_probes": 28
+    },
+    {
+      "error": "V13 installation rolled back: /tmp/huss-v13-installer-tests/installer-cases.luau:14740: Injected parent_AnimationRuntimeV13. Originals restored.",
+      "mode": "parent_AnimationRuntimeV13",
+      "result": "originals preserved",
+      "syntax_probes": 28
+    },
+    {
+      "error": "V13 installation rolled back: /tmp/huss-v13-installer-tests/installer-cases.luau:14740: Injected parent_Animate. Originals restored.",
+      "mode": "parent_Animate",
+      "result": "originals preserved",
+      "syntax_probes": 28
+    }
+  ],
+  "compiled_component_files": 26,
+  "scope": "Actual V13 payload, source-exact V12 scripts, real shop validation, deterministic Instance transaction fixture. Native Studio runtime/rendering not simulated.",
+  "installer_sha256": "155c336295682f06c5c217337edc2ec9a51ed68c42893d572720a583359427b0"
+}

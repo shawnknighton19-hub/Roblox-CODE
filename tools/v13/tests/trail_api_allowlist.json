@@ -1,0 +1,856 @@
+{
+  "provenance": {
+    "source": "https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/roblox/API-Dump.json",
+    "retrieved_utc": "2026-10-11",
+    "full_api_sha256": "4ba5c2149033fd5401855f182d030302e87b2bac197570f8f0976b0141869d32",
+    "scope": "Property existence/read-only status and enum membership only. Does not simulate native Studio behavior."
+  },
+  "classes": {
+    "Part": {
+      "ClassName": {
+        "type": "string",
+        "readonly": true
+      },
+      "className": {
+        "type": "string",
+        "readonly": true
+      },
+      "Archivable": {
+        "type": "bool",
+        "readonly": false
+      },
+      "Capabilities": {
+        "type": "SecurityCapabilities",
+        "readonly": false
+      },
+      "DataCost": {
+        "type": "int",
+        "readonly": true
+      },
+      "IsInSandbox": {
+        "type": "bool",
+        "readonly": true
+      },
+      "Name": {
+        "type": "string",
+        "readonly": false
+      },
+      "Parent": {
+        "type": "Instance",
+        "readonly": false
+      },
+      "PredictionMode": {
+        "type": "PredictionMode",
+        "readonly": true
+      },
+      "RobloxLocked": {
+        "type": "bool",
+        "readonly": false
+      },
+      "Sandboxed": {
+        "type": "bool",
+        "readonly": false
+      },
+      "SourceAssetId": {
+        "type": "int64",
+        "readonly": false
+      },
+      "UniqueId": {
+        "type": "UniqueId",
+        "readonly": false
+      },
+      "archivable": {
+        "type": "bool",
+        "readonly": false
+      },
+      "Origin": {
+        "type": "CFrame",
+        "readonly": false
+      },
+      "Pivot Offset": {
+        "type": "CFrame",
+        "readonly": false
+      },
+      "Anchored": {
+        "type": "bool",
+        "readonly": false
+      },
+      "AssemblyAngularVelocity": {
+        "type": "Vector3",
+        "readonly": false
+      },
+      "AssemblyCenterOfMass": {
+        "type": "Vector3",
+        "readonly": true
+      },
+      "AssemblyLinearVelocity": {
+        "type": "Vector3",
+        "readonly": false
+      },
+      "AssemblyMass": {
+        "type": "float",
+        "readonly": true
+      },
+      "AssemblyRootPart": {
+        "type": "BasePart",
+        "readonly": true
+      },
+      "AudioCanCollide": {
+        "type": "bool",
+        "readonly": false
+      },
+      "BackParamA": {
+        "type": "float",
+        "readonly": false
+      },
+      "BackParamB": {
+        "type": "float",
+        "readonly": false
+      },
+      "BackSurface": {
+        "type": "SurfaceType",
+        "readonly": false
+      },
+      "BackSurfaceInput": {
+        "type": "InputType",
+        "readonly": false
+      },
+      "BottomParamA": {
+        "type": "float",
+        "readonly": false
+      },
+      "BottomParamB": {
+        "type": "float",
+        "readonly": false
+      },
+      "BottomSurface": {
+        "type": "SurfaceType",
+        "readonly": false
+      },
+      "BottomSurfaceInput": {
+        "type": "InputType",
+        "readonly": false
+      },
+      "BrickColor": {
+        "type": "BrickColor",
+        "readonly": false
+      },
+      "CFrame": {
+        "type": "CFrame",
+        "readonly": false
+      },
+      "CanCollide": {
+        "type": "bool",
+        "readonly": false
+      },
+      "CanQuery": {
+        "type": "bool",
+        "readonly": false
+      },
+      "CanTouch": {
+        "type": "bool",
+        "readonly": false
+      },
+      "CastShadow": {
+        "type": "bool",
+        "readonly": false
+      },
+      "CenterOfMass": {
+        "type": "Vector3",
+        "readonly": true
+      },
+      "CollisionGroup": {
+        "type": "string",
+        "readonly": false
+      },
+      "CollisionGroupId": {
+        "type": "int",
+        "readonly": false
+      },
+      "Color": {
+        "type": "Color3",
+        "readonly": false
+      },
+      "CurrentPhysicalProperties": {
+        "type": "PhysicalProperties",
+        "readonly": true
+      },
+      "CustomPhysicalProperties": {
+        "type": "PhysicalProperties",
+        "readonly": false
+      },
+      "Elasticity": {
+        "type": "float",
+        "readonly": false
+      },
+      "EnableFluidForces": {
+        "type": "bool",
+        "readonly": false
+      },
+      "ExtentsCFrame": {
+        "type": "CFrame",
+        "readonly": true
+      },
+      "ExtentsSize": {
+        "type": "Vector3",
+        "readonly": true
+      },
+      "Friction": {
+        "type": "float",
+        "readonly": false
+      },
+      "FrontParamA": {
+        "type": "float",
+        "readonly": false
+      },
+      "FrontParamB": {
+        "type": "float",
+        "readonly": false
+      },
+      "FrontSurface": {
+        "type": "SurfaceType",
+        "readonly": false
+      },
+      "FrontSurfaceInput": {
+        "type": "InputType",
+        "readonly": false
+      },
+      "LeftParamA": {
+        "type": "float",
+        "readonly": false
+      },
+      "LeftParamB": {
+        "type": "float",
+        "readonly": false
+      },
+      "LeftSurface": {
+        "type": "SurfaceType",
+        "readonly": false
+      },
+      "LeftSurfaceInput": {
+        "type": "InputType",
+        "readonly": false
+      },
+      "LocalTransparencyModifier": {
+        "type": "float",
+        "readonly": false
+      },
+      "Locked": {
+        "type": "bool",
+        "readonly": false
+      },
+      "Mass": {
+        "type": "float",
+        "readonly": true
+      },
+      "Massless": {
+        "type": "bool",
+        "readonly": false
+      },
+      "Material": {
+        "type": "Material",
+        "readonly": false
+      },
+      "MaterialVariant": {
+        "type": "string",
+        "readonly": false
+      },
+      "Orientation": {
+        "type": "Vector3",
+        "readonly": false
+      },
+      "PivotOffset": {
+        "type": "CFrame",
+        "readonly": false
+      },
+      "Position": {
+        "type": "Vector3",
+        "readonly": false
+      },
+      "ReceiveAge": {
+        "type": "float",
+        "readonly": true
+      },
+      "Reflectance": {
+        "type": "float",
+        "readonly": false
+      },
+      "ResizeIncrement": {
+        "type": "int",
+        "readonly": true
+      },
+      "ResizeableFaces": {
+        "type": "Faces",
+        "readonly": true
+      },
+      "RightParamA": {
+        "type": "float",
+        "readonly": false
+      },
+      "RightParamB": {
+        "type": "float",
+        "readonly": false
+      },
+      "RightSurface": {
+        "type": "SurfaceType",
+        "readonly": false
+      },
+      "RightSurfaceInput": {
+        "type": "InputType",
+        "readonly": false
+      },
+      "RootPriority": {
+        "type": "int",
+        "readonly": false
+      },
+      "RotVelocity": {
+        "type": "Vector3",
+        "readonly": false
+      },
+      "Rotation": {
+        "type": "Vector3",
+        "readonly": false
+      },
+      "Size": {
+        "type": "Vector3",
+        "readonly": false
+      },
+      "SpecificGravity": {
+        "type": "float",
+        "readonly": true
+      },
+      "TopParamA": {
+        "type": "float",
+        "readonly": false
+      },
+      "TopParamB": {
+        "type": "float",
+        "readonly": false
+      },
+      "TopSurface": {
+        "type": "SurfaceType",
+        "readonly": false
+      },
+      "TopSurfaceInput": {
+        "type": "InputType",
+        "readonly": false
+      },
+      "Transparency": {
+        "type": "float",
+        "readonly": false
+      },
+      "Velocity": {
+        "type": "Vector3",
+        "readonly": false
+      },
+      "brickColor": {
+        "type": "BrickColor",
+        "readonly": false
+      },
+      "FormFactor": {
+        "type": "FormFactor",
+        "readonly": false
+      },
+      "formFactor": {
+        "type": "FormFactor",
+        "readonly": false
+      },
+      "Shape": {
+        "type": "PartType",
+        "readonly": false
+      }
+    },
+    "WedgePart": {
+      "ClassName": {
+        "type": "string",
+        "readonly": true
+      },
+      "className": {
+        "type": "string",
+        "readonly": true
+      },
+      "Archivable": {
+        "type": "bool",
+        "readonly": false
+      },
+      "Capabilities": {
+        "type": "SecurityCapabilities",
+        "readonly": false
+      },
+      "DataCost": {
+        "type": "int",
+        "readonly": true
+      },
+      "IsInSandbox": {
+        "type": "bool",
+        "readonly": true
+      },
+      "Name": {
+        "type": "string",
+        "readonly": false
+      },
+      "Parent": {
+        "type": "Instance",
+        "readonly": false
+      },
+      "PredictionMode": {
+        "type": "PredictionMode",
+        "readonly": true
+      },
+      "RobloxLocked": {
+        "type": "bool",
+        "readonly": false
+      },
+      "Sandboxed": {
+        "type": "bool",
+        "readonly": false
+      },
+      "SourceAssetId": {
+        "type": "int64",
+        "readonly": false
+      },
+      "UniqueId": {
+        "type": "UniqueId",
+        "readonly": false
+      },
+      "archivable": {
+        "type": "bool",
+        "readonly": false
+      },
+      "Origin": {
+        "type": "CFrame",
+        "readonly": false
+      },
+      "Pivot Offset": {
+        "type": "CFrame",
+        "readonly": false
+      },
+      "Anchored": {
+        "type": "bool",
+        "readonly": false
+      },
+      "AssemblyAngularVelocity": {
+        "type": "Vector3",
+        "readonly": false
+      },
+      "AssemblyCenterOfMass": {
+        "type": "Vector3",
+        "readonly": true
+      },
+      "AssemblyLinearVelocity": {
+        "type": "Vector3",
+        "readonly": false
+      },
+      "AssemblyMass": {
+        "type": "float",
+        "readonly": true
+      },
+      "AssemblyRootPart": {
+        "type": "BasePart",
+        "readonly": true
+      },
+      "AudioCanCollide": {
+        "type": "bool",
+        "readonly": false
+      },
+      "BackParamA": {
+        "type": "float",
+        "readonly": false
+      },
+      "BackParamB": {
+        "type": "float",
+        "readonly": false
+      },
+      "BackSurface": {
+        "type": "SurfaceType",
+        "readonly": false
+      },
+      "BackSurfaceInput": {
+        "type": "InputType",
+        "readonly": false
+      },
+      "BottomParamA": {
+        "type": "float",
+        "readonly": false
+      },
+      "BottomParamB": {
+        "type": "float",
+        "readonly": false
+      },
+      "BottomSurface": {
+        "type": "SurfaceType",
+        "readonly": false
+      },
+      "BottomSurfaceInput": {
+        "type": "InputType",
+        "readonly": false
+      },
+      "BrickColor": {
+        "type": "BrickColor",
+        "readonly": false
+      },
+      "CFrame": {
+        "type": "CFrame",
+        "readonly": false
+      },
+      "CanCollide": {
+        "type": "bool",
+        "readonly": false
+      },
+      "CanQuery": {
+        "type": "bool",
+        "readonly": false
+      },
+      "CanTouch": {
+        "type": "bool",
+        "readonly": false
+      },
+      "CastShadow": {
+        "type": "bool",
+        "readonly": false
+      },
+      "CenterOfMass": {
+        "type": "Vector3",
+        "readonly": true
+      },
+      "CollisionGroup": {
+        "type": "string",
+        "readonly": false
+      },
+      "CollisionGroupId": {
+        "type": "int",
+        "readonly": false
+      },
+      "Color": {
+        "type": "Color3",
+        "readonly": false
+      },
+      "CurrentPhysicalProperties": {
+        "type": "PhysicalProperties",
+        "readonly": true
+      },
+      "CustomPhysicalProperties": {
+        "type": "PhysicalProperties",
+        "readonly": false
+      },
+      "Elasticity": {
+        "type": "float",
+        "readonly": false
+      },
+      "EnableFluidForces": {
+        "type": "bool",
+        "readonly": false
+      },
+      "ExtentsCFrame": {
+        "type": "CFrame",
+        "readonly": true
+      },
+      "ExtentsSize": {
+        "type": "Vector3",
+        "readonly": true
+      },
+      "Friction": {
+        "type": "float",
+        "readonly": false
+      },
+      "FrontParamA": {
+        "type": "float",
+        "readonly": false
+      },
+      "FrontParamB": {
+        "type": "float",
+        "readonly": false
+      },
+      "FrontSurface": {
+        "type": "SurfaceType",
+        "readonly": false
+      },
+      "FrontSurfaceInput": {
+        "type": "InputType",
+        "readonly": false
+      },
+      "LeftParamA": {
+        "type": "float",
+        "readonly": false
+      },
+      "LeftParamB": {
+        "type": "float",
+        "readonly": false
+      },
+      "LeftSurface": {
+        "type": "SurfaceType",
+        "readonly": false
+      },
+      "LeftSurfaceInput": {
+        "type": "InputType",
+        "readonly": false
+      },
+      "LocalTransparencyModifier": {
+        "type": "float",
+        "readonly": false
+      },
+      "Locked": {
+        "type": "bool",
+        "readonly": false
+      },
+      "Mass": {
+        "type": "float",
+        "readonly": true
+      },
+      "Massless": {
+        "type": "bool",
+        "readonly": false
+      },
+      "Material": {
+        "type": "Material",
+        "readonly": false
+      },
+      "MaterialVariant": {
+        "type": "string",
+        "readonly": false
+      },
+      "Orientation": {
+        "type": "Vector3",
+        "readonly": false
+      },
+      "PivotOffset": {
+        "type": "CFrame",
+        "readonly": false
+      },
+      "Position": {
+        "type": "Vector3",
+        "readonly": false
+      },
+      "ReceiveAge": {
+        "type": "float",
+        "readonly": true
+      },
+      "Reflectance": {
+        "type": "float",
+        "readonly": false
+      },
+      "ResizeIncrement": {
+        "type": "int",
+        "readonly": true
+      },
+      "ResizeableFaces": {
+        "type": "Faces",
+        "readonly": true
+      },
+      "RightParamA": {
+        "type": "float",
+        "readonly": false
+      },
+      "RightParamB": {
+        "type": "float",
+        "readonly": false
+      },
+      "RightSurface": {
+        "type": "SurfaceType",
+        "readonly": false
+      },
+      "RightSurfaceInput": {
+        "type": "InputType",
+        "readonly": false
+      },
+      "RootPriority": {
+        "type": "int",
+        "readonly": false
+      },
+      "RotVelocity": {
+        "type": "Vector3",
+        "readonly": false
+      },
+      "Rotation": {
+        "type": "Vector3",
+        "readonly": false
+      },
+      "Size": {
+        "type": "Vector3",
+        "readonly": false
+      },
+      "SpecificGravity": {
+        "type": "float",
+        "readonly": true
+      },
+      "TopParamA": {
+        "type": "float",
+        "readonly": false
+      },
+      "TopParamB": {
+        "type": "float",
+        "readonly": false
+      },
+      "TopSurface": {
+        "type": "SurfaceType",
+        "readonly": false
+      },
+      "TopSurfaceInput": {
+        "type": "InputType",
+        "readonly": false
+      },
+      "Transparency": {
+        "type": "float",
+        "readonly": false
+      },
+      "Velocity": {
+        "type": "Vector3",
+        "readonly": false
+      },
+      "brickColor": {
+        "type": "BrickColor",
+        "readonly": false
+      },
+      "FormFactor": {
+        "type": "FormFactor",
+        "readonly": false
+      },
+      "formFactor": {
+        "type": "FormFactor",
+        "readonly": false
+      }
+    },
+    "Model": {
+      "ClassName": {
+        "type": "string",
+        "readonly": true
+      },
+      "className": {
+        "type": "string",
+        "readonly": true
+      },
+      "Archivable": {
+        "type": "bool",
+        "readonly": false
+      },
+      "Capabilities": {
+        "type": "SecurityCapabilities",
+        "readonly": false
+      },
+      "DataCost": {
+        "type": "int",
+        "readonly": true
+      },
+      "IsInSandbox": {
+        "type": "bool",
+        "readonly": true
+      },
+      "Name": {
+        "type": "string",
+        "readonly": false
+      },
+      "Parent": {
+        "type": "Instance",
+        "readonly": false
+      },
+      "PredictionMode": {
+        "type": "PredictionMode",
+        "readonly": true
+      },
+      "RobloxLocked": {
+        "type": "bool",
+        "readonly": false
+      },
+      "Sandboxed": {
+        "type": "bool",
+        "readonly": false
+      },
+      "SourceAssetId": {
+        "type": "int64",
+        "readonly": false
+      },
+      "UniqueId": {
+        "type": "UniqueId",
+        "readonly": false
+      },
+      "archivable": {
+        "type": "bool",
+        "readonly": false
+      },
+      "Origin": {
+        "type": "CFrame",
+        "readonly": false
+      },
+      "Pivot Offset": {
+        "type": "CFrame",
+        "readonly": false
+      },
+      "LevelOfDetail": {
+        "type": "ModelLevelOfDetail",
+        "readonly": false
+      },
+      "ModelStreamingMode": {
+        "type": "ModelStreamingMode",
+        "readonly": false
+      },
+      "PrimaryPart": {
+        "type": "BasePart",
+        "readonly": false
+      },
+      "Scale": {
+        "type": "float",
+        "readonly": false
+      },
+      "WorldPivot": {
+        "type": "CFrame",
+        "readonly": false
+      }
+    }
+  },
+  "enums": {
+    "Material": {
+      "Plastic": true,
+      "SmoothPlastic": true,
+      "Neon": true,
+      "Wood": true,
+      "WoodPlanks": true,
+      "Marble": true,
+      "Basalt": true,
+      "Slate": true,
+      "CrackedLava": true,
+      "Concrete": true,
+      "Limestone": true,
+      "Granite": true,
+      "Pavement": true,
+      "Brick": true,
+      "Pebble": true,
+      "Cobblestone": true,
+      "Rock": true,
+      "Sandstone": true,
+      "CorrodedMetal": true,
+      "DiamondPlate": true,
+      "Foil": true,
+      "Metal": true,
+      "Grass": true,
+      "LeafyGrass": true,
+      "Sand": true,
+      "Fabric": true,
+      "Snow": true,
+      "Mud": true,
+      "Ground": true,
+      "Asphalt": true,
+      "Salt": true,
+      "Ice": true,
+      "Glacier": true,
+      "Glass": true,
+      "ForceField": true,
+      "Air": true,
+      "Water": true,
+      "Cardboard": true,
+      "Carpet": true,
+      "CeramicTiles": true,
+      "ClayRoofTiles": true,
+      "RoofShingles": true,
+      "Leather": true,
+      "Plaster": true,
+      "Rubber": true
+    },
+    "PartType": {
+      "Ball": true,
+      "Block": true,
+      "Cylinder": true,
+      "Wedge": true,
+      "CornerWedge": true
+    }
+  }
+}
