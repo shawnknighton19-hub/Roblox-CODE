@@ -1,0 +1,68 @@
+[
+  {
+    "path": "StarterPlayer/StarterPlayerScripts/ClientMain",
+    "file": "uploaded-ClientMain.luau",
+    "class": "LocalScript",
+    "disabled": false
+  },
+  {
+    "path": "StarterPlayer/StarterPlayerScripts/Controllers/HudController",
+    "file": "uploaded-HudController.luau",
+    "class": "ModuleScript",
+    "disabled": null
+  },
+  {
+    "path": "ReplicatedStorage/Shared/Config/GameConfig",
+    "file": "uploaded-GameConfig.luau",
+    "class": "ModuleScript",
+    "disabled": null
+  },
+  {
+    "path": "ReplicatedStorage/Shared/Net/Remotes",
+    "file": "uploaded-Remotes.luau",
+    "class": "ModuleScript",
+    "disabled": null
+  },
+  {
+    "path": "ServerScriptService/Services/BombService",
+    "file": "uploaded-BombService.luau",
+    "class": "ModuleScript",
+    "disabled": null
+  },
+  {
+    "path": "ServerScriptService/Services/RoundService",
+    "file": "uploaded-RoundService.luau",
+    "class": "ModuleScript",
+    "disabled": null
+  },
+  {
+    "path": "ServerScriptService/Services/BombTagMapVoteServiceV6",
+    "file": "uploaded-BombTagMapVoteServiceV6.luau",
+    "class": "ModuleScript",
+    "disabled": null
+  },
+  {
+    "path": "ServerScriptService/Services/ServerMain",
+    "file": "uploaded-ServerMain.luau",
+    "class": "Script",
+    "disabled": false
+  },
+  {
+    "path": "ServerScriptService/DodgeIFrameServer",
+    "file": "uploaded-DodgeIFrameServer.luau",
+    "class": "Script",
+    "disabled": false
+  },
+  {
+    "path": "ServerScriptService/BombTagMapVoteServer",
+    "file": "uploaded-BombTagMapVoteServer.luau",
+    "class": "Script",
+    "disabled": true
+  },
+  {
+    "path": "ServerScriptService/BombTagAFKServer",
+    "file": "uploaded-BombTagAFKServer.luau",
+    "class": "Script",
+    "disabled": false
+  }
+]

@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "assertions": 84,
+  "sourceSha256": {
+    "HussCatalogV12.luau": "07df2c25a345e1be23a4b554b65e91cd7c4548192d11694bec7649986931abce",
+    "BombSkinBuilderV12.luau": "dcf81a2df076465ad354836b8c8f88a8689464adccd229fe192d33b94e893f8d",
+    "ShopStandsV12.luau": "470f6b746600aef070c1aefaa2e9c3eaa7f1974e000c39f69b14e964e6ea0e62",
+    "HudControllerV12.luau": "529d2cebaebb2e16f9fd761692d2da2ca405c3a09e2b0aa5a22f208c1c2b4f73",
+    "StandShopV12.client.luau": "fb7315fa555dc558714cd8747d2b6b19a6a0b585b678d48e6e171777df3e5ed5"
+  },
+  "command": "python tools/v12/tests/test_shop.py --report",
+  "checks": [
+    "Physical panels preserve lobby geometry, fit below signs, and repeat without duplicates",
+    "Strict SurfaceGui ZIndex property guard exercises real GUI creation",
+    "All 25 bombs accessible with actual shared sculpture previews",
+    "Proximity hysteresis, round/practice/death/disabled stand closure",
+    "Authoritative profile and separate request ID namespace",
+    "Matching transaction responses, double-click protection, timeout and late responses",
+    "Equipped emote play/stop on existing server remote",
+    "Gamepad, cursor unlock, visibility restoration and subscription teardown",
+    "Index equips owned items without a remote purchase entry point",
+    "Original bomb, round and AFK HUD remote contracts retained"
+  ],
+  "limits": [
+    "Standalone Luau mocks; native Studio rendering, pointer raycasting and multiplayer replication were unavailable."
+  ]
+}

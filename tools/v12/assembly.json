@@ -1,0 +1,131 @@
+{
+  "bytes": 445379,
+  "sha256": "ff2eee79d171a1419b4ffcea9be929c5bfebbe7c921a52e871f45cdbfecdb68b",
+  "luau_compile": "passed",
+  "windows_text": {
+    "Install-Bomb-Expansion-V12.txt": {
+      "bytes": 452772,
+      "sha256": "dad63a2c9390df78680356483e67728fa152620f7c2a59f61df9bb925d37dbe7",
+      "normalized_matches_command": true
+    },
+    "Huss-A-Bomb-V12.txt": {
+      "bytes": 452772,
+      "sha256": "dad63a2c9390df78680356483e67728fa152620f7c2a59f61df9bb925d37dbe7",
+      "normalized_matches_command": true
+    }
+  },
+  "components": {
+    "tools/v12/patch_gameplay.luau": {
+      "bytes": 12299,
+      "sha256": "e20e082319eb77867528c966b44afb55128bf29841765667e0be423a74de56bc"
+    },
+    "tools/v12/patch_ui.luau": {
+      "bytes": 48157,
+      "sha256": "733618f40539c31668c03837e4311abf33b3f4bf03520378f47fd2efe1c62bc1"
+    },
+    "tools/v12/patch_movement.luau": {
+      "bytes": 2232,
+      "sha256": "bfbb5d17b35a2b4116dbf7cfdd1490b22e135ebb1cb6e0045c1df68bd4a14d06"
+    },
+    "tools/v12/dependencies.luau": {
+      "bytes": 6386,
+      "sha256": "2ceb502e35bd6c81713ad9c38f98aa61b723d907e3ab6e2297bddcfc382304be"
+    },
+    "WorldBuilderV11.luau": {
+      "bytes": 25531,
+      "sha256": "f4ff07475e1d986bb3956d3c4ff55724bc6462d10ce008c84bdbaaa67c9ce1e4"
+    },
+    "tools/v12/placement.luau": {
+      "bytes": 2879,
+      "sha256": "9bb295375da818976199242854a8a8dd2075f4b2251c87e0cf008442c9cc81da"
+    },
+    "ShopStandsV12.luau": {
+      "bytes": 6133,
+      "sha256": "470f6b746600aef070c1aefaa2e9c3eaa7f1974e000c39f69b14e964e6ea0e62"
+    },
+    "tools/v12/legacy/BombServiceV11.luau": {
+      "bytes": 13684,
+      "sha256": "b9649b441ae7d03c6095f423ea45cda5dae42838d94152e3a2136924d1dac21b"
+    },
+    "HudControllerV11.luau": {
+      "bytes": 63384,
+      "sha256": "3225d0a30ad98fdc8bb719079ac842ca33892aa491109dd79fd93fdd8b3ce10c"
+    },
+    "EconomyServiceV11.luau": {
+      "bytes": 17653,
+      "sha256": "75cd02659df855905aabbc1a959dd65ec32a2efb351efbb192af77e3ff280405"
+    },
+    "HussCatalogV11.luau": {
+      "bytes": 7849,
+      "sha256": "128dca3b4a527eb707ee49f5dfcf0af397e1f0710fc21600dad823beab7a81b3"
+    },
+    "CosmeticsServiceV11.luau": {
+      "bytes": 8706,
+      "sha256": "2f33bf6b345f7a1bc6ed5d41e4677cdc23d616dcc1a3970ef5eefee467a62fdc"
+    },
+    "BombServiceV12.luau": {
+      "bytes": 15276,
+      "sha256": "7af25b2848bdb6291f52f34e52387919d2d401d10e92acbd6140072355666983"
+    },
+    "HudControllerV12.luau": {
+      "bytes": 63009,
+      "sha256": "529d2cebaebb2e16f9fd761692d2da2ca405c3a09e2b0aa5a22f208c1c2b4f73"
+    },
+    "EconomyServiceV12.luau": {
+      "bytes": 21780,
+      "sha256": "01e08f6cb90c6b78dd6826356d5c6d2793ac833e02998db588424bfb98847d94"
+    },
+    "HussCatalogV12.luau": {
+      "bytes": 8480,
+      "sha256": "07df2c25a345e1be23a4b554b65e91cd7c4548192d11694bec7649986931abce"
+    },
+    "CosmeticsServiceV12.luau": {
+      "bytes": 3115,
+      "sha256": "e67b4beb8d2a6d497beb2884dc8062b2f802cdfe37d5b9b3882ebc681e7de0e0"
+    },
+    "BombSkinBuilderV12.luau": {
+      "bytes": 20184,
+      "sha256": "dcf81a2df076465ad354836b8c8f88a8689464adccd229fe192d33b94e893f8d"
+    },
+    "OwnerCommandsV12.luau": {
+      "bytes": 5869,
+      "sha256": "399c41619eef86db7156d375a97384150034e3224fb89e35472ac3ce91f8c779"
+    },
+    "OwnerFeedbackV12.client.luau": {
+      "bytes": 2505,
+      "sha256": "568ebd8829b50e065dc249717f90480f6b8e9d8bc7a9403b6e6a064e4625db89"
+    },
+    "CarrierPanicV12.client.luau": {
+      "bytes": 13720,
+      "sha256": "f7ddcc5c41d731441b99676b0a526941f0a868d9971d45029e950533b5615759"
+    },
+    "StandShopV12.client.luau": {
+      "bytes": 17769,
+      "sha256": "fb7315fa555dc558714cd8747d2b6b19a6a0b585b678d48e6e171777df3e5ed5"
+    },
+    "PracticeServiceV11.luau": {
+      "bytes": 14965,
+      "sha256": "62db98fdde18275dc95877f7641e4e356a0218d9f248e2fc52136067698d2938"
+    },
+    "PerfectWeaveServiceV11.luau": {
+      "bytes": 2229,
+      "sha256": "d0b74f2cbaecb1dbe3745a71ff95e8a9bd2b6a6d8acae50a702724dd724c1ff2"
+    },
+    "CollectionEffectsV11.client.luau": {
+      "bytes": 12914,
+      "sha256": "97e06e70b97bcd2d2d32a19cd25cce748d1bf6d199a138353698bae339b680f0"
+    },
+    "LobbyBoardsV11.client.luau": {
+      "bytes": 5189,
+      "sha256": "70c3a0ac56d52882191f8811a6838a087210efb30452b8cc6142852ebfe39629"
+    },
+    "tools/v12/installer_head.luau": {
+      "bytes": 2202,
+      "sha256": "8107ea1306affd54e7b16d58e92ec6e9b26fa8520365acd42e48c906361b6bf2"
+    },
+    "tools/v12/installer_tail.luau": {
+      "bytes": 20404,
+      "sha256": "1274eff3e3433394700bc8a20dacdc2d90129c3714218e1ca9f9da9ec7d32e63"
+    }
+  }
+}

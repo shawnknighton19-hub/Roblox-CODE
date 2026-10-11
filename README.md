@@ -1,3 +1,21 @@
+## Owner tools, walk-up shops and bomb presentation (V12)
+
+Open [Huss-A-Bomb-V12.txt](Huss-A-Bomb-V12.txt), click **Raw**, copy everything, then paste into Roblox Studio’s **Command Bar with Play stopped**. The complete installer checks compatibility, stages the update, and creates a backup before applying changes. Save after Output confirms **V12 installed**. You do not need to run the individual modules. See the [V12 player and installation guide](V12-Player-Guide.md).
+
+The game owner can use `/grant coins 10000`, `/grant bomb Supernova`, `/grant trail Arctic Rush`, `/grant title Bomb Legend`, `/grant emote Disco Spin`, and `/grant all`. Names and catalog IDs are accepted; `/grant help` and `/grant list bombs` show usage and available items. Individual cosmetic grants unlock and equip the item; `all` unlocks the collection while preserving current equipment. Commands authorize the actual creator account or group owner on the server, give only to the invoking owner, and never accept a client grant request. They do not manufacture competitive statistics or quest progress. Studio profiles are temporary; published games use the existing saved profile.
+
+Walk up to one of the four lobby counters to browse its physical, glossy shop panel. Each player has their own selection and 3D bomb preview. Purchases validate the correct stand, player state, ownership, balance and server catalog price. The global Shop navigation is removed; the collection Index still browses and equips owned items. The panel closes when you leave the stand or enter a round.
+
+All 25 bomb skins now use distinctive geometry: Taxi Trouble has wheels, headlights and a roof sign; Bumble Blast has wings and antennae; Toxic Tank has a reservoir, hoses and warning badge; Champion Charge has trophy handles, a medal and pedestal. Each retains a rounded bomb body and fuse. Existing IDs, prices and purchases remain valid. Extra geometry is noncolliding and does not affect tag range; the same builder supplies the carried model and shop preview.
+
+Passing selects the nearest reachable contact, checks physical walls, and uses bounded movement samples for fast crossings. It rejects stale/teleport paths while retaining dodge immunity, fuse timing, anti-tagback and new-carrier locks. The carrier gets an animated panic pose with flailing arms and pooled blue tears on R6, R15 and practice bots. The pose yields to dodge, emotes, ragdoll and Reduced Motion; it does not change speed or cooldowns.
+
+**Solo practice earns no Coins, persistent stats or quest progress.** Owner grants are explicit administrative actions, separate from practice rewards. Existing V11 maps, voting, AFK, saves and movement remain intact. A V11 upgrade changes the lobby shop panels without rebuilding the completed maps. Supported pre-V11 projects receive the verified compatibility upgrade first. Unknown source changes stop with diagnostics rather than bypassing version checks. Originals are archived in `ServerStorage/ExpansionV12Backup_<timestamp>` with a restore manifest; failed commits roll back and a verified complete rerun does not duplicate systems.
+
+Build and portable test tools are in [tools/v12](tools/v12). Component validation reports cover owner authorization and saving, practice reward exclusion, passing, animation cleanup, geometry, UI lifecycle and installer failure/repeat cases. [V12-Release.validation.json](V12-Release.validation.json) records final source and installer hashes. Tests use Luau and Roblox API test doubles. Native Studio rendering, input, physics, multiplayer replication and live DataStores still need the playtests described in the guide. Preview images are offline renders, not Studio screenshots.
+
+---
+
 ## Bomb expansion (V11)
 
 For Windows, open [Huss-A-Bomb-V11.txt](Huss-A-Bomb-V11.txt) on GitHub and use **Download raw file**. Open the saved file in Notepad, select all, copy, and paste into Roblox Studio's Command Bar with Play stopped. This file uses Windows line endings and contains the same complete installer as the files below.

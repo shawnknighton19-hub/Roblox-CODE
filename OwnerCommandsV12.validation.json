@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "economy_runtime_checks": 319,
+  "private_feedback_runtime_checks": 11,
+  "compiled_sources": [
+    "EconomyServiceV12.luau",
+    "OwnerCommandsV12.luau",
+    "OwnerFeedbackV12.client.luau"
+  ],
+  "sha256": {
+    "EconomyServiceV12.luau": "01e08f6cb90c6b78dd6826356d5c6d2793ac833e02998db588424bfb98847d94",
+    "OwnerCommandsV12.luau": "399c41619eef86db7156d375a97384150034e3224fb89e35472ac3ce91f8c779",
+    "OwnerFeedbackV12.client.luau": "568ebd8829b50e065dc249717f90480f6b8e9d8bc7a9403b6e6a064e4625db89"
+  },
+  "commands": [
+    "/grant help",
+    "/grant coins 10000",
+    "/grant bomb Supernova",
+    "/grant trail trail_comet",
+    "/grant title title_legend",
+    "/grant emote emote_robot",
+    "/grant all",
+    "/grant list bombs"
+  ],
+  "authorization": "Server-side CreatorId for user-owned games; GetGroupInfoAsync Owner.Id for group-owned games, cached 30 seconds, failed lookup denied. No unknown unpublished creator fallback. Every grant API checks owner again.",
+  "persistence": "Same HussEconomyV9 profile datastore and HussWinsV9 ordered datastore, unchanged schema and lease-safe save; Studio grants are temporary.",
+  "practice": "Solo practice never earns Coins, Wins, Kills, FinalStands, GamesPlayed, Passes, or quest progress. Explicit owner commands are intentional manual grants and remain separate from earned rewards.",
+  "shop_purchase_contract": "Only a live lobby player within 16 studs of the enabled tagged matching Browse category anchor inside workspace/Lobby/V11 Bomb Exchange/category kiosk can Buy. Existing inventory Equip remains available globally.",
+  "scenarios": [
+    "retained V9/V11 migration lease persistence reward regressions",
+    "nonowner spoofed table names attributes and direct API authorization",
+    "modern and legacy chat no duplicate initialization",
+    "group transfer expiry failed and ownerless lookups",
+    "catalog name/ID grants and all cosmetics without changing equipment/stats",
+    "invalid amounts coin cap rate limiting remote forgery",
+    "saved owner grants release rejoin and lease theft",
+    "stand radius category death round practice gating",
+    "full solo practice statistic and quest snapshot",
+    "private feedback escape filtering lifecycle late remote replacement retries and fallback"
+  ],
+  "limits": [
+    "Roblox Studio playtest not available",
+    "Real Roblox TextChatService and DataStore services not executed; mocks use Luau CLI",
+    "Group ownership changes may take up to 30 seconds to refresh"
+  ]
+}

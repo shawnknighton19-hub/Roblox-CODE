@@ -1,0 +1,601 @@
+-- Standalone Luau test doubles. These tests do not render Roblox GUI or simulate Studio.
+local rawTypeof = typeof
+local clockNow = 100
+local pending = {}
+local allSignals = {}
+local remoteGets = {}
+local checks = 0
+local failures = {}
+local previewCloneCount = 0
+local serverCalls = {}
+
+local function check(condition, description)
+	checks += 1
+	if not condition then table.insert(failures, description); print("FAIL: " .. description) end
+end
+
+local function signal()
+	local s = {_connections = {}}
+	function s:Connect(callback)
+		local c = {Connected = true, callback = callback}
+		function c:Disconnect() self.Connected = false end
+		table.insert(self._connections, c)
+		return c
+	end
+	function s:Once(callback)
+		local c
+		c = self:Connect(function(...) c:Disconnect(); callback(...) end)
+		return c
+	end
+	function s:Fire(...)
+		for _, c in ipairs(table.clone(self._connections)) do
+			if c.Connected then c.callback(...) end
+		end
+	end
+	function s:Count()
+		local n = 0
+		for _, c in ipairs(self._connections) do if c.Connected then n += 1 end end
+		return n
+	end
+	table.insert(allSignals, s)
+	return s
+end
+
+local Vector3, vector3Mt = {}, {}
+vector3Mt.__index = function(t, k)
+    if k == "Magnitude" then return math.sqrt(t.X*t.X+t.Y*t.Y+t.Z*t.Z) end
+    if k == "Unit" then local n=t.Magnitude; assert(n>0,"zero vector"); return Vector3.new(t.X/n,t.Y/n,t.Z/n) end
+    return Vector3[k]
+end
+function Vector3.new(x,y,z) return setmetatable({_kind="Vector3",X=x or 0,Y=y or 0,Z=z or 0},vector3Mt) end
+vector3Mt.__add=function(a,b) return Vector3.new(a.X+b.X,a.Y+b.Y,a.Z+b.Z) end
+vector3Mt.__sub=function(a,b) return Vector3.new(a.X-b.X,a.Y-b.Y,a.Z-b.Z) end
+vector3Mt.__unm=function(a) return Vector3.new(-a.X,-a.Y,-a.Z) end
+vector3Mt.__mul=function(a,b)
+    if type(a)=="number" then return Vector3.new(a*b.X,a*b.Y,a*b.Z) end
+    if type(b)=="number" then return Vector3.new(a.X*b,a.Y*b,a.Z*b) end
+    return Vector3.new(a.X*b.X,a.Y*b.Y,a.Z*b.Z)
+end
+vector3Mt.__div=function(a,b) return Vector3.new(a.X/b,a.Y/b,a.Z/b) end
+vector3Mt.__eq=function(a,b) return a.X==b.X and a.Y==b.Y and a.Z==b.Z end
+function Vector3:Dot(b) return self.X*b.X+self.Y*b.Y+self.Z*b.Z end
+function Vector3:Cross(b) return Vector3.new(self.Y*b.Z-self.Z*b.Y,self.Z*b.X-self.X*b.Z,self.X*b.Y-self.Y*b.X) end
+function Vector3:Lerp(b,t) return self+(b-self)*t end
+Vector3.zero=Vector3.new();Vector3.one=Vector3.new(1,1,1)
+Vector3.xAxis=Vector3.new(1,0,0);Vector3.yAxis=Vector3.new(0,1,0);Vector3.zAxis=Vector3.new(0,0,1)
+
+local CFrame, frameMt={},{}
+local function frame(p,m) return setmetatable({_kind="CFrame",p=p,m=m or {1,0,0,0,1,0,0,0,1}},frameMt) end
+local function rotate(m,v) return Vector3.new(m[1]*v.X+m[2]*v.Y+m[3]*v.Z,m[4]*v.X+m[5]*v.Y+m[6]*v.Z,m[7]*v.X+m[8]*v.Y+m[9]*v.Z) end
+frameMt.__index=function(t,k)
+    if k=="Position" or k=="p" then return rawget(t,"p") end
+    if k=="Rotation" then return frame(Vector3.zero,table.clone(t.m)) end
+    if k=="X" or k=="Y" or k=="Z" then return t.p[k] end
+    if k=="RightVector" then return Vector3.new(t.m[1],t.m[4],t.m[7]) end
+    if k=="UpVector" then return Vector3.new(t.m[2],t.m[5],t.m[8]) end
+    if k=="LookVector" then return Vector3.new(-t.m[3],-t.m[6],-t.m[9]) end
+    return CFrame[k]
+end
+frameMt.__mul=function(a,b)
+    if b._kind=="Vector3" then return a.p+rotate(a.m,b) end
+    assert(b._kind=="CFrame")
+    local m={}
+    for r=0,2 do for c=0,2 do m[r*3+c+1]=a.m[r*3+1]*b.m[c+1]+a.m[r*3+2]*b.m[c+4]+a.m[r*3+3]*b.m[c+7] end end
+    return frame(a.p+rotate(a.m,b.p),m)
+end
+frameMt.__add=function(a,b) return frame(a.p+b,table.clone(a.m)) end
+frameMt.__sub=function(a,b) return frame(a.p-b,table.clone(a.m)) end
+function CFrame.new(...)
+    local a={...}
+    if #a==0 then return frame(Vector3.zero) end
+    if type(a[1])=="table" then
+        if #a==2 then return CFrame.lookAt(a[1],a[2]) end
+        return frame(a[1])
+    end
+    local m
+    if #a==12 then m={table.unpack(a,4,12)} end
+    return frame(Vector3.new(a[1],a[2],a[3]),m)
+end
+function CFrame.Angles(x,y,z)
+    local cx,sx,cy,sy,cz,sz=math.cos(x),math.sin(x),math.cos(y),math.sin(y),math.cos(z),math.sin(z)
+    return frame(Vector3.zero,{1,0,0,0,cx,-sx,0,sx,cx})*frame(Vector3.zero,{cy,0,sy,0,1,0,-sy,0,cy})*frame(Vector3.zero,{cz,-sz,0,sz,cz,0,0,0,1})
+end
+CFrame.fromEulerAnglesXYZ=CFrame.Angles
+function CFrame.lookAt(pos,target,up)
+    local back=(pos-target).Unit
+    local right=(up or Vector3.yAxis):Cross(back).Unit
+    local upwards=back:Cross(right)
+    return frame(pos,{right.X,upwards.X,back.X,right.Y,upwards.Y,back.Y,right.Z,upwards.Z,back.Z})
+end
+function CFrame.fromMatrix(pos,right,up,back)
+    back=back or right:Cross(up)
+    return frame(pos,{right.X,up.X,back.X,right.Y,up.Y,back.Y,right.Z,up.Z,back.Z})
+end
+function CFrame:Inverse()
+    local a=self.m;local m={a[1],a[4],a[7],a[2],a[5],a[8],a[3],a[6],a[9]}
+    return frame(rotate(m,-self.p),m)
+end
+function CFrame:ToObjectSpace(b) return self:Inverse()*b end
+function CFrame:ToWorldSpace(b) return self*b end
+function CFrame:PointToObjectSpace(b) return self:Inverse()*b end
+function CFrame:PointToWorldSpace(b) return self*b end
+function CFrame:VectorToWorldSpace(b) return rotate(self.m,b) end
+function CFrame:GetComponents() return self.p.X,self.p.Y,self.p.Z,table.unpack(self.m) end
+CFrame.identity=CFrame.new()
+
+local Vector2 = {}
+local vectorMt = {}
+vectorMt.__index = function(t,k)
+	if k == "Magnitude" then return math.sqrt(t.X*t.X+t.Y*t.Y) end
+	return Vector2[k]
+end
+vectorMt.__eq = function(a,b) return a.X == b.X and a.Y == b.Y end
+vectorMt.__add = function(a,b) return Vector2.new(a.X+b.X,a.Y+b.Y) end
+vectorMt.__sub = function(a,b) return Vector2.new(a.X-b.X,a.Y-b.Y) end
+vectorMt.__mul = function(a,b)
+	if type(a) == "number" then return Vector2.new(a*b.X,a*b.Y) end
+	return Vector2.new(a.X*b,a.Y*b)
+end
+function Vector2.new(x,y) return setmetatable({X=x or 0,Y=y or 0,_kind="Vector2"},vectorMt) end
+Vector2.zero = Vector2.new(0,0)
+Vector2.one = Vector2.new(1,1)
+
+local UDim = {new=function(scale,offset) return {Scale=scale or 0,Offset=offset or 0,_kind="UDim"} end}
+local UDim2 = {}
+function UDim2.new(xs,xo,ys,yo) return {X=UDim.new(xs,xo),Y=UDim.new(ys,yo),_kind="UDim2"} end
+function UDim2.fromOffset(x,y) return UDim2.new(0,x,0,y) end
+function UDim2.fromScale(x,y) return UDim2.new(x,0,y,0) end
+
+local Color3 = {}
+local colorMt = {__index=Color3}
+function Color3.new(r,g,b) return setmetatable({R=r,G=g,B=b,_kind="Color3"},colorMt) end
+function Color3.fromRGB(r,g,b) return Color3.new(r/255,g/255,b/255) end
+function Color3:Lerp(other,a) return Color3.new(self.R+(other.R-self.R)*a,self.G+(other.G-self.G)*a,self.B+(other.B-self.B)*a) end
+local ColorSequence = {new=function(...) return {...} end}
+local ColorSequenceKeypoint = {new=function(...) return {...} end}
+local NumberSequence = {new=function(...) return {...} end}
+local NumberSequenceKeypoint = {new=function(...) return {...} end}
+local TweenInfo = {new=function(...) return {...} end}
+
+local Enum = setmetatable({}, {__index=function(t,k)
+	local group=setmetatable({}, {__index=function(t2,k2)
+		local v={Name=k2,EnumType=k,_kind="EnumItem"}
+		rawset(t2,k2,v)
+		return v
+	end})
+	rawset(t,k,group)
+	return group
+end})
+
+local function typeof(value)
+	if type(value)=="table" and rawget(value,"_kind") then return value._kind end
+	return rawTypeof(value)
+end
+
+local guiClasses={Frame=true,TextLabel=true,TextButton=true,ImageLabel=true,ImageButton=true,ScrollingFrame=true,ViewportFrame=true,CanvasGroup=true}
+local signals={Activated=true,MouseEnter=true,MouseLeave=true,SelectionGained=true,SelectionLost=true,MouseButton1Click=true,MouseButton1Down=true,MouseButton1Up=true,InputBegan=true,InputEnded=true,InputChanged=true,Changed=true,Destroying=true,AncestryChanged=true,ChildAdded=true,ChildRemoved=true,CharacterAdded=true,CharacterRemoving=true,HealthChanged=true,Died=true,OnClientEvent=true}
+local instanceMethods={}
+local instanceMt={}
+local camera
+local insetTop=36
+local function childScale(obj)
+	for _,c in ipairs(obj._children) do if c.ClassName=="UIScale" then return c.Scale end end
+	return 1
+end
+local function accumulatedScale(obj)
+	if not obj or obj.ClassName=="ScreenGui" or obj.ClassName=="PlayerGui" then return 1 end
+	return childScale(obj)*accumulatedScale(obj.Parent)
+end
+instanceMt.__index=function(t,k)
+ if k=="ZIndex" and not guiClasses[t.ClassName] then error("ZIndex invalid on "..t.ClassName) end
+ if k=="AbsoluteSize" and t.ClassName=="SurfaceGui" then return t.CanvasSize end
+ if k=="AbsolutePosition" and t.ClassName=="SurfaceGui" then return Vector2.zero end
+	if instanceMethods[k] then return instanceMethods[k] end
+	if k=="ClassName" or k=="_kind" then return rawget(t,k) end
+	if k=="AbsoluteSize" then
+		if t.ClassName=="PlayerGui" then return camera.ViewportSize end
+		if t.ClassName=="ScreenGui" then return Vector2.new(camera.ViewportSize.X,camera.ViewportSize.Y-(t.IgnoreGuiInset and 0 or insetTop)) end
+		local parentSize=t.Parent and t.Parent.AbsoluteSize or camera.ViewportSize
+		local s=t._props.Size or UDim2.fromOffset(0,0)
+		local scale=accumulatedScale(t.Parent)*childScale(t)
+		return Vector2.new(parentSize.X*s.X.Scale+s.X.Offset*scale,parentSize.Y*s.Y.Scale+s.Y.Offset*scale)
+	end
+	if k=="AbsolutePosition" then
+		if t.ClassName=="PlayerGui" then return Vector2.zero end
+		if t.ClassName=="ScreenGui" then return Vector2.new(0,t.IgnoreGuiInset and 0 or insetTop) end
+		local parentSize=t.Parent and t.Parent.AbsoluteSize or camera.ViewportSize
+		local parentPos=t.Parent and t.Parent.AbsolutePosition or Vector2.zero
+		local p=t._props.Position or UDim2.fromOffset(0,0)
+		local a=t._props.AnchorPoint or Vector2.zero
+		local size=t.AbsoluteSize
+		local scale=accumulatedScale(t.Parent)
+		return Vector2.new(parentPos.X+parentSize.X*p.X.Scale+p.X.Offset*scale-size.X*a.X,parentPos.Y+parentSize.Y*p.Y.Scale+p.Y.Offset*scale-size.Y*a.Y)
+	end
+	if signals[k] then
+		if not t._signals[k] then t._signals[k]=signal() end
+		return t._signals[k]
+	end
+	if t._props[k]~=nil then return t._props[k] end
+	for _,child in ipairs(t._children) do if child.Name==k then return child end end
+	return nil
+end
+instanceMt.__newindex=function(t,k,v)
+	if k=="Parent" then
+		local old=t._props.Parent
+		if old==v then return end
+		if old then
+			for i,child in ipairs(old._children) do if child==t then table.remove(old._children,i);break end end
+		end
+		t._props.Parent=v
+		if v then table.insert(v._children,t);v.ChildAdded:Fire(t) end
+		if old then old.ChildRemoved:Fire(t) end
+	else t._props[k]=v end
+	local changed=t._signals["property:"..k]
+	if changed then changed:Fire() end
+end
+function instanceMethods:IsA(class)
+	return self.ClassName==class or class=="Instance" or (class=="GuiObject" and guiClasses[self.ClassName]==true) or (class=="BasePart" and (self.ClassName=="Part" or self.ClassName=="WedgePart")) or (class=="GuiButton" and (self.ClassName=="TextButton" or self.ClassName=="ImageButton"))
+end
+function instanceMethods:GetChildren() return table.clone(self._children) end
+function instanceMethods:GetDescendants()
+	local result={}
+	for _,child in ipairs(self._children) do
+		table.insert(result,child)
+		for _,nested in ipairs(child:GetDescendants()) do table.insert(result,nested) end
+	end
+	return result
+end
+function instanceMethods:FindFirstChild(name,recursive)
+	for _,child in ipairs(self._children) do if child.Name==name then return child end end
+	if recursive then
+		for _,child in ipairs(self._children) do local found=child:FindFirstChild(name,true); if found then return found end end
+	end
+	return nil
+end
+function instanceMethods:WaitForChild(name,_timeout) return self:FindFirstChild(name) end
+function instanceMethods:FindFirstChildOfClass(class)
+	for _,child in ipairs(self._children) do if child:IsA(class) then return child end end
+	return nil
+end
+function instanceMethods:FindFirstChildWhichIsA(class,recursive)
+	for _,child in ipairs(recursive and self:GetDescendants() or self._children) do if child:IsA(class) then return child end end
+	return nil
+end
+function instanceMethods:IsDescendantOf(other)
+	local p=self.Parent
+	while p do if p==other then return true end; p=p.Parent end
+	return false
+end
+function instanceMethods:GetFullName() return self.Parent and self.Parent:GetFullName().."."..self.Name or self.Name end
+function instanceMethods:GetAttribute(key) return self._attrs[key] end
+function instanceMethods:SetAttribute(key,value)
+	local previous=self._attrs[key]
+	self._attrs[key]=value
+	if previous~=value and self._signals["attribute:"..key] then self._signals["attribute:"..key]:Fire() end
+end
+function instanceMethods:GetAttributeChangedSignal(key)
+	local name="attribute:"..key
+	if not self._signals[name] then self._signals[name]=signal() end
+	return self._signals[name]
+end
+function instanceMethods:GetPropertyChangedSignal(key)
+	local name="property:"..key
+	if not self._signals[name] then self._signals[name]=signal() end
+	return self._signals[name]
+end
+function instanceMethods:Destroy()
+	self.Destroying:Fire()
+	for _,child in ipairs(table.clone(self._children)) do child:Destroy() end
+	self.Parent=nil
+	for _,s in pairs(self._signals) do for _,c in ipairs(s._connections) do c:Disconnect() end end
+	self._destroyed=true
+end
+function instanceMethods:ClearAllChildren() for _,child in ipairs(self:GetChildren()) do child:Destroy() end end
+
+local Instance={}
+function instanceMethods:Clone()
+ local clone=Instance.new(self.ClassName)
+ for k,v in pairs(self._props) do if k~="Parent" and k~="_destroyed" then clone[k]=v end end
+ for k,v in pairs(self._attrs) do clone:SetAttribute(k,v) end
+ for _,c in ipairs(self:GetChildren()) do c:Clone().Parent=clone end
+ if self.ClassName=="Model" and self.Parent and self.Parent.Name=="BombTagV6Previews" then previewCloneCount+=1 end
+ return clone
+end
+function instanceMethods:GetBoundingBox() return CFrame.new(),Vector3.new(180,40,160) end
+function instanceMethods:PivotTo(cf) self._pivot=cf end
+function instanceMethods:GetPivot() return self._pivot or CFrame.new() end
+function instanceMethods:FireServer(...) table.insert(serverCalls,{remote=self.Name,args=table.pack(...)}) end
+function instanceMethods:Fire(...) self.Event:Fire(...) end
+
+function Instance.new(class,parent)
+	local obj=setmetatable({_kind="Instance",ClassName=class,_props={Name=class,Visible=true,Size=UDim2.fromOffset(100,100),Position=UDim2.fromOffset(0,0),AnchorPoint=Vector2.zero,Scale=1,Text="",BackgroundTransparency=0,TextTransparency=0,Enabled=true},_children={},_attrs={},_signals={}},instanceMt)
+	if class=="Camera" then obj.FieldOfView=70 end
+	if class=="Part" then obj.Size=Vector3.new(4,1,2); obj.Position=Vector3.zero;obj.CFrame=CFrame.identity;obj.Transparency=0 end
+	if parent then obj.Parent=parent end
+	return obj
+end
+camera=Instance.new("Camera")
+camera.ViewportSize=Vector2.new(1280,720)
+
+local player=Instance.new("Player")
+player.Name="Tester"
+player.DisplayName="Test Player"
+player.UserId=42
+local playerGui=Instance.new("PlayerGui",player)
+local character=Instance.new("Model")
+character.Name="Character"
+local humanoid=Instance.new("Humanoid",character)
+humanoid.Health=100
+humanoid.MaxHealth=100
+player.Character=character
+local rival=Instance.new("Player");rival.Name="Rival";rival.DisplayName="Rival";rival.UserId=43
+local Players={LocalPlayer=player,PlayerAdded=signal(),PlayerRemoving=signal()}
+function Players:GetUserThumbnailAsync(...) return "rbxthumb://mock", true end
+local currentPlayers={player,rival}
+function Players:GetPlayers() return table.clone(currentPlayers) end
+function Players:GetPlayerByUserId(id) return id==42 and player or id==43 and rival or nil end
+
+local ReplicatedStorage=Instance.new("ReplicatedStorage")
+local shared=Instance.new("Folder",ReplicatedStorage);shared.Name="Shared"
+local net=Instance.new("Folder",shared);net.Name="Net"
+local config=Instance.new("Folder",shared);config.Name="Config"
+local remoteModule=Instance.new("ModuleScript",net);remoteModule.Name="Remotes"
+local configModule=Instance.new("ModuleScript",config);configModule.Name="GameConfig"
+local remoteObjects={RoundState={OnClientEvent=signal()},BombState={OnClientEvent=signal()}}
+local Remotes={}
+function Remotes.Get(name)
+	remoteGets[name]=(remoteGets[name] or 0)+1
+	assert(remoteObjects[name],"Controller requested an invented remote: "..tostring(name))
+	return remoteObjects[name]
+end
+local voteRemote=Instance.new("RemoteEvent",ReplicatedStorage);voteRemote.Name="BombTagVoteV6"
+local afkRemote=Instance.new("RemoteEvent",ReplicatedStorage);afkRemote.Name="BombTagAFKRequest"
+local previews=Instance.new("Folder",ReplicatedStorage);previews.Name="BombTagV6Previews"
+for _,name in ipairs({"Sky Garden","Sunset Docks","Frostfall Village","Neon District"}) do
+ local model=Instance.new("Model",previews);model.Name=name
+ local floor=Instance.new("Part",model);floor.Name="Floor"
+end
+local GameConfig={NormalBombFuseSeconds=14,FinalDuelBombFuseSeconds=9,MapName="Sky Garden"}
+local function require(module)
+	if module==remoteModule then return Remotes end
+	if module==configModule then return GameConfig end
+	error("Unexpected require in controller: "..tostring(module))
+end
+local RunService={RenderStepped=signal(),Heartbeat=signal()}
+local TweenService={}
+function TweenService:Create(object,_info,target)
+	local t={Completed=signal()}
+	function t:Play() for key,value in pairs(target) do object[key]=value end;self.Completed:Fire(Enum.PlaybackState.Completed) end
+	function t:Cancel() end
+	return t
+end
+local UserInputService={TouchEnabled=false,KeyboardEnabled=true,GamepadEnabled=false,InputBegan=signal(),InputChanged=signal(),InputEnded=signal(),LastInputTypeChanged=signal(),_signals={}}
+function UserInputService:GetPropertyChangedSignal(name)
+	if not self._signals[name] then self._signals[name]=signal() end
+	return self._signals[name]
+end
+function UserInputService:GetLastInputType() return Enum.UserInputType.Keyboard end
+function UserInputService:GetFocusedTextBox() return nil end
+function UserInputService:IsKeyDown() return false end
+function UserInputService:GetStringForKeyCode(key) return key.Name end
+local GuiService={}
+function GuiService:GetGuiInset() return Vector2.new(0,insetTop),Vector2.zero end
+local SoundService=Instance.new("SoundService")
+local prompts={PromptTriggered=signal()}
+local services={ProximityPromptService=prompts,SoundService=SoundService,Players=Players,ReplicatedStorage=ReplicatedStorage,RunService=RunService,TweenService=TweenService,UserInputService=UserInputService,GuiService=GuiService}
+local game={}
+function game:GetService(name) assert(services[name],"Unsupported service needed in mock: "..name);return services[name] end
+local workspace=Instance.new("Workspace")
+workspace.CurrentCamera=camera
+function workspace:GetServerTimeNow() return clockNow end
+local function time() return clockNow end
+local task={}
+local os={clock=function() return clockNow end,time=function() return math.floor(clockNow) end}
+function task.delay(seconds,fn,...)
+	local item={at=clockNow+seconds,fn=fn,args=table.pack(...)}
+	table.insert(pending,item)
+	return item
+end
+function task.defer(fn,...) return task.delay(0,fn,...) end
+function task.spawn(fn,...) return task.delay(0,fn,...) end
+function task.cancel(item) item.cancelled=true end
+local function tickFrame(dt)
+	clockNow+=dt or 0
+	local ready={}
+	for i=#pending,1,-1 do
+		if pending[i].at<=clockNow then table.insert(ready,table.remove(pending,i)) end
+	end
+	for _,item in ipairs(ready) do if not item.cancelled then item.fn(table.unpack(item.args,1,item.args.n)) end end
+	RunService.RenderStepped:Fire(dt or 1/30)
+	RunService.Heartbeat:Fire(dt or 1/30)
+end
+
+
+local productionCatalog=(function()
+{{CATALOG}}
+end)()
+local SkinBuilder=(function()
+{{SKIN_BUILDER}}
+end)()
+
+local tagged={}
+local CS={}
+function CS:AddTag(o,t) tagged[o]=tagged[o] or {};tagged[o][t]=true end
+function CS:HasTag(o,t) return tagged[o] and tagged[o][t]==true or false end
+function CS:GetTagged(t) local out={};for o,tags in pairs(tagged) do if tags[t] then table.insert(out,o) end end;return out end
+services.CollectionService=CS
+local originalClone=instanceMethods.Clone
+function instanceMethods:Clone()
+ local copy=originalClone(self)
+ for tag in pairs(tagged[self] or {}) do CS:AddTag(copy,tag) end
+ return copy
+end
+local bound={}
+function RunService:BindToRenderStep(name,priority,fn) assert(not bound[name]);bound[name]=fn end
+function RunService:UnbindFromRenderStep(name) bound[name]=nil end
+local originalTick=tickFrame
+function tickFrame(dt) originalTick(dt);for _,fn in pairs(bound) do fn() end end
+UserInputService.MouseBehavior=Enum.MouseBehavior.LockCenter
+UserInputService.MouseIconEnabled=false
+local lastInput=Enum.UserInputType.Keyboard
+function UserInputService:GetLastInputType() return lastInput end
+local builderModule=Instance.new('ModuleScript',ReplicatedStorage);builderModule.Name='BombSkinBuilderV12'
+local catalogModule=Instance.new('ModuleScript',ReplicatedStorage);catalogModule.Name='HussCatalogV11'
+local oldRequire=require
+function require(module)
+ if module==builderModule then return SkinBuilder end
+ if module==catalogModule then return productionCatalog end
+ return oldRequire(module)
+end
+local economy=Instance.new('RemoteEvent',ReplicatedStorage);economy.Name='HussEconomyV9'
+local cosmetic=Instance.new('RemoteEvent',ReplicatedStorage);cosmetic.Name='HussCosmeticsV11'
+local rootPart=Instance.new('Part',character);rootPart.Name='HumanoidRootPart';rootPart.Position=Vector3.new(1000,0,1000)
+local stats=Instance.new('Folder',player);stats.Name='leaderstats'
+for _,name in ipairs({'Coins','Wins','Kills','FinalStands'}) do local v=Instance.new('IntValue',stats);v.Name=name;v.Value=name=='Coins' and 10000 or 0 end
+local lobby=Instance.new('Model',workspace);lobby.Name='Lobby';lobby:SetAttribute('HussLobbyVersion',11)
+local exchange=Instance.new('Model',lobby);exchange.Name='V11 Bomb Exchange'
+local anchors={}
+for index,category in ipairs({'Bombs','Trails','Titles','Emotes'}) do
+ local station=Instance.new('Model',exchange);station.Name=category..' kiosk'
+ local counter=Instance.new('Part',station);counter.Name='Counter';counter.CFrame=CFrame.new(index*100,2,4.7)
+ local anchor=Instance.new('Part',station);anchor.Name='Browse '..category;anchor.Position=Vector3.new(index*100,5.5,7.5);anchor.CFrame=CFrame.new(anchor.Position);anchors[category]=anchor
+ local prompt=Instance.new('ProximityPrompt',anchor);prompt.Name='BrowseShop';prompt:SetAttribute('HussShopCategory',category);prompt.Enabled=true
+end
+local ShopStands=(function()
+{{WORLD}}
+end)()
+
+ShopStands.Apply(lobby)
+check(lobby:GetAttribute('HussLobbyVersion')==11,'preserve V11 lobby world version')
+check(ShopStands.Validate(lobby),'validate complete shop geometry')
+local beforeCount=#lobby:GetDescendants()
+local originalPanel=anchors.Bombs.Parent.ShopPanelV12
+ShopStands.Apply(lobby)
+check(#lobby:GetDescendants()==beforeCount and originalPanel==anchors.Bombs.Parent.ShopPanelV12,'reapply preserves same physical panels with no duplicates')
+check(#CS:GetTagged('HussShopStandV12')==4,'four tagged stand approach anchors')
+for category,anchor in pairs(anchors) do
+ local panel=anchor.Parent.ShopPanelV12
+ check(panel.CFrame.Position.Z>anchor.Parent.Counter.CFrame.Position.Z+2.4,'panel is in front of counter '..category)
+ check(panel.CFrame.Position.Y+panel.Size.Y/2<8,'panel below original overhead sign '..category)
+ check(not panel.CanCollide and not panel.CanTouch and panel.CanQuery,'walk-through cosmetic panel is ray-queryable for UI '..category)
+ check(anchor.HussShopCategory==nil and anchor:GetAttribute('HussShopCategory')==category,'category stored in server attribute '..category)
+ check(panel.ShopIdleV12.CanvasSize.X==1140 and panel.ShopIdleV12.CanvasSize.Y==432,'high resolution world face '..category)
+end
+local tampered=lobby:Clone();tampered.Bogus=true;tampered['V11 Bomb Exchange']['Bombs kiosk'].ShopPanelV12.CanCollide=true
+check(not pcall(ShopStands.Validate,tampered),'reject changed panel collision flags on rerun');tampered:Destroy()
+local unknown=lobby:Clone();unknown:SetAttribute('HussShopVersion',13)
+check(not pcall(ShopStands.Apply,unknown),'reject unrecognized shop version');unknown:Destroy()
+local HUD=(function()
+{{HUD}}
+end)()
+HUD.Init()
+local script=Instance.new("LocalScript")
+script.Name="StandShopV12"
+(function()
+{{CLIENT}}
+end)()
+
+local owned={'bomb_classic','default','title_rookie','emote_wave'}
+local equips={Bombs='bomb_classic',Trails='default',Titles='title_rookie',Emotes='emote_wave'}
+local function profile(ticket,coins,ok,msg)
+ economy.OnClientEvent:Fire({kind='Profile',requestId=ticket,ready=true,mode='preview',Coins=coins or 10000,Catalog=productionCatalog.Items,Quests={},Owned=owned,EquippedByCategory=equips,ok=ok~=false,message=msg or ''})
+end
+local function shop() return playerGui:FindFirstChild('HussStandShopV12') end
+local function node(name,parent) return (parent or shop()):FindFirstChild(name,true) end
+local function move(category,distance)
+ rootPart.Position=anchors[category].Position+Vector3.new(0,0,distance or 7);tickFrame(.11)
+end
+local function lastCall() return serverCalls[#serverCalls].args end
+profile();tickFrame(.11)
+check(not shop(),'shop absent outside approach radius')
+move('Bombs',11)
+check(shop() and shop().Adornee==originalPanel,'walk-up mounts private SurfaceGui to physical Bombs counter')
+check(player:GetAttribute('HussShopBrowsingV12')=='Bombs','HUD notified of shop approach')
+check(not originalPanel.ShopIdleV12.Enabled,'local idle face hidden behind active shop')
+check(UserInputService.MouseBehavior==Enum.MouseBehavior.Default and UserInputService.MouseIconEnabled==true,'shift lock cursor unlocked and visible while browsing')
+check(node('BuyEquip'):GetAttribute('HussDisabled')==true,'equipped default cannot be charged again')
+check(node('PreviewBomb'):GetAttribute('HussBombSculptureVersion')==12,'actual shared bomb geometry preview built')
+node('Select_bomb_cherry').Activated:Fire()
+node('BuyEquip').Activated:Fire()
+local ticket=lastCall()[3]
+check(lastCall()[1]=='Buy' and lastCall()[2]=='bomb_cherry' and ticket>1000000000,'buy sends validated ID in stand request namespace')
+check(node('BuyEquip'):GetAttribute('HussDisabled') and node('BuyEquip').Caption.Text=='PLEASE WAIT…','pending purchase disables button')
+local callCount=#serverCalls;node('BuyEquip').Activated:Fire()
+check(#serverCalls==callCount,'double-click sends only one purchase')
+profile(5,9000)
+check(node('BuyEquip').Caption.Text=='PLEASE WAIT…','unrelated HUD response does not clear pending shop purchase')
+owned[#owned+1]='bomb_cherry';equips.Bombs='bomb_cherry'
+profile(ticket,9800,true,'Cherry Pop equipped!')
+check(node('Coins').Text=='9,800 COINS','wallet uses authoritative returned profile')
+check(node('Status').Text=='Cherry Pop equipped!' and node('BuyEquip').Caption.Text=='EQUIPPED','matching response confirms ownership and equips')
+local seen={}
+for page=1,5 do
+ for _,o in ipairs(shop():GetDescendants()) do if o.Name:sub(1,7)=='Select_' then seen[o.Name:sub(8)]=true end end
+ if page<5 then node('Next').Activated:Fire() end
+end
+local seenCount=0;for _ in pairs(seen) do seenCount+=1 end
+check(seenCount==25,'all 25 bombs accessible through five pages')
+check(node('Next'):GetAttribute('HussDisabled'),'last page Next disabled')
+profile(nil,0)
+check(node('BuyEquip'):GetAttribute('HussDisabled') and node('BuyEquip').Caption.Text:find('NEED'),'cannot buy unaffordable selected item')
+move('Bombs',13.5);check(shop()~=nil,'approach hysteresis keeps shop open inside 14 studs')
+move('Bombs',14.1);check(shop()==nil,'walk-away closes physical shop')
+check(originalPanel.ShopIdleV12.Enabled,'idle face restored after leaving')
+check(UserInputService.MouseBehavior==Enum.MouseBehavior.LockCenter and UserInputService.MouseIconEnabled==false,'leaving restores pre-shop mouse state')
+move('Bombs',13);check(shop()==nil,'outside 12 studs does not reopen')
+move('Bombs',11);check(shop()~=nil,'reenter approach opens shop again')
+node('Close').Activated:Fire();tickFrame(.11);check(shop()==nil,'manual close stays dismissed while inside approach zone')
+move('Bombs',15);move('Bombs',10);check(shop()~=nil,'leave and return clears dismissed state')
+player:SetAttribute('InRound',true);check(shop()==nil,'joining round immediately closes shop')
+tickFrame(.11);check(shop()==nil,'shop unavailable during live round')
+player:SetAttribute('InRound',false);tickFrame(.11);check(shop()~=nil,'shop can reopen in lobby')
+player:SetAttribute('HussPracticeActive',true);check(shop()==nil,'practice flag closes shop')
+player:SetAttribute('HussPracticeActive',false);tickFrame(.11)
+humanoid.Health=0;tickFrame(.11);check(shop()==nil,'death closes shop')
+humanoid.Health=100;tickFrame(.11)
+anchors.Bombs:SetAttribute('HussShopStandEnabled',false);tickFrame(.11);check(shop()==nil,'server disabling anchor closes shop')
+anchors.Bombs:SetAttribute('HussShopStandEnabled',true);tickFrame(.11)
+-- A stale tagged part in a backup cannot open a shop.
+local backup=lobby:Clone();backup.Name='Backup';backup.Parent=workspace
+move('Bombs',16);rootPart.Position=backup['V11 Bomb Exchange']['Bombs kiosk']['Browse Bombs'].Position+Vector3.new(1000,0,0);tickFrame(.11);check(not shop(),'tagged backup parts ignored outside live Lobby');backup:Destroy()
+for _,category in ipairs({'Trails','Titles','Emotes'}) do
+ move(category,8)
+ check(shop() and player:GetAttribute('HussShopBrowsingV12')==category,'walk-up activates '..category..' station')
+ check(node('SelectedName')~=nil,'selected '..category..' item details shown')
+end
+check(node('PlayEmote') and not node('PlayEmote'):GetAttribute('HussDisabled'),'equipped emote playable at stand')
+node('PlayEmote').Activated:Fire();check(lastCall()[1]=='Emote' and lastCall()[2]=='emote_wave','stand plays actual equipped emote through server')
+player:SetAttribute('HussEmotePlaying','emote_wave');check(node('PlayEmote').Caption.Text=='STOP','live emote status updates button')
+node('PlayEmote').Activated:Fire();check(lastCall()[1]=='StopEmote','stop emote uses existing server controller')
+move('Emotes',16);lastInput=Enum.UserInputType.Gamepad1;move('Bombs',8)
+check(GuiService.SelectedObject and GuiService.SelectedObject:IsDescendantOf(shop()),'gamepad focus targets physical shop button')
+UserInputService.InputBegan:Fire({KeyCode=Enum.KeyCode.ButtonB},false);check(shop()==nil and GuiService.SelectedObject==nil,'gamepad B closes stand and releases selection')
+lastInput=Enum.UserInputType.Keyboard;move('Bombs',16);move('Bombs',8)
+node('Refresh').Activated:Fire();local syncTicket=lastCall()[3]
+tickFrame(10.1);check(node('Status').Text:find('No reply yet'),'timeout explains unconfirmed result')
+profile(syncTicket,9999);check(node('Coins').Text=='9,999 COINS','late profile still updates authoritative balance')
+-- HUD collection is inventory-only; no global Shop button or Index purchase path remains.
+local hud=playerGui.BombTagHUD
+check(not hud:FindFirstChild('SHOP',true) and not hud:FindFirstChild('NavSHOP',true),'all global Shop buttons removed')
+node('INDEX',hud).Activated:Fire();tickFrame(.01)
+check(not hud:FindFirstChild('CollectionSwitch',true),'Index has no Shop backdoor')
+check(node('Item_bomb_classic',hud).ButtonCaption.Text=='EQUIP','owned Index items remain equippable')
+callCount=#serverCalls;node('Item_bomb_classic',hud).Activated:Fire()
+check(#serverCalls==callCount+1 and lastCall()[1]=='Equip','Index sends Equip only')
+profile(lastCall()[3],9999)
+check(node('Item_bomb_cobalt',hud):GetAttribute('HussDisabled'),'locked Index item is browse-only')
+node('Close',hud).Activated:Fire()
+-- Round, voting and AFK callbacks retain their original remote contracts.
+remoteObjects.RoundState.OnClientEvent:Fire({State='ROUND',Alive=4});check(node('Alive',hud).Text:find('4'),'gameplay alive state remains wired')
+remoteObjects.BombState.OnClientEvent:Fire({Active=true,CarrierUserId=42,CarrierName='Tester',EndTime=clockNow+14});check(node('Caption',node('Bomb',hud)).Text=='YOU HAVE THE BOMB','bomb carrier HUD remains wired')
+node('AFK',hud).Activated:Fire();check(serverCalls[#serverCalls].remote=='BombTagAFKRequest','AFK retains original remote')
+-- Destruction restores world faces, cursor, focus and all connection ownership.
+local activePanel=shop() and shop().Adornee
+script:Destroy();check(shop()==nil and not bound.HussStandShopCursorV12,'destroy removes SurfaceGui and render callback')
+check(player:GetAttribute('HussShopBrowsingV12')==nil,'destroy clears local browsing state')
+check(not activePanel or activePanel.ShopIdleV12.Enabled,'destroy restores idle world panel')
+check(UserInputService.MouseBehavior==Enum.MouseBehavior.LockCenter and not UserInputService.MouseIconEnabled,'destroy restores cursor behavior and visibility')
+HUD.Destroy()
+check(economy.OnClientEvent:Count()==0,'HUD and stand remote subscriptions cleaned up')
+assert(#failures==0,table.concat(failures,'\n'))
+print('STAND_SHOP_V12 '..checks..' assertions passed')

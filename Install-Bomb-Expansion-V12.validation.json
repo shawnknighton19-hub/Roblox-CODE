@@ -1,0 +1,866 @@
+{
+  "result": "passed",
+  "cases": 130,
+  "assertions": 9518,
+  "installed_source_compiles": 36,
+  "installer": {
+    "path": "Install-Bomb-Expansion-V12.command.luau",
+    "bytes": 445379,
+    "sha256": "ff2eee79d171a1419b4ffcea9be929c5bfebbe7c921a52e871f45cdbfecdb68b"
+  },
+  "installer_sha256": "ff2eee79d171a1419b4ffcea9be929c5bfebbe7c921a52e871f45cdbfecdb68b",
+  "sha256": {
+    "Install-Bomb-Expansion-V12.command.luau": "ff2eee79d171a1419b4ffcea9be929c5bfebbe7c921a52e871f45cdbfecdb68b",
+    "Huss-A-Bomb-V12.txt": "dad63a2c9390df78680356483e67728fa152620f7c2a59f61df9bb925d37dbe7",
+    "Install-Bomb-Expansion-V12.txt": "dad63a2c9390df78680356483e67728fa152620f7c2a59f61df9bb925d37dbe7"
+  },
+  "windows_text": {
+    "Install-Bomb-Expansion-V12.txt": {
+      "bytes": 452772,
+      "sha256": "dad63a2c9390df78680356483e67728fa152620f7c2a59f61df9bb925d37dbe7",
+      "normalized_matches_command": true
+    },
+    "Huss-A-Bomb-V12.txt": {
+      "bytes": 452772,
+      "sha256": "dad63a2c9390df78680356483e67728fa152620f7c2a59f61df9bb925d37dbe7",
+      "normalized_matches_command": true
+    }
+  },
+  "suites": [
+    {
+      "suite": "installer.validation.json",
+      "cases": 105,
+      "assertions": 6652,
+      "scope": "Real adapters, real staged source and syntax compilation; deterministic geometry fixture; no native Roblox Studio.",
+      "results": [
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- TextChatService.HussOwnerGrantV12 conflicts with the runtime owner command /grant or /hussgrant. Commands with these aliases must not persist in Edit mode; the existing command was not replaced.",
+          "mode": "commandNameConflict",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- TextChatService.CustomAdmin conflicts with the runtime owner command /grant or /hussgrant. Commands with these aliases must not persist in Edit mode; the existing command was not replaced.",
+          "mode": "commandAliasConflict",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- TextChatService.HussOwnerGrantV12 conflicts with the runtime owner command /grant or /hussgrant. Commands with these aliases must not persist in Edit mode; the existing command was not replaced.",
+          "mode": "commandWrongClass",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "",
+          "mode": "normal",
+          "requires": 24,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "repeat",
+          "requires": 48,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "v9",
+          "requires": 24,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "rootMain",
+          "requires": 24,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "v9MissingEconomy",
+          "requires": 24,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "missingPreviews",
+          "requires": 24,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "repairMissingModule",
+          "requires": 48,
+          "result": "installed"
+        },
+        {
+          "error": "/tmp/huss-v12-installer-tests/test-install.luau:9870: V12: Stop Play before installing. Nothing changed.",
+          "mode": "playMode",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "/tmp/huss-v12-installer-tests/test-install.luau:9870: V12: Stop Play before installing. Nothing changed.",
+          "mode": "notStudio",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts/HudController is missing; expected ModuleScript.",
+          "mode": "missingHUD",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- Workspace/Lobby is missing; expected Model.",
+          "mode": "missingLobby",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ServerStorage/MapLibrary is missing; expected Folder.",
+          "mode": "missingLibrary",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- Workspace/ActiveArenaAnchor is missing; expected BasePart.",
+          "mode": "missingAnchor",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- Workspace.Maps needs one active arena Model.",
+          "mode": "missingArena",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- Workspace.Maps has multiple active arenas; the installer cannot safely choose one.",
+          "mode": "extraArena",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.Controllers.HudController: /tmp/huss-v12-installer-tests/test-install.luau:10150: Unsupported or partially modified HudController source (9:316801977:4179364134). Expected a verified historical version; source was not overwritten. Nothing changed.",
+          "mode": "badHUD",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.ServerMain: /tmp/huss-v12-installer-tests/test-install.luau:10103: Main source is not a verified uploaded, V9, or complete V11 version (9:1371facc:23c5a285). Partial installs and custom edits are not overwritten. Export this script from Studio so its actual code can be adapted.",
+          "mode": "badMain",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.BombService: /tmp/huss-v12-installer-tests/test-install.luau:10103: Bomb source is not a verified uploaded, V9, or complete V11 version (9:1371facc:23c5a285). Partial installs and custom edits are not overwritten. Export this script from Studio so its actual code can be adapted.",
+          "mode": "badBomb",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.RoundService: /tmp/huss-v12-installer-tests/test-install.luau:10103: Round source is not a verified uploaded, V9, or complete V11 version (9:1371facc:23c5a285). Partial installs and custom edits are not overwritten. Export this script from Studio so its actual code can be adapted.",
+          "mode": "badRound",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.SnappyMovement: /tmp/huss-v12-installer-tests/test-install.luau:10767: SnappyMovement source is not a verified V7/V11 version (fingerprint 9:316801977). No changes were made; provide the current source for review.",
+          "mode": "badMovement",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.MovementEffectsV8: /tmp/huss-v12-installer-tests/test-install.luau:10150: Unsupported or partially modified MovementEffectsV8 source (9:316801977:4179364134). Expected a verified historical version; source was not overwritten. Nothing changed.",
+          "mode": "badEffects",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.EconomyServiceV9 has unsupported source (9 bytes; checksum 316801977). Its existing saves and source will not be overwritten.",
+          "mode": "badEconomy",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- Ambiguous ServerMain: ServerScriptService.Services.ServerMain (Script), ServerScriptService.ServerMain (Script). Keep one active owner; nothing will be guessed.",
+          "mode": "duplicateMain",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- Ambiguous HudController: StarterPlayer.StarterPlayerScripts.Controllers.HudController (ModuleScript), StarterPlayer.StarterPlayerScripts.HudController (ModuleScript). Keep one active owner; nothing will be guessed.",
+          "mode": "duplicateHud",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- Ambiguous Services: ServerScriptService.Services (Folder), ServerScriptService.Services (Folder). Keep one active owner; nothing will be guessed.\n- (missing)/RoundService is missing; expected ModuleScript.\n- (missing)/BombService is missing; expected ModuleScript.",
+          "mode": "duplicateServices",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- Duplicate map name in MapLibrary: Sky Garden",
+          "mode": "duplicateMap",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.Controllers.CollectionEffectsV11 is in an unexpected container; expected StarterPlayer.StarterPlayerScripts. No duplicate will be installed.\n- StarterPlayer.StarterPlayerScripts.Controllers.CollectionEffectsV11 already contains different source. No unrelated script will be replaced.",
+          "mode": "nestedEffects",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.ServerMain is disabled. The installer preserves this setting; enable the intended owner before installing.",
+          "mode": "disabledMain",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.SnappyMovement is disabled. The installer preserves this setting; enable the intended owner before installing.",
+          "mode": "disabledMovement",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.MovementEffectsV8 is disabled. The installer preserves this setting; enable the intended owner before installing.",
+          "mode": "disabledEffects",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 staging stopped; originals preserved: /tmp/huss-v12-installer-tests/test-install.luau:16742: ServerScriptService.Services.BombService must be Archivable so it can be backed up.",
+          "mode": "unarchivable",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- Workspace.Lobby.CustomWorld is an enabled script inside geometry scheduled for cloning. Its behavior needs verification before the world can be upgraded.",
+          "mode": "worldScript",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 staging stopped; originals preserved: /tmp/huss-v12-installer-tests/test-install.luau:10905: injected world failure",
+          "mode": "worldBuildFailure",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.ServerMain: Luau syntax check failed: /tmp/huss-v12-installer-tests/test-install.luau:9863: [string \"return function()...\"]:2: Expected identifier when parsing variable name, got '='",
+          "mode": "syntaxFailure",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 staging stopped; originals preserved: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected newSourceFailure",
+          "mode": "newSourceFailure",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected backupParentFailure. Originals restored.",
+          "mode": "backupParentFailure",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected archiveLibrary. Originals restored.",
+          "mode": "archiveLibrary",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected archiveLobby. Originals restored.",
+          "mode": "archiveLobby",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected archivePreviews. Originals restored.",
+          "mode": "archivePreviews",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected archiveArena. Originals restored.",
+          "mode": "archiveArena",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected worldLibrary. Originals restored.",
+          "mode": "worldLibrary",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected worldLobby. Originals restored.",
+          "mode": "worldLobby",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected worldPreviews. Originals restored.",
+          "mode": "worldPreviews",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected worldArena. Originals restored.",
+          "mode": "worldArena",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9832: injected setMap. Originals restored.",
+          "mode": "setMap",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9832: injected setVersion. Originals restored.",
+          "mode": "setVersion",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.HussEconomyV9 has no verified owning service. Its ownership must be resolved before installation.",
+          "mode": "unownedEconomyRemote",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.HussCosmeticsV11 has no verified owning service. Its ownership must be resolved before installation.",
+          "mode": "unownedCosmeticRemote",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.HussCosmeticsV11 is Folder; expected RemoteEvent.",
+          "mode": "wrongRemote",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:16816: Source write failed: ServerScriptService.Services.ServerMain. Originals restored.",
+          "mode": "sourceReadback",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.BombTagMapVoteServiceV6: expected exactly one ModuleScript, found 0",
+          "mode": "missingVoteModule",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.BombTagMapVoteServiceV6: unknown MapVote source (9:316801977); preserve it and review compatibility before installation",
+          "mode": "badVoteModule",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.BombTagVoteV6: expected exactly one RemoteEvent, found 0",
+          "mode": "missingVoteRemote",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.BombTagAFKRequest: expected RemoteEvent, found Folder",
+          "mode": "wrongAFKRemote",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts: expected one ClientMain, found 0",
+          "mode": "missingClientMain",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.Shared.Net.Remotes: unknown Remotes source (9:316801977); preserve it and review compatibility before installation",
+          "mode": "badRemotes",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.Shared.Config.GameConfig: TagCheckInterval must be positive",
+          "mode": "badConfig",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "",
+          "mode": "configValues",
+          "requires": 24,
+          "result": "installed"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.Shared.Net.DodgeIFrameRequest: expected RemoteEvent, found Folder",
+          "mode": "wrongDodgeRemote",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.BombTagRemotes.RoundState: expected RemoteEvent, found Folder",
+          "mode": "wrongRoundRemote",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- Ambiguous RoundService: ServerScriptService.Services.RoundService (ModuleScript), ServerScriptService.Services.RoundService (ModuleScript). Keep one active owner; nothing will be guessed.",
+          "mode": "duplicateRoundModule",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.Shared: expected exactly one Folder, found 0",
+          "mode": "missingShared",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- Workspace.Lobby/LobbySpawn is missing; expected SpawnLocation.",
+          "mode": "missingLobbySpawn",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- Workspace.Lobby.LobbySpawn is Part; expected SpawnLocation.",
+          "mode": "wrongLobbySpawn",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- Workspace.Maps.Arena01.Spawns needs at least sixteen BasePart spawns; found 0.",
+          "mode": "badArenaSpawns",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ServerStorage.MapLibrary.Sunset Docks.Spawns needs at least sixteen BasePart spawns; found 0.",
+          "mode": "badTemplateSpawns",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "",
+          "mode": "repeatMissingLobbySpawn",
+          "requires": 24,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "repeatBadArenaSpawns",
+          "requires": 24,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "repeatBadTemplateSpawns",
+          "requires": 24,
+          "result": "installed"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts/HudController is missing; expected ModuleScript.\n- ServerScriptService.Services.RoundService: /tmp/huss-v12-installer-tests/test-install.luau:10103: Round source is not a verified uploaded, V9, or complete V11 version (9:1371facc:23c5a285). Partial installs and custom edits are not overwritten. Export this script from Studio so its actual code can be adapted.\n- StarterPlayer.StarterPlayerScripts.MovementEffectsV8: /tmp/huss-v12-installer-tests/test-install.luau:10150: Unsupported or partially modified MovementEffectsV8 source (9:316801977:4179364134). Expected a verified historical version; source was not overwritten. Nothing changed.",
+          "mode": "aggregateErrors",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ServerStorage.MapLibrary.Fuseworks conflicts with a V11 featured map name; it will not be replaced.",
+          "mode": "featuredMapConflict",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "",
+          "mode": "repeatBadFeaturedMap",
+          "requires": 24,
+          "result": "installed"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.EconomyServiceV9 has unsupported source (11 bytes; checksum 448726129). Its existing saves and source will not be overwritten.",
+          "mode": "conflict_EconomyServiceV9",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected parent_EconomyServiceV9. Originals restored.",
+          "mode": "parent_EconomyServiceV9",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.HussCatalogV11 already contains different source. No unrelated script will be replaced.",
+          "mode": "conflict_HussCatalogV11",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected parent_HussCatalogV11. Originals restored.",
+          "mode": "parent_HussCatalogV11",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.CosmeticsServiceV11 already contains different source. No unrelated script will be replaced.",
+          "mode": "conflict_CosmeticsServiceV11",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected parent_CosmeticsServiceV11. Originals restored.",
+          "mode": "parent_CosmeticsServiceV11",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.PracticeServiceV11 already contains different source. No unrelated script will be replaced.",
+          "mode": "conflict_PracticeServiceV11",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected parent_PracticeServiceV11. Originals restored.",
+          "mode": "parent_PracticeServiceV11",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.PerfectWeaveServiceV11 already contains different source. No unrelated script will be replaced.",
+          "mode": "conflict_PerfectWeaveServiceV11",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected parent_PerfectWeaveServiceV11. Originals restored.",
+          "mode": "parent_PerfectWeaveServiceV11",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.CollectionEffectsV11 is ModuleScript; expected LocalScript.",
+          "mode": "conflict_CollectionEffectsV11",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected parent_CollectionEffectsV11. Originals restored.",
+          "mode": "parent_CollectionEffectsV11",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.LobbyBoardsV11 is ModuleScript; expected LocalScript.",
+          "mode": "conflict_LobbyBoardsV11",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected parent_LobbyBoardsV11. Originals restored.",
+          "mode": "parent_LobbyBoardsV11",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.BombSkinBuilderV12 already contains different source. No unrelated script will be replaced.",
+          "mode": "conflict_BombSkinBuilderV12",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected parent_BombSkinBuilderV12. Originals restored.",
+          "mode": "parent_BombSkinBuilderV12",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.OwnerCommandsV12 already contains different source. No unrelated script will be replaced.",
+          "mode": "conflict_OwnerCommandsV12",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected parent_OwnerCommandsV12. Originals restored.",
+          "mode": "parent_OwnerCommandsV12",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.OwnerFeedbackV12 is ModuleScript; expected LocalScript.",
+          "mode": "conflict_OwnerFeedbackV12",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected parent_OwnerFeedbackV12. Originals restored.",
+          "mode": "parent_OwnerFeedbackV12",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.CarrierPanicV12 is ModuleScript; expected LocalScript.",
+          "mode": "conflict_CarrierPanicV12",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected parent_CarrierPanicV12. Originals restored.",
+          "mode": "parent_CarrierPanicV12",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.StandShopV12 is ModuleScript; expected LocalScript.",
+          "mode": "conflict_StandShopV12",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected parent_StandShopV12. Originals restored.",
+          "mode": "parent_StandShopV12",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected write_HUD. Originals restored.",
+          "mode": "write_HUD",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected write_MAIN. Originals restored.",
+          "mode": "write_MAIN",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected write_BOMB. Originals restored.",
+          "mode": "write_BOMB",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected write_ROUND. Originals restored.",
+          "mode": "write_ROUND",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected write_MOVEMENT. Originals restored.",
+          "mode": "write_MOVEMENT",
+          "requires": 24,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-install.luau:9853: injected write_EFFECTS. Originals restored.",
+          "mode": "write_EFFECTS",
+          "requires": 24,
+          "result": "originals preserved"
+        }
+      ],
+      "installed_source_compilations": []
+    },
+    {
+      "suite": "installer-sources.validation.json",
+      "cases": 2,
+      "assertions": 183,
+      "scope": "Real adapters, real staged source and syntax compilation; deterministic geometry fixture; no native Roblox Studio.",
+      "results": [
+        {
+          "error": "",
+          "mode": "normal",
+          "requires": 24,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "v9",
+          "requires": 24,
+          "result": "installed"
+        }
+      ],
+      "installed_source_compilations": [
+        {
+          "path": "/tmp/huss-v12-installer-tests/installed-0",
+          "files": 18
+        },
+        {
+          "path": "/tmp/huss-v12-installer-tests/installed-1",
+          "files": 18
+        }
+      ]
+    },
+    {
+      "suite": "upgrade.validation.json",
+      "cases": 16,
+      "assertions": 1834,
+      "scope": "Published V11 installer followed by actual V12 source payload, deterministic geometry fixture; no native Studio engine.",
+      "results": [
+        {
+          "error": "",
+          "mode": "upgrade",
+          "requires": 26,
+          "result": "upgraded"
+        },
+        {
+          "error": "",
+          "mode": "rootServerMain",
+          "requires": 26,
+          "result": "upgraded"
+        },
+        {
+          "error": "",
+          "mode": "missingEconomy",
+          "requires": 26,
+          "result": "upgraded"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.Controllers.HudController: /tmp/huss-v12-installer-tests/test-upgrade.luau:12616: Unsupported or partially modified HudController source (63416:576837129:1923799293). Expected a verified historical version; source was not overwritten. Nothing changed.",
+          "mode": "customHUD",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.HussCatalogV11 already contains different source. No unrelated script will be replaced.",
+          "mode": "customCatalog",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 staging stopped; originals preserved: /tmp/huss-v12-installer-tests/test-upgrade.luau:13440: Unsupported existing shop version",
+          "mode": "wrongShopVersion",
+          "requires": 26,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-upgrade.luau:12323: Injected V12 source or lobby failure. Originals restored.",
+          "mode": "sourceWriteFailure",
+          "requires": 26,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-upgrade.luau:12323: Injected V12 source or lobby failure. Originals restored.",
+          "mode": "lobbyCommitFailure",
+          "requires": 26,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-upgrade.luau:12327: Injected V12 version failure. Originals restored.",
+          "mode": "versionWriteFailure",
+          "requires": 26,
+          "result": "originals preserved"
+        },
+        {
+          "error": "",
+          "mode": "repeatV12",
+          "requires": 50,
+          "result": "upgraded"
+        },
+        {
+          "error": "",
+          "mode": "repairOwnerModule",
+          "requires": 50,
+          "result": "upgraded"
+        },
+        {
+          "error": "",
+          "mode": "repairSkinModule",
+          "requires": 50,
+          "result": "upgraded"
+        },
+        {
+          "error": "",
+          "mode": "repeatBrokenShop",
+          "requires": 26,
+          "result": "upgraded"
+        },
+        {
+          "error": "",
+          "mode": "ownedChatCommand",
+          "requires": 26,
+          "result": "upgraded"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- TextChatService.Other conflicts with the runtime owner command /grant or /hussgrant. Commands with these aliases must not persist in Edit mode; the existing command was not replaced.",
+          "mode": "conflictingChatCommand",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 compatibility preflight stopped. Originals preserved.\n- Workspace.Lobby.CustomBehavior is an enabled script inside geometry scheduled for cloning. Its behavior needs verification before the world can be upgraded.",
+          "mode": "clonedLobbyScript",
+          "requires": 0,
+          "result": "originals preserved"
+        }
+      ],
+      "installed_source_compilations": []
+    },
+    {
+      "suite": "installer-full.validation.json",
+      "cases": 3,
+      "assertions": 327,
+      "scope": "Actual authored V4 maps/V7 lobby",
+      "results": [
+        {
+          "error": "",
+          "mode": "normal",
+          "requires": 24,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "repeat",
+          "requires": 48,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "v9",
+          "requires": 24,
+          "result": "installed"
+        }
+      ],
+      "installed_source_compilations": []
+    },
+    {
+      "suite": "upgrade-full.validation.json",
+      "cases": 4,
+      "assertions": 522,
+      "scope": "Actual authored V4 maps/V7 lobby followed by published V11 installer and full V12; no native Studio engine.",
+      "results": [
+        {
+          "error": "",
+          "mode": "upgrade",
+          "requires": 26,
+          "result": "upgraded"
+        },
+        {
+          "error": "",
+          "mode": "repeatV12",
+          "requires": 50,
+          "result": "upgraded"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-upgrade-full.luau:13595: Injected V12 source or lobby failure. Originals restored.",
+          "mode": "sourceWriteFailure",
+          "requires": 26,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V12 installation rolled back: /tmp/huss-v12-installer-tests/test-upgrade-full.luau:13595: Injected V12 source or lobby failure. Originals restored.",
+          "mode": "lobbyCommitFailure",
+          "requires": 26,
+          "result": "originals preserved"
+        }
+      ],
+      "installed_source_compilations": []
+    }
+  ],
+  "limits": "Deterministic Instance execution and real Luau compilation; native Roblox Studio rendering, physics, networking, and DataStore execution were not available."
+}

@@ -1,0 +1,26 @@
+{
+  "compile": "Luau compiler passed",
+  "runtime_checks": 83,
+  "production_source_sha256": "7af25b2848bdb6291f52f34e52387919d2d401d10e92acbd6140072355666983",
+  "run": "python tools/v12/tests/test_bomb.py --luau /path/to/luau",
+  "scope": "Actual production source executed with mocked Roblox services, geometry rays and deterministic time.",
+  "coverage": [
+    "nearest and stable tie recipient independent of provider order",
+    "wall occlusion and exclusion of actor collision",
+    "fast coherent swept contacts",
+    "teleport, stale sample, replaced-root and wall-crossing rejection",
+    "unchanged tag radius, carrier lock and anti-tagback duration",
+    "iframe immunity and protected historical motion",
+    "perfect-weave eligibility hook",
+    "last-passer kill attribution and unchanged fuse end time",
+    "explicit Stop and provider cancellation",
+    "carrier flags transfer, death, removal, respawn and explosion cleanup",
+    "practice bot facade contacts",
+    "inactive, duplicate and non-finite position rejection",
+    "actual PerfectWeaveService cue/boost on a coherent active dodge crossing"
+  ],
+  "limitations": [
+    "No native Roblox Studio multiplayer/replication or terrain playtest available.",
+    "Economy rewards remain controlled by the separate unchanged pass/elimination APIs; no rewards are created inside BombService."
+  ]
+}

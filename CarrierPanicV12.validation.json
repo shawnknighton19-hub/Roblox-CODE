@@ -1,0 +1,28 @@
+{
+  "source": "CarrierPanicV12.client.luau",
+  "sha256": "f7ddcc5c41d731441b99676b0a526941f0a868d9971d45029e950533b5615759",
+  "syntax": "luau-compile passed",
+  "runtime_assertions": 382,
+  "rigs": [
+    "R6",
+    "R15",
+    "practice R6 bots"
+  ],
+  "tear_pool_per_carrier": 12,
+  "tear_pool_client_cap": 36,
+  "distance_cull_studs": 110,
+  "physics_changes": false,
+  "uploaded_assets_required": false,
+  "validation_limits": "Deterministic Luau lifecycle/math harness and offline geometry preview. Native Roblox Animator, rendering, physics and networking require Studio play testing.",
+  "tests": [
+    "noncarriers allocate no effects",
+    "preserves C0, leg animation, root and speed",
+    "PreAnimation restores owned transforms without drift",
+    "local, remote and practice dodge priority including expired immunity timestamp",
+    "does not restore over other controller transforms",
+    "emote, ragdoll, sit, anchored, pause, reduced-motion exclusions",
+    "carrier loss, death, respawn, player removal and streaming cleanup",
+    "bounded collision-free tear geometry",
+    "all connections disconnected at shutdown"
+  ]
+}

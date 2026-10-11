@@ -1,0 +1,382 @@
+local SharedCatalog=(function()
+{{CATALOG}}
+end)()
+
+local checks=0
+local function check(ok,label) checks+=1;assert(ok,label) end
+local function clone(t) local c={};for k,v in pairs(t) do c[k]=type(v)=='table' and clone(v) or v end;return c end
+local function environment(preview,durable,orderedData,options)
+ options=options or {}
+ local ctx={now=0,queue={},profiles=durable or {},ordered=orderedData or {},calls={profile=0,ordered=0,board=0,getStore=0,getOrdered=0},delay=0,fail=0,outputs={},warns={}}
+ local function signal()
+  local s={listeners={}}
+  function s:Connect(fn) local l={fn=fn,Connected=true};function l:Disconnect() self.Connected=false end;table.insert(self.listeners,l);return l end
+  function s:Fire(...) for _,l in ipairs(self.listeners) do if l.Connected then l.fn(...) end end end
+  return s
+ end
+ local task={}
+ function task.spawn(fn,...) local args=table.pack(...);local co=coroutine.create(function() fn(table.unpack(args,1,args.n)) end);table.insert(ctx.queue,{co=co,at=ctx.now}) end
+ function task.wait(seconds) return coroutine.yield(seconds or .03) end
+ function ctx:step(seconds)
+  local target=self.now+(seconds or 0);local iterations=0
+  while true do
+   local index,earliest=nil,math.huge
+   for i,q in ipairs(self.queue) do if q.at<earliest then earliest=q.at;index=i end end
+   if not index or earliest>target then break end
+   iterations+=1;assert(iterations<100000,'scheduler loop')
+   local q=table.remove(self.queue,index);self.now=earliest
+   local ok,wait=coroutine.resume(q.co);assert(ok,tostring(wait))
+   if coroutine.status(q.co)~='dead' then q.at=self.now+(wait or .03);table.insert(self.queue,q) end
+  end
+  self.now=target
+ end
+ local methods={}
+ function methods:IsA(class) return self.ClassName==class or class=='Instance' or class=='BasePart' and self.ClassName=='Part' end
+ function methods:GetDescendants() local result={};for _,c in ipairs(self._children) do table.insert(result,c);for _,d in ipairs(c:GetDescendants()) do table.insert(result,d) end end;return result end
+ function methods:GetFullName() return (self.Parent and self.Parent:GetFullName()..'.' or '')..self.Name end
+ function methods:FindFirstChild(name) for _,c in ipairs(self._children) do if c.Name==name then return c end end end
+ function methods:FindFirstChildOfClass(class) for _,c in ipairs(self._children) do if c.ClassName==class then return c end end end
+ function methods:GetChildren() return table.clone(self._children) end
+ function methods:SetAttribute(key,value) self._attributes[key]=value end
+ function methods:GetAttribute(key) return self._attributes[key] end
+ local meta={__index=function(t,k) return methods[k] or t._properties[k] end,__newindex=function(t,k,v)
+  if k=='Parent' then local old=t._properties.Parent;if old then local i=table.find(old._children,t);if i then table.remove(old._children,i) end end;if v then table.insert(v._children,t) end end
+  t._properties[k]=v
+ end}
+ local Instance={}
+ function Instance.new(class)
+  local o=setmetatable({_properties={ClassName=class,Name=class,Value=0},_children={},_attributes={}},meta)
+  if class=='TextChatCommand' then o.PrimaryAlias='';o.SecondaryAlias='';o.Triggered=signal() end
+  if class=='RemoteEvent' then
+   o.OnServerEvent=signal()
+   o.FireClient=function(_,p,value) ctx.outputs[p]=ctx.outputs[p] or {};table.insert(ctx.outputs[p],clone(value)) end
+   o.FireAllClients=function(_,value) for _,p in ipairs(ctx.players:GetPlayers()) do o:FireClient(p,value) end end
+  end
+  return o
+ end
+ local Players=Instance.new('Players');ctx.players=Players
+ Players.PlayerAdded=signal();Players.PlayerRemoving=signal()
+ Players.GetPlayers=function(self) return self:GetChildren() end
+ Players.GetNameFromUserIdAsync=function(_,id) if ctx.nameFail then error('name unavailable') end;return 'user'..id end
+ local RS=Instance.new('ReplicatedStorage');ctx.rs=RS
+ local DS={}
+ local profile={}
+ function profile:UpdateAsync(key,fn)
+  ctx.calls.profile+=1
+  if ctx.delay>0 then task.wait(ctx.delay) end
+  if ctx.fail>0 then ctx.fail-=1;error('datastore unavailable') end
+  local old=ctx.profiles[key];local value=fn(old and clone(old) or nil)
+  if ctx.callbackRepeat and value~=nil then value=fn(old and clone(old) or nil) end
+  if value~=nil then ctx.profiles[key]=clone(value);return clone(value) end
+  return nil
+ end
+ local ordered={}
+ function ordered:UpdateAsync(key,fn)
+  ctx.calls.ordered+=1
+  if ctx.orderedDelay then task.wait(ctx.orderedDelay) end
+  if ctx.orderedFail then error('ordered unavailable') end
+  local value=fn(ctx.ordered[key]);ctx.ordered[key]=value;return value
+ end
+ function ordered:GetSortedAsync(ascending,size)
+  ctx.calls.board+=1
+  if ctx.boardFail then error('board unavailable') end
+  local rows={};for key,value in pairs(ctx.ordered) do table.insert(rows,{key=key,value=value}) end
+  table.sort(rows,function(a,b) return a.value>b.value end)
+  while #rows>size do table.remove(rows) end
+  return {GetCurrentPage=function() return rows end}
+ end
+ function DS:GetDataStore(_) ctx.calls.getStore+=1;return profile end
+ function DS:GetOrderedDataStore(_) ctx.calls.getOrdered+=1;return ordered end
+ function DS:GetRequestBudgetForRequestType(_) return ctx.budget or 100 end
+ local serial=0
+ local services={Players=Players,ReplicatedStorage=RS,DataStoreService=DS,RunService={IsStudio=function() return preview end},HttpService={GenerateGUID=function() serial+=1;return tostring(serial) end}}
+ local game={JobId='job'..tostring(math.random()),CreatorId=options.creatorId or 701,CreatorType=options.creatorType or 'User'};ctx.game=game
+ function game:GetService(name) return services[name] end
+ function game:BindToClose(fn) ctx.closeFn=fn end
+ local os={clock=function() return ctx.now end,time=function() return 1900000000+math.floor(ctx.now) end}
+ local Enum={DataStoreRequestType={SetIncrementSortedAsync=1,GetSortedAsync=2},CreatorType={User='User',Group='Group'},ChatVersion={TextChatService='Modern',LegacyChatService='Legacy'}}
+ local Color3={fromRGB=function(r,g,b) return {R=r/255,G=g/255,B=b/255} end}
+ local typeof=function(v) return type(v)=='table' and v.ClassName and 'Instance' or type(v) end
+ local warn=function(message) table.insert(ctx.warns,message) end
+
+ local vectorMeta={}
+ vectorMeta.__sub=function(a,b) return setmetatable({X=a.X-b.X,Y=a.Y-b.Y,Z=a.Z-b.Z},vectorMeta) end
+ vectorMeta.__index=function(v,k) if k=='Magnitude' then return math.sqrt(v.X^2+v.Y^2+v.Z^2) end end
+ local function vec(x,y,z) return setmetatable({X=x or 0,Y=y or 0,Z=z or 0},vectorMeta) end
+ ctx.vec=vec;ctx.instance=Instance.new
+ Players.GetPlayerByUserId=function(_,id) for _,p in ipairs(Players:GetPlayers()) do if p.UserId==id then return p end end end
+ local workspace=Instance.new('Workspace');ctx.workspace=workspace
+ local lobby=Instance.new('Model');lobby.Name='Lobby';lobby.Parent=workspace;ctx.lobby=lobby
+ local exchange=Instance.new('Model');exchange.Name='V11 Bomb Exchange';exchange.Parent=lobby
+ local tagged={};ctx.tagged=tagged;ctx.anchors={}
+ for _,category in ipairs(SharedCatalog.Categories) do
+  local station=Instance.new('Model');station.Name=category..' kiosk';station.Parent=exchange
+  local anchor=Instance.new('Part');anchor.Name='Browse '..category;anchor.Position=vec();anchor.Parent=station
+  anchor:SetAttribute('HussShopCategory',category);anchor:SetAttribute('HussShopStandEnabled',true)
+  table.insert(tagged,anchor);ctx.anchors[category]=anchor
+ end
+ services.CollectionService={GetTagged=function(_,tag) assert(tag=='HussShopStandV12');return tagged end}
+ local chat=Instance.new('TextChatService');chat.ChatVersion=options.chatVersion or 'Modern';services.TextChatService=chat;ctx.chat=chat
+ if options.commandConflict then local existing=Instance.new('TextChatCommand');existing.Name='SomeoneElsesCommand';existing.PrimaryAlias=options.commandConflict;existing.Parent=chat end
+ services.GroupService={GetGroupInfoAsync=function(_,group)
+  ctx.groupCalls=(ctx.groupCalls or 0)+1;assert(group==ctx.game.CreatorId)
+  if ctx.groupDelay then task.wait(ctx.groupDelay) end
+  if ctx.groupFail then error('Group lookup failed') end
+  return ctx.groupInfo or {Owner={Id=options.groupOwner or 701}}
+ end}
+ methods.WaitForChild=methods.FindFirstChild
+ local module=Instance.new('ModuleScript');module.Name='HussCatalogV11';module.Parent=RS
+ local servicesFolder=Instance.new('Folder');servicesFolder.Name='Services'
+ local ownerModule=Instance.new('ModuleScript');ownerModule.Name='OwnerCommandsV12';ownerModule.Parent=servicesFolder
+ local script=Instance.new('ModuleScript');script.Name='EconomyServiceV9';script.Parent=servicesFolder
+ local Owner
+ local require=function(target) if target==module then return SharedCatalog elseif target==ownerModule then return Owner else error('Unexpected require target') end end
+ Owner=(function()
+{{OWNER}}
+ end)();ctx.Owner=Owner
+ local E=(function()
+
+{{ECONOMY}}
+
+ end)()
+ ctx.E=E
+ function ctx:add(id)
+  local p=Instance.new('Player');p.UserId=id;p.Name='user'..id;p.DisplayName=p.Name;p.Chatted=signal()
+  local character=Instance.new('Model');local h=Instance.new('Humanoid');h.Health=100;h.Parent=character;p.Character=character
+  local root=Instance.new('Part');root.Name='HumanoidRootPart';root.Position=vec();root.Parent=character
+  p:SetAttribute('InRound',true);p.Parent=Players;Players.PlayerAdded:Fire(p);return p
+ end
+ function ctx:remove(p) Players.PlayerRemoving:Fire(p);p.Parent=nil end
+ function ctx:remote(p,action,id,requestId)
+  local before=p:GetAttribute('InRound');if action=='Buy' and not self.rawShop then p:SetAttribute('InRound',false) end
+  local r=RS:FindFirstChild('HussEconomyV9');r.OnServerEvent:Fire(p,action,id,requestId)
+  if action=='Buy' and not self.rawShop then p:SetAttribute('InRound',before) end
+ end
+ function ctx:chatCommand(p,message)
+  if chat.ChatVersion=='Legacy' then p.Chatted:Fire(message)
+  else local command=chat:FindFirstChild('HussOwnerGrantV12');if command then local source=Instance.new('TextSource');source.UserId=p.UserId;command.Triggered:Fire(source,message) end end
+ end
+ function ctx:last(p,kind)
+  local list=self.outputs[p] or {};for i=#list,1,-1 do if not kind or list[i].kind==kind then return list[i] end end
+ end
+ function ctx:round(p,q,winner,passes)
+  E.BeginRound({p,q});for i=1,passes or 0 do E.Pass(p,q);self:step(.3) end
+  self:step(5);E.EndRound(winner);self:step(0)
+ end
+ E.Init();E.Init()
+ return ctx
+end
+-- Preview never obtains either datastore, and official leaderstats are canonical.
+local s=environment(true);local a,b=s:add(1),s:add(2);s:step(0)
+check(s.calls.getStore==0 and s.calls.getOrdered==0,'Studio must never open live stores')
+check(s:last(a).ready and s:last(a).mode=='preview','preview ready')
+check(#a:FindFirstChild('leaderstats'):GetChildren()==4,'canonical four leaderstats')
+check(a:FindFirstChild('leaderstats'):FindFirstChild('Wins'):FindFirstChild('IsPrimary').Value==true,'native Wins primary')
+s:remote(a,'Board',nil,1);check(s:last(a).status=='preview' and #s:last(a).rows==0,'no fake preview leaderboard')
+-- No solo, AFK, non-roster, abort, stale repeated-result or instant-disconnect rewards.
+s.E.BeginRound({a});s:step(6);s.E.EndRound(a);check(s:last(a,'Profile').Coins==0,'solo no reward')
+b:SetAttribute('BombTagAFK',true);s:round(a,b,a);check(s:last(a,'Profile').Coins==0,'AFK excluded')
+b:SetAttribute('BombTagAFK',false);s.E.BeginRound({a,b});s.E.Pass(a,b);s.E.AbortRound();s:step(6);s.E.EndRound(a);check(s:last(a,'Profile').Passes==0,'abort no pass reward')
+s.E.BeginRound({a,b});s.E.EndRound(nil);check(s:last(a,'Profile').Coins==20,'quick validmatch preserves participation')
+s.E.BeginRound({a,b});s:step(5);b:SetAttribute('InRound',false);b.Character:FindFirstChildOfClass('Humanoid').Health=0;b:SetAttribute('BombTagAFK',true);s.E.EndRound(a)
+check(s:last(a,'Profile').Coins==120 and s:last(a,'Profile').Wins==1,'winner gets100 +win')
+check(s:last(b,'Profile').Coins==40 and s:last(b,'Profile').GamesPlayed==2,'eliminated roster player receives participation')
+s.E.EndRound(a);check(s:last(a,'Profile').Coins==120,'repeated result cannot reward twice')
+check(a:FindFirstChild('leaderstats'):FindFirstChild('Coins').Value==120,'leaderstats synced')
+s:remote(a,'Claim','wins',2);check(s:last(a).Coins==320 and s:last(a).requestId==2,'questclaim once')
+s:remote(a,'Claim','wins',3);check(s:last(a).Coins==320 and s:last(a).ok==false,'quest replay blocked')
+s:remote(a,'Buy','aqua',4);check(s:last(a).Coins==70 and s:last(a).Equipped=='aqua','authoritative cosmetic purchase')
+check(a:GetAttribute('HussTrailId')=='aqua' and a:GetAttribute('HussTrailColor').B==1,'server equipment replicated')
+s:remote(a,'Buy','aqua',5);check(s:last(a).Coins==70,'duplicate purchase no doublecharge')
+s:remote(a,'Equip','royal',6);check(s:last(a).ok==false and s:last(a).Equipped=='aqua','unowned equip blocked')
+s:remote(a,'Buy','rose',7);check(s:last(a).ok==false and s:last(a).Coins==70,'insufficient funds no mutation')
+s:step(3)
+local before=#s.outputs[a]
+s:remote(a,'Award',100000,8);s:remote(a,'Buy',{price=-1000},9);s:remote(a,'Claim',0/0,10);s:remote(a,'Buy','aqua',0/0)
+check(s:last(a,'Profile').Coins==70,'malformed or award requests never grant currency')
+s:step(3)
+s:remote(a,'Equip','default',11);check(s:last(a).Equipped=='default' and a:GetAttribute('HussTrailColor')==nil,'default clears cosmetic color')
+-- Real transfer accounting bound per match; only roster and valid living players.
+b:SetAttribute('InRound',true);b:SetAttribute('BombTagAFK',false);b.Character:FindFirstChildOfClass('Humanoid').Health=100
+s.E.BeginRound({a,b});s.E.Pass(a,a);for i=1,20 do s.E.Pass(a,b);s:step(.3) end;s.E.EndRound(a)
+check(s:last(a,'Profile').Passes==20 and s:last(a,'Profile').Quests[2].progress==10,'pass cap and quest target')
+s:remote(a,'Claim','passes',12);check(s:last(a).Coins==320,'pass questreward')
+s:round(a,b,a);s:remote(a,'Claim','rounds',13);check(s:last(a).Coins==520,'roundquest reward')
+-- No-op equipment does not queue backend writes; changed equipment is coalesced.
+local throttle=environment(false);local ta,tb=throttle:add(150),throttle:add(151);throttle:step(0)
+throttle:round(ta,tb,ta);throttle:remote(ta,'Claim','wins',1);throttle:step(10);throttle:remote(ta,'Buy','aqua',2);throttle:step(10)
+local calls=throttle.calls.profile
+for i=1,5 do throttle:remote(ta,'Equip','aqua',i+2) end;throttle:step(0)
+check(throttle.calls.profile==calls,'no-op equip avoids datastore writes')
+throttle:step(3);throttle:remote(ta,'Equip','default',8);throttle:step(1);throttle:remote(ta,'Equip','aqua',9);throttle:step(8)
+check(throttle.calls.profile==calls+1 and throttle.profiles.u150.Equipped=='aqua','equip changes coalesced into latest durable state')
+-- A genuine fast match still awards the displayed winner exactly once.
+local fast=environment(true);local fa,fb=fast:add(160),fast:add(161);fast:step(0);fast.E.BeginRound({fa,fb});fast.E.EndRound(fa)
+check(fast:last(fa).Wins==1 and fast:last(fa).Coins==100,'fast legitimate winner preserved')
+-- UTC rollover clears only daily claim/progress, not wallet/items/wins.
+s:step(86400)
+s:remote(a,'Sync',nil,14);local nextDay=s:last(a)
+check(nextDay.Coins==520 and nextDay.Wins==3 and nextDay.Quests[1].progress==0 and nextDay.Quests[1].claimed==false,'dailyreset preserves profile')
+check(table.find(nextDay.Owned,'aqua')~=nil,'dailyreset preserves purchase')
+check(s.calls.profile==0 and s.calls.ordered==0 and s.calls.board==0,'allpreview operations avoidlive stores')
+-- Persistent load/save, callback retries, graceful lease release and rejoin.
+local data,rank={},{ }
+local live=environment(false,data,rank);live.callbackRepeat=true
+local p,q=live:add(10),live:add(11);live:step(0)
+check(live:last(p).mode=='live' and data.u10.Lease~=nil,'published loads lease')
+live:round(p,q,p,10)
+check(data.u10.Coins==100 and data.u10.Wins==1 and rank['10']==1,'persisted reward and globalWins projection')
+live:remote(p,'Claim','wins',1);live:step(10)
+check(data.u10.Coins==300 and data.u10.Claimed.wins==true,'claimedreward durable')
+live:remote(p,'Buy','aqua',2);live:step(10)
+check(data.u10.Coins==50 and data.u10.Owned.aqua==true,'spend and ownership same savedprofile')
+live:remove(p);live:step(0)
+check(data.u10.Lease==nil,'leaving explicitly releases lease')
+local again=live:add(10);live:step(0)
+check(live:last(again).Coins==50 and live:last(again).Equipped=='aqua' and live:last(again).ready,'immediate same-server rejoin safe')
+-- Two servers: active lease refused; zero/default data never overwrites stored values.
+local other=environment(false,data,rank);local conflict=other:add(10);other:step(0)
+check(other:last(conflict).mode=='unavailable' and not other:last(conflict).ready,'crossserver session conflict fails closed')
+other:remote(conflict,'Buy','default',1);check(other:last(conflict).ok==false and data.u10.Coins==50,'lockedprofile cannotmutate')
+other:remove(conflict);other:step(0);check(data.u10.Lease~=nil,'rejectedserver never releases another lease')
+-- Corrupt load and repeated backend failures cannot replace valuable saved data.
+local corrupt={u20={v=99,Coins=999}};local c=environment(false,corrupt);local cp=c:add(20);c:step(0)
+check(c:last(cp).mode=='unavailable' and corrupt.u20.Coins==999 and corrupt.u20.v==99,'future/corruptschema retained')
+local failing=environment(false);failing.fail=3;local fp=failing:add(30);failing:step(4)
+check(not failing:last(fp).ready and failing.profiles.u30==nil,'failed load does not create profile')
+failing:remote(fp,'Claim','wins',1);check(failing:last(fp).ok==false,'failedload forbidsclaims')
+-- Mutations while save yields remain in memory, then final save includes latest revision.
+local race=environment(false);local x,y=race:add(40),race:add(41);race:step(0)
+race.delay=2;race.E.BeginRound({x,y});race:step(5);race.E.EndRound(x);race:step(0)
+race:remote(x,'Claim','wins',1);race:remote(x,'Buy','aqua',2)
+check(race:last(x).Coins==50,'inflight mutations use current authoritative wallet')
+race:remove(x);race:step(14.1)
+check(race.profiles.u40.Coins==50 and race.profiles.u40.Owned.aqua and race.profiles.u40.Lease==nil,'save inflight then leave flushes newest snapshot and releases')
+-- Leaving during load never activates profile and releases acquired lease.
+local late=environment(false);late.delay=2;local lp=late:add(50);late:step(0);late:remove(lp);late:step(4.1)
+check(late.profiles.u50.Lease==nil and (late.outputs[lp]==nil or #late.outputs[lp]==0),'late load release')
+
+-- Expired own lease cannot write stale memory; newserver may load durable data.
+local expire=environment(false);local ep,eq=expire:add(60),expire:add(61);expire:step(0);expire.fail=1000
+expire:step(190);expire:remote(ep,'Sync',nil,1)
+check(not expire:last(ep).ready,'expired session disables mutations')
+expire.fail=0;expire:step(40)
+check(not expire:last(ep).ready and expire:last(ep).mode=='unavailable','expired ownlease never reacquired from stale memory')
+-- Theft while a save is pending cannot overwrite replacement session.
+local theft=environment(false);local tp,tq=theft:add(70),theft:add(71);theft:step(0)
+theft.delay=2;theft.E.BeginRound({tp,tq});theft:step(5);theft.E.EndRound(tp);theft:step(0)
+theft.profiles.u70.Lease={token='other',expires=1900001000};theft.profiles.u70.Coins=777
+theft:step(2)
+check(theft.profiles.u70.Coins==777 and theft.profiles.u70.Lease.token=='other' and not theft:last(tp).ready,'lost lease neveroverwritten')
+-- Final failed save retains previous confirmed profile and warns; never clears other lease.
+local failSave=environment(false);local sp,sq=failSave:add(80),failSave:add(81);failSave:step(0)
+failSave.fail=100;failSave:round(sp,sq,sp);failSave:remove(sp);failSave:step(4)
+check(failSave.profiles.u80.Coins==0 and failSave.profiles.u80.Lease~=nil and #failSave.warns>0,'failedfinal save retained old profile and reported')
+-- Board cached120s, bounded20 rows, errors explicit; saves cannot decrease ranking.
+local bdata={};for i=1,30 do bdata[tostring(i)]=100-i end
+local boards=environment(false,nil,bdata);local bp=boards:add(90);boards:step(0)
+boards:remote(bp,'Board',nil,1);boards:step(0);local output=boards:last(bp,'Board')
+check(output.status=='ready' and #output.rows==20 and output.rows[1].wins==99,'globalboard actualordered top20')
+for i=1,20 do boards:remote(bp,'Board',nil,2) end
+check(boards.calls.board==1,'boardrequest spam neverburns datastore')
+boards:step(121);check(boards.calls.board==2,'boardcache automaticrefresh')
+boards.boardFail=true;boards:step(120);check(boards:last(bp,'Board').status=='unavailable','boardfailure visiblyunavailable')
+local lower=environment(false,nil,{['100']=99});local op,oq=lower:add(100),lower:add(101);lower:step(0);lower:round(op,oq,op)
+check(lower.ordered['100']==99,'stale board write never regresses')
+-- Graceful shutdown waits for pending saves and releases every profile.
+local close=environment(false);local ca,cb=close:add(110),close:add(111);close:step(0);close.delay=1
+close:round(ca,cb,ca);task=nil -- no external scheduler API: queue close callback as coroutine.
+table.insert(close.queue,{co=coroutine.create(close.closeFn),at=close.now});close:step(4)
+check(close.profiles.u110.Lease==nil and close.profiles.u111.Lease==nil,'shutdown release allprofiles')
+
+
+-- Shared collection completeness, retained IDs and useful metadata.
+local count={};local known={}
+for _,item in ipairs(SharedCatalog.Items) do
+ count[item.category]=(count[item.category] or 0)+1
+ check(not known[item.id] and SharedCatalog.ById[item.id]==item and #item.id<=20,'unique bounded catalog ID '..item.id);known[item.id]=true
+ check(#item.description>10 and #item.name>3 and type(item.style)=='string' and type(item.rarity)=='string' and item.price>=0 and item.price%1==0 and #item.color==3,'complete cosmetic metadata '..item.id)
+end
+check(count.Bombs==25 and count.Trails==25 and count.Titles==10 and count.Emotes==8,'exact collection counts')
+for category,id in pairs(SharedCatalog.Defaults) do check(SharedCatalog.ById[id].category==category and SharedCatalog.ById[id].price==0,'free starter '..category) end
+for id,price in pairs({default=0,aqua=250,sunset=400,royal=600,lime=800,rose=1000}) do check(SharedCatalog.ById[id].price==price and SharedCatalog.ById[id].category=='Trails','V9 price and ID preserved '..id) end
+local function legacy()
+ return {v=1,Coins=6000,Wins=9,GamesPlayed=17,Passes=44,Owned={default=true,aqua=true},Equipped='aqua',Day=math.floor(1900000000/86400),Progress={rounds=2,passes=7,wins=1},Claimed={wins=true},FutureNote='preserve me'}
+end
+-- Additive v1 migration keeps earned balances, owned legacy trails and pending daily goals.
+local legacyData={u201=legacy()};local migration=environment(false,legacyData);local mp=migration:add(201);migration:step(0);local profile=migration:last(mp)
+check(profile.ready and profile.Coins==6000 and profile.Wins==9 and profile.GamesPlayed==17 and profile.Passes==44,'legacy totals preserved')
+check(profile.Equipped=='aqua' and profile.EquippedByCategory.Trails=='aqua','legacy equipped trail preserved')
+check(profile.Kills==0 and profile.FinalStands==0 and profile.Quests[1].progress==2 and profile.Quests[2].progress==7 and profile.Quests[3].claimed,'only new fields defaulted')
+check(legacyData.u201.v==1 and legacyData.u201.FutureNote=='preserve me' and legacyData.u201.Lease~=nil,'v1 migration additive with session lease')
+check(#profile.Owned==5 and table.find(profile.Owned,'aqua')~=nil and profile.EquippedByCategory.Bombs=='bomb_classic' and profile.EquippedByCategory.Emotes=='emote_wave','new free starters automatically owned')
+check(mp:GetAttribute('HussBombId')=='bomb_classic' and mp:GetAttribute('HussTitleId')=='title_rookie' and mp:GetAttribute('HussEmoteId')=='emote_wave','server category attrs replicated')
+-- Each purchase atomically charges once and equips only its own category.
+migration:remote(mp,'Buy','bomb_ember',1);migration:step(0)
+migration:remote(mp,'Buy','title_runner',2);migration:remote(mp,'Buy','emote_cheer',3);migration:step(10)
+profile=migration:last(mp)
+check(profile.Coins==4850 and profile.Equipped=='aqua' and profile.EquippedByCategory.Bombs=='bomb_ember' and profile.EquippedByCategory.Titles=='title_runner' and profile.EquippedByCategory.Emotes=='emote_cheer','independent category equipment')
+check(legacyData.u201.Coins==4850 and legacyData.u201.Owned.bomb_ember and legacyData.u201.Owned.title_runner and legacyData.u201.Owned.emote_cheer,'wallet and all category purchases persist atomically')
+check(mp:GetAttribute('HussEmoteId')=='emote_cheer' and mp:GetAttribute('HussBombId')=='bomb_ember','category equipment attrs update')
+migration:remote(mp,'Buy','bomb_ember',4);check(migration:last(mp).Coins==4850,'duplicate bomb buy never recharges')
+migration:remote(mp,'Equip','bomb_solar',5);check(migration:last(mp).ok==false and migration:last(mp).EquippedByCategory.Bombs=='bomb_ember','unowned bomb cannot equip')
+migration:remote(mp,'Equip','title_legend',6);check(migration:last(mp).ok==false and mp:GetAttribute('HussTitleId')=='title_runner','unowned title cannot equip')
+migration:remote(mp,'Equip','emote_spin',7);check(migration:last(mp).ok==false and mp:GetAttribute('HussEmoteId')=='emote_cheer','unowned emote cannot equip')
+migration:step(3);migration:remote(mp,'Equip','default',8);migration:step(10)
+check(migration:last(mp).EquippedByCategory.Trails=='default' and migration:last(mp).EquippedByCategory.Bombs=='bomb_ember','legacy trail equip leaves other categories alone')
+migration:remove(mp);migration:step(0);local migratedAgain=migration:add(201);migration:step(0)
+check(migration:last(migratedAgain).ready and migration:last(migratedAgain).EquippedByCategory.Emotes=='emote_cheer' and migration:last(migratedAgain).Coins==4850,'new category selections survive release and rejoin')
+-- Corrupt additive fields fail closed; no repair wipes purchased progression.
+for index,mutate in ipairs({
+ function(d) d.Kills=-1 end,
+ function(d) d.FinalStands='50' end,
+ function(d) d.EquippedByCategory={Bombs='aqua'} end,
+ function(d) d.EquippedByCategory={Emotes='emote_spin'} end,
+ function(d) d.EquippedByCategory={Trails='default'} end,
+ function(d) d.Owned.bomb_ember={paid=true} end,
+}) do
+ local data=legacy();mutate(data);local corruptStore={['u'..(300+index)]=data};local invalid=environment(false,corruptStore);local ip=invalid:add(300+index);invalid:step(0)
+ check(not invalid:last(ip).ready and corruptStore['u'..(300+index)].Coins==6000 and corruptStore['u'..(300+index)].Lease==nil,'invalid additive field retained safely '..index)
+end
+-- Wrong category remote payload or invented grants never write a statistic.
+local evilBefore=migration:last(migratedAgain).Coins
+migration:remote(migratedAgain,'Kills',9000,9);migration:remote(migratedAgain,'FinalStand',9000,10);migration:remote(migratedAgain,'Buy',{id='bomb_solar',price=0},11)
+check(migration:last(migratedAgain).Coins==evilBefore and migration:last(migratedAgain).Kills==0 and migration:last(migratedAgain).FinalStands==0,'client cannot award stats or discount prices')
+-- Three-player final stand: exactly two remaining, once, settlement after match only.
+local stats=environment(true);local sa,sb,sc=stats:add(401),stats:add(402),stats:add(403);stats:step(0)
+stats.E.BeginRound({sa,sb,sc});stats.E.FinalStand({sa,sb});stats.E.Pass(sa,sc);stats.E.Elimination(sa,sc)
+sc.Character:FindFirstChildOfClass('Humanoid').Health=0;sc:SetAttribute('InRound',false)
+stats.E.FinalStand({sa,sa});stats.E.FinalStand({sa,sb});stats.E.FinalStand({sb,sa})
+check(stats:last(sa).Kills==0 and stats:last(sa).FinalStands==0,'new stats do not settle early')
+stats.E.Elimination(sa,sc);stats.E.Pass(sa,sb);stats.E.Elimination(sa,sb);stats.E.Elimination(sa,sb)
+stats.E.EndRound(sa)
+check(stats:last(sa).Kills==2 and stats:last(sa).FinalStands==1 and stats:last(sa).Wins==1,'last passer credited each victim once and final stand once')
+check(stats:last(sb).Kills==0 and stats:last(sb).FinalStands==1 and stats:last(sc).FinalStands==0,'only last two receive final stand')
+check(sa:FindFirstChild('leaderstats'):FindFirstChild('Kills').Value==2 and sb:FindFirstChild('leaderstats'):FindFirstChild('FinalStands').Value==1,'native list shares new stats')
+stats.E.EndRound(sa);check(stats:last(sa).Kills==2 and stats:last(sa).FinalStands==1,'repeated match settlement cannot duplicate stats')
+-- No kill credit without a successful transfer, for self-explosions or wrong passers.
+local function revive(p) p:SetAttribute('InRound',true);p.Character:FindFirstChildOfClass('Humanoid').Health=100 end
+revive(sb);revive(sc);stats.E.BeginRound({sa,sb,sc});stats.E.Elimination(sa,sb);stats.E.Pass(sa,sc);stats.E.Elimination(sc,sc);stats.E.EndRound(sa)
+check(stats:last(sa).Kills==2 and stats:last(sc).Kills==0,'unpassed and self explosion grant no kill')
+stats.E.BeginRound({sa,sb,sc});stats.E.Pass(sa,sb);stats.E.Pass(sb,sc);stats.E.Elimination(sa,sc);stats.E.EndRound(sa)
+check(stats:last(sa).Kills==2 and stats:last(sb).Kills==0,'wrong last passer cannot receive kill')
+-- Abort discards pending stats and no bot facade can qualify solo practice.
+stats.E.BeginRound({sa,sb});stats.E.FinalStand({sa,sb});stats.E.Pass(sa,sb);stats.E.Elimination(sa,sb);stats.E.AbortRound();stats.E.EndRound(sa)
+check(stats:last(sa).Kills==2 and stats:last(sa).FinalStands==1,'aborted round discards pending stats')
+local fake={Name='Practice Bot',UserId=-1,Parent=stats.players,Character=sb.Character,GetAttribute=function() return true end,IsA=function() return true end}
+stats.E.BeginRound({sa,fake});stats.E.FinalStand({sa,fake});stats.E.Pass(sa,fake);stats.E.Elimination(sa,fake);stats.E.EndRound(sa)
+check(stats:last(sa).Kills==2 and stats:last(sa).FinalStands==1 and stats:last(sa).Wins==3,'solo bot facade cannot earn persistent stats')
+-- Stats persist in the same profile transaction, including mutations while saving.
+local statLive=environment(false);local la,lb=statLive:add(501),statLive:add(502);statLive:step(0)
+statLive.E.BeginRound({la,lb});statLive.E.FinalStand({la,lb});statLive.E.Pass(la,lb);statLive.E.Elimination(la,lb);statLive.delay=2;statLive.E.EndRound(la);statLive:step(0)
+statLive:remote(la,'Claim','wins',1);statLive:remove(la);statLive:step(14)
+check(statLive.profiles.u501.Kills==1 and statLive.profiles.u501.FinalStands==1 and statLive.profiles.u501.Coins==300 and statLive.profiles.u501.Lease==nil,'new stats and concurrent claim persist atomically on leave')
+-- Server lobby boards read a copied, throttled projection; callers cannot mutate cache.
+local lobbyBoard=environment(false,nil,{['601']=88});local ba=lobbyBoard:add(601);lobbyBoard:step(0)
+local early=lobbyBoard.E.GetBoard();lobbyBoard:step(0);local readyBoard=lobbyBoard.E.GetBoard()
+check(early.status=='loading' and readyBoard.status=='ready' and readyBoard.rows[1].wins==88,'server board loads actual cached ordered standings')
+readyBoard.rows[1].wins=99999;for _=1,20 do lobbyBoard.E.GetBoard() end
+check(lobbyBoard.E.GetBoard().rows[1].wins==88 and lobbyBoard.calls.board==1,'board API clone and throttled refresh')
+
+
+{{REGRESSIONS}}

@@ -1,0 +1,107 @@
+-- Mocked Roblox engine objects; production BombService is executed unchanged.
+local Sources={Bomb=[======[{{BOMB}}]======],Weave=[======[{{WEAVE}}]======]}
+local checks=0
+local function check(value,label) checks+=1;assert(value,label) end
+local function eq(a,b,label) check(a==b,label..' ('..tostring(a)..' vs '..tostring(b)..')') end
+local function signal()
+ local s={fns={}}
+ function s:Connect(fn) local c={Connected=true};table.insert(self.fns,{fn,c});function c:Disconnect() self.Connected=false end;return c end
+ function s:Fire(...) for _,entry in ipairs(self.fns) do if entry[2].Connected then entry[1](...) end end end
+ return s
+end
+local vecMT={}
+local function vec(x,y,z) return setmetatable({X=x,Y=y,Z=z},vecMT) end
+vecMT.__add=function(a,b) return vec(a.X+b.X,a.Y+b.Y,a.Z+b.Z) end
+vecMT.__sub=function(a,b) return vec(a.X-b.X,a.Y-b.Y,a.Z-b.Z) end
+vecMT.__mul=function(a,b) return vec(a.X*b,a.Y*b,a.Z*b) end
+vecMT.__index=function(v,k)
+ if k=='Magnitude' then return math.sqrt(v.X*v.X+v.Y*v.Y+v.Z*v.Z) end
+ if k=='Dot' then return function(a,b) return a.X*b.X+a.Y*b.Y+a.Z*b.Z end end
+end
+local V={new=vec,zero=vec(0,0,0)}
+local cfMT={}
+local function cf(x,y,z)
+ return setmetatable({Position=type(x)=='table' and x or vec(x or 0,y or 0,z or 0)},cfMT)
+end
+cfMT.__mul=function(a,b) return cf(a.Position+b.Position) end
+cfMT.__add=function(a,b) return cf(a.Position+b) end
+local CF={new=cf,Angles=function() return cf() end}
+local function obj(class,name)
+ local o={ClassName=class,Name=name or class,Children={},Attributes={},AncestryChanged=signal()}
+ function o:IsA(c) return c==self.ClassName or c=='BasePart' and (self.ClassName=='Part' or self.ClassName=='SpawnLocation') end
+ function o:FindFirstChild(n) for _,c in ipairs(self.Children) do if c.Name==n then return c end end;return rawget(self,n) end
+ function o:WaitForChild(n) local found=self:FindFirstChild(n);assert(found,'missing '..n);return found end
+ function o:FindFirstChildOfClass(c) for _,child in ipairs(self.Children) do if child.ClassName==c then return child end end end
+ function o:GetChildren() return self.Children end
+ function o:GetAttribute(n) return self.Attributes[n] end
+ function o:SetAttribute(n,v) self.Attributes[n]=v end
+ function o:Destroy() self.Parent=nil end
+ return o
+end
+local function child(p,o) table.insert(p.Children,o);o.Parent=p;return o end
+local function player(id,x)
+ local p=obj('Player','P'..id);p.UserId=id;p.DisplayName=p.Name;p.Parent=true;p.CharacterAdded=signal()
+ function p:LoadCharacter()
+  local c=obj('Model','Character');c.Parent=true
+  local h=child(c,obj('Humanoid'));h.Health=100;h.MaxHealth=100;h.Died=signal()
+  local r=child(c,obj('Part','HumanoidRootPart'));r.Position=vec(x or id*10,0,0);r.CFrame=cf(r.Position);r.Orientation=vec(0,0,0)
+  function c:PivotTo(at) r.CFrame=at;r.Position=at.Position end
+  self.Character=c;self.CharacterAdded:Fire(c)
+ end
+ p:LoadCharacter();p:SetAttribute('InRound',true)
+ return p
+end
+local function fresh()
+ local s={events={},players={},now=0}
+ function s:event(kind,...) table.insert(self.events,{kind,...}) end
+ function s:count(kind) local n=0;for _,e in ipairs(self.events) do if e[1]==kind then n+=1 end end;return n end
+ function s:first(kind) for _,e in ipairs(self.events) do if e[1]==kind then return e end end end
+ local players=obj('Players');players.PlayerAdded=signal()
+ function players:GetPlayers() return s.players end
+ local remotes={}
+ function remotes.Init() s:event('Remotes.Init') end
+ function remotes.Get(name)
+  return {FireAllClients=function(_,state) s:event(name,state);s.lastState=state.State;if name=='BombState' then s.lastBomb=state end end}
+ end
+ local econ={}
+ for _,n in ipairs({'Init','BeginRound','EndRound','Pass','AbortRound','Elimination'}) do econ[n]=function(...) s:event(n,...) end end
+ local bomb={}
+ function bomb.Init() s:event('Bomb.Init') end
+ function bomb.Stop() s:event('Bomb.Stop') end
+ function bomb.RunBombCycle(provider,fuse)
+  s:event('Cycle',provider(),fuse)
+  if s.bombCycle then s.bombCycle(provider,fuse) end
+ end
+ local cfg={MapName='Arena01',DebugPrints=false,AbsoluteMinimumPlayers=1,AutoStartMinSeconds=1,AutoStartMaxSeconds=1,RoundStartCountdownSeconds=0,SoloPracticeSeconds=1,ResultsSeconds=2,FinalDuelBombFuseSeconds=5,NormalBombFuseSeconds=10,BetweenBombsSeconds=.1,TagCheckInterval=.1,NewCarrierLockSeconds=0,AntiTagBackSeconds=.5,BombTagRadius=4}
+ local shared=obj('Folder','Shared');shared.Config={GameConfig=cfg};shared.Net={Remotes=remotes}
+ local rs=obj('ReplicatedStorage');child(rs,shared)
+ local services=obj('Folder','Services');services.BombService=bomb;services.RoundService={Init=function() s:event('Round.Init') end};services.EconomyServiceV9=econ
+ services.BombTagMapVoteServiceV6={RunVote=function(seconds) s:event('Vote',seconds) end}
+ services.CosmeticsServiceV11={ApplyBomb=function(p,b) s:event('Skin',p,b) end};services.PerfectWeaveServiceV11={Try=function(...) s:event('PerfectTry',...);return false end};local ss=obj('ServerScriptService');child(ss,services)
+ local ws=obj('Workspace');child(child(ws,obj('Model','Lobby')),obj('SpawnLocation','LobbySpawn'))
+ local map=child(child(ws,obj('Folder','Maps')),obj('Model','Arena01'))
+ local spawns=child(map,obj('Folder','Spawns'))
+ for i=1,3 do local spawn=child(spawns,obj('Part','Spawn'..i));spawn.Position=vec(i*10,0,0);spawn.CFrame=cf(spawn.Position);spawn.Orientation=vec(0,0,0) end
+ function ws:GetServerTimeNow() return s.now end
+ function ws:Raycast(a,b,params) s:event('Ray',a,b,params);if s.ray then return s.ray(a,b,params) end;return nil end
+ local game={GetService=function(_,n) return ({Players=players,ReplicatedStorage=rs,ServerScriptService=ss})[n] end}
+ local task={}
+ function task.wait(t) s.now+=t or .03;if s.wait then s.wait(t) end;return t end
+ function task.defer(fn) fn() end
+ function task.spawn(fn) s.spawned=fn end
+ local enum=setmetatable({},{__index=function(_,cat) return setmetatable({},{__index=function(_,k) return cat..'.'..k end}) end})
+ local env=setmetatable({math=setmetatable({random=function() return 1 end},{__index=math}),typeof=function(v) return getmetatable(v)==vecMT and 'Vector3' or type(v) end,game=game,workspace=ws,script={Parent=services},require=function(x) return x end,task=task,Vector3=V,CFrame=CF,
+  Color3={fromRGB=function(...) return {...} end},Instance={new=obj},Enum=enum,UDim2={fromOffset=function(...) return {...} end,fromScale=function(...) return {...} end},
+  RaycastParams={new=function() return {} end},warn=function(...) s:event('Warn',...) end,print=function(...) s:event('Print',...) end},{__index=getfenv()})
+ function s:load(source) local fn,err=loadstring(source);assert(fn,err);setfenv(fn,env);return fn() end
+ function s:loadRound()
+  local source=Sources.Round:gsub('return RoundService%s*$',[[RoundService.Test={cycle=runRoundCycle,match=runBombMatch,practice=runSoloPractice,lobby=returnEveryoneToLobby,loop=gameLoop,setRunning=function(v) running=v end};return RoundService]])
+  self.round=self:load(source);self.round.Init();self.events={};self.round.Test.setRunning(true);return self.round.Test
+ end
+ function s:loadBomb() self.bomb=self:load(Sources.Bomb);self.bomb.Init();self.events={};return self.bomb end
+ s.cfg=cfg;s.env=env;s.econ=econ
+ return s
+end
+
+
+{{REGRESSIONS}}

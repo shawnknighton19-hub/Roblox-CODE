@@ -1,0 +1,88 @@
+{
+  "status": "passed",
+  "checks": [
+    "Installer equals current assembly inputs",
+    "All V12 runtime payloads compile",
+    "Complete Command Bar installer compiles",
+    "Both Windows TXT files equal the complete installer",
+    "Recorded component source hashes match the release"
+  ],
+  "files": {
+    "BombServiceV12.luau": {
+      "bytes": 15276,
+      "sha256": "7af25b2848bdb6291f52f34e52387919d2d401d10e92acbd6140072355666983"
+    },
+    "HudControllerV12.luau": {
+      "bytes": 63009,
+      "sha256": "529d2cebaebb2e16f9fd761692d2da2ca405c3a09e2b0aa5a22f208c1c2b4f73"
+    },
+    "EconomyServiceV12.luau": {
+      "bytes": 21780,
+      "sha256": "01e08f6cb90c6b78dd6826356d5c6d2793ac833e02998db588424bfb98847d94"
+    },
+    "HussCatalogV12.luau": {
+      "bytes": 8480,
+      "sha256": "07df2c25a345e1be23a4b554b65e91cd7c4548192d11694bec7649986931abce"
+    },
+    "CosmeticsServiceV12.luau": {
+      "bytes": 3115,
+      "sha256": "e67b4beb8d2a6d497beb2884dc8062b2f802cdfe37d5b9b3882ebc681e7de0e0"
+    },
+    "BombSkinBuilderV12.luau": {
+      "bytes": 20184,
+      "sha256": "dcf81a2df076465ad354836b8c8f88a8689464adccd229fe192d33b94e893f8d"
+    },
+    "OwnerCommandsV12.luau": {
+      "bytes": 5869,
+      "sha256": "399c41619eef86db7156d375a97384150034e3224fb89e35472ac3ce91f8c779"
+    },
+    "OwnerFeedbackV12.client.luau": {
+      "bytes": 2505,
+      "sha256": "568ebd8829b50e065dc249717f90480f6b8e9d8bc7a9403b6e6a064e4625db89"
+    },
+    "CarrierPanicV12.client.luau": {
+      "bytes": 13720,
+      "sha256": "f7ddcc5c41d731441b99676b0a526941f0a868d9971d45029e950533b5615759"
+    },
+    "StandShopV12.client.luau": {
+      "bytes": 17769,
+      "sha256": "fb7315fa555dc558714cd8747d2b6b19a6a0b585b678d48e6e171777df3e5ed5"
+    },
+    "Install-Bomb-Expansion-V12.command.luau": {
+      "bytes": 445379,
+      "sha256": "ff2eee79d171a1419b4ffcea9be929c5bfebbe7c921a52e871f45cdbfecdb68b"
+    },
+    "Huss-A-Bomb-V12.txt": {
+      "bytes": 452772,
+      "sha256": "dad63a2c9390df78680356483e67728fa152620f7c2a59f61df9bb925d37dbe7"
+    },
+    "Install-Bomb-Expansion-V12.txt": {
+      "bytes": 452772,
+      "sha256": "dad63a2c9390df78680356483e67728fa152620f7c2a59f61df9bb925d37dbe7"
+    }
+  },
+  "component_reports": {
+    "OwnerCommandsV12.validation.json": {
+      "sha256": "4e6f933e718f742de47562e40513c1aa0269a04c3142a1f29859b73b1b730fda"
+    },
+    "BombServiceV12.validation.json": {
+      "sha256": "9328c37e46cb7b168bff31e0784aeff2d9f39d2a46d7851fb736e9b444ff0ab8"
+    },
+    "BombSkinsV12.validation.json": {
+      "sha256": "d467902d557522ae08719b9fe1624849405319c26db8a491fe893611f8cf85a3"
+    },
+    "CarrierPanicV12.validation.json": {
+      "sha256": "b299422f4c3b248d58f3bed214c4e928b547fd26aa0e030cbadb9d18bf7fa3af"
+    },
+    "ShopV12.validation.json": {
+      "sha256": "a3e24940e9d8d71f0d6aadb941585460e35a816961cb10cde2b1ddcdeaad9674"
+    },
+    "Install-Bomb-Expansion-V12.validation.json": {
+      "sha256": "567031e86ea12c82d0fb538813c831c38cf6b04fbc827e37ab613b0098c84ce2"
+    }
+  },
+  "limits": [
+    "Artifact and syntax verification only; component behavioral checks have separate reports.",
+    "Native Roblox Studio rendering, input, physics, replication and live persistence were not available."
+  ]
+}
