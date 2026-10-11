@@ -1,44 +1,685 @@
--- HUSS A BOMB V11: COLLECTIONS, LOBBY SHOPS, PRACTICE AND EXPANDED MAPS
--- Paste the entire script into Studio's Command Bar with Play stopped.
+-- HUSS A BOMB V11 COMPATIBILITY INSTALLER
+-- Paste the entire script into Roblox Studio's Command Bar with Play stopped.
+-- Local, source-verified migration. No HTTP, asset loader or gameplay module execution.
 local run=game:GetService('RunService')
-assert(run:IsStudio() and not run:IsRunning(),'Stop Play before installing V11. Nothing changed.')
+assert(run:IsStudio() and not run:IsRunning(),'V11: Stop Play before installing. Nothing changed.')
 local storage=game:GetService('ServerStorage')
 local replicated=game:GetService('ReplicatedStorage')
 local server=game:GetService('ServerScriptService')
-local starter=game:GetService('StarterPlayer'):FindFirstChild('StarterPlayerScripts')
-local controllers=starter and starter:FindFirstChild('Controllers')
-local services=server:FindFirstChild('Services')
-local hud=controllers and controllers:FindFirstChild('HudController')
-local main=server:FindFirstChild('ServerMain')
-local round=services and services:FindFirstChild('RoundService')
-local bomb=services and services:FindFirstChild('BombService')
-local economy=services and services:FindFirstChild('EconomyServiceV9')
-local movement=starter and starter:FindFirstChild('SnappyMovement')
-local effects=starter and starter:FindFirstChild('MovementEffectsV8')
-local originalLibrary=storage:FindFirstChild('MapLibrary')
-local originalLobby=workspace:FindFirstChild('Lobby')
-local originalPreviews=replicated:FindFirstChild('BombTagV6Previews')
-local maps=workspace:FindFirstChild('Maps')
-local anchor=workspace:FindFirstChild('ActiveArenaAnchor')
-local function needs(object,class,marker)
- assert(object and object:IsA(class) and (not marker or object.Source:find(marker,1,true)),
-  'V11 needs the previous V10/V9 game: '..tostring(object and object.Name or class)..'. Nothing changed.')
-end
-needs(hud,'ModuleScript','-- HussReferenceHudV10');needs(economy,'ModuleScript','-- HussEconomyV9')
-needs(main,'Script','-- HussEconomyHooksV9');needs(round,'ModuleScript','-- HussEconomyHooksV9');needs(bomb,'ModuleScript','-- HussEconomyHooksV9')
-needs(movement,'LocalScript','-- HussShiftLockV7');needs(effects,'LocalScript','-- HussTrailShopV9')
-needs(originalLibrary,'Folder');needs(originalLobby,'Model');needs(originalPreviews,'Folder');needs(maps,'Folder');needs(anchor,'BasePart')
-local originalArena
-for _,model in ipairs(maps:GetChildren()) do if model:IsA('Model') then assert(not originalArena,'Expected one active arena. Nothing changed.');originalArena=model end end
-needs(originalArena,'Model')
+local starterRoot=game:GetService('StarterPlayer')
+local issues,notes={},{}
+local function problem(message) table.insert(issues,tostring(message)) end
+local function note(message) table.insert(notes,tostring(message)) end
+local function path(object) return object and object:GetFullName() or '(missing)' end
 local function canonical(source) return source:gsub('\r\n','\n'):match('^%s*(.-)%s*$') end
 local function fingerprint(source)
  source=canonical(source);local a,b=1,0
  for i=1,#source do a=(a+source:byte(i))%65521;b=(b+a)%65521 end
  return #source,b*65536+a
 end
+local function unique(parent,name,class,recursive,optional)
+ local found={}
+ if parent then for _,object in ipairs(recursive and parent:GetDescendants() or parent:GetChildren()) do
+  if object.Name==name then table.insert(found,object) end
+ end end
+ if #found==0 then if not optional then problem(path(parent)..'/'..name..' is missing; expected '..class..'.') end;return nil end
+ if #found~=1 then
+  local locations={};for _,object in ipairs(found) do table.insert(locations,path(object)..' ('..object.ClassName..')') end
+  problem('Ambiguous '..name..': '..table.concat(locations,', ')..'. Keep one active owner; nothing will be guessed.');return nil
+ end
+ local object=found[1]
+ if not object:IsA(class) then problem(path(object)..' is '..object.ClassName..'; expected '..class..'.');return nil end
+ return object
+end
+local function stopPreflight()
+ if #issues>0 then error('V11 compatibility preflight stopped. Originals preserved.\n- '..table.concat(issues,'\n- '),0) end
+end
+local function attempt(label,fn)
+ local ok,result=pcall(fn)
+ if not ok then problem(label..': '..tostring(result));return nil end
+ return result
+end
 
-local patchHUD=(function()
+local gameplayAdapter=(function()
+-- V11 compatibility adapter: verified uploaded V6/AFK, V9 economy, or full V11.
+-- Full normalized source fingerprints are checked before any exact, unique edit.
+-- All functions return strings only; installation/backup/rollback belongs to caller.
+local Compat={}
+local function normalize(source)
+ assert(type(source)=='string','Expected readable source text; nothing changed.')
+ source=source:gsub('\r\n','\n')
+ if source:sub(1,3)==string.char(239,187,191) then source=source:sub(4) end
+ return (source:gsub('^%s+',''):gsub('%s+$',''))
+end
+function Compat.Fingerprint(source)
+ source=normalize(source)
+ local a,b=5381,2166136261
+ for i=1,#source do
+  local x=source:byte(i)
+  a=(a*33+x)%4294967291
+  b=(b*65599+x)%4294967279
+ end
+ return string.format('%d:%08x:%08x',#source,a,b)
+end
+local Known={
+ Main={['885:ce2918ba:fa013302']='Uploaded',['965:f0276cf6:68b0fa72']='V9',['1050:fe193541:4179e92e']='V11'},
+ Round={['21588:26caf1f9:1b8c1816']='Uploaded',['21087:ee2201de:a0c1c2de']='V9',['21043:230100af:ed56a242']='V11'},
+ Bomb={['12904:5712c657:06331ded']='Uploaded',['13035:890b580f:70784e55']='V9',['13683:5783794e:74cae3bf']='V11'},
+}
+local UnsupportedV3={Main='1018:ae5188eb:a66da2cb',Round='21161:315db319:8c760ffb'}
+function Compat.Classify(kind,source)
+ assert(Known[kind],'Unknown compatibility component '..tostring(kind))
+ local fingerprint=Compat.Fingerprint(source)
+ local variant=Known[kind][fingerprint]
+ if variant then return variant end
+ if UnsupportedV3[kind]==fingerprint then
+  return nil,kind..' is the older V3 MapService integration. Its voting/state-sync protocol is different from this V6/AFK project; keep it unchanged and export that complete project for a separate adapter.'
+ end
+ return nil,kind..' source is not a verified uploaded, V9, or complete V11 version ('..fingerprint..'). Partial installs and custom edits are not overwritten. Export this script from Studio so its actual code can be adapted.'
+end
+local EconomyPatch=(function()
+-- V9: the economy owns progression; gameplay remains server-authoritative.
+local Patch={}
+local marker='-- HussEconomyHooksV9'
+local function replace(source,old,new,label)
+ local a,b=source:find(old,1,true)
+ assert(a and not source:find(old,b+1,true),'Unexpected '..label..'. Nothing changed.')
+ return source:sub(1,a-1)..new..source:sub(b+1)
+end
+local function removeSection(source,first,last)
+ local a=source:find(first,1,true);local b=a and source:find(last,a+1,true)
+ assert(a and b,'Server helper section differs. Nothing changed.')
+ return source:sub(1,a-1)..source:sub(b)
+end
+local requireEconomy="local Economy=require(script.Parent:WaitForChild('EconomyServiceV9'))\n"
+function Patch.Main(source)
+ if source:find(marker,1,true) then
+  assert(source:find("require(Services:WaitForChild('EconomyServiceV9')).Init()",1,true),'Incomplete V9 server boot. Nothing changed.');return source
+ end
+ return replace(source,'BombService.Init()',marker.."\nrequire(Services:WaitForChild('EconomyServiceV9')).Init()\nBombService.Init()",'server initialization')
+end
+function Patch.Round(source)
+ if source:find(marker,1,true) then
+  assert(source:find('Economy.BeginRound(getAlivePlayers())',1,true) and source:find('Economy.EndRound(winner)',1,true) and not source:find('wins.Value += 1',1,true),'Incomplete V9 round hooks. Nothing changed.');return source
+ end
+ source=replace(source,'local RoundService = {}',marker..'\n'..requireEconomy..'local RoundService = {}','round service')
+ source=removeSection(source,'local function setupLeaderstats(player)','------------------------------------------------------------\n-- LOBBY SPAWN')
+ source=replace(source,'\tsetupLeaderstats(\n\t\tplayer\n\t)\n','', 'legacy leaderstats call')
+ source=removeSection(source,'local function awardWin(player)','------------------------------------------------------------\n-- BOMB MATCH')
+ source=replace(source,'\t\tawardWin(\n\t\t\twinner\n\t\t)\n','', 'legacy win award')
+ source=replace(source,'local function runBombMatch()','local function runBombMatch()\n\tEconomy.BeginRound(getAlivePlayers())','round start')
+ source=replace(source,'\t-- RESULTS\n\t--------------------------------------------------------','\t-- RESULTS\n\t--------------------------------------------------------\n\n\tEconomy.EndRound(winner)','round result')
+ source=replace(source,'local function returnEveryoneToLobby()','local function returnEveryoneToLobby()\n\tEconomy.AbortRound()','lobby cleanup')
+ source=replace(source,'\t\tif not success then','\t\tif not success then\n\t\t\tEconomy.AbortRound()','round error cleanup')
+ return source
+end
+function Patch.Bomb(source)
+ if source:find(marker,1,true) then
+  assert(source:find('Economy.Pass(oldCarrier,carrier)',1,true),'Incomplete V9 bomb hook. Nothing changed.');return source
+ end
+ source=replace(source,'local BombService = {}',marker..'\n'..requireEconomy..'local BombService = {}','bomb service')
+ return replace(source,'\t\t\t\t\t\t\t"Transferred"\n\t\t\t\t\t\t)','\t\t\t\t\t\t\t"Transferred"\n\t\t\t\t\t\t)\n\t\t\t\t\t\tEconomy.Pass(oldCarrier,carrier)','successful bomb transfer')
+end
+return Patch
+
+end)()
+local CorePatch=(function()
+-- V11 server combat/stat hooks and movement integration. No cooldown changes.
+local P={}
+local function replace(s,old,new,label)
+ local a,b=s:find(old,1,true);assert(a and not s:find(old,b+1,true),'Unexpected '..label..'. Nothing changed.')
+ return s:sub(1,a-1)..new..s:sub(b+1)
+end
+function P.Bomb(s)
+ if s:find('-- HussCombatHooksV11',1,true) then
+  assert(s:find('PerfectWeave.Try(carrier,candidate',1,true) and s:find('Economy.Elimination(lastPasser,victim)',1,true),'Incomplete V11 bomb hooks.');return s
+ end
+ assert(s:find('-- HussEconomyHooksV9',1,true),'Install V9 progression first.')
+ s=replace(s,'local BombService = {}',[[-- HussCombatHooksV11
+local Cosmetics=require(script.Parent:WaitForChild('CosmeticsServiceV11'))
+local PerfectWeave=require(script.Parent:WaitForChild('PerfectWeaveServiceV11'))
+local currentActor=nil
+local BombService = {}]],'BombService declaration')
+ s=replace(s,'\tactiveBombPart = bomb\n\tactiveHighlight = highlight','\tactiveBombPart = bomb\n\tactiveHighlight = highlight\n\tCosmetics.ApplyBomb(player,bomb)','bomb appearance')
+ s=replace(s,'\tbombRemote:FireAllClients({','\tcurrentActor=active and carrier or nil\n\tbombRemote:FireAllClients({','bomb state')
+ s=replace(s,'function BombService.Init()',[[function BombService.GetCarrier() return currentActor end
+function BombService.Init()]],'bomb initialization')
+ s=replace(s,'\tlocal endTime =\n','\tlocal lastPasser=nil\n\tlocal endTime =\n','bomb cycle state')
+ s=replace(s,'\t\tif not isAlive(carrier) then','\t\tif not isAlive(carrier) then\n\t\t\tlastPasser=nil','carrier reassignment')
+ s=replace(s,'\t\t\t\t\tif hasDodgeIFrames(candidate) then\n\t\t\t\t\t\tcontinue',[[					if hasDodgeIFrames(candidate) then
+						PerfectWeave.Try(carrier,candidate,previousPositions[carrier.UserId],previousPositions[candidate.UserId],protectedUserId,protectedUntil)
+						continue]],'immune tag check')
+ s=replace(s,'Economy.Pass(oldCarrier,carrier)','lastPasser=oldCarrier\n\t\t\t\t\t\tEconomy.Pass(oldCarrier,carrier)','successful pass')
+ s=replace(s,'\tlocal victim = carrier','\tif #aliveProvider()<=1 then BombService.Stop();return nil end\n\tlocal victim = carrier','final cancellation check')
+ s=replace(s,'\tif victim and isAlive(victim) then','\tif victim and isAlive(victim) then\n\t\tEconomy.Elimination(lastPasser,victim)','elimination credit')
+ return s
+end
+function P.Round(s)
+ if s:find('-- HussFinalStandV11',1,true) then assert(s:find('Economy.FinalStand(alivePlayers)',1,true),'Incomplete Final Stand hook.');return s end
+ assert(s:find('-- HussEconomyHooksV9',1,true),'Install V9 progression first.')
+ return replace(s,'\t\tif finalDuel\n\t\t\tand not finalDuelAnnounced then',[[		if finalDuel
+			and not finalDuelAnnounced then
+			-- HussFinalStandV11
+			Economy.FinalStand(alivePlayers)]],'final duel transition')
+end
+function P.Movement(s)
+ if s:find('-- HussPerfectMovementV11',1,true) then assert(s:find('local function boostedSpeed',1,true),'Incomplete V11 boost.');return s end
+ assert(s:find('-- HussShiftLockV7',1,true),'Install the V7 movement update first.')
+ s=replace(s,'local function cameraOwnsFacing()',[[-- HussPerfectMovementV11
+local function boostedSpeed(base)
+ local untilTime=character and character:GetAttribute('HussPerfectBoostUntil')
+ if player:GetAttribute('InRound')==true and type(untilTime)=='number' and workspace:GetServerTimeNow()<untilTime then return base+6 end
+ return base
+end
+local function cameraOwnsFacing()]],'movement helpers')
+ local function speed(pattern,expected)
+  local n;s,n=s:gsub(pattern,function(left,name) return left..'boostedSpeed('..name..')' end);assert(n==expected,'Movement assignments changed.')
+ end
+ speed('(humanoid%.WalkSpeed%s*=%s*)(WALK_SPEED)',3)
+ speed('(humanoid%.WalkSpeed%s*=%s*)(SPRINT_SPEED)',2)
+ speed('(desiredSpeed%s*=%s*)(WALK_SPEED)',1)
+ speed('(desiredSpeed%s*=%s*)(SPRINT_SPEED)',1)
+ return s
+end
+return P
+
+end)()
+local PracticePatch=(function()
+-- Strict practice integration; multiplayer economy flow remains unchanged.
+local Patch={}
+function Patch.Round(source)
+ local marker='-- HussPracticeHooksV11'
+ if source:find(marker,1,true) then
+  assert(source:find('Practice.Run(player,{',1,true) and source:find('Practice.Stop()',1,true),'Incomplete V11 practice integration. Nothing changed.');return source
+ end
+ assert(source:find('-- HussEconomyHooksV9',1,true),'Install V9 before practice. Nothing changed.')
+ local function replace(old,new)
+  local a,b=source:find(old,1,true);assert(a and not source:find(old,b+1,true),'Round service differs: '..old:sub(1,50)..'. Nothing changed.')
+  source=source:sub(1,a-1)..new..source:sub(b+1)
+ end
+ replace('local RoundService = {}',marker.."\nlocal Practice=require(script.Parent:WaitForChild('PracticeServiceV11'))\nlocal RoundService = {}")
+ local a=assert(source:find('local function runSoloPractice()',1,true))
+ local b=assert(source:find('------------------------------------------------------------\n-- AWARD WIN',a+1,true))
+ source=source:sub(1,a-1)..[[local function runSoloPractice()
+ Economy.AbortRound()
+ local players=getMatchmakingPlayers()
+ if #players~=1 then return end
+ local player=players[1]
+ Practice.Run(player,{
+  Spawns=getSpawnParts(),Ground=groundCharacter,Duration=math.max(60,GameConfig.SoloPracticeSeconds),
+  Running=function() return running end,
+  Send=function(state,timeLeft,alive)
+   roundRemote:FireAllClients({State=state,TimeLeft=timeLeft,Alive=alive,Winner=''})
+  end,
+ })
+end
+
+]]..source:sub(b)
+ replace('local function returnEveryoneToLobby()','local function returnEveryoneToLobby()\n\tPractice.Stop()')
+ replace('\t\tif not success then','\t\tif not success then\n\t\t\tPractice.Stop()')
+ return source
+end
+return Patch
+
+end)()
+local MainPatch=(function()
+return function(source)
+ local marker='-- HussExpansionBootV11'
+ local call="require(Services:WaitForChild('CosmeticsServiceV11')).Init()"
+ if source:find(marker,1,true) then assert(source:find(call,1,true),'Incomplete V11 boot. Nothing changed.');return source end
+ local old="require(Services:WaitForChild('EconomyServiceV9')).Init()"
+ local a,b=source:find(old,1,true);assert(a and not source:find(old,b+1,true),'Unexpected economy startup. Nothing changed.')
+ return source:sub(1,a-1)..old..'\n'..marker..'\n'..call..source:sub(b+1)
+end
+
+end)()
+local function adapt(kind,source)
+ local variant,why=Compat.Classify(kind,source)
+ assert(variant,why)
+ -- Normalize only harmless file encoding/newline/outer whitespace differences.
+ source=normalize(source)
+ if variant=='V11' then return source end
+ if variant=='Uploaded' then source=EconomyPatch[kind](source) end
+ if kind=='Main' then source=MainPatch(source)
+ elseif kind=='Bomb' then source=CorePatch.Bomb(source)
+ elseif kind=='Round' then source=PracticePatch.Round(CorePatch.Round(source)) end
+ local final,detail=Compat.Classify(kind,source)
+ assert(final=='V11','Internal '..kind..' output verification failed: '..tostring(detail)..'. Nothing changed.')
+ return source
+end
+function Compat.Main(source) return adapt('Main',source) end
+function Compat.Round(source) return adapt('Round',source) end
+function Compat.Bomb(source) return adapt('Bomb',source) end
+return Compat
+
+end)()
+
+local uiAdapter=(function()
+-- V11 compatibility adapters. Only verified source variants are accepted.
+-- Normalizes Windows line endings and outer whitespace, never custom edits.
+local A={}
+local function canonical(source)
+ assert(type(source)=='string','Expected readable script Source. Nothing changed.')
+ return (source:gsub('\r\n','\n'):match('^%s*(.-)%s*$'))
+end
+local function fingerprint(source)
+ source=canonical(source)
+ local a,b,rolling=1,0,0
+ for i=1,#source do
+  local byte=source:byte(i)
+  a=(a+byte)%65521;b=(b+a)%65521;rolling=(rolling*131+byte)%4294967296
+ end
+ return string.format('%d:%u:%u',#source,b*65536+a,rolling)
+end
+local HUD_KNOWN={
+ ['43156:1708150693:1771661251']='V10-on-V8',
+ ['56155:3359992364:4165224053']='V10-on-V9',
+ ['63383:1602472467:4134607965']='V11',
+}
+local EFFECTS_KNOWN={
+ ['8340:3348510511:2148878879']='EffectsV8',
+ ['8874:2348936961:606902339']='EffectsV9',
+}
+local function identify(source,known,label)
+ local key=fingerprint(source);local version=known[key]
+ assert(version,'Unsupported or partially modified '..label..' source ('..key..'). Expected a verified historical version; source was not overwritten. Nothing changed.')
+ return version
+end
+function A.IdentifyHUD(source) return identify(source,HUD_KNOWN,'HudController') end
+function A.IdentifyEffects(source) return identify(source,EFFECTS_KNOWN,'MovementEffectsV8') end
+local function addEconomy(source)
+ local function replace(old,new)
+  local first,last=source:find(old,1,true)
+  assert(first and not source:find(old,last+1,true),'HUD compatibility patch anchor mismatch. Nothing changed.')
+  source=source:sub(1,first-1)..new..source:sub(last+1)
+ end
+ replace([=[
+local previewFolder, voteRemote, afkRemote, voteLink, pageName, mapIndex = nil,nil,nil,nil,nil,1
+local lastSize, tickTime, statTime, noticeUntil = Vector2.zero,0,0,0
+local refresh, layout, openMenu, buildPage
+local phases = {WAITING="WAITING FOR PLAYERS",INTERMISSION="NEXT MATCH",STARTING="GET READY",PRACTICE="PRACTICE",PRACTICE_ENDING="PLAYER JOINING",ROUND="MATCH LIVE",FINAL_DUEL="FINAL DUEL",RESULT="ROUND COMPLETE"}
+]=],[=[
+local previewFolder, voteRemote, afkRemote, voteLink, pageName, mapIndex = nil,nil,nil,nil,nil,1
+local lastSize, tickTime, statTime, noticeUntil = Vector2.zero,0,0,0
+-- HussEconomyHudV9
+local economy,ecoLink,profile,board,busy,serial=nil,nil,nil,nil,nil,0
+local rosterLinks={}
+local ecoMessage
+local refresh, layout, openMenu, buildPage
+local phases = {WAITING="WAITING FOR PLAYERS",INTERMISSION="NEXT MATCH",STARTING="GET READY",PRACTICE="PRACTICE",PRACTICE_ENDING="PLAYER JOINING",ROUND="MATCH LIVE",FINAL_DUEL="FINAL DUEL",RESULT="ROUND COMPLETE"}
+]=])
+ replace([=[
+local function stroke(o,color) return make("UIStroke",o,{Color=color or C.line,Thickness=2,Transparency=.12,ApplyStrokeMode=Enum.ApplyStrokeMode.Border}) end
+local function text(parent,name,value,x,y,w,h,size,color,align)
+ local o=make("TextLabel",parent,{Name=name,Text=value,Position=UDim2.fromOffset(x,y),Size=UDim2.fromOffset(w,h),BackgroundTransparency=1,Font=Enum.Font.GothamBold,TextSize=size,TextColor3=color or C.white,TextStrokeColor3=C.ink,TextStrokeTransparency=1,TextXAlignment=align or Enum.TextXAlignment.Left,TextYAlignment=Enum.TextYAlignment.Center,TextTruncate=Enum.TextTruncate.AtEnd,ZIndex=(parent.ZIndex or 1)+2})
+ local outline=make('UIStroke',o,{Color=C.ink,Thickness=size>=18 and 2.3 or 1.3,Transparency=0,ApplyStrokeMode=Enum.ApplyStrokeMode.Contextual})
+ o.Font=size>=18 and Enum.Font.FredokaOne or Enum.Font.GothamBlack
+]=],[=[
+local function stroke(o,color) return make("UIStroke",o,{Color=color or C.line,Thickness=2,Transparency=.12,ApplyStrokeMode=Enum.ApplyStrokeMode.Border}) end
+local function text(parent,name,value,x,y,w,h,size,color,align)
+ local o=make("TextLabel",parent,{Name=name,Text=value,Position=UDim2.fromOffset(x,y),Size=UDim2.fromOffset(w,h),BackgroundTransparency=1,Font=Enum.Font.GothamBlack,TextSize=size,TextColor3=color or C.white,TextStrokeColor3=C.ink,TextStrokeTransparency=1,TextXAlignment=align or Enum.TextXAlignment.Left,TextYAlignment=Enum.TextYAlignment.Center,TextTruncate=Enum.TextTruncate.AtEnd,ZIndex=(parent.ZIndex or 1)+2})
+ local outline=make('UIStroke',o,{Color=C.ink,Thickness=size>=18 and 2.3 or 1.3,Transparency=0,ApplyStrokeMode=Enum.ApplyStrokeMode.Contextual})
+ o.Font=size>=18 and Enum.Font.FredokaOne or Enum.Font.GothamBlack
+]=])
+ replace([=[
+ local cf,size=copy:GetBoundingBox(); v.name=name; v.center=cf.Position; v.radius=math.max(size.Magnitude/2,1); fit(v)
+end
+local function makeUI()
+ local pg=P:WaitForChild("PlayerGui"); local old=pg:FindFirstChild("BombTagHUD"); if old then old:Destroy() end
+]=],[=[
+ local cf,size=copy:GetBoundingBox(); v.name=name; v.center=cf.Position; v.radius=math.max(size.Magnitude/2,1); fit(v)
+end
+local function ecoRefresh()
+ if U.Mode=='menu' and (menu=='SHOP' or menu=='QUESTS' or menu=='LEADERBOARDS') then local pos=U.Body.CanvasPosition;buildPage();U.Body.CanvasPosition=pos end
+end
+local function request(action,id)
+ if busy or not economy then return end
+ serial+=1;local ticket=serial;local generation=epoch;busy=ticket;ecoMessage=nil
+ economy:FireServer(action,id,ticket);ecoRefresh()
+ task.delay(10,function()
+  if started and epoch==generation and busy==ticket then busy=nil;ecoMessage='This is taking longer than expected. Please try again.';ecoRefresh() end
+ end)
+end
+local function cleanText(v,f) return type(v)=='string' and v:sub(1,90) or f or '' end
+local function amount(v) return math.clamp(math.floor(num(v,0)),0,1000000000000) end
+local function receive(data)
+ if type(data)~='table' then return end
+ if data.kind=='Profile' then
+  local p={ready=data.ready==true,mode=cleanText(data.mode),Equipped=cleanText(data.Equipped),Catalog={},Quests={},Owned={},resetsAt=amount(data.resetsAt)}
+  if type(data.Owned)=='table' then for i,id in ipairs(data.Owned) do if i>32 then break end;if type(id)=='string' then p.Owned[id:sub(1,90)]=true end end end
+  if type(data.Catalog)=='table' then for i,item in ipairs(data.Catalog) do
+   if i>12 then break end
+   if type(item)=='table' and type(item.id)=='string' then
+    local color=type(item.color)=='table' and item.color or {};table.insert(p.Catalog,{id=cleanText(item.id),name=cleanText(item.name,'Trail'),price=amount(item.price),color=rgb(math.clamp(num(color[1],255),0,255),math.clamp(num(color[2],255),0,255),math.clamp(num(color[3],255),0,255))})
+   end
+  end end
+  if type(data.Quests)=='table' then for i,q in ipairs(data.Quests) do
+   if i>12 then break end
+   if type(q)=='table' and type(q.id)=='string' then table.insert(p.Quests,{id=cleanText(q.id),title=cleanText(q.title,'Daily quest'),target=math.max(1,amount(q.target)),progress=amount(q.progress),reward=amount(q.reward),claimed=q.claimed==true}) end
+  end end
+  profile=p
+ elseif data.kind=='Board' then
+  board={status=cleanText(data.status),rows={}}
+  if type(data.rows)=='table' then for i,r in ipairs(data.rows) do
+   if i>25 then break end
+   if type(r)=='table' then table.insert(board.rows,{name=cleanText(r.name,'Player'),wins=amount(r.wins)}) end
+  end end
+ else return end
+ if busy==data.requestId then
+  busy=nil
+  if type(data.message)=='string' and data.message~='' then ecoMessage=cleanText(data.message);announce(data.ok==true and 'ALL SET!' or 'PLEASE TRY AGAIN',cleanText(data.message),data.ok==true and C.green or C.gold) end
+ end
+ ecoRefresh()
+end
+local function watchPlayer(player)
+ if rosterLinks[player] then clear(rosterLinks[player]) end
+ local bucket={};rosterLinks[player]=bucket
+ local function update() if player==P then U.Identity.Player.Text=player.DisplayName:upper() end;ecoRefresh() end
+ local function value(v) if v:IsA('IntValue') or v:IsA('NumberValue') then connect(v.Changed,update,bucket) end end
+ local function folder(f)
+  if f.Name=='leaderstats' then connect(f.ChildAdded,function() watchPlayer(player) end,bucket);connect(f.ChildRemoved,function() watchPlayer(player) end,bucket);for _,v in ipairs(f:GetChildren()) do value(v) end end
+ end
+ connect(player.ChildAdded,function() watchPlayer(player) end,bucket);connect(player.ChildRemoved,function() watchPlayer(player) end,bucket)
+ connect(player:GetPropertyChangedSignal('DisplayName'),update,bucket)
+ for _,f in ipairs(player:GetChildren()) do folder(f) end
+ update()
+end
+local function economyPage(block,width)
+ local y=0
+ local function card(title,body,color,height)
+  local before=#U.Body:GetChildren();block(title,body,color,height);local o=U.Body:GetChildren()[before+1];y+=height+12;return o
+ end
+ local function action(parent,name,caption,fn,disabled)
+  local b=button(parent,name,caption,fn,false,pageLinks);b.Position=UDim2.new(0,12,1,-56);b.Size=UDim2.new(1,-24,0,44);b:SetAttribute('HussDisabled',busy~=nil or disabled==true);return b
+ end
+ if ecoMessage then card('UPDATE',ecoMessage,C.gold,100) end
+ if menu=='LEADERBOARDS' then
+  card('THIS SERVER','The same Wins and Coins shown in the Roblox player list.',C.cyan,88)
+  local list=Players:GetPlayers()
+  local function stat(p,key) local f=p:FindFirstChild('leaderstats');local v=f and f:FindFirstChild(key);return v and (v:IsA('IntValue') or v:IsA('NumberValue')) and amount(v.Value) or 0 end
+  table.sort(list,function(a,b) local aw,bw=stat(a,'Wins'),stat(b,'Wins');return aw==bw and a.UserId<b.UserId or aw>bw end)
+  for i,p in ipairs(list) do card(i..'. '..p.DisplayName,formatted(stat(p,'Wins'))..' WINS   •   '..formatted(stat(p,'Coins'))..' COINS',p==P and C.gold or C.white,86) end
+  local message=not board and 'Load the global wins leaderboard.' or board.status=='ready' and 'Most wins across all servers. Updates about every 2 minutes.' or board.status=='loading' and 'Loading global wins…' or board.status=='preview' and 'Play the published game for global rankings.' or 'Global rankings are temporarily unavailable.'
+  local c=card('GLOBAL WINS',message,C.violet,158)
+  action(c,'LoadBoard',busy and 'LOADING…' or 'REFRESH GLOBAL WINS',function() request('Board') end,not economy)
+  if board and board.status=='ready' then for i,row in ipairs(board.rows) do card('#'..i..'  '..row.name,formatted(row.wins)..' WINS',C.gold,86) end end
+ elseif not profile or not profile.ready then
+  local c=card('YOUR PLAYER RECORD',profile and profile.mode=='unavailable' and 'Your saved record is unavailable. Please rejoin before earning or spending.' or 'Connecting to your saved coins, quests and collection…',C.gold,180)
+  action(c,'RetryProfile',busy and 'CONNECTING…' or 'REFRESH STATUS',function() request('Sync') end,not economy)
+ else
+  local coins=numberStat('Coins')
+  card(menu=='SHOP' and 'TRAIL COLLECTION' or 'DAILY QUESTS',menu=='SHOP' and 'Your color. Your escape. Earn coins, unlock a trail, make it yours.' or 'Complete these goals, then claim your coins. Quests reset at 00:00 UTC.',C.gold,menu=='SHOP' and 82 or 108)
+  if profile.mode=='preview' then card('STUDIO PREVIEW','Preview progress is temporary. Your live saved record is separate.',C.gold,90) end
+  if menu=='SHOP' then
+   local columns=width>=810 and 3 or width>=520 and 2 or 1;local start=y;local height=324
+   for index,item in ipairs(profile.Catalog) do
+    local owned=profile.Owned[item.id];local equipped=profile.Equipped==item.id;local poor=not owned and (coins==nil or coins<item.price)
+    local c=card(item.name:upper(),equipped and 'Your active sprint + weave trail' or owned and 'Owned • ready to equip' or formatted(item.price)..' COINS\nSprint + weave color',item.color,height)
+    c.Size=UDim2.new(1/columns,-16,0,height);c.Position=UDim2.new((index-1)%columns/columns,7,0,start+math.floor((index-1)/columns)*(height+20)+5)
+    c.BackgroundColor3=item.color:Lerp(C.ink,.86);local inner=c:FindFirstChild('InnerRim');local rim=inner and inner:FindFirstChildOfClass('UIStroke');if rim then rim.Color=item.color;rim.Thickness=4 end
+    c.Gloss:Destroy();local gradient=c:FindFirstChildOfClass('UIGradient');if gradient then gradient.Color=ColorSequence.new(rgb(60,67,70),C.white) end
+    local art=emblem(c,'Trail',142,item.color);art.AnchorPoint=Vector2.new(.5,0);art.Position=UDim2.new(.5,0,0,13)
+    local title=c.Heading;title.Position=UDim2.new(0,10,0,162);title.Size=UDim2.new(1,-20,0,36);title.TextSize=24;title.Font=Enum.Font.FredokaOne;title:FindFirstChildOfClass('UIStroke').Thickness=2.5;title.TextXAlignment=Enum.TextXAlignment.Center
+    local body=c.Description;body.Position=UDim2.new(0,14,0,202);body.Size=UDim2.new(1,-28,0,44);body.TextSize=15;body.TextXAlignment=Enum.TextXAlignment.Center
+    local b=action(c,'Item_'..item.id,busy and 'PLEASE WAIT…' or equipped and 'EQUIPPED' or owned and 'EQUIP' or poor and 'NEED MORE COINS' or 'BUY • '..formatted(item.price),function() request(owned and 'Equip' or 'Buy',item.id) end,equipped or poor)
+    b.Position=UDim2.new(0,14,1,-67);b.Size=UDim2.new(1,-28,0,51);b.TextSize=poor and 14 or 20
+   end
+   y=start+math.ceil(#profile.Catalog/columns)*(height+20)+5
+  else
+   for _,q in ipairs(profile.Quests) do
+    local done=q.progress>=q.target
+    local c=card(q.title:upper(),math.min(q.progress,q.target)..' / '..q.target..'   •   +'..formatted(q.reward)..' COINS',C.green,166);c.BackgroundColor3=rgb(28,76,73)
+    local rail,fill=bar(c,'QuestProgress',C.green);rail.Position=UDim2.fromOffset(14,74);rail.Size=UDim2.new(1,-28,0,7);fill.Size=UDim2.fromScale(math.clamp(q.progress/q.target,0,1),1)
+    action(c,'Quest_'..q.id,busy and 'PLEASE WAIT…' or q.claimed and 'CLAIMED' or done and 'CLAIM REWARD' or 'IN PROGRESS',function() request('Claim',q.id) end,q.claimed or not done)
+   end
+  end
+ end
+ return y
+end
+local function makeUI()
+ local pg=P:WaitForChild("PlayerGui"); local old=pg:FindFirstChild("BombTagHUD"); if old then old:Destroy() end
+]=])
+ replace([=[
+ U.Sub=text(U.Top,"Subtitle","RUN. PASS. SURVIVE.",15,54,270,12,10,C.muted)
+ U.Identity=panel(U.Root,"Identity",206,66,5)
+ U.Avatar=make("ImageLabel",U.Identity,{Name="Portrait",Position=UDim2.fromOffset(10,10),Size=UDim2.fromOffset(44,44),BackgroundColor3=C.ink,BorderSizePixel=0,ZIndex=7}); rounded(U.Avatar,4)
+ text(U.Identity,"Player",P.DisplayName:upper(),64,9,132,17,12)
+ U.HealthText=text(U.Identity,"Vitals","100 / 100",64,29,132,16,11,C.muted)
+ U.HealthTrack,U.HealthFill=bar(U.Identity,"Health",C.green); U.HealthTrack.Position=UDim2.fromOffset(64,52); U.HealthTrack.Size=UDim2.fromOffset(132,4)
+ U.Info=panel(U.Root,"MatchInfo",202,66,5)
+ U.Alive=text(U.Info,"Alive","",12,9,178,23,20,C.white,Enum.TextXAlignment.Right)
+]=],[=[
+ U.Sub=text(U.Top,"Subtitle","RUN. PASS. SURVIVE.",15,54,270,12,10,C.muted)
+ U.Identity=panel(U.Root,"Identity",206,66,5)
+ U.Avatar=make("ImageLabel",U.Identity,{Name="Portrait",Position=UDim2.fromOffset(10,10),Size=UDim2.fromOffset(44,44),BackgroundColor3=C.ink,BorderSizePixel=0,ZIndex=7}); rounded(U.Avatar,22);stroke(U.Avatar,C.violet)
+ text(U.Identity,"Player",P.DisplayName:upper(),64,9,132,17,12)
+ U.HealthText=text(U.Identity,"Vitals","100 / 100",64,29,132,16,11,C.muted)
+ U.HealthTrack,U.HealthFill=bar(U.Identity,"Health",C.green); U.HealthTrack.Position=UDim2.fromOffset(64,52); U.HealthTrack.Size=UDim2.fromOffset(132,4)
+ U.Wallet=panel(U.Root,'Wallet',206,42,6,C.gold)
+ U.Wallet.BackgroundColor3=panelTones.Wallet
+ local coin=frame(U.Wallet,'Coin',10,8,26,26,C.gold,8);rounded(coin,13);stroke(coin,rgb(255,241,170));text(coin,'Symbol','$',0,0,26,26,18,C.white,Enum.TextXAlignment.Center)
+ U.Coins=text(U.Wallet,'Coins','— COINS',46,8,148,26,16,C.white)
+ U.Info=panel(U.Root,"MatchInfo",202,66,5)
+ U.Alive=text(U.Info,"Alive","",12,9,178,23,20,C.white,Enum.TextXAlignment.Right)
+]=])
+ replace([=[
+ U.Lobby=frame(U.Root,"LobbyMenu",0,0,186,318,C.ink,10); U.Lobby.BackgroundTransparency=1
+ text(U.Lobby,"Section","LOBBY",8,0,180,16,12,C.white)
+ U.MenuScroll=make("ScrollingFrame",U.Lobby,{Name="MenuOptions",Position=UDim2.fromOffset(0,26),Size=UDim2.new(1,0,1,-26),BackgroundTransparency=1,BorderSizePixel=0,ScrollBarThickness=2,CanvasSize=UDim2.fromOffset(0,330),ScrollBarImageColor3=C.green,ZIndex=10})
+ for i,name in ipairs({"STATS","CONTROLS","HOW TO PLAY","MAPS","SETTINGS"}) do
+  local titles={QUESTS='Quests',SHOP='Shop',LEADERBOARDS='Hub',STATS='Stats',MAPS='Maps',SETTINGS='Settings',CONTROLS='Controls',['HOW TO PLAY']='How to Play'}
+  local b=button(U.MenuScroll,name,titles[name] or name,function() openMenu(name) end)
+]=],[=[
+ U.Lobby=frame(U.Root,"LobbyMenu",0,0,186,318,C.ink,10); U.Lobby.BackgroundTransparency=1
+ text(U.Lobby,"Section","LOBBY",8,0,180,16,12,C.white)
+ U.MenuScroll=make("ScrollingFrame",U.Lobby,{Name="MenuOptions",Position=UDim2.fromOffset(0,26),Size=UDim2.new(1,0,1,-26),BackgroundTransparency=1,ClipsDescendants=true,BorderSizePixel=0,ScrollBarThickness=2,CanvasSize=UDim2.fromOffset(0,525),ScrollBarImageColor3=C.green,ZIndex=10})
+ for i,name in ipairs({"QUESTS","SHOP","LEADERBOARDS","STATS","MAPS","SETTINGS","CONTROLS","HOW TO PLAY"}) do
+  local titles={QUESTS='Quests',SHOP='Shop',LEADERBOARDS='Hub',STATS='Stats',MAPS='Maps',SETTINGS='Settings',CONTROLS='Controls',['HOW TO PLAY']='How to Play'}
+  local b=button(U.MenuScroll,name,titles[name] or name,function() openMenu(name) end)
+]=])
+ replace([=[
+ U.NoticeTitle=text(U.Notice,"Title","",14,8,334,17,12,C.green,Enum.TextXAlignment.Center)
+ U.NoticeBody=text(U.Notice,"Message","",14,31,334,17,12,C.white,Enum.TextXAlignment.Center)
+ U.Count=frame(U.Root,"Countdown",0,0,220,168,C.ink,40); U.Count.BackgroundTransparency=1
+ U.CountText=text(U.Count,"Number","",0,0,220,133,112,C.white,Enum.TextXAlignment.Center); U.CountText.Font=Enum.Font.GothamBlack
+ U.CountLabel=text(U.Count,"Caption","GET READY TO RUN",0,145,220,20,12,C.green,Enum.TextXAlignment.Center)
+]=],[=[
+ U.NoticeTitle=text(U.Notice,"Title","",14,8,334,17,12,C.green,Enum.TextXAlignment.Center)
+ U.NoticeBody=text(U.Notice,"Message","",14,31,334,17,12,C.white,Enum.TextXAlignment.Center)
+ U.Count=frame(U.Root,"Countdown",0,0,220,168,C.ink,40); U.Count.BackgroundColor3=rgb(102,61,170);U.Count.BackgroundTransparency=.08;rounded(U.Count,24);stroke(U.Count,C.gold);gloss(U.Count)
+ U.CountText=text(U.Count,"Number","",0,0,220,133,112,C.white,Enum.TextXAlignment.Center); U.CountText.Font=Enum.Font.GothamBlack
+ U.CountLabel=text(U.Count,"Caption","GET READY TO RUN",0,145,220,20,12,C.green,Enum.TextXAlignment.Center)
+]=])
+ replace([=[
+ end,true); U.Close.Position=UDim2.new(1,-60,0,16); U.Close.Size=UDim2.fromOffset(44,44)
+ frame(U.Window,"Divider",22,91,1,1,C.line,53).Size=UDim2.new(1,-44,0,1)
+ U.Body=make("ScrollingFrame",U.Window,{Position=UDim2.fromOffset(22,107),Size=UDim2.new(1,-44,1,-125),BackgroundTransparency=1,BorderSizePixel=0,ScrollBarThickness=3,ScrollBarImageColor3=C.green,CanvasSize=UDim2.fromOffset(0,0),ZIndex=53})
+ U.Vote=make("ScrollingFrame",U.Window,{Name="VoteCards",Position=UDim2.fromOffset(22,107),Size=UDim2.fromOffset(616,327),BackgroundTransparency=1,BorderSizePixel=0,ScrollBarThickness=2,ScrollBarImageColor3=C.green,CanvasSize=UDim2.fromOffset(0,0),ScrollingDirection=Enum.ScrollingDirection.Y,ZIndex=53})
+ U.Cards={}
+ for i=1,3 do
+]=],[=[
+ end,true); U.Close.Position=UDim2.new(1,-60,0,16); U.Close.Size=UDim2.fromOffset(44,44)
+ frame(U.Window,"Divider",22,91,1,1,C.line,53).Size=UDim2.new(1,-44,0,1)
+ U.Navigation=frame(U.Window,'Navigation',22,89,1,64,C.white,54);U.Navigation.BackgroundTransparency=1;U.Navigation.Size=UDim2.new(1,-44,0,64)
+ for index,entry in ipairs({{'Hub','LEADERBOARDS'},{'Home',false},{'SHOP','SHOP'}}) do
+  local b=button(U.Navigation,'Nav'..entry[1],entry[1]=='SHOP' and 'Shop' or entry[1],function() if entry[2] then openMenu(entry[2]) else menu=nil;refresh() end end)
+  b.BackgroundColor3=tones[entry[1]];b.Size=UDim2.new(1/3,-10,1,0);b.Position=UDim2.new((index-1)/3,5,0,0);b.TextSize=26
+  local icon=emblem(b,entry[1],44);icon.Position=UDim2.fromOffset(9,6)
+  b.ButtonCaption.Position=UDim2.fromOffset(59,-2);b.ButtonCaption.Size=UDim2.new(1,-65,1,0)
+ end
+ U.Body=make("ScrollingFrame",U.Window,{Position=UDim2.fromOffset(22,107),Size=UDim2.new(1,-44,1,-125),BackgroundTransparency=1,ClipsDescendants=true,BorderSizePixel=0,ScrollBarThickness=3,ScrollBarImageColor3=C.green,CanvasSize=UDim2.fromOffset(0,0),ZIndex=53})
+ U.Vote=make("ScrollingFrame",U.Window,{Name="VoteCards",Position=UDim2.fromOffset(22,107),Size=UDim2.fromOffset(616,327),BackgroundTransparency=1,ClipsDescendants=true,BorderSizePixel=0,ScrollBarThickness=2,ScrollBarImageColor3=C.green,CanvasSize=UDim2.fromOffset(0,0),ScrollingDirection=Enum.ScrollingDirection.Y,ZIndex=53})
+ U.Cards={}
+ for i=1,3 do
+]=])
+ replace([=[
+ local width=math.max(200,U.Window.Size.X.Offset-44); local y=0
+ local function block(title,body,color,height)
+  local card=panel(U.Body,title,width-6,height or 100,54)
+  card.Position=UDim2.fromOffset(0,y); card.Size=UDim2.new(1,-6,0,height or 100)
+  text(card,"Heading",title,14,10,width-34,22,15,color or C.green)
+  local label=text(card,"Description",body,14,38,width-34,(height or 100)-48,13,C.muted)
+  label.TextWrapped=true; label.TextTruncate=Enum.TextTruncate.None; label.TextYAlignment=Enum.TextYAlignment.Top
+  y+=(height or 100)+12
+ end
+ if U.Mode=="result" then
+  block("LAST PLAYER STANDING",winner~="" and winner or "No survivor this round.",C.green,130)
+  local title=U.Body:GetChildren()[1]; local label=title and title:FindFirstChild("Description")
+]=],[=[
+ local width=math.max(200,U.Window.Size.X.Offset-44); local y=0
+ local function block(title,body,color,height)
+  local card=panel(U.Body,title,width-6,height or 100,54,color)
+  card.Position=UDim2.fromOffset(0,y); card.Size=UDim2.new(1,-6,0,height or 100)
+  text(card,"Heading",title,14,10,width-34,22,15,color or C.green).Size=UDim2.new(1,-28,0,22)
+  local label=text(card,"Description",body,14,38,width-34,(height or 100)-48,13,C.muted)
+  label.Size=UDim2.new(1,-28,0,(height or 100)-48);label.TextWrapped=true; label.TextTruncate=Enum.TextTruncate.None; label.TextYAlignment=Enum.TextYAlignment.Top
+  y+=(height or 100)+12
+ end
+ if menu=='SHOP' or menu=='QUESTS' or menu=='LEADERBOARDS' then
+  y=economyPage(block,width)
+ elseif U.Mode=="result" then
+  block("LAST PLAYER STANDING",winner~="" and winner or "No survivor this round.",C.green,130)
+  local title=U.Body:GetChildren()[1]; local label=title and title:FindFirstChild("Description")
+]=])
+ replace([=[
+openMenu=function(name)
+ if inRound() then return end
+ menu=menu==name and nil or name; refresh()
+ if menu and Input:GetLastInputType().Name:find("Gamepad") then Gui.SelectedObject=U.Close end
+end
+]=],[=[
+openMenu=function(name)
+ if inRound() then return end
+ menu=menu==name and nil or name;ecoMessage=nil;refresh()
+ if menu and Input:GetLastInputType().Name:find("Gamepad") then Gui.SelectedObject=U.Close end
+end
+]=])
+ replace([=[
+ U.DashState.Position=UDim2.new(1,-124,0,10); U.DashTitle.Size=UDim2.new(1,-142,0,22); U.Immunity.Position=UDim2.new(1,-159,0,36)
+ for i,seg in ipairs(U.Segments) do seg.Position=UDim2.fromOffset(14+(i-1)*(dashW-28)/12,62); seg.Size=UDim2.fromOffset((dashW-28)/12-3,4) end
+ local top=compact and 96 or 102; local available=math.max(78,h-top-112); local menuH=math.min(318,available)
+ U.Lobby.Size=UDim2.fromOffset(w<420 and 180 or 214,menuH); align(U.Lobby,12,math.max(top,(h-menuH)/2-16))
+ U.LobbyFooter.Size=UDim2.fromOffset(math.min(246,w-24),81); align(U.LobbyFooter,12,h-12,0,1)
+ U.AFK.Size=UDim2.new(1,-20,0,44); align(U.VoteReopen,w-12,h-12,1,1)
+ local nw=math.min(362,w-24); U.Notice.Size=UDim2.fromOffset(nw,62); align(U.Notice,w/2,compact and 180 or 100,.5,0)
+ U.NoticeTitle.Size=UDim2.new(1,-28,0,17); U.NoticeBody.Size=UDim2.new(1,-28,0,17)
+ align(U.Count,w/2,h*.45,.5,.5)
+]=],[=[
+ U.DashState.Position=UDim2.new(1,-124,0,10); U.DashTitle.Size=UDim2.new(1,-142,0,22); U.Immunity.Position=UDim2.new(1,-159,0,36)
+ for i,seg in ipairs(U.Segments) do seg.Position=UDim2.fromOffset(14+(i-1)*(dashW-28)/12,62); seg.Size=UDim2.fromOffset((dashW-28)/12-3,4) end
+ -- Keep desktop's upper-right clear for Roblox's native player list.
+ U.Tight=compact or landscape
+ U.Wallet.Size=UDim2.fromOffset(landscape and 128 or identityWidth,42)
+ U.WalletLobbyY=compact and 96 or 12;align(U.Wallet,12,U.WalletLobbyY)
+ U.Coins.TextSize=U.Tight and 11 or 15;U.Coins.Size=UDim2.new(1,-54,0,26)
+ if not compact and not landscape then align(U.Info,w/2,94,.5,0);align(U.Bomb,12,140) end
+ local top=compact and 174 or 102; local available=math.max(78,h-top-112); local menuH=math.min(318,available)
+ U.Lobby.Size=UDim2.fromOffset(w<420 and 180 or 214,menuH); align(U.Lobby,12,math.max(top,(h-menuH)/2-16))
+ U.LobbyFooter.Size=UDim2.fromOffset(math.min(246,w-24),81); align(U.LobbyFooter,landscape and w-12 or 12,h-12,landscape and 1 or 0,1)
+ U.AFK.Size=UDim2.new(1,-20,0,44); align(U.VoteReopen,w-12,h-12,1,1)
+ local nw=math.min(362,w-24); U.Notice.Size=UDim2.fromOffset(nw,62); align(U.Notice,w/2,compact and math.min(324,h-165) or 180,.5,0)
+ U.NoticeTitle.Size=UDim2.new(1,-28,0,17); U.NoticeBody.Size=UDim2.new(1,-28,0,17)
+ align(U.Count,w/2,h*.45,.5,.5)
+]=])
+ replace([=[
+  if mode and mode~="vote" then buildPage() end
+ end
+ U.Shade.Visible=mode~=nil; U.WindowTitle.Text=mode=="vote" and (voteOpen and "CHOOSE YOUR ARENA" or "ARENA SELECTED") or (mode=="result" and "ROUND RESULTS" or menu or "")
+ U.WindowBrand.Text=mode=="vote" and "N E X T  M A T C H  /  M A P  V O T E" or "H U S S  A  B O M B"
+]=],[=[
+  if mode and mode~="vote" then buildPage() end
+ end
+ local tight=U.Window.Size.Y.Offset<340;local tabs=mode=='menu' and not tight
+ U.Navigation.Visible=tabs
+ U.WindowBrand.Visible=not tight;U.WindowTitle.Position=UDim2.fromOffset(22,tight and 8 or 35);U.WindowTitle.TextSize=tight and 25 or 34;U.Close.Position=UDim2.new(1,-60,0,tight and 8 or 16)
+ U.Window.Divider.Position=UDim2.fromOffset(22,tight and 52 or 81)
+ U.Body.Position=UDim2.fromOffset(22,tight and 57 or tabs and 170 or 107);U.Body.Size=UDim2.new(1,-44,1,tight and -67 or tabs and -190 or -125)
+ local small=U.Window.Size.X.Offset<520
+ for _,b in ipairs(U.Navigation:GetChildren()) do if b:IsA('TextButton') then
+  b.Illustration.Visible=not small;b.ButtonCaption.Position=UDim2.fromOffset(small and 5 or 59,-2);b.ButtonCaption.Size=UDim2.new(1,small and -10 or -65,1,0);b.TextSize=small and 17 or 26
+ end end
+ U.Shade.Visible=mode~=nil; U.WindowTitle.Text=mode=="vote" and (voteOpen and "CHOOSE YOUR ARENA" or "ARENA SELECTED") or (mode=="result" and "ROUND RESULTS" or menu or "")
+ U.WindowBrand.Text=mode=="vote" and "N E X T  M A T C H  /  M A P  V O T E" or "H U S S  A  B O M B"
+]=])
+ replace([=[
+ U.VoteReopen.Visible=voteOpen and voteDismissed and not playing and not afk and not mode
+ U.Identity.Visible=playing and not mode and phase~="RESULT"
+ U.Info.Visible=not mode; U.Top.Visible=not mode
+ U.Dash.Visible=playing and not mode and phase~="RESULT"
+]=],[=[
+ U.VoteReopen.Visible=voteOpen and voteDismissed and not playing and not afk and not mode
+ U.Identity.Visible=playing and not mode and phase~="RESULT"
+ U.Wallet.Visible=not mode and (not playing or not U.Tight);U.Wallet.Position=UDim2.fromOffset(12,playing and 86 or U.WalletLobbyY);local coins=profile and profile.ready and numberStat("Coins") or nil;U.Coins.Text=coins~=nil and (coins>=1000000 and string.format("%.1f%s",coins/(coins>=1000000000 and 1000000000 or 1000000),coins>=1000000000 and "B" or "M") or formatted(coins)).." COINS" or (profile and profile.mode=="unavailable" and "UNAVAILABLE" or "LOADING…")
+ U.Info.Visible=not mode; U.Top.Visible=not mode
+ U.Dash.Visible=playing and not mode and phase~="RESULT"
+]=])
+ replace([=[
+ U.Sub.Text=afk and "AFK / MATCHMAKING PAUSED" or (phase=="FINAL_DUEL" and "ONE FUSE. TWO PLAYERS." or "RUN. PASS. SURVIVE.")
+ U.Alive.Text=tostring(alive or #Players:GetPlayers())..(alive and "  ALIVE" or "  PLAYERS")
+ U.Map.Text=mapName():upper()
+ local wins=numberStat("Wins"); U.Wins.Text=wins and formatted(wins).."  WINS" or "READY FOR YOUR NEXT ROUND"
+ U.AFK.Text=afk and "RETURN TO PLAY" or "GO AFK"
+]=],[=[
+ U.Sub.Text=afk and "AFK / MATCHMAKING PAUSED" or (phase=="FINAL_DUEL" and "ONE FUSE. TWO PLAYERS." or "RUN. PASS. SURVIVE.")
+ U.Alive.Text=tostring(alive or #Players:GetPlayers())..(alive and "  ALIVE" or "  PLAYERS")
+ U.Map.Text=playing and U.Tight and U.Coins.Text or mapName():upper()
+ local wins=numberStat("Wins"); U.Wins.Text=wins and formatted(wins).."  WINS" or "READY FOR YOUR NEXT ROUND"
+ U.AFK.Text=afk and "RETURN TO PLAY" or "GO AFK"
+]=])
+ replace([=[
+ previewFolder=nil; voteRemote=nil; afkRemote=nil; voteLink=nil
+ options={}; counts={}; selection=nil; tickTime=0; statTime=0; phase="WAITING"; phaseAt=time(); duration=0; alive=nil; menu=nil; pageName=nil; voteOpen=false; voteResultUntil=0; voteDismissed=false; bomb=false; owner=0; resultDismissed=false; countdown=nil; noticeUntil=0
+ makeUI(); layout()
+ connect(Remotes.Get("RoundState").OnClientEvent,onRound); connect(Remotes.Get("BombState").OnClientEvent,onBomb)
+ local function attach(child)
+  if child.Name=="BombTagVoteV6" and child:IsA("RemoteEvent") and child~=voteRemote then
+   if voteLink then voteLink:Disconnect() end
+   voteRemote=child; voteLink=connect(child.OnClientEvent,onVote); child:FireServer("Sync")
+]=],[=[
+ previewFolder=nil; voteRemote=nil; afkRemote=nil; voteLink=nil
+ options={}; counts={}; selection=nil; tickTime=0; statTime=0; phase="WAITING"; phaseAt=time(); duration=0; alive=nil; menu=nil; pageName=nil; voteOpen=false; voteResultUntil=0; voteDismissed=false; bomb=false; owner=0; resultDismissed=false; countdown=nil; noticeUntil=0
+ profile=nil;board=nil;busy=nil;economy=nil;ecoLink=nil;ecoMessage=nil
+ makeUI(); layout()
+ connect(Players.PlayerAdded,watchPlayer)
+ connect(Players.PlayerRemoving,function(p) if rosterLinks[p] then clear(rosterLinks[p]);rosterLinks[p]=nil end;task.defer(function() if started and epoch==session then ecoRefresh() end end) end)
+ for _,p in ipairs(Players:GetPlayers()) do watchPlayer(p) end
+ connect(Remotes.Get("RoundState").OnClientEvent,onRound); connect(Remotes.Get("BombState").OnClientEvent,onBomb)
+ local function attach(child)
+  if child.Name=='HussEconomyV9' and child:IsA('RemoteEvent') and child~=economy then
+   if ecoLink then ecoLink:Disconnect() end;economy=child;ecoLink=connect(child.OnClientEvent,receive);busy=nil;request('Sync')
+  elseif child.Name=="BombTagVoteV6" and child:IsA("RemoteEvent") and child~=voteRemote then
+   if voteLink then voteLink:Disconnect() end
+   voteRemote=child; voteLink=connect(child.OnClientEvent,onVote); child:FireServer("Sync")
+]=])
+ replace([=[
+ connect(RS.ChildAdded,attach)
+ connect(RS.ChildRemoved,function(child)
+  if child==voteRemote then voteRemote=nil; if voteLink then voteLink:Disconnect(); voteLink=nil end end
+  if child==afkRemote then afkRemote=nil end
+]=],[=[
+ connect(RS.ChildAdded,attach)
+ connect(RS.ChildRemoved,function(child)
+  if child==economy then economy=nil;profile=nil;busy=nil;if ecoLink then ecoLink:Disconnect();ecoLink=nil end;ecoRefresh() end
+  if child==voteRemote then voteRemote=nil; if voteLink then voteLink:Disconnect(); voteLink=nil end end
+  if child==afkRemote then afkRemote=nil end
+]=])
+ replace([=[
+ if not started then return end
+ started=false; epoch+=1; clear(links); clear(charLinks); clear(pageLinks)
+ for _,t in pairs(tweens) do t:Cancel() end; table.clear(tweens)
+ for o,enabled in pairs(hidden) do if o.Parent then o.Enabled=enabled end end; table.clear(hidden)
+]=],[=[
+ if not started then return end
+ started=false; epoch+=1; clear(links); clear(charLinks); clear(pageLinks)
+ for _,bucket in pairs(rosterLinks) do clear(bucket) end;table.clear(rosterLinks)
+ economy=nil;ecoLink=nil;profile=nil;board=nil;busy=nil
+ for _,t in pairs(tweens) do t:Cancel() end; table.clear(tweens)
+ for o,enabled in pairs(hidden) do if o.Parent then o.Enabled=enabled end end; table.clear(hidden)
+]=])
+ assert(A.IdentifyHUD(source)=='V10-on-V9','HUD economy adaptation did not produce a verified version. Nothing changed.')
+ return source
+end
+local patchHudV11=(function()
 -- V11 retains the reference-style HUD and adds bounded, server-backed collections.
 return function(source)
  local marker='-- HussCollectionHudV11'
@@ -169,57 +810,65 @@ local function economyPage(block,width)]])
 end
 
 end)()
-
-local patchMain=(function()
+local patchEffectsV9=(function()
+-- Server-selected shop colors apply to the existing sprint and dodge trails.
 return function(source)
- local marker='-- HussExpansionBootV11'
- local call="require(Services:WaitForChild('CosmeticsServiceV11')).Init()"
- if source:find(marker,1,true) then assert(source:find(call,1,true),'Incomplete V11 boot. Nothing changed.');return source end
- local old="require(Services:WaitForChild('EconomyServiceV9')).Init()"
- local a,b=source:find(old,1,true);assert(a and not source:find(old,b+1,true),'Unexpected economy startup. Nothing changed.')
- return source:sub(1,a-1)..old..'\n'..marker..'\n'..call..source:sub(b+1)
+ local marker='-- HussTrailShopV9'
+ assert(source:find('-- HussMovementEffectsV8',1,true),'Install V8 movement effects first. Nothing changed.')
+ if source:find(marker,1,true) then
+  assert(source:find("GetAttributeChangedSignal('HussTrailColor')",1,true),'Incomplete V9 trail update. Nothing changed.')
+  return source
+ end
+ local function replace(old,new)
+  local a,b=source:find(old,1,true)
+  assert(a and not source:find(old,b+1,true),'Unexpected movement effects section. Nothing changed.')
+  source=source:sub(1,a-1)..new..source:sub(b+1)
+ end
+ replace('local function effects(s)',[[-- HussTrailShopV9
+local function palette(s)
+ local color=s.p:GetAttribute('HussTrailColor')
+ s.sprintColor=cyan;s.dodgeColor=gold
+ if typeof(color)=='Color3' then
+  s.sprintColor=ColorSequence.new(color:Lerp(Color3.new(1,1,1),.38),color)
+  s.dodgeColor=ColorSequence.new(color:Lerp(Color3.new(1,1,1),.72),color)
+ end
+ for _,t in ipairs(s.trails) do t.Color=s.mode=='dodge' and s.dodgeColor or s.sprintColor end
+end
+local function effects(s)]])
+ replace('link(h.Died,function() clear(s,true) end,s.links)',[[palette(s)
+  link(p:GetAttributeChangedSignal('HussTrailColor'),function() palette(s) end,s.links)
+  link(h.Died,function() clear(s,true) end,s.links)]])
+ replace('t.Color=dodge and gold or cyan','t.Color=dodge and s.dodgeColor or s.sprintColor')
+ return source
 end
 
 end)()
+function A.HUD(source)
+ local version=A.IdentifyHUD(source)
+ if version=='V11' then return source,version end
+ local result=canonical(source)
+ if version=='V10-on-V8' then result=addEconomy(result) end
+ result=patchHudV11(result)
+ assert(A.IdentifyHUD(result)=='V11','HUD V11 verification failed. Nothing changed.')
+ return result..'\n',version
+end
+function A.Effects(source)
+ local version=A.IdentifyEffects(source)
+ if version=='EffectsV9' then return source,version end
+ local result=patchEffectsV9(canonical(source))
+ assert(A.IdentifyEffects(result)=='EffectsV9','Trail palette verification failed. Nothing changed.')
+ return result..'\n',version
+end
+return A
 
-local patchCore=(function()
+end)()
+
+local movementAdapter=(function()
 -- V11 server combat/stat hooks and movement integration. No cooldown changes.
 local P={}
 local function replace(s,old,new,label)
  local a,b=s:find(old,1,true);assert(a and not s:find(old,b+1,true),'Unexpected '..label..'. Nothing changed.')
  return s:sub(1,a-1)..new..s:sub(b+1)
-end
-function P.Bomb(s)
- if s:find('-- HussCombatHooksV11',1,true) then
-  assert(s:find('PerfectWeave.Try(carrier,candidate',1,true) and s:find('Economy.Elimination(lastPasser,victim)',1,true),'Incomplete V11 bomb hooks.');return s
- end
- assert(s:find('-- HussEconomyHooksV9',1,true),'Install V9 progression first.')
- s=replace(s,'local BombService = {}',[[-- HussCombatHooksV11
-local Cosmetics=require(script.Parent:WaitForChild('CosmeticsServiceV11'))
-local PerfectWeave=require(script.Parent:WaitForChild('PerfectWeaveServiceV11'))
-local currentActor=nil
-local BombService = {}]],'BombService declaration')
- s=replace(s,'\tactiveBombPart = bomb\n\tactiveHighlight = highlight','\tactiveBombPart = bomb\n\tactiveHighlight = highlight\n\tCosmetics.ApplyBomb(player,bomb)','bomb appearance')
- s=replace(s,'\tbombRemote:FireAllClients({','\tcurrentActor=active and carrier or nil\n\tbombRemote:FireAllClients({','bomb state')
- s=replace(s,'function BombService.Init()',[[function BombService.GetCarrier() return currentActor end
-function BombService.Init()]],'bomb initialization')
- s=replace(s,'\tlocal endTime =\n','\tlocal lastPasser=nil\n\tlocal endTime =\n','bomb cycle state')
- s=replace(s,'\t\tif not isAlive(carrier) then','\t\tif not isAlive(carrier) then\n\t\t\tlastPasser=nil','carrier reassignment')
- s=replace(s,'\t\t\t\t\tif hasDodgeIFrames(candidate) then\n\t\t\t\t\t\tcontinue',[[					if hasDodgeIFrames(candidate) then
-						PerfectWeave.Try(carrier,candidate,previousPositions[carrier.UserId],previousPositions[candidate.UserId],protectedUserId,protectedUntil)
-						continue]],'immune tag check')
- s=replace(s,'Economy.Pass(oldCarrier,carrier)','lastPasser=oldCarrier\n\t\t\t\t\t\tEconomy.Pass(oldCarrier,carrier)','successful pass')
- s=replace(s,'\tlocal victim = carrier','\tif #aliveProvider()<=1 then BombService.Stop();return nil end\n\tlocal victim = carrier','final cancellation check')
- s=replace(s,'\tif victim and isAlive(victim) then','\tif victim and isAlive(victim) then\n\t\tEconomy.Elimination(lastPasser,victim)','elimination credit')
- return s
-end
-function P.Round(s)
- if s:find('-- HussFinalStandV11',1,true) then assert(s:find('Economy.FinalStand(alivePlayers)',1,true),'Incomplete Final Stand hook.');return s end
- assert(s:find('-- HussEconomyHooksV9',1,true),'Install V9 progression first.')
- return replace(s,'\t\tif finalDuel\n\t\t\tand not finalDuelAnnounced then',[[		if finalDuel
-			and not finalDuelAnnounced then
-			-- HussFinalStandV11
-			Economy.FinalStand(alivePlayers)]],'final duel transition')
 end
 function P.Movement(s)
  if s:find('-- HussPerfectMovementV11',1,true) then assert(s:find('local function boostedSpeed',1,true),'Incomplete V11 boost.');return s end
@@ -240,46 +889,147 @@ local function cameraOwnsFacing()]],'movement helpers')
  speed('(desiredSpeed%s*=%s*)(SPRINT_SPEED)',1)
  return s
 end
+local function canonical(s) return s:gsub('\r\n','\n'):match('^%s*(.-)%s*$') end
+local function fingerprint(s)
+ s=canonical(s);local a,b=1,0
+ for i=1,#s do a=(a+s:byte(i))%65521;b=(b+a)%65521 end
+ return #s..':'..(b*65536+a)
+end
+local expected={["22071:2609543984"]='V7',["22462:528550178"]='V11'}
+local apply=P.Movement
+function P.IdentifyMovement(source)
+ local id=fingerprint(source);local version=expected[id]
+ assert(version,'SnappyMovement source is not a verified V7/V11 version (fingerprint '..id..'). No changes were made; provide the current source for review.')
+ return version
+end
+function P.Movement(source)
+ local version=P.IdentifyMovement(source)
+ if version=='V11' then return source end
+ local result=apply(source:gsub('\r\n','\n'))
+ assert(fingerprint(result)=="22462:528550178",'Movement adapter output differs from the verified V11 result.')
+ return result
+end
 return P
 
 end)()
 
-local patchPractice=(function()
--- Strict practice integration; multiplayer economy flow remains unchanged.
-local Patch={}
-function Patch.Round(source)
- local marker='-- HussPracticeHooksV11'
- if source:find(marker,1,true) then
-  assert(source:find('Practice.Run(player,{',1,true) and source:find('Practice.Stop()',1,true),'Incomplete V11 practice integration. Nothing changed.');return source
- end
- assert(source:find('-- HussEconomyHooksV9',1,true),'Install V9 before practice. Nothing changed.')
- local function replace(old,new)
-  local a,b=source:find(old,1,true);assert(a and not source:find(old,b+1,true),'Round service differs: '..old:sub(1,50)..'. Nothing changed.')
-  source=source:sub(1,a-1)..new..source:sub(b+1)
- end
- replace('local RoundService = {}',marker.."\nlocal Practice=require(script.Parent:WaitForChild('PracticeServiceV11'))\nlocal RoundService = {}")
- local a=assert(source:find('local function runSoloPractice()',1,true))
- local b=assert(source:find('------------------------------------------------------------\n-- AWARD WIN',a+1,true))
- source=source:sub(1,a-1)..[[local function runSoloPractice()
- Economy.AbortRound()
- local players=getMatchmakingPlayers()
- if #players~=1 then return end
- local player=players[1]
- Practice.Run(player,{
-  Spawns=getSpawnParts(),Ground=groundCharacter,Duration=math.max(60,GameConfig.SoloPracticeSeconds),
-  Running=function() return running end,
-  Send=function(state,timeLeft,alive)
-   roundRemote:FireAllClients({State=state,TimeLeft=timeLeft,Alive=alive,Winner=''})
-  end,
- })
+local dependencyValidator=(function()
+local function canonical(s) return s:gsub('\r\n','\n'):match('^%s*(.-)%s*$') end
+local function fingerprint(s)
+ s=canonical(s);local a,b=1,0
+ for i=1,#s do a=(a+s:byte(i))%65521;b=(b+a)%65521 end
+ return #s..':'..(b*65536+a)
 end
-
-]]..source:sub(b)
- replace('local function returnEveryoneToLobby()','local function returnEveryoneToLobby()\n\tPractice.Stop()')
- replace('\t\tif not success then','\t\tif not success then\n\t\t\tPractice.Stop()')
- return source
+local known={
+ Remotes={["1719:1737753784"]=true},
+ MapVote={["4995:3112494590"]=true},
+ AFK={["3768:2633261036"]=true},
+ ClientMain={["1025:267261944"]=true},
+ Dodge={["9272:1815088008"]=true,["9680:1349820738"]=true},
+}
+local configTypes={MinimumPlayers="number",AbsoluteMinimumPlayers="number",AutoStartMinSeconds="number",AutoStartMaxSeconds="number",ForceStartAfterSeconds="number",IntermissionSeconds="number",RoundStartCountdownSeconds="number",ResultsSeconds="number",SoloPracticeSeconds="number",MapName="string",NormalBombFuseSeconds="number",FinalDuelBombFuseSeconds="number",BombTagRadius="number",AntiTagBackSeconds="number",NewCarrierLockSeconds="number",BetweenBombsSeconds="number",TagCheckInterval="number",DebugPrints="boolean"}
+local configFingerprint="3381:79344004"
+-- Validates the existing dependency graph without requiring live game modules.
+local D={}
+function D.Validate(c)
+ local issues,sources={},{}
+ local function issue(message) table.insert(issues,message) end
+ local function path(o) return o and o:GetFullName() or '<missing>' end
+ local function child(parent,name,class,optional)
+  if not parent then return nil end
+  local matches={}
+  for _,o in ipairs(parent:GetChildren()) do if o.Name==name then table.insert(matches,o) end end
+  if #matches==0 and optional then return nil end
+  if #matches~=1 then issue(path(parent)..'.'..name..': expected exactly one '..class..', found '..#matches);return nil end
+  local o=matches[1]
+  if not o:IsA(class) then issue(path(o)..': expected '..class..', found '..o.ClassName);return nil end
+  return o
+ end
+ local function named(root,name,class)
+  if not root then return nil end
+  local found={}
+  for _,o in ipairs(root:GetDescendants()) do if o.Name==name then table.insert(found,o) end end
+  if #found~=1 then issue(path(root)..': expected one '..name..', found '..#found);return nil end
+  local o=found[1]
+  if not o:IsA(class) then issue(path(o)..': expected '..class..', found '..o.ClassName);return nil end
+  return o
+ end
+ local function verified(o,kind)
+  if not o then return end
+  table.insert(sources,o)
+  local ok,source=pcall(function() return o.Source end)
+  if not ok then issue(path(o)..': Source is not readable');return end
+  local id=fingerprint(source)
+  if not known[kind][id] then issue(path(o)..': unknown '..kind..' source ('..id..'); preserve it and review compatibility before installation') end
+  if o:IsA('BaseScript') and o.Disabled then issue(path(o)..': required script is disabled') end
+ end
+ local shared=child(c.replicated,'Shared','Folder')
+ local net=child(shared,'Net','Folder')
+ local configFolder=child(shared,'Config','Folder')
+ local remotes=child(net,'Remotes','ModuleScript')
+ local config=child(configFolder,'GameConfig','ModuleScript')
+ verified(remotes,'Remotes')
+ verified(child(c.services,'BombTagMapVoteServiceV6','ModuleScript'),'MapVote')
+ verified(named(c.server,'BombTagAFKServer','Script'),'AFK')
+ verified(named(c.server,'DodgeIFrameServer','Script'),'Dodge')
+ local client=named(c.starter,'ClientMain','LocalScript');verified(client,'ClientMain')
+ if client and c.hud then
+  local controllers=child(client.Parent,'Controllers','Folder')
+  local actual=child(controllers,'HudController','ModuleScript')
+  if actual and actual~=c.hud then issue(path(client)..': starts a different HudController than the selected installer target') end
+ end
+ child(c.replicated,'BombTagVoteV6','RemoteEvent')
+ child(c.replicated,'BombTagAFKRequest','RemoteEvent')
+ child(net,'DodgeIFrameRequest','RemoteEvent',true)
+ local remoteFolder=child(c.replicated,'BombTagRemotes','Folder',true)
+ child(remoteFolder,'RoundState','RemoteEvent',true)
+ child(remoteFolder,'BombState','RemoteEvent',true)
+ -- Known Remotes.Init and DodgeIFrameServer create these optional remotes at runtime.
+ if config then
+  table.insert(sources,config)
+  local seen,values,lines={},{},{}
+  local ok,source=pcall(function() return config.Source end)
+  if not ok then issue(path(config)..': Source is not readable') else
+   for line in (source:gsub('\r\n','\n')..'\n'):gmatch('(.-)\n') do
+    local left,key,value=line:match('^(%s*GameConfig%.([%w_]+)%s*=%s*)(.-)%s*$')
+    if key then
+     local kind=configTypes[key]
+     if not kind or seen[key] then issue(path(config)..': unsupported or duplicate assignment '..key) end
+     seen[key]=true
+     if kind=='number' then
+      local n=tonumber(value)
+      if not n or n~=n or math.abs(n)==math.huge then issue(path(config)..': '..key..' must be a finite numeric literal')
+      else values[key]=n;if n<0 then issue(path(config)..': '..key..' must not be negative') end end
+     elseif kind=='boolean' then
+      if value~='true' and value~='false' then issue(path(config)..': '..key..' must be true or false') end
+     elseif kind=='string' then
+      local q=value:sub(1,1);local content=value:sub(2,-2)
+      if (q~='"' and q~="'") or value:sub(-1)~=q or #content==0 or content:find('[%c\\"\']') then
+       issue(path(config)..': MapName must be a plain quoted map name')
+      end
+     end
+     line=left..'<'..key..'>'
+    end
+    table.insert(lines,line)
+   end
+   for key in pairs(configTypes) do if not seen[key] then issue(path(config)..': missing GameConfig.'..key) end end
+   if fingerprint(table.concat(lines,'\n'))~=configFingerprint then
+    issue(path(config)..': configuration structure differs from the reviewed module; only its literal settings may vary')
+   end
+   for _,key in ipairs({'AbsoluteMinimumPlayers','MinimumPlayers','NormalBombFuseSeconds','FinalDuelBombFuseSeconds','BombTagRadius','TagCheckInterval'}) do
+    if values[key] and values[key]<=0 then issue(path(config)..': '..key..' must be positive') end
+   end
+   for _,key in ipairs({'AbsoluteMinimumPlayers','MinimumPlayers'}) do
+    if values[key] and values[key]%1~=0 then issue(path(config)..': '..key..' must be a whole player count') end
+   end
+   if values.AutoStartMaxSeconds and values.AutoStartMinSeconds and values.AutoStartMaxSeconds<values.AutoStartMinSeconds then
+    issue(path(config)..': AutoStartMaxSeconds is smaller than AutoStartMinSeconds')
+   end
+  end
+ end
+ return {issues=issues,sources=sources}
 end
-return Patch
+return D
 
 end)()
 
@@ -1772,30 +2522,157 @@ end)
 connect(script.Destroying,function() alive=false;clear(links);for _,list in pairs(watchers) do clear(list) end;table.clear(watchers);table.clear(boards) end)
 ]==]
 
-local bytes,checksum=fingerprint(economy.Source)
-assert((bytes==14880 and checksum==1268984491) or canonical(economy.Source)==canonical(economySource),
- 'EconomyServiceV9 differs from the supported V9/V11 versions. Its source was preserved; nothing changed.')
-local edits={{hud,patchHUD(hud.Source)},{main,patchMain(main.Source)},
- {bomb,patchCore.Bomb(bomb.Source)},{round,patchPractice.Round(patchCore.Round(round.Source))},
- {movement,patchCore.Movement(movement.Source)},{economy,economySource}}
-local additions={
- {replicated,'ModuleScript','HussCatalogV11',catalogSource},
- {services,'ModuleScript','CosmeticsServiceV11',cosmeticsSource},
- {services,'ModuleScript','PracticeServiceV11',practiceSource},
- {services,'ModuleScript','PerfectWeaveServiceV11',weaveSource},
- {starter,'LocalScript','CollectionEffectsV11',collectionSource},
- {starter,'LocalScript','LobbyBoardsV11',boardsSource},
-}
-for _,entry in ipairs(additions) do
- local old=entry[1]:FindFirstChild(entry[3]);entry[5]=old
- assert(not old or (old:IsA(entry[2]) and canonical(old.Source)==canonical(entry[4])),
-  entry[3]..' already exists with different content. Nothing changed.')
+-- Discover the actual place. Names are not treated as proof of compatibility.
+local starter=unique(starterRoot,'StarterPlayerScripts','StarterPlayerScripts',false)
+local services=unique(server,'Services','Folder',false)
+local hud=unique(starter,'HudController','ModuleScript',true)
+local main=unique(server,'ServerMain','Script',true)
+local round=unique(services,'RoundService','ModuleScript',false)
+local bomb=unique(services,'BombService','ModuleScript',false)
+local economy=unique(services,'EconomyServiceV9','ModuleScript',false,true)
+local movement=unique(starter,'SnappyMovement','LocalScript',true)
+local effects=unique(starter,'MovementEffectsV8','LocalScript',true)
+local originalLibrary=unique(storage,'MapLibrary','Folder',false)
+local originalLobby=unique(workspace,'Lobby','Model',false)
+local originalPreviews=unique(replicated,'BombTagV6Previews','Folder',false,true)
+local maps=unique(workspace,'Maps','Folder',false)
+local anchor=unique(workspace,'ActiveArenaAnchor','BasePart',false)
+local originalArena
+if maps then for _,object in ipairs(maps:GetChildren()) do if object:IsA('Model') then
+ if originalArena then problem('Workspace.Maps has multiple active arenas; the installer cannot safely choose one.') end
+ originalArena=object
+end end end
+if not originalArena then problem('Workspace.Maps needs one active arena Model.') end
+local function validateSpawns(model)
+ if not model then return end
+ unique(model,'Floor','BasePart',false)
+ local spawns=unique(model,'Spawns','Folder',false)
+ if spawns then
+  local count=0;for _,object in ipairs(spawns:GetChildren()) do if object:IsA('BasePart') then count+=1 end end
+  if count<16 then problem(path(spawns)..' needs at least sixteen BasePart spawns; found '..count..'.') end
+ end
 end
-local cosmeticRemote=replicated:FindFirstChild('HussCosmeticsV11')
-assert(not cosmeticRemote or (cosmeticRemote:IsA('RemoteEvent') and services:FindFirstChild('CosmeticsServiceV11')),'An unrelated HussCosmeticsV11 already exists. Nothing changed.')
+if originalLobby then unique(originalLobby,'Floor','BasePart',false);unique(originalLobby,'LobbySpawn','SpawnLocation',false) end
+validateSpawns(originalArena)
+for _,object in ipairs({main,movement,effects}) do if object and object.Disabled then problem(path(object)..' is disabled. The installer preserves this setting; enable the intended owner before installing.') end end
+local edits,additions,dependencySources={},{},{}
+local function edit(object,adapter)
+ if not object then return end
+ local source=attempt(path(object),function() return adapter(object.Source) end)
+ if type(source)=='string' then table.insert(edits,{object,source}) end
+end
+edit(main,gameplayAdapter.Main);edit(round,gameplayAdapter.Round);edit(bomb,gameplayAdapter.Bomb)
+edit(hud,uiAdapter.HUD);edit(movement,movementAdapter.Movement);edit(effects,uiAdapter.Effects)
+if economy then
+ local length,sum=fingerprint(economy.Source)
+ if (length==14880 and sum==1268984491) or canonical(economy.Source)==canonical(economySource) then table.insert(edits,{economy,economySource})
+ else problem(path(economy)..' has unsupported source ('..length..' bytes; checksum '..sum..'). Its existing saves and source will not be overwritten.') end
+elseif services then table.insert(additions,{services,'ModuleScript','EconomyServiceV9',economySource}) end
+if replicated and services and starter then
+ for _,entry in ipairs({
+  {replicated,'ModuleScript','HussCatalogV11',catalogSource},
+  {services,'ModuleScript','CosmeticsServiceV11',cosmeticsSource},
+  {services,'ModuleScript','PracticeServiceV11',practiceSource},
+  {services,'ModuleScript','PerfectWeaveServiceV11',weaveSource},
+  {starter,'LocalScript','CollectionEffectsV11',collectionSource},
+  {starter,'LocalScript','LobbyBoardsV11',boardsSource},
+ }) do table.insert(additions,entry) end
+end
+for _,entry in ipairs(additions) do
+ local old=unique(entry[1],entry[3],entry[2],true,true);entry[5]=old
+ if old then
+  if old.Parent~=entry[1] then problem(path(old)..' is in an unexpected container; expected '..path(entry[1])..'. No duplicate will be installed.') end
+  if canonical(old.Source)~=canonical(entry[4]) then problem(path(old)..' already contains different source. No unrelated script will be replaced.') end
+  if old:IsA('BaseScript') and old.Disabled then problem(path(old)..' is disabled; enable the intended V11 system before reinstalling.') end
+ end
+end
+for _,pair in ipairs({{'HussEconomyV9',economy},{'HussCosmeticsV11',services and services:FindFirstChild('CosmeticsServiceV11')}}) do
+ local remote=unique(replicated,pair[1],'RemoteEvent',false,true)
+ if remote and not pair[2] then problem(path(remote)..' has no verified owning service. Its ownership must be resolved before installation.') end
+end
+local context={server=server,replicated=replicated,storage=storage,starter=starter,services=services,main=main,round=round,bomb=bomb,hud=hud,movement=movement,effects=effects,library=originalLibrary,lobby=originalLobby,maps=maps,anchor=anchor,economy=economy}
+local validation=attempt('Installation dependencies',function() return dependencyValidator.Validate(context) end)
+if type(validation)=='table' then
+ for _,message in ipairs(validation.issues or {}) do problem(message) end
+ dependencySources=validation.sources or {}
+ for _,message in ipairs(validation.notes or {}) do note(message) end
+end
+local originalNames={'Sky Garden','Sunset Docks','Frostfall Village','Sunstone Bazaar','Neon District','Clockwork Foundry','Orbital Station','Stardust Carnival','Crystal Cavern','Emerald Ruins','Pirate Cove','Ember Keep'}
+local worldComplete=originalLobby and originalLobby:GetAttribute('HussLobbyVersion')==11
+local worldCount,knownCount=0,0
+if originalLibrary then
+ local seen={}
+ for _,model in ipairs(originalLibrary:GetChildren()) do
+  if seen[model.Name] then problem('Duplicate map name in MapLibrary: '..model.Name) end;seen[model.Name]=true
+  if model:IsA('Model') then
+   worldCount+=1
+   local version=model:GetAttribute('BombTagGenerated')
+   if version=='HussWorld4' or version=='HussWorld11' then
+    knownCount+=1
+    validateSpawns(model)
+    local floor=model:FindFirstChild('Floor')
+    if floor and version=='HussWorld4' and (type(model:GetAttribute('MapWidth'))~='number' or type(model:GetAttribute('MapDepth'))~='number') then problem(path(model)..' is missing its authored map dimensions.') end
+    if version~='HussWorld11' then worldComplete=false end
+   end
+  end
+ end
+ for _,name in ipairs(originalNames) do
+  local model=originalLibrary:FindFirstChild(name)
+  if not model or not model:IsA('Model') or (model:GetAttribute('BombTagGenerated')~='HussWorld4' and model:GetAttribute('BombTagGenerated')~='HussWorld11') then problem('Missing verified authored map: '..name) end
+ end
+ if knownCount<12 then problem('MapLibrary does not contain the twelve verified Huss movement maps. Existing map voting will be preserved.') end
+ for _,name in ipairs({'Fuseworks','Detonator Plaza','Payload Port'}) do
+  local model=originalLibrary:FindFirstChild(name)
+  if not model then worldComplete=false
+  elseif not model:IsA('Model') or model:GetAttribute('BombTagGenerated')~='HussWorld11' then problem(path(model)..' conflicts with a V11 featured map name; it will not be replaced.');worldComplete=false end
+ end
+end
+if originalLobby and originalLobby:GetAttribute('HussLobbyVersion')~=7 and originalLobby:GetAttribute('HussLobbyVersion')~=11 then problem(path(originalLobby)..' is not a verified V7/V11 lobby; its geometry will be preserved.') end
+if not worldComplete then
+ for _,model in ipairs({originalLibrary,originalLobby,originalArena}) do if model then
+  for _,object in ipairs(model:GetDescendants()) do if object:IsA('BaseScript') and not object.Disabled then problem(path(object)..' is an enabled script inside geometry scheduled for cloning. Its behavior needs verification before the world can be upgraded.') end end
+ end end
+end
+stopPreflight()
+note('ServerMain: '..path(main))
+note('Gameplay: '..path(round)..'; '..path(bomb))
+note(economy and ('Economy: verified existing '..path(economy)) or ('Economy: add '..path(services)..'.EconomyServiceV9'))
+local staging=Instance.new('Folder');staging.Name='ExpansionV11Preflight_'..os.time()
+while storage:FindFirstChild(staging.Name) do staging.Name..='_' end
+staging.Parent=storage
+local function compileSource(label,source)
+ -- require executes this outer return only. The original script body remains inert.
+ -- Each fresh ModuleScript avoids require's cache and compiles LocalScripts/Scripts too.
+ local probe=Instance.new('ModuleScript');probe.Name='SyntaxProbe';probe.Parent=staging
+ local ok,message=pcall(function()
+  probe.Source='return function()\n'..source..'\nend\n'
+  assert(probe.Source=='return function()\n'..source..'\nend\n','Source write/read verification failed')
+  assert(type(require(probe))=='function','Syntax probe returned unexpected content')
+ end)
+ probe:Destroy()
+ if not ok then problem(label..': Luau syntax check failed: '..tostring(message)) end
+end
+for _,entry in ipairs(edits) do compileSource(path(entry[1]),entry[2]) end
+for _,entry in ipairs(additions) do compileSource(path(entry[1])..'.'..entry[3],entry[4]) end
+for _,object in ipairs(dependencySources) do compileSource(path(object),object.Source) end
+if #issues>0 then staging:Destroy();stopPreflight() end
+local changes={}
+for _,entry in ipairs(edits) do if entry[1].Source~=entry[2] then table.insert(changes,entry) end end
+local missing=false
+for _,entry in ipairs(additions) do if not entry[5] then missing=true end end
+local previewsComplete=originalPreviews and #originalPreviews:GetChildren()==worldCount
+if previewsComplete then for _,model in ipairs(originalLibrary:GetChildren()) do if model:IsA('Model') then
+ local preview=originalPreviews:FindFirstChild(model.Name)
+ if not preview or not preview:IsA('Model') then previewsComplete=false;break end
+end end end
+if worldComplete and previewsComplete and #changes==0 and not missing and workspace:GetAttribute('HussExpansionVersion')==11 then
+ staging:Destroy()
+ for _,message in ipairs(notes) do print('[V11] '..message) end
+ print('V11 already installed: source compatibility, dependencies and Luau syntax verified. No systems duplicated; maps left unchanged.')
+ return
+end
 local backup=Instance.new('Folder');backup.Name='ExpansionV11Backup_'..os.time()
 while storage:FindFirstChild(backup.Name) do backup.Name..='_' end
-local staging=Instance.new('Folder');staging.Name='ExpansionV11Staging'
 local sourceBackups=Instance.new('Folder');sourceBackups.Name='Scripts';sourceBackups.Parent=backup
 local worldBackups=Instance.new('Folder');worldBackups.Name='World';worldBackups.Parent=backup
 local originals,newObjects,moved={},{},{}
@@ -1803,70 +2680,101 @@ local built,newPreviews,newArena,chosen
 local oldChosen=workspace:GetAttribute('CurrentVotedMap')
 local oldVersion=workspace:GetAttribute('HussExpansionVersion')
 local ok,err=pcall(function()
- for _,edit in ipairs(edits) do
-  local object=edit[1];assert(object.Archivable,object.Name..' must be Archivable.')
+ for _,entry in ipairs(changes) do
+  local object=entry[1];assert(object.Archivable,path(object)..' must be Archivable so it can be backed up.')
   originals[object]=object.Source
-  local copy=object:Clone();assert(copy,'Unable to back up '..object.Name);copy.Parent=sourceBackups
-  copy:SetAttribute('OriginalPath',object:GetFullName())
+  local copy=object:Clone();assert(copy,'Unable to back up '..path(object));copy.Parent=sourceBackups
+  copy:SetAttribute('OriginalPath',path(object))
   if copy:IsA('BaseScript') then copy:SetAttribute('OriginalDisabled',copy.Disabled);copy.Disabled=true end
-  local probe=Instance.new(object.ClassName);probe.Parent=staging;probe.Source=edit[2];assert(probe.Source==edit[2],'Source write check failed.');probe:Destroy()
  end
  for _,entry in ipairs(additions) do if not entry[5] then
-  local object=Instance.new(entry[2]);object.Parent=staging;object.Name=entry[3];object.Source=entry[4]
+  local object=Instance.new(entry[2]);object.Name=entry[3];object.Parent=staging;object.Source=entry[4]
   if object:IsA('BaseScript') then object.Disabled=false end
-  assert(object.Source==entry[4],'New module write check failed.');table.insert(newObjects,{object,entry[1]})
+  assert(object.Source==entry[4],'Source write/read verification failed for '..entry[3]);table.insert(newObjects,{object,entry[1]})
  end end
- built=worldBuilder.Build(originalLibrary,originalLobby)
- assert(built and built.Library and built.Lobby,'World generator returned no staged world.')
- built.Library.Parent=staging;built.Lobby.Parent=staging
- newPreviews=Instance.new('Folder');newPreviews.Name='BombTagV6Previews';newPreviews.Parent=staging
- local mapCount=0
- for _,map in ipairs(built.Library:GetChildren()) do
-  if not map:IsA('Model') then continue end
-  mapCount+=1
-  assert(map:FindFirstChild('Floor') and map:FindFirstChild('Spawns') and #map.Spawns:GetChildren()>=16,'Incomplete map: '..map.Name)
-  local preview=map:Clone();assert(preview,'Map preview cannot be cloned.');preview.Parent=newPreviews
-  for _,object in ipairs(preview:GetDescendants()) do
-   if object.Name=='Spawns' or object:IsA('LuaSourceContainer') or object:IsA('SurfaceGui') or object:IsA('Light') or (object:IsA('BasePart') and object.Transparency>=1) then object:Destroy() end
+ if not worldComplete then
+  built=worldBuilder.Build(originalLibrary,originalLobby)
+  assert(built and built.Library and built.Lobby,'World generator returned no staged world.')
+  built.Library.Parent=staging;built.Lobby.Parent=staging
+  -- Keep already upgraded new arenas intact in partially installed places.
+  for _,name in ipairs({'Fuseworks','Detonator Plaza','Payload Port'}) do
+   local existing=originalLibrary:FindFirstChild(name)
+   if existing and existing:GetAttribute('BombTagGenerated')=='HussWorld11' then
+    local generated=built.Library:FindFirstChild(name);if generated then generated:Destroy() end
+    local copy=existing:Clone();assert(copy,'Unable to preserve '..name);copy.Parent=built.Library
+   end
   end
  end
- assert(mapCount>=15,'Expected fifteen completed maps.')
- local template=built.Library:FindFirstChild(oldChosen or '') or built.Library:FindFirstChild(originalArena:GetAttribute('VotedMap') or '') or built.Library:FindFirstChild('Sky Garden')
- assert(template,'Unable to choose an active map.');chosen=template.Name;newArena=template:Clone();newArena.Parent=staging;newArena.Name=originalArena.Name
- local floor=newArena.Floor;newArena:PivotTo(newArena:GetPivot()+anchor.Position-(floor.Position+Vector3.new(0,floor.Size.Y/2,0)))
- newArena:SetAttribute('DisplayName',chosen);newArena:SetAttribute('VotedMap',chosen)
- local empty=Instance.new('Folder');empty.Parent=staging
- local placement=placementBuilder.Plan(built.Lobby,built.Library,empty,anchor);placementBuilder.Apply(placement);empty:Destroy()
+ local library=built and built.Library or originalLibrary
+ if built or not previewsComplete then
+  newPreviews=Instance.new('Folder');newPreviews.Name='BombTagV6Previews';newPreviews.Parent=staging
+  local mapCount=0
+  for _,map in ipairs(library:GetChildren()) do if map:IsA('Model') then
+   mapCount+=1
+   assert(map:FindFirstChild('Floor') and map:FindFirstChild('Spawns') and #map.Spawns:GetChildren()>=16,'Incomplete map: '..map.Name)
+   local preview=map:Clone();assert(preview,'Map preview cannot be cloned.');preview.Parent=newPreviews
+   for _,object in ipairs(preview:GetDescendants()) do
+    if object.Name=='Spawns' or object:IsA('LuaSourceContainer') or object:IsA('SurfaceGui') or object:IsA('Light') or (object:IsA('BasePart') and object.Transparency>=1) then object:Destroy() end
+   end
+  end end
+  assert(mapCount>=15,'Expected fifteen completed maps.')
+ end
+ if built then
+  local template=library:FindFirstChild(oldChosen or '') or library:FindFirstChild(originalArena:GetAttribute('VotedMap') or '') or library:FindFirstChild('Sky Garden')
+  assert(template,'Unable to select the existing active map.');chosen=template.Name;newArena=template:Clone();assert(newArena,'Cannot clone active arena');newArena.Parent=staging;newArena.Name=originalArena.Name
+  local floor=newArena.Floor;newArena:PivotTo(newArena:GetPivot()+anchor.Position-(floor.Position+Vector3.new(0,floor.Size.Y/2,0)))
+  newArena:SetAttribute('DisplayName',chosen);newArena:SetAttribute('VotedMap',chosen)
+  local empty=Instance.new('Folder');empty.Parent=staging
+  local placement=placementBuilder.Plan(built.Lobby,library,empty,anchor);placementBuilder.Apply(placement);empty:Destroy()
+ end
+ local manifest={'V11 compatibility backup','ServerMain: '..path(main),'','RESTORE SOURCES (copies under Scripts; each has OriginalPath):'}
+ for _,entry in ipairs(changes) do table.insert(manifest,path(entry[1])) end
+ table.insert(manifest,'');table.insert(manifest,'ADDED SYSTEMS (remove only these objects when undoing this install):')
+ for _,entry in ipairs(newObjects) do table.insert(manifest,path(entry[2])..'.'..entry[1].Name) end
+ table.insert(manifest,'');table.insert(manifest,'ARCHIVED WORLD OBJECTS (move originals under World back to these locations):')
+ if built then for _,object in ipairs({originalLibrary,originalLobby,originalArena}) do table.insert(manifest,path(object)) end end
+ if newPreviews and originalPreviews then table.insert(manifest,path(originalPreviews)) end
+ if newPreviews and not originalPreviews then table.insert(manifest,'Added preview folder: '..path(replicated)..'.BombTagV6Previews') end
+ table.insert(manifest,'');table.insert(manifest,'Restore Workspace attributes from OriginalCurrentVotedMap and OriginalExpansionVersion on this backup folder. A missing attribute means remove it.')
+ local record=Instance.new('StringValue');record.Name='RestoreManifest';record.Value=table.concat(manifest,'\n');record.Parent=backup
  backup:SetAttribute('OriginalCurrentVotedMap',oldChosen);backup:SetAttribute('OriginalExpansionVersion',oldVersion)
+ backup:SetAttribute('Installer','V11 compatibility installer');backup:SetAttribute('ServerMainPath',path(main))
 end)
 if not ok then
  if built then if built.Library then built.Library:Destroy() end;if built.Lobby then built.Lobby:Destroy() end end
- staging:Destroy();backup:Destroy();error('V11 preflight stopped; originals preserved: '..tostring(err))
+ staging:Destroy();backup:Destroy();error('V11 staging stopped; originals preserved: '..tostring(err),0)
 end
 local function archive(object)
- table.insert(moved,{object,object.Parent});object.Parent=worldBackups
+ if object then table.insert(moved,{object,object.Parent});object.Parent=worldBackups end
 end
 ok,err=pcall(function()
  backup.Parent=storage
  for _,entry in ipairs(newObjects) do entry[1].Parent=entry[2] end
- for _,edit in ipairs(edits) do edit[1].Source=edit[2];assert(edit[1].Source==edit[2],'Source write failed: '..edit[1].Name) end
- archive(originalLibrary);archive(originalLobby);archive(originalPreviews);archive(originalArena)
- built.Library.Parent=storage;built.Lobby.Parent=workspace;newPreviews.Parent=replicated;newArena.Parent=maps
- workspace:SetAttribute('CurrentVotedMap',chosen);workspace:SetAttribute('HussExpansionVersion',11)
+ for _,entry in ipairs(changes) do entry[1].Source=entry[2];assert(entry[1].Source==entry[2],'Source write failed: '..path(entry[1])) end
+ if built then
+  archive(originalLibrary);archive(originalLobby);archive(originalArena)
+  built.Library.Parent=storage;built.Lobby.Parent=workspace;newArena.Parent=maps
+  workspace:SetAttribute('CurrentVotedMap',chosen)
+ end
+ if newPreviews then archive(originalPreviews);newPreviews.Parent=replicated end
+ workspace:SetAttribute('HussExpansionVersion',11)
 end)
 if not ok then
  local failures={}
  local function restore(fn) local success,message=pcall(fn);if not success then table.insert(failures,tostring(message)) end end
  for _,entry in ipairs(newObjects) do restore(function() entry[1]:Destroy() end) end
- for _,object in ipairs({built.Library,built.Lobby,newPreviews,newArena}) do restore(function() object:Destroy() end) end
+ if built then restore(function() built.Library:Destroy() end);restore(function() built.Lobby:Destroy() end) end
+ if newPreviews then restore(function() newPreviews:Destroy() end) end
+ if newArena then restore(function() newArena:Destroy() end) end
  for i=#moved,1,-1 do local pair=moved[i];restore(function() pair[1].Parent=pair[2] end) end
  for object,source in pairs(originals) do restore(function() object.Source=source end) end
  restore(function() workspace:SetAttribute('CurrentVotedMap',oldChosen);workspace:SetAttribute('HussExpansionVersion',oldVersion) end)
  staging:Destroy()
- if #failures==0 then backup:Destroy();error('V11 installation rolled back: '..tostring(err)) end
- error('V11 stopped. Restore from ServerStorage/'..backup.Name..'. Restore errors: '..table.concat(failures,'; ')..'. Original error: '..tostring(err))
+ if #failures==0 then backup:Destroy();error('V11 installation rolled back: '..tostring(err)..'. Originals restored.',0) end
+ error('V11 stopped. Restore from ServerStorage/'..backup.Name..'. Restore errors: '..table.concat(failures,'; ')..'. Original error: '..tostring(err),0)
 end
 staging:Destroy()
-print('V11 installed: 25 bombs, 25 trails, titles, emotes, lobby shops and boards, practice bots and 15 maps.')
-print('Existing currency and items retained. Studio progression is temporary. Save, then test with one and two players.')
-print('Backup: ServerStorage/'..backup.Name)
+for _,message in ipairs(notes) do print('[V11] '..message) end
+print('V11 installed: compatible source, dependency and Luau syntax checks passed. Gameplay, voting, AFK, movement and HUD callbacks retained.')
+print('25 bombs, 25 trails, titles, emotes, physical shops and boards, practice bots and fifteen maps. Studio progression is temporary.')
+print('Backup: ServerStorage/'..backup.Name..'. Save a new place copy, then playtest with one and two players.')

@@ -1,0 +1,15 @@
+{
+  "assertions": 44,
+  "status": "passed",
+  "scope": "Independent known-version transformations, unknown-source refusal, idempotence, and unchanged AFK/vote/spawn/grounding/freeze/timer/bomb geometry helpers",
+  "sources": {
+    "patch_gameplay.luau": "e20e082319eb77867528c966b44afb55128bf29841765667e0be423a74de56bc",
+    "patch_ui.luau": "733618f40539c31668c03837e4311abf33b3f4bf03520378f47fd2efe1c62bc1"
+  },
+  "final_installer_sha256": "78d1d1f922ba576e22e86a91bc69a7aa82d3dfab7395029d867d9e4a79f618e9",
+  "final_installer_bytes": 187522,
+  "assembly_matches_reviewed_components": true,
+  "windows_txt_aliases_match": true,
+  "standalone_luau_compile": "passed",
+  "native_studio_tested": false
+}

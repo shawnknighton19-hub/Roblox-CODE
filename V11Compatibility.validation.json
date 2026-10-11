@@ -1,0 +1,763 @@
+{
+  "result": "passed",
+  "native_roblox_studio_available": false,
+  "scope": "Offline Luau compilation and deterministic execution of exact source adapters, installer source staging/rollback, dependency graph, original uploaded source, V9 migration, and authored V4-to-V11 geometry. Studio installer additionally compiles all final and required sources before modifying the place. Native Roblox Studio playtesting remains required.",
+  "artifacts": {
+    "Install-Bomb-Expansion-V11.command.luau": {
+      "bytes": 187522,
+      "sha256": "78d1d1f922ba576e22e86a91bc69a7aa82d3dfab7395029d867d9e4a79f618e9"
+    },
+    "Install-Bomb-Expansion-V11.txt": {
+      "bytes": 190302,
+      "sha256": "fb7dbb1e1212c39a0c5b20c505855dbd342db854eec43a004dd683bb61b85e51"
+    },
+    "Huss-A-Bomb-V11.txt": {
+      "bytes": 190302,
+      "sha256": "fb7dbb1e1212c39a0c5b20c505855dbd342db854eec43a004dd683bb61b85e51"
+    }
+  },
+  "checks": {
+    "assembly": {
+      "bytes": 187522,
+      "sha256": "78d1d1f922ba576e22e86a91bc69a7aa82d3dfab7395029d867d9e4a79f618e9",
+      "luau_compile": "passed",
+      "components": {
+        "patch_gameplay.luau": {
+          "bytes": 12299,
+          "sha256": "e20e082319eb77867528c966b44afb55128bf29841765667e0be423a74de56bc"
+        },
+        "patch_ui.luau": {
+          "bytes": 48157,
+          "sha256": "733618f40539c31668c03837e4311abf33b3f4bf03520378f47fd2efe1c62bc1"
+        },
+        "patch_movement.luau": {
+          "bytes": 2232,
+          "sha256": "bfbb5d17b35a2b4116dbf7cfdd1490b22e135ebb1cb6e0045c1df68bd4a14d06"
+        },
+        "dependencies.luau": {
+          "bytes": 6386,
+          "sha256": "2ceb502e35bd6c81713ad9c38f98aa61b723d907e3ab6e2297bddcfc382304be"
+        },
+        "WorldBuilderV11.luau": {
+          "bytes": 25531,
+          "sha256": "f4ff07475e1d986bb3956d3c4ff55724bc6462d10ce008c84bdbaaa67c9ce1e4"
+        },
+        "placement.luau": {
+          "bytes": 2879,
+          "sha256": "9bb295375da818976199242854a8a8dd2075f4b2251c87e0cf008442c9cc81da"
+        },
+        "EconomyServiceV11.luau": {
+          "bytes": 17653,
+          "sha256": "75cd02659df855905aabbc1a959dd65ec32a2efb351efbb192af77e3ff280405"
+        },
+        "HussCatalogV11.luau": {
+          "bytes": 7849,
+          "sha256": "128dca3b4a527eb707ee49f5dfcf0af397e1f0710fc21600dad823beab7a81b3"
+        },
+        "CosmeticsServiceV11.luau": {
+          "bytes": 8706,
+          "sha256": "2f33bf6b345f7a1bc6ed5d41e4677cdc23d616dcc1a3970ef5eefee467a62fdc"
+        },
+        "PracticeServiceV11.luau": {
+          "bytes": 14965,
+          "sha256": "62db98fdde18275dc95877f7641e4e356a0218d9f248e2fc52136067698d2938"
+        },
+        "PerfectWeaveServiceV11.luau": {
+          "bytes": 2229,
+          "sha256": "d0b74f2cbaecb1dbe3745a71ff95e8a9bd2b6a6d8acae50a702724dd724c1ff2"
+        },
+        "CollectionEffectsV11.client.luau": {
+          "bytes": 12914,
+          "sha256": "97e06e70b97bcd2d2d32a19cd25cce748d1bf6d199a138353698bae339b680f0"
+        },
+        "LobbyBoardsV11.client.luau": {
+          "bytes": 5189,
+          "sha256": "70c3a0ac56d52882191f8811a6838a087210efb30452b8cc6142852ebfe39629"
+        }
+      }
+    },
+    "installer": {
+      "assertions": 4994,
+      "cases": 92,
+      "results": [
+        {
+          "error": "",
+          "mode": "normal",
+          "requires": 19,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "repeat",
+          "requires": 38,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "v9",
+          "requires": 19,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "rootMain",
+          "requires": 19,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "v9MissingEconomy",
+          "requires": 19,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "missingPreviews",
+          "requires": 19,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "repairMissingModule",
+          "requires": 38,
+          "result": "installed"
+        },
+        {
+          "error": "/workspace/scratch/compat-v11/test-install.luau:9864: V11: Stop Play before installing. Nothing changed.",
+          "mode": "playMode",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "/workspace/scratch/compat-v11/test-install.luau:9864: V11: Stop Play before installing. Nothing changed.",
+          "mode": "notStudio",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts/HudController is missing; expected ModuleScript.",
+          "mode": "missingHUD",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- Workspace/Lobby is missing; expected Model.",
+          "mode": "missingLobby",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ServerStorage/MapLibrary is missing; expected Folder.",
+          "mode": "missingLibrary",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- Workspace/ActiveArenaAnchor is missing; expected BasePart.",
+          "mode": "missingAnchor",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- Workspace.Maps needs one active arena Model.",
+          "mode": "missingArena",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- Workspace.Maps has multiple active arenas; the installer cannot safely choose one.",
+          "mode": "extraArena",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.Controllers.HudController: /workspace/scratch/compat-v11/test-install.luau:10144: Unsupported or partially modified HudController source (9:316801977:4179364134). Expected a verified historical version; source was not overwritten. Nothing changed.",
+          "mode": "badHUD",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.ServerMain: /workspace/scratch/compat-v11/test-install.luau:10097: Main source is not a verified uploaded, V9, or complete V11 version (9:1371facc:23c5a285). Partial installs and custom edits are not overwritten. Export this script from Studio so its actual code can be adapted.",
+          "mode": "badMain",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.BombService: /workspace/scratch/compat-v11/test-install.luau:10097: Bomb source is not a verified uploaded, V9, or complete V11 version (9:1371facc:23c5a285). Partial installs and custom edits are not overwritten. Export this script from Studio so its actual code can be adapted.",
+          "mode": "badBomb",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.RoundService: /workspace/scratch/compat-v11/test-install.luau:10097: Round source is not a verified uploaded, V9, or complete V11 version (9:1371facc:23c5a285). Partial installs and custom edits are not overwritten. Export this script from Studio so its actual code can be adapted.",
+          "mode": "badRound",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.SnappyMovement: /workspace/scratch/compat-v11/test-install.luau:10761: SnappyMovement source is not a verified V7/V11 version (fingerprint 9:316801977). No changes were made; provide the current source for review.",
+          "mode": "badMovement",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.MovementEffectsV8: /workspace/scratch/compat-v11/test-install.luau:10144: Unsupported or partially modified MovementEffectsV8 source (9:316801977:4179364134). Expected a verified historical version; source was not overwritten. Nothing changed.",
+          "mode": "badEffects",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.EconomyServiceV9 has unsupported source (9 bytes; checksum 316801977). Its existing saves and source will not be overwritten.",
+          "mode": "badEconomy",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- Ambiguous ServerMain: ServerScriptService.Services.ServerMain (Script), ServerScriptService.ServerMain (Script). Keep one active owner; nothing will be guessed.",
+          "mode": "duplicateMain",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- Ambiguous HudController: StarterPlayer.StarterPlayerScripts.Controllers.HudController (ModuleScript), StarterPlayer.StarterPlayerScripts.HudController (ModuleScript). Keep one active owner; nothing will be guessed.",
+          "mode": "duplicateHud",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- Ambiguous Services: ServerScriptService.Services (Folder), ServerScriptService.Services (Folder). Keep one active owner; nothing will be guessed.\n- (missing)/RoundService is missing; expected ModuleScript.\n- (missing)/BombService is missing; expected ModuleScript.",
+          "mode": "duplicateServices",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- Duplicate map name in MapLibrary: Sky Garden",
+          "mode": "duplicateMap",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.Controllers.CollectionEffectsV11 is in an unexpected container; expected StarterPlayer.StarterPlayerScripts. No duplicate will be installed.\n- StarterPlayer.StarterPlayerScripts.Controllers.CollectionEffectsV11 already contains different source. No unrelated script will be replaced.",
+          "mode": "nestedEffects",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.ServerMain is disabled. The installer preserves this setting; enable the intended owner before installing.",
+          "mode": "disabledMain",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.SnappyMovement is disabled. The installer preserves this setting; enable the intended owner before installing.",
+          "mode": "disabledMovement",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.MovementEffectsV8 is disabled. The installer preserves this setting; enable the intended owner before installing.",
+          "mode": "disabledEffects",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 staging stopped; originals preserved: /workspace/scratch/compat-v11/test-install.luau:12204: ServerScriptService.Services.BombService must be Archivable so it can be backed up.",
+          "mode": "unarchivable",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- Workspace.Lobby.CustomWorld is an enabled script inside geometry scheduled for cloning. Its behavior needs verification before the world can be upgraded.",
+          "mode": "worldScript",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 staging stopped; originals preserved: /workspace/scratch/compat-v11/test-install.luau:10899: injected world failure",
+          "mode": "worldBuildFailure",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.ServerMain: Luau syntax check failed: /workspace/scratch/compat-v11/test-install.luau:9857: [string \"return function()...\"]:2: Expected identifier when parsing variable name, got '='",
+          "mode": "syntaxFailure",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 staging stopped; originals preserved: /workspace/scratch/compat-v11/test-install.luau:9847: injected newSourceFailure",
+          "mode": "newSourceFailure",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected backupParentFailure. Originals restored.",
+          "mode": "backupParentFailure",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected archiveLibrary. Originals restored.",
+          "mode": "archiveLibrary",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected archiveLobby. Originals restored.",
+          "mode": "archiveLobby",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected archivePreviews. Originals restored.",
+          "mode": "archivePreviews",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected archiveArena. Originals restored.",
+          "mode": "archiveArena",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected worldLibrary. Originals restored.",
+          "mode": "worldLibrary",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected worldLobby. Originals restored.",
+          "mode": "worldLobby",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected worldPreviews. Originals restored.",
+          "mode": "worldPreviews",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected worldArena. Originals restored.",
+          "mode": "worldArena",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9826: injected setMap. Originals restored.",
+          "mode": "setMap",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9826: injected setVersion. Originals restored.",
+          "mode": "setVersion",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.HussEconomyV9 has no verified owning service. Its ownership must be resolved before installation.",
+          "mode": "unownedEconomyRemote",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.HussCosmeticsV11 has no verified owning service. Its ownership must be resolved before installation.",
+          "mode": "unownedCosmeticRemote",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.HussCosmeticsV11 is Folder; expected RemoteEvent.",
+          "mode": "wrongRemote",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:12273: Source write failed: ServerScriptService.Services.ServerMain. Originals restored.",
+          "mode": "sourceReadback",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.BombTagMapVoteServiceV6: expected exactly one ModuleScript, found 0",
+          "mode": "missingVoteModule",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.BombTagMapVoteServiceV6: unknown MapVote source (9:316801977); preserve it and review compatibility before installation",
+          "mode": "badVoteModule",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.BombTagVoteV6: expected exactly one RemoteEvent, found 0",
+          "mode": "missingVoteRemote",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.BombTagAFKRequest: expected RemoteEvent, found Folder",
+          "mode": "wrongAFKRemote",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts: expected one ClientMain, found 0",
+          "mode": "missingClientMain",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.Shared.Net.Remotes: unknown Remotes source (9:316801977); preserve it and review compatibility before installation",
+          "mode": "badRemotes",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.Shared.Config.GameConfig: TagCheckInterval must be positive",
+          "mode": "badConfig",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "",
+          "mode": "configValues",
+          "requires": 19,
+          "result": "installed"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.Shared.Net.DodgeIFrameRequest: expected RemoteEvent, found Folder",
+          "mode": "wrongDodgeRemote",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.BombTagRemotes.RoundState: expected RemoteEvent, found Folder",
+          "mode": "wrongRoundRemote",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- Ambiguous RoundService: ServerScriptService.Services.RoundService (ModuleScript), ServerScriptService.Services.RoundService (ModuleScript). Keep one active owner; nothing will be guessed.",
+          "mode": "duplicateRoundModule",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.Shared: expected exactly one Folder, found 0",
+          "mode": "missingShared",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- Workspace.Lobby/LobbySpawn is missing; expected SpawnLocation.",
+          "mode": "missingLobbySpawn",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- Workspace.Lobby.LobbySpawn is Part; expected SpawnLocation.",
+          "mode": "wrongLobbySpawn",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- Workspace.Maps.Arena01.Spawns needs at least sixteen BasePart spawns; found 0.",
+          "mode": "badArenaSpawns",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ServerStorage.MapLibrary.Sunset Docks.Spawns needs at least sixteen BasePart spawns; found 0.",
+          "mode": "badTemplateSpawns",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "",
+          "mode": "repeatMissingLobbySpawn",
+          "requires": 19,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "repeatBadArenaSpawns",
+          "requires": 19,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "repeatBadTemplateSpawns",
+          "requires": 19,
+          "result": "installed"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts/HudController is missing; expected ModuleScript.\n- ServerScriptService.Services.RoundService: /workspace/scratch/compat-v11/test-install.luau:10097: Round source is not a verified uploaded, V9, or complete V11 version (9:1371facc:23c5a285). Partial installs and custom edits are not overwritten. Export this script from Studio so its actual code can be adapted.\n- StarterPlayer.StarterPlayerScripts.MovementEffectsV8: /workspace/scratch/compat-v11/test-install.luau:10144: Unsupported or partially modified MovementEffectsV8 source (9:316801977:4179364134). Expected a verified historical version; source was not overwritten. Nothing changed.",
+          "mode": "aggregateErrors",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ServerStorage.MapLibrary.Fuseworks conflicts with a V11 featured map name; it will not be replaced.",
+          "mode": "featuredMapConflict",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "",
+          "mode": "repeatBadFeaturedMap",
+          "requires": 19,
+          "result": "installed"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.EconomyServiceV9 has unsupported source (11 bytes; checksum 448726129). Its existing saves and source will not be overwritten.",
+          "mode": "conflict_EconomyServiceV9",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected parent_EconomyServiceV9. Originals restored.",
+          "mode": "parent_EconomyServiceV9",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ReplicatedStorage.HussCatalogV11 already contains different source. No unrelated script will be replaced.",
+          "mode": "conflict_HussCatalogV11",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected parent_HussCatalogV11. Originals restored.",
+          "mode": "parent_HussCatalogV11",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.CosmeticsServiceV11 already contains different source. No unrelated script will be replaced.",
+          "mode": "conflict_CosmeticsServiceV11",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected parent_CosmeticsServiceV11. Originals restored.",
+          "mode": "parent_CosmeticsServiceV11",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.PracticeServiceV11 already contains different source. No unrelated script will be replaced.",
+          "mode": "conflict_PracticeServiceV11",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected parent_PracticeServiceV11. Originals restored.",
+          "mode": "parent_PracticeServiceV11",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- ServerScriptService.Services.PerfectWeaveServiceV11 already contains different source. No unrelated script will be replaced.",
+          "mode": "conflict_PerfectWeaveServiceV11",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected parent_PerfectWeaveServiceV11. Originals restored.",
+          "mode": "parent_PerfectWeaveServiceV11",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.CollectionEffectsV11 is ModuleScript; expected LocalScript.",
+          "mode": "conflict_CollectionEffectsV11",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected parent_CollectionEffectsV11. Originals restored.",
+          "mode": "parent_CollectionEffectsV11",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 compatibility preflight stopped. Originals preserved.\n- StarterPlayer.StarterPlayerScripts.LobbyBoardsV11 is ModuleScript; expected LocalScript.",
+          "mode": "conflict_LobbyBoardsV11",
+          "requires": 0,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected parent_LobbyBoardsV11. Originals restored.",
+          "mode": "parent_LobbyBoardsV11",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected write_HUD. Originals restored.",
+          "mode": "write_HUD",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected write_MAIN. Originals restored.",
+          "mode": "write_MAIN",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected write_BOMB. Originals restored.",
+          "mode": "write_BOMB",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected write_ROUND. Originals restored.",
+          "mode": "write_ROUND",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected write_MOVEMENT. Originals restored.",
+          "mode": "write_MOVEMENT",
+          "requires": 19,
+          "result": "originals preserved"
+        },
+        {
+          "error": "V11 installation rolled back: /workspace/scratch/compat-v11/test-install.luau:9847: injected write_EFFECTS. Originals restored.",
+          "mode": "write_EFFECTS",
+          "requires": 19,
+          "result": "originals preserved"
+        }
+      ],
+      "scope": "Real adapters, real staged source and syntax compilation; deterministic geometry fixture; no native Roblox Studio."
+    },
+    "full_world": {
+      "assertions": 272,
+      "cases": 3,
+      "results": [
+        {
+          "error": "",
+          "mode": "normal",
+          "requires": 19,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "repeat",
+          "requires": 38,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "v9",
+          "requires": 19,
+          "result": "installed"
+        }
+      ],
+      "scope": "Actual authored V4 maps/V7 lobby"
+    },
+    "installed_sources": {
+      "assertions": 153,
+      "cases": 2,
+      "results": [
+        {
+          "error": "",
+          "mode": "normal",
+          "requires": 19,
+          "result": "installed"
+        },
+        {
+          "error": "",
+          "mode": "v9",
+          "requires": 19,
+          "result": "installed"
+        }
+      ],
+      "installed_source_compilations": [
+        {
+          "path": "/workspace/scratch/compat-v11/installed-0",
+          "files": 13
+        },
+        {
+          "path": "/workspace/scratch/compat-v11/installed-1",
+          "files": 13
+        }
+      ],
+      "scope": "Real adapters, real staged source and syntax compilation; deterministic geometry fixture; no native Roblox Studio."
+    },
+    "gameplay": {
+      "adapter_checks": 76,
+      "runtime_checks": 69,
+      "syntax": "adapter and all final real sources compile with Luau compiler",
+      "supported": [
+        "uploaded V6 map vote + AFK project",
+        "known V9 progression integration",
+        "complete V11 installation"
+      ],
+      "rejected": [
+        "unknown custom source",
+        "partial integrations",
+        "duplicate marker appended",
+        "changed require targets",
+        "older V3 MapService vote protocol"
+      ],
+      "preserved": [
+        "original absolute Services boot targets at either physical location",
+        "V6 map vote dispatch",
+        "AFK matchmaking",
+        "normal and final-duel bomb fuses",
+        "dodge iframe and swept tag logic",
+        "original movement/spawn logic",
+        "no duplicate economy boot or wins"
+      ],
+      "native_studio_tested": false,
+      "sha256": "e20e082319eb77867528c966b44afb55128bf29841765667e0be423a74de56bc"
+    },
+    "ui_effects": {
+      "adapter": "patch_ui.luau",
+      "sha256": "733618f40539c31668c03837e4311abf33b3f4bf03520378f47fd2efe1c62bc1",
+      "compatibilityAssertions": 72,
+      "hudInteractionAssertions": 564,
+      "effectsRuntimeAssertions": 219,
+      "syntaxCompiled": [
+        "patch_ui",
+        "hud-input-v10-v8",
+        "hud-input-v10-v9",
+        "hud-result-v11",
+        "effects-input-v8",
+        "effects-result-v9"
+      ],
+      "nativeStudio": false,
+      "coverage": [
+        "V10-on-V8 adding economy then collections",
+        "V10-on-V9 adding collections",
+        "V11 idempotence",
+        "V8 effects palette upgrade",
+        "V9 effects idempotence",
+        "CRLF and outer whitespace",
+        "custom edits, partial versions and forged markers rejected",
+        "existing AFK, voting, round/bomb callbacks preserved",
+        "HUD input/render/lifecycle and effects cooldown/cleanup behavior under deterministic mocks"
+      ]
+    },
+    "dependencies_movement": {
+      "checks": 89,
+      "compile": "passed",
+      "native_studio": false,
+      "coverage": [
+        "known dependency graph",
+        "missing and wrong-type remotes",
+        "ambiguous and disabled scripts",
+        "configuration literal compatibility and type/range checks",
+        "unknown source rejection",
+        "wrapper-escape rejection",
+        "V7/V11 movement identity and repeat installation",
+        "CRLF input"
+      ]
+    }
+  }
+}
