@@ -1,0 +1,8 @@
+{
+  "patch_bytes": 6536,
+  "patch_idempotence": true,
+  "source_signature_rejection": true,
+  "native_studio_tested": false,
+  "output": "AUDIO V8 CHECKS\t356\tFAILURES\t0\n",
+  "late_real_remotes_output": "AUDIO V8 CHECKS\t360\tFAILURES\t0\n"
+}

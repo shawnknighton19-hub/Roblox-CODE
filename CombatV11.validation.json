@@ -1,0 +1,7 @@
+{
+  "server_hook_checks": 56,
+  "perfect_weave_checks": 33,
+  "compile": "passed",
+  "native_studio": false,
+  "movement_runtime_checks": 13
+}

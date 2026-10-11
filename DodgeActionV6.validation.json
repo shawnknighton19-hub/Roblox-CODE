@@ -1,0 +1,48 @@
+{
+  "source": "DodgeActionV6.client.luau",
+  "sha256": "c1cba67bedd59efb0a33da64842049db985e7ad95ccc905041f0e93173423550",
+  "duration": 0.72,
+  "cooldown": 1.5,
+  "server_immunity": 0.45,
+  "walking_start_speed": 74,
+  "sprinting_start_speed": 76,
+  "measurements_60fps": {
+    "baseline": [
+      {
+        "Direction": "Forward",
+        "Distance": 25.988141481346965,
+        "Duration": 0.95,
+        "FPS": 60,
+        "Sprint": false,
+        "StartSpeed": 50
+      },
+      {
+        "Direction": "Forward",
+        "Distance": 27.88757649562416,
+        "Duration": 0.95,
+        "FPS": 60,
+        "Sprint": true,
+        "StartSpeed": 52
+      }
+    ],
+    "v6": [
+      {
+        "Direction": "Forward",
+        "Distance": 33.17477531387747,
+        "Duration": 0.72,
+        "FPS": 60,
+        "Sprint": false,
+        "StartSpeed": 74
+      },
+      {
+        "Direction": "Forward",
+        "Distance": 34.673662208723194,
+        "Duration": 0.72,
+        "FPS": 60,
+        "Sprint": true,
+        "StartSpeed": 76
+      }
+    ]
+  },
+  "limits": "Unobstructed numerical integration of actual SnappyMovement callbacks. No native Roblox collision or blending validation."
+}

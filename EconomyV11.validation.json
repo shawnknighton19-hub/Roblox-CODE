@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "runtime": "Economy V11 checks passed:\t237",
+  "economy_sha256": "75cd02659df855905aabbc1a959dd65ec32a2efb351efbb192af77e3ff280405",
+  "catalog_sha256": "128dca3b4a527eb707ee49f5dfcf0af397e1f0710fc21600dad823beab7a81b3",
+  "scenarios": [
+    "all V9 persistence/reward regressions",
+    "exact 25 bomb 25 trail 10 title 8 emote catalog",
+    "legacy additive v1 migration",
+    "retained balances equipment claims",
+    "per category purchases ownership",
+    "malformed additive schema failclosed",
+    "client stat injection blocked",
+    "last passer explosion kill exactly once",
+    "last 2 final stand exactly once",
+    "no early stat settlement",
+    "abort discards pending stats",
+    "solo bots no rewards",
+    "concurrent stat save mutation release",
+    "server leaderboard cached cloned data"
+  ],
+  "limits": [
+    "Studio appearance not tested",
+    "live Roblox DataStore not exercised"
+  ]
+}

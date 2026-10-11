@@ -1,0 +1,30 @@
+{
+  "original": "/workspace/attachments/cac05055-9865-4d3a-9a76-6632578a0d75/HELP FOR AI HUSSABOMB 2.rbxl",
+  "output": "/workspace/Roblox-CODE/Huss A Bomb - Twelve Detailed Maps.rbxl",
+  "original_sha256": "a89edc81aab44f7cd18c8c3480361ae8da85b6c9fcb867c676517fd7a186863b",
+  "output_sha256": "53d98429c2e784fb558a832b5707db39a808db82033db6f3cdcd198a5fd9f4a3",
+  "original_upload_unchanged": true,
+  "original_instances_preserved": 31152,
+  "new_instances": 19988,
+  "original_roots_archived": {
+    "11658": "ServerStorage/DetailedMapUpgradeBackup/MapLibrary",
+    "7017": "ServerStorage/DetailedMapUpgradeBackup/BombTagV6Previews",
+    "3": "ServerStorage/DetailedMapUpgradeBackup/Lobby",
+    "21": "ServerStorage/DetailedMapUpgradeBackup/Sky Garden"
+  },
+  "changed_sources": {
+    "6780": "StarterPlayer/StarterPlayerScripts/Controllers/HudController",
+    "6799": "StarterPlayer/StarterPlayerScripts/BombTagVoteClientV6",
+    "9000": "ServerScriptService/SunsetDocksTerrainV9"
+  },
+  "changed_original_chunk_indices": [
+    955,
+    1063,
+    1404,
+    2298
+  ],
+  "original_chunks_preserved_byte_for_byte": 2296,
+  "independent_decoder": "robloxapi/rbxfile@37f4b3f11ff694d24160b9d7b948174fd384d596",
+  "independent_decoder_no_new_warnings": true,
+  "final_instance_count": 51140
+}

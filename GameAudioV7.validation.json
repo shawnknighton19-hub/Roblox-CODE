@@ -1,0 +1,7 @@
+{
+  "patch_bytes": 2509,
+  "patch_idempotence": true,
+  "source_signature_rejection": true,
+  "native_studio_tested": false,
+  "output": "AUDIO V6 CHECKS\t201\tFAILURES\t0\n"
+}

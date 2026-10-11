@@ -1,0 +1,15 @@
+{
+  "cases": 49,
+  "assertions": 16639,
+  "luau_compile": "passed",
+  "twelve_templates_checked": true,
+  "maps_and_gameplay_scripts_unchanged": true,
+  "preserves_lobby_and_spawn_instances": true,
+  "preserves_music_ids": true,
+  "transaction_rollback": "passed",
+  "repeat_install_no_duplicates_or_drift": true,
+  "native_studio_tested": false,
+  "bytes": 30415,
+  "sha256": "19ff9a2d783f23972fea8d96d7ef8f1319e82e393fbc83d741fca9dd0c87fa3e",
+  "standalone_sources_match": true
+}

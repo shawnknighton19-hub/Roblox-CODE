@@ -1,0 +1,8 @@
+{
+  "source": "HudControllerV8.luau",
+  "sha256": "860d1a318d33ace291bced30d44285717ec0b492db445706be612854b0e52ec5",
+  "checks": 569,
+  "failures": 0,
+  "exit_code": 0,
+  "scope": "V5/V6 runtime regression, glossy decoration bounds/input safety, distinct action colors, selected/expired vote pointer/controller states, audio/reduced-motion preferences, unchanged .72s action and1.5s cooldown. Standalone mocks; not Studio."
+}

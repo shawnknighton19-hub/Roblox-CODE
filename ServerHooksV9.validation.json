@@ -1,0 +1,25 @@
+{
+  "checks": 46,
+  "execution": "Actual patched ServerMain, RoundService and BombService loaded with mocked Roblox services; real game flow and transfer logic executed.",
+  "patchBytes": 3122,
+  "cases": [
+    "Boot order",
+    "Round source idempotence and unsupported baseline",
+    "Two-player complete match rewards once before results",
+    "Solo practice without progression",
+    "Empty countdown without progression",
+    "No-survivor match end",
+    "Exception abort and next match",
+    "No duplicate legacy leaderstats wins",
+    "Initial assignment without pass",
+    "Successful direct-distance transfer",
+    "Immunity rejection",
+    "Carrier lock rejection",
+    "Distant rejection",
+    "Swept-distance transfer",
+    "Dead carrier reassignment without pass",
+    "Non-playing target rejection",
+    "Anti-tagback rejection"
+  ],
+  "limitations": "Roblox server runtime, datastore and network replication not simulated by this harness."
+}

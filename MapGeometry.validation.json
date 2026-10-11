@@ -1,0 +1,115 @@
+{
+  "checks": 2269,
+  "errors": [],
+  "maps": [
+    {
+      "name": "Sky Garden",
+      "width": 156,
+      "depth": 144,
+      "parts": 520,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 14.036243467926479
+    },
+    {
+      "name": "Sunset Docks",
+      "width": 196,
+      "depth": 166,
+      "parts": 517,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 14.036243467926479
+    },
+    {
+      "name": "Frostfall Village",
+      "width": 224,
+      "depth": 180,
+      "parts": 712,
+      "spawns": 16,
+      "ramps": 4,
+      "max_slope": 14.036243467926479
+    },
+    {
+      "name": "Neon District",
+      "width": 180,
+      "depth": 160,
+      "parts": 968,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 13.240519915187205
+    },
+    {
+      "name": "Crystal Cavern",
+      "width": 184,
+      "depth": 164,
+      "parts": 418,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 11.888658039627975
+    },
+    {
+      "name": "Clockwork Foundry",
+      "width": 228,
+      "depth": 186,
+      "parts": 1328,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 14.036243467926479
+    },
+    {
+      "name": "Sunstone Bazaar",
+      "width": 190,
+      "depth": 172,
+      "parts": 490,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 13.240519915187205
+    },
+    {
+      "name": "Emerald Ruins",
+      "width": 204,
+      "depth": 184,
+      "parts": 597,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 14.036243467926479
+    },
+    {
+      "name": "Pirate Cove",
+      "width": 226,
+      "depth": 184,
+      "parts": 474,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 13.240519915187205
+    },
+    {
+      "name": "Stardust Carnival",
+      "width": 214,
+      "depth": 202,
+      "parts": 466,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 10.007979801441339
+    },
+    {
+      "name": "Ember Keep",
+      "width": 218,
+      "depth": 204,
+      "parts": 1724,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 13.240519915187205
+    },
+    {
+      "name": "Orbital Station",
+      "width": 246,
+      "depth": 192,
+      "parts": 1125,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 13.240519915187205
+    }
+  ],
+  "scope": "Analytic checks of executed Luau geometry; not Roblox physics/Studio"
+}

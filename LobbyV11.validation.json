@@ -1,0 +1,8 @@
+{
+  "groundAccessNodes": 7,
+  "terraceAccessNodes": 6,
+  "clearanceRadius": 2,
+  "gridStep": 2,
+  "allShopsAndBoardsReachableWithoutJumping": true,
+  "note": "Analytic geometry, not Roblox PathfindingService or playtest."
+}

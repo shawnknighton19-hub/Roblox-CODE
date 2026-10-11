@@ -1,0 +1,30 @@
+{
+  "version": 8,
+  "source": "MovementEffectsV8.client.luau",
+  "bytes": 8341,
+  "sha256": "b4eda6060bbd8aa7c85532008bed08a5559a2f494d27063cc5d766be79587779",
+  "compile": "passed (Luau 0.742)",
+  "checks": 173,
+  "harness": "/workspace/scratch/polish-v8/effects_test.py",
+  "coverage": [
+    "predicted local dodge, accepted remote timestamps, local echo/replay/nonfinite/future rejection",
+    "R6 and R15 grounding; observer FloorMaterial=Air; RespectCanCollide self-excluding rays",
+    "distinct brief gold dodge wakes and cyan sprint wakes; velocity-derived observer sprint",
+    "dodge-recovery suppression, reduced motion, pause, ragdoll, seating, anchor, dead/detached humanoid",
+    "camera loss, distance cutoff, idle slot release, respawn and late setup invalidation",
+    "12 effect sets / 24 new trails maximum; remote rays limited by 80/sec token bucket plus 12 initial tokens",
+    "all callbacks and created instances disposed on player departure / script destruction",
+    "local Sprint state gate, idle body pushes, relative moving-platform velocity for observer sprint"
+  ],
+  "builtinTexture": {
+    "path": "rbxasset://textures/particles/smoke_main.dds",
+    "manifest": "https://github.com/MaximumADHD/Roblox-Client-Tracker",
+    "manifestCommit": "41ab074bc29dd2a51a5bb17bc3498e0465842794",
+    "md5": "88874e71050754400653ee6d0bb99868"
+  },
+  "limits": [
+    "Deterministic mock verifies real controller callbacks, not Roblox rendering/physics/networking.",
+    "Studio playtest remains required for visual appearance and asset loading.",
+    "Existing V6 cosmetic hand trails remain intentionally; new trails are narrow hip wakes."
+  ]
+}

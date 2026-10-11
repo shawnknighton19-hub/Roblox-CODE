@@ -1,0 +1,1406 @@
+{
+  "moveFirst": {
+    "Checks": 9010,
+    "Measurements": [
+      {
+        "Distance": 34.43977107692113,
+        "FPS": 30,
+        "Keys": [
+          "W"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": -74,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 31.585339998523917,
+        "FPS": 30,
+        "Keys": [
+          "S"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": 67.34,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.80545305949952,
+        "FPS": 30,
+        "Keys": [
+          "A"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": -72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.80545305949952,
+        "FPS": 30,
+        "Keys": [
+          "D"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 34.12261206821034,
+        "FPS": 30,
+        "Keys": [
+          "W",
+          "A"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 34.12261206821034,
+        "FPS": 30,
+        "Keys": [
+          "W",
+          "D"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 34.12261206821034,
+        "FPS": 30,
+        "Keys": [
+          "S",
+          "A"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 34.12261206821034,
+        "FPS": 30,
+        "Keys": [
+          "S",
+          "D"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 34.43977107692113,
+        "FPS": 30,
+        "Keys": [
+          "W"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": -74,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 31.585339998523917,
+        "FPS": 30,
+        "Keys": [
+          "S"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": 67.34,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.80545305949952,
+        "FPS": 30,
+        "Keys": [
+          "A"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": -72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.80545305949952,
+        "FPS": 30,
+        "Keys": [
+          "D"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 34.12261206821034,
+        "FPS": 30,
+        "Keys": [
+          "W",
+          "A"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 34.12261206821034,
+        "FPS": 30,
+        "Keys": [
+          "W",
+          "D"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 34.12261206821034,
+        "FPS": 30,
+        "Keys": [
+          "S",
+          "A"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 34.12261206821034,
+        "FPS": 30,
+        "Keys": [
+          "S",
+          "D"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.78033509892956,
+        "FPS": 60,
+        "Keys": [
+          "W"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": -74,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 30.958878908073697,
+        "FPS": 60,
+        "Keys": [
+          "S"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": 67.34,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15334483429493,
+        "FPS": 60,
+        "Keys": [
+          "A"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": -72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15334483429493,
+        "FPS": 60,
+        "Keys": [
+          "D"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.46683996661227,
+        "FPS": 60,
+        "Keys": [
+          "W",
+          "A"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.46683996661227,
+        "FPS": 60,
+        "Keys": [
+          "W",
+          "D"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.46683996661227,
+        "FPS": 60,
+        "Keys": [
+          "S",
+          "A"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.46683996661227,
+        "FPS": 60,
+        "Keys": [
+          "S",
+          "D"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.78033509892956,
+        "FPS": 60,
+        "Keys": [
+          "W"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": -74,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 30.958878908073697,
+        "FPS": 60,
+        "Keys": [
+          "S"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": 67.34,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15334483429493,
+        "FPS": 60,
+        "Keys": [
+          "A"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": -72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15334483430654,
+        "FPS": 60,
+        "Keys": [
+          "D"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.466839966624136,
+        "FPS": 60,
+        "Keys": [
+          "W",
+          "A"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.466839966624136,
+        "FPS": 60,
+        "Keys": [
+          "W",
+          "D"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.466839966624136,
+        "FPS": 60,
+        "Keys": [
+          "S",
+          "A"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.466839966624136,
+        "FPS": 60,
+        "Keys": [
+          "S",
+          "D"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.46330235610109,
+        "FPS": 144,
+        "Keys": [
+          "W"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": -74,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 30.657898839765675,
+        "FPS": 144,
+        "Keys": [
+          "S"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": 67.34,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 32.83987935247097,
+        "FPS": 144,
+        "Keys": [
+          "A"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": -72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 32.83987935247097,
+        "FPS": 144,
+        "Keys": [
+          "D"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15159085428606,
+        "FPS": 144,
+        "Keys": [
+          "W",
+          "A"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15159085428606,
+        "FPS": 144,
+        "Keys": [
+          "W",
+          "D"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15159085428606,
+        "FPS": 144,
+        "Keys": [
+          "S",
+          "A"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15159085428606,
+        "FPS": 144,
+        "Keys": [
+          "S",
+          "D"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.46330235610109,
+        "FPS": 144,
+        "Keys": [
+          "W"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": -74,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 30.657898839765675,
+        "FPS": 144,
+        "Keys": [
+          "S"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": 67.34,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 32.83987935247097,
+        "FPS": 144,
+        "Keys": [
+          "A"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": -72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 32.83987935247097,
+        "FPS": 144,
+        "Keys": [
+          "D"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15159085428606,
+        "FPS": 144,
+        "Keys": [
+          "W",
+          "A"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15159085428606,
+        "FPS": 144,
+        "Keys": [
+          "W",
+          "D"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15159085428606,
+        "FPS": 144,
+        "Keys": [
+          "S",
+          "A"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15159085428606,
+        "FPS": 144,
+        "Keys": [
+          "S",
+          "D"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      }
+    ],
+    "NativeEngineSimulated": false
+  },
+  "shiftFirst": {
+    "Checks": 9010,
+    "Measurements": [
+      {
+        "Distance": 34.43977107692113,
+        "FPS": 30,
+        "Keys": [
+          "W"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": -74,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 31.585339998523917,
+        "FPS": 30,
+        "Keys": [
+          "S"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": 67.34,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.80545305949952,
+        "FPS": 30,
+        "Keys": [
+          "A"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": -72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.80545305949952,
+        "FPS": 30,
+        "Keys": [
+          "D"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 34.12261206821034,
+        "FPS": 30,
+        "Keys": [
+          "W",
+          "A"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 34.12261206821034,
+        "FPS": 30,
+        "Keys": [
+          "W",
+          "D"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 34.12261206821034,
+        "FPS": 30,
+        "Keys": [
+          "S",
+          "A"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 34.12261206821034,
+        "FPS": 30,
+        "Keys": [
+          "S",
+          "D"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 34.43977107692113,
+        "FPS": 30,
+        "Keys": [
+          "W"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": -74,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 31.585339998523917,
+        "FPS": 30,
+        "Keys": [
+          "S"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": 67.34,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.80545305949952,
+        "FPS": 30,
+        "Keys": [
+          "A"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": -72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.80545305949952,
+        "FPS": 30,
+        "Keys": [
+          "D"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 34.12261206821034,
+        "FPS": 30,
+        "Keys": [
+          "W",
+          "A"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 34.12261206821034,
+        "FPS": 30,
+        "Keys": [
+          "W",
+          "D"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 34.12261206821034,
+        "FPS": 30,
+        "Keys": [
+          "S",
+          "A"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 34.12261206821034,
+        "FPS": 30,
+        "Keys": [
+          "S",
+          "D"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.78033509892956,
+        "FPS": 60,
+        "Keys": [
+          "W"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": -74,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 30.958878908073697,
+        "FPS": 60,
+        "Keys": [
+          "S"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": 67.34,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15334483429493,
+        "FPS": 60,
+        "Keys": [
+          "A"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": -72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15334483429493,
+        "FPS": 60,
+        "Keys": [
+          "D"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.46683996661227,
+        "FPS": 60,
+        "Keys": [
+          "W",
+          "A"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.46683996661227,
+        "FPS": 60,
+        "Keys": [
+          "W",
+          "D"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.46683996661227,
+        "FPS": 60,
+        "Keys": [
+          "S",
+          "A"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.46683996661227,
+        "FPS": 60,
+        "Keys": [
+          "S",
+          "D"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.78033509892956,
+        "FPS": 60,
+        "Keys": [
+          "W"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": -74,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 30.958878908073697,
+        "FPS": 60,
+        "Keys": [
+          "S"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": 67.34,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15334483429493,
+        "FPS": 60,
+        "Keys": [
+          "A"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": -72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15334483430654,
+        "FPS": 60,
+        "Keys": [
+          "D"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.466839966624136,
+        "FPS": 60,
+        "Keys": [
+          "W",
+          "A"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.466839966624136,
+        "FPS": 60,
+        "Keys": [
+          "W",
+          "D"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.466839966624136,
+        "FPS": 60,
+        "Keys": [
+          "S",
+          "A"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.466839966624136,
+        "FPS": 60,
+        "Keys": [
+          "S",
+          "D"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.46330235610109,
+        "FPS": 144,
+        "Keys": [
+          "W"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": -74,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 30.657898839765675,
+        "FPS": 144,
+        "Keys": [
+          "S"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": 67.34,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 32.83987935247097,
+        "FPS": 144,
+        "Keys": [
+          "A"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": -72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 32.83987935247097,
+        "FPS": 144,
+        "Keys": [
+          "D"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15159085428606,
+        "FPS": 144,
+        "Keys": [
+          "W",
+          "A"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15159085428606,
+        "FPS": 144,
+        "Keys": [
+          "W",
+          "D"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15159085428606,
+        "FPS": 144,
+        "Keys": [
+          "S",
+          "A"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15159085428606,
+        "FPS": 144,
+        "Keys": [
+          "S",
+          "D"
+        ],
+        "Order": "renderFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.46330235610109,
+        "FPS": 144,
+        "Keys": [
+          "W"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": -74,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 30.657898839765675,
+        "FPS": 144,
+        "Keys": [
+          "S"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 0,
+          "Y": 3,
+          "Z": 67.34,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 32.83987935247097,
+        "FPS": 144,
+        "Keys": [
+          "A"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": -72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 32.83987935247097,
+        "FPS": 144,
+        "Keys": [
+          "D"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 72.52,
+          "Y": 3,
+          "Z": 0,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15159085428606,
+        "FPS": 144,
+        "Keys": [
+          "W",
+          "A"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15159085428606,
+        "FPS": 144,
+        "Keys": [
+          "W",
+          "D"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": -51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15159085428606,
+        "FPS": 144,
+        "Keys": [
+          "S",
+          "A"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": -51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      },
+      {
+        "Distance": 33.15159085428606,
+        "FPS": 144,
+        "Keys": [
+          "S",
+          "D"
+        ],
+        "Order": "heartbeatFirst",
+        "Start": {
+          "X": 51.80264278972647,
+          "Y": 3,
+          "Z": 51.80264278972647,
+          "_kind": "Vector3"
+        }
+      }
+    ],
+    "NativeEngineSimulated": false
+  }
+}

@@ -1,0 +1,934 @@
+{
+  "checks": 7764,
+  "errors": [],
+  "warnings": [],
+  "maps": [
+    {
+      "name": "Sky Garden",
+      "width": 180,
+      "depth": 196,
+      "parts": 1717,
+      "colliders": 202,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 12.52880770915151,
+      "elevated_components": [
+        {
+          "decks": [
+            "Conservatory Walk"
+          ],
+          "exit_ramps": [
+            "West Garden Approach",
+            "East Garden Approach"
+          ],
+          "exit_surface_groups": [
+            0,
+            0
+          ]
+        }
+      ],
+      "ramp_ground_connections": [
+        {
+          "ramp": "West Garden Approach",
+          "ground_component": 0
+        },
+        {
+          "ramp": "East Garden Approach",
+          "ground_component": 0
+        }
+      ],
+      "ground_grid_step": 2,
+      "ground_clearance_radius": 2,
+      "ground_components": 1,
+      "largest_ground_component_cells": 5074,
+      "spawn_ground_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_clearance_radius": 6,
+      "wide_spawn_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_components": 37
+    },
+    {
+      "name": "Sunset Docks",
+      "width": 238,
+      "depth": 190,
+      "parts": 897,
+      "colliders": 130,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 14.036243467926479,
+      "elevated_components": [
+        {
+          "decks": [
+            "Cargo Transfer Quay"
+          ],
+          "exit_ramps": [
+            "West Quay Access",
+            "East Quay Access"
+          ],
+          "exit_surface_groups": [
+            0,
+            0
+          ]
+        }
+      ],
+      "ramp_ground_connections": [
+        {
+          "ramp": "West Quay Access",
+          "ground_component": 0
+        },
+        {
+          "ramp": "East Quay Access",
+          "ground_component": 0
+        }
+      ],
+      "ground_grid_step": 2,
+      "ground_clearance_radius": 2,
+      "ground_components": 1,
+      "largest_ground_component_cells": 6276,
+      "spawn_ground_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_clearance_radius": 6,
+      "wide_spawn_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_components": 3
+    },
+    {
+      "name": "Frostfall Village",
+      "width": 244,
+      "depth": 194,
+      "parts": 2288,
+      "colliders": 217,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 11.976132444203355,
+      "elevated_components": [
+        {
+          "decks": [
+            "Village Promenade"
+          ],
+          "exit_ramps": [
+            "West Promenade",
+            "East Promenade"
+          ],
+          "exit_surface_groups": [
+            0,
+            0
+          ]
+        }
+      ],
+      "ramp_ground_connections": [
+        {
+          "ramp": "West Promenade",
+          "ground_component": 0
+        },
+        {
+          "ramp": "East Promenade",
+          "ground_component": 0
+        }
+      ],
+      "ground_grid_step": 2,
+      "ground_clearance_radius": 2,
+      "ground_components": 2,
+      "largest_ground_component_cells": 6369,
+      "spawn_ground_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_clearance_radius": 6,
+      "wide_spawn_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_components": 7
+    },
+    {
+      "name": "Sunstone Bazaar",
+      "width": 226,
+      "depth": 208,
+      "parts": 1320,
+      "colliders": 148,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 13.240519915187205,
+      "elevated_components": [
+        {
+          "decks": [
+            "Silk Merchants' Arcade"
+          ],
+          "exit_ramps": [
+            "West Arcade Approach",
+            "East Arcade Approach"
+          ],
+          "exit_surface_groups": [
+            0,
+            0
+          ]
+        }
+      ],
+      "ramp_ground_connections": [
+        {
+          "ramp": "West Arcade Approach",
+          "ground_component": 0
+        },
+        {
+          "ramp": "East Arcade Approach",
+          "ground_component": 0
+        }
+      ],
+      "ground_grid_step": 2,
+      "ground_clearance_radius": 2,
+      "ground_components": 2,
+      "largest_ground_component_cells": 5928,
+      "spawn_ground_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_clearance_radius": 6,
+      "wide_spawn_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_components": 19
+    },
+    {
+      "name": "Neon District",
+      "width": 210,
+      "depth": 188,
+      "parts": 1570,
+      "colliders": 137,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 13.392497753751098,
+      "elevated_components": [
+        {
+          "decks": [
+            "Metro concourse"
+          ],
+          "exit_ramps": [
+            "Western metro approach",
+            "Eastern metro approach"
+          ],
+          "exit_surface_groups": [
+            0,
+            0
+          ]
+        }
+      ],
+      "ramp_ground_connections": [
+        {
+          "ramp": "Western metro approach",
+          "ground_component": 0
+        },
+        {
+          "ramp": "Eastern metro approach",
+          "ground_component": 0
+        }
+      ],
+      "ground_grid_step": 2,
+      "ground_clearance_radius": 2,
+      "ground_components": 1,
+      "largest_ground_component_cells": 6664,
+      "spawn_ground_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_clearance_radius": 6,
+      "wide_spawn_groups": [
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_components": 6
+    },
+    {
+      "name": "Clockwork Foundry",
+      "width": 242,
+      "depth": 190,
+      "parts": 1239,
+      "colliders": 141,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 14.036243467926479,
+      "elevated_components": [
+        {
+          "decks": [
+            "Furnace inspection gantry",
+            "Return gantry"
+          ],
+          "exit_ramps": [
+            "Casting yard incline",
+            "Service incline"
+          ],
+          "exit_surface_groups": [
+            0,
+            0
+          ]
+        }
+      ],
+      "ramp_ground_connections": [
+        {
+          "ramp": "Casting yard incline",
+          "ground_component": 0
+        },
+        {
+          "ramp": "Service incline",
+          "ground_component": 0
+        }
+      ],
+      "ground_grid_step": 2,
+      "ground_clearance_radius": 2,
+      "ground_components": 1,
+      "largest_ground_component_cells": 7781,
+      "spawn_ground_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_clearance_radius": 6,
+      "wide_spawn_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_components": 6
+    },
+    {
+      "name": "Orbital Station",
+      "width": 236,
+      "depth": 192,
+      "parts": 859,
+      "colliders": 144,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 14.036243467926479,
+      "elevated_components": [
+        {
+          "decks": [
+            "Observation promenade"
+          ],
+          "exit_ramps": [
+            "Dockside ascent",
+            "Reactor approach"
+          ],
+          "exit_surface_groups": [
+            0,
+            0
+          ]
+        }
+      ],
+      "ramp_ground_connections": [
+        {
+          "ramp": "Dockside ascent",
+          "ground_component": 0
+        },
+        {
+          "ramp": "Reactor approach",
+          "ground_component": 0
+        }
+      ],
+      "ground_grid_step": 2,
+      "ground_clearance_radius": 2,
+      "ground_components": 1,
+      "largest_ground_component_cells": 6716,
+      "spawn_ground_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_clearance_radius": 6,
+      "wide_spawn_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_components": 6
+    },
+    {
+      "name": "Stardust Carnival",
+      "width": 244,
+      "depth": 208,
+      "parts": 899,
+      "colliders": 144,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 10.619655276155134,
+      "elevated_components": [
+        {
+          "decks": [
+            "Bandstand stage"
+          ],
+          "exit_ramps": [
+            "Midway stage approach",
+            "Eastern stage exit"
+          ],
+          "exit_surface_groups": [
+            0,
+            0
+          ]
+        }
+      ],
+      "ramp_ground_connections": [
+        {
+          "ramp": "Midway stage approach",
+          "ground_component": 0
+        },
+        {
+          "ramp": "Eastern stage exit",
+          "ground_component": 0
+        }
+      ],
+      "ground_grid_step": 2,
+      "ground_clearance_radius": 2,
+      "ground_components": 1,
+      "largest_ground_component_cells": 8221,
+      "spawn_ground_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_clearance_radius": 6,
+      "wide_spawn_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_components": 7
+    },
+    {
+      "name": "Crystal Cavern",
+      "width": 186,
+      "depth": 192,
+      "parts": 884,
+      "colliders": 184,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 11.560130794217768,
+      "elevated_components": [
+        {
+          "decks": [
+            "Mining gallery"
+          ],
+          "exit_ramps": [
+            "West gallery slope",
+            "East gallery slope"
+          ],
+          "exit_surface_groups": [
+            0,
+            0
+          ]
+        }
+      ],
+      "ramp_ground_connections": [
+        {
+          "ramp": "West gallery slope",
+          "ground_component": 0
+        },
+        {
+          "ramp": "East gallery slope",
+          "ground_component": 0
+        }
+      ],
+      "ground_grid_step": 2,
+      "ground_clearance_radius": 2,
+      "ground_components": 1,
+      "largest_ground_component_cells": 5078,
+      "spawn_ground_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_clearance_radius": 6,
+      "wide_spawn_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_components": 7
+    },
+    {
+      "name": "Emerald Ruins",
+      "width": 208,
+      "depth": 208,
+      "parts": 1765,
+      "colliders": 246,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 14.036243467926479,
+      "elevated_components": [
+        {
+          "decks": [
+            "Cloister crossing"
+          ],
+          "exit_ramps": [
+            "West cloister ramp",
+            "East cloister ramp"
+          ],
+          "exit_surface_groups": [
+            20,
+            20
+          ]
+        }
+      ],
+      "ramp_ground_connections": [
+        {
+          "ramp": "West cloister ramp",
+          "ground_component": 0
+        },
+        {
+          "ramp": "East cloister ramp",
+          "ground_component": 0
+        }
+      ],
+      "ground_grid_step": 2,
+      "ground_clearance_radius": 2,
+      "ground_components": 1,
+      "largest_ground_component_cells": 6205,
+      "spawn_ground_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_clearance_radius": 6,
+      "wide_spawn_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_components": 22
+    },
+    {
+      "name": "Pirate Cove",
+      "width": 244,
+      "depth": 188,
+      "parts": 928,
+      "colliders": 126,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 11.821488340607255,
+      "elevated_components": [
+        {
+          "decks": [
+            "Gilded Gull quarterdeck"
+          ],
+          "exit_ramps": [
+            "Port gangway",
+            "Starboard gangway"
+          ],
+          "exit_surface_groups": [
+            0,
+            0
+          ]
+        }
+      ],
+      "ramp_ground_connections": [
+        {
+          "ramp": "Port gangway",
+          "ground_component": 0
+        },
+        {
+          "ramp": "Starboard gangway",
+          "ground_component": 0
+        }
+      ],
+      "ground_grid_step": 2,
+      "ground_clearance_radius": 2,
+      "ground_components": 1,
+      "largest_ground_component_cells": 5917,
+      "spawn_ground_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_clearance_radius": 6,
+      "wide_spawn_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_components": 5
+    },
+    {
+      "name": "Ember Keep",
+      "width": 220,
+      "depth": 208,
+      "parts": 1287,
+      "colliders": 147,
+      "spawns": 16,
+      "ramps": 2,
+      "max_slope": 12.80426606528675,
+      "elevated_components": [
+        {
+          "decks": [
+            "Gatehouse wallwalk"
+          ],
+          "exit_ramps": [
+            "Gatehouse approach",
+            "Gatehouse approach"
+          ],
+          "exit_surface_groups": [
+            0,
+            0
+          ]
+        }
+      ],
+      "ramp_ground_connections": [
+        {
+          "ramp": "Gatehouse approach",
+          "ground_component": 0
+        },
+        {
+          "ramp": "Gatehouse approach",
+          "ground_component": 0
+        }
+      ],
+      "ground_grid_step": 2,
+      "ground_clearance_radius": 2,
+      "ground_components": 1,
+      "largest_ground_component_cells": 6858,
+      "spawn_ground_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_clearance_radius": 6,
+      "wide_spawn_groups": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "wide_components": 16
+    }
+  ],
+  "source_sha256": "b4d63412fb0e4a9c0edcddd9c5e188e3f16d90fe44b9e3e05805401aac7a679a",
+  "scope": "Analytic validation of executed Luau geometry. Ground connectivity is a 2-stud sampled grid with 2-stud collider clearance, excluding elevated routes. This is not a Roblox physics or Studio playtest."
+}

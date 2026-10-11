@@ -1,0 +1,7 @@
+{
+  "source": "LobbyBoardsV11.client.luau",
+  "sha256": "70c3a0ac56d52882191f8811a6838a087210efb30452b8cc6142852ebfe39629",
+  "exit_code": 0,
+  "output": "BOARDS_TESTS 30 0\n",
+  "scope": "Actual client executed with standaloneLuau Roblox doubles, not Studio"
+}

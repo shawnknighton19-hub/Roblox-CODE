@@ -1,0 +1,8 @@
+{
+  "source": "HudControllerV9.luau",
+  "sha256": "4916539e8b3a0d59c7167e912c74e8ac014df58595ac1dfcc86aaeb3bd2a3b08",
+  "checks": 647,
+  "failures": 0,
+  "exit_code": 0,
+  "scope": "647 standalone runtime assertions: earlier HUD/vote/movement regressions, server-authoritative purchase/claim/equip feedback, profile loading/unavailable/zero/timeout, malformed data bounds, late/replaced remotes and stats, join/leave/display-name/Coins/Wins sync, desktop native-list clearance, compact layout and scroll accessibility, complete subscription cleanup. Luau mocks and offline layout previews; not Studio."
+}

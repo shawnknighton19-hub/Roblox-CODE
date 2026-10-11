@@ -1,0 +1,9 @@
+{
+  "checks": "1330 cosmetics assertions passed",
+  "compile": "passed",
+  "limitations": "Deterministic Instance/signal/math harness. Native Roblox rendering, audio, Animator and physics require Studio playtest.",
+  "files": {
+    "CosmeticsServiceV11.luau": "2f33bf6b345f7a1bc6ed5d41e4677cdc23d616dcc1a3970ef5eefee467a62fdc",
+    "CollectionEffectsV11.client.luau": "97e06e70b97bcd2d2d32a19cd25cce748d1bf6d199a138353698bae339b680f0"
+  }
+}

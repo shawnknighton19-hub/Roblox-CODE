@@ -1,0 +1,7 @@
+{
+  "result": "passed",
+  "economy_sha256": "75cd02659df855905aabbc1a959dd65ec32a2efb351efbb192af77e3ff280405",
+  "catalog_sha256": "128dca3b4a527eb707ee49f5dfcf0af397e1f0710fc21600dad823beab7a81b3",
+  "output": "Independent economy controlled-yield tests passed: 27 assertions\nIndependent economy extended tests passed: 33 assertions\nIndependent economy final tests passed: 39 assertions\nIndependent V11 economy review passed: 62 total assertions\n",
+  "limits": "Independent controlled-yield mocks; no native Roblox or live DataStoreService."
+}

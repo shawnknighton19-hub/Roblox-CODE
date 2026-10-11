@@ -1,0 +1,328 @@
+local ServerStorage = game:GetService("~33,13;")
+local MapBuilder = {}
+local V, CF, RGB = Vector3.new, CFrame.new, Color3.fromRGB
+local VERSION = "BombTagDetailedWorld_3"
+local WHITE, INK = RGB(229, 231, 218), RGB(37, 45, 44)
+local SAGE, GOLD, ICE = RGB(162, 217, 124), RGB(239, 176, 91), RGB(140, 206, 223)
+local STONE, WOOD = RGB(172, 165, 141), RGB(133, 95, 63)
+local catalog = {
+{Id = "valley", Name = "Sky Garden", Subtitle = "COMPACT / ARCADE & GARDENS", Width = 156, Depth = 144,
+Description = "A warm stone courtyard with an elevated arcade, flower gardens and two generous terrace ramps.", Accent = SAGE},
+{Id = "depot", Name = "Sunset Docks~233,15;MEDIUM / LOADING DECKS & OVERPAS~240,13;96, Depth = 166~240,20;orking freight yard with detailed warehouses, cargo cover and a connected loading-deck overpas~245,14;GOLD},
+{Id = "frost", Name = "Frostfall Village~250,15;LARGE / LODGE & WATER~486,19;224, Depth = 180~246,18;n alpine lodge garden with a raised promenade, snowy planting beds and a ramped bridge between reflective pond~260,14;ICE},
+}
+local function group(parent, name, class)
+local object = Instance.new(class or "Folder")
+object.Name, object.Parent = name, parent
+return object
+end
+local surfaceLayer = 0~172,16;part~171,15;size, position, color, material, collision, rotation, class)
+if collision == false and size.Y <= .2 and position.Y >= 0~20,16;< .3 and (not rotation or rotation.UpVector.Y > .999) then
+~245,13;+= 1
+position += V(0,~280,14;* .001, 0)
+end~421,39;Part~419,23;Size = name, size
+object.CFrame = CF(position) * (rotation or CFrame.identity)
+object.Color, object.Material =~417,16; or Enum.Material.SmoothPlastic
+object.Anchored, object.CanCollide, object.CanTouch = true, collision ~= false, false
+object.CanQuery =~44,19;
+object.TopSurface, object.BottomSurface = Enum.SurfaceType.Smooth,~25,24;
+~798,16;~792,31;function box~768,15;x, y, z, w, h, d~770,28;)
+retur~840,21;V(w, h, d), V(x, y, z)~78,30;~161,19;trim~162,48;)
+retur~222,55;false~140,21;cylinder~84,24;diameter, height~237,30;~872,15;~323,21;height, diameter, diameter~342,41;, CFrame.Angles(0, 0, math.pi / 2))
+object.Shape = Enum.PartType.Cylinder~589,35;all~284,24;size~425,19;~261,15;~494,28;size~6,14;~78,17;~200,29;Ball~196,35;ea~130,16;a, b, width, depth~788,59;~70,13;(b - a).Magnitude), (a + b) / 2~471,37;lookAt(a, b).Rotat~843,24;footprint(entry, x, z, w, d, kind)
+table.insert(entry.Layout, {X = x / entry.Width + 0.5, Z = z / entry.Depth + 0.5,
+W = w~54,14;, D = d~48,14;, Kind = kind or "cover"}~203,21;route(entry, name, x1, z1, x2, z2, width, elevation~221,21;Geometry.Routes, {Name = name, X1 = x1, Z1 = z1, X2 = x2, Z2 = z2, Width = width, Y = elevation or 0~194,22;obstacl~197,16;, z, w, d, height~183,30;Obstacl~186,19; = x, Z = z, Width = w, Depth = d, Height = height})
+~546,27;~197,21;sign(board, title, subtitle, accent)~2442,14;~2129,16;"SurfaceGui")
+surface.Name, surface.Face, surface.CanvasSize = "Sign", Enum.NormalId.Back, Vector2.new(900, 240)
+surface.LightInfluence, surface.Parent = 0.2, board
+for i, data in ipairs({{title, 34, 104, 56, WHITE}, {subtitle, 147, 50, 25, accent}}) do
+local tex~2409,17;"TextLabel")
+text.Name, text.BackgroundTransparency = "Line" .. i, 1
+text.Size, text.Position = UDim2.new(1, -36, 0, data[3]), UDim2.fromOffset(18, data[2])
+text.Font, text.TextSize, text.TextColor3 = Enum.Font.GothamBold, data[4], data[5]
+text.Text, text.TextWrapped, text.Parent = data[1], true, surface
+end~1066,21;ai~1684,16;a, b, color)
+local model =~3260,21;"Model")
+beam(model, "TopRail", a + V(0, 3.2, 0), b~18,17;0.3, 0.35, color,~2723,15;Metal, false~105,15;Middle~108,16;1.7~108,15;1.7, 0), 0.2, 0.2~107,37;local count = math.max(1, math.ceil(~1702,17; / 7))
+for i = 0, count do
+local p = a:Lerp(b, i / count)
+box(model, "RailPost", p.X, p.Y + 1.65, p.Z, 0.4, 3.3, 0.4~206,37;end
+local safety = ~332,13;SmoothRailCollider~340,14;6~340,17;6, 0), 0.45, 3.2, color, nil, true)
+safety.Transparency, safety.CastShadow = 1, false
+return model~693,22;mp(parent, ~1766,29;rise, width~2087,15;or, baseY)
+baseY = baseY or 0
+local dx, dz = x2 - x1, z2 - z1
+local run = math.sqrt(dx * dx + dz * dz)
+assert(width >= 12 and math.deg(math.atan(rise / run)) <= 18, "Unsafe no-jump ramp " .. name)
+local direction = V(dx / run, 0, dz / run)
+local midpoint = V((x1 + x2) / 2, baseY + rise / 2, (z1 + z2) / 2~1036,45;local wedge = part(model, "WalkableRamp", V(width, rise, run), midpoin~3106,20;true,
+~2525,14;midpoint, midpoint - direction).Rotation, "WedgePart")
+wedge:SetAttribute("NoJumpRoute", true~40,22;SlopeDegrees",~464,32;)
+local side = V(direction.Z, 0, -direction.X) * (width / 2 - 0.2)
+for _, s in ipairs({-1, 1}) do
+rail(model, "RampHandrail", V(x1, baseY, z1) + side * s, V(x~508,15;, z2~36,14;INK)
+end
+local tilt =~2913,15;~388,40; *~3441,15;-~307,21;, 0, 0)
+for i = 1, math.floor(run / 4) - 1 do
+local t = i * 4 / run
+~631,13;FlushTractionStripe", V(width - 1.2, 0.035, 0.15), V(x1 + dx * t~800,15;* t + 0.03, z1 + dz * t), color:Lerp(WHITE, 0.35)~3907,17;, tilt)
+end~2939,30;amp~2938,52;
+BaseY = baseY, Rise = rise, Run = run~2977,17;SlopeDegrees =~729,32;~2837,20;~1111,15;~1093,13;, math.abs(dx) < 0.01 and width or run, math.abs(dz~38,27;"ramp")~1584,33;deck~1584,23;, z, w, d, elevation, hollow)
+local depth = hollow and 0.8 or elevation~3014,17;~4443,21;elevation - depth / 2, z, w, depth, d, STONE~1994,16;Concrete)
+surfac~1169,16;WalkableElevation"~3549,14;~4154,16; .. "Fascia"~157,17;0.3, z + d / 2 + 0.05, w, 0.6, 0.12, WHIT~167,27;~724,28;Deck~3476,53;~3647,13;,
+Clearance~414,14;~360,18;or 0, AccessRoutes = 2, SolidBase = not hollow~3563,30;, "terrace")
+return~2918,13;~5956,17;ving~525,18;z, w~4962,22;y)
+retur~5086,24;(y or 0) + 0.025, z, w, 0.05~82,20;~5619,18;Concret~5063,22;tiles(parent~170,14;step, color, y)
+y =~141,15;6
+for dx = -w / 2 + step, w / 2 - 0.5, step do~224,14;"PaverJoint", x + dx, y, z, 0.07, 0.025, d, color) end
+for dz = -d~113,13;d~113,48;, y, z + dz, w, 0.025, 0.07~113,13;~307,19;lamp~306,15;accent, height, baseY)
+~15,13; = height or 12,~2690,18;~2413,22;"Lantern", "Model"~3131,14;Foot", x, baseY + 0.25, z, 1.6, 0.5, 1.6, INK~3436,31;ox(model, "Pos~87,15;height / 2, z, 0.55, height, 0.55~98,47;LanternFrame~106,21;- 0.2, z, 2.2, 2, 2.2~101,35;local glass = trim(model, "WarmGlass~113,31;1.85, 1.65, 1.85, accent~121,16;Neon)
+~99,13;LanternRoof~101,21;+ 1, z, 2.8, 0.35, 2.8~215,26;)
+if math.floor(x + z) % 3 == 0 then
+local ligh~4414,18;PointLight")
+light.Color, light.Brightness, light.Range, light.Shadows, light.Parent = accent, 0.7, 18, false, glass~4226,24;tree~828,15;snowy, scale, baseY)
+scale, baseY = scale or 1~823,41;snowy and "SnowPine" or "GardenTree~850,24;Trunk~444,14;5 * scale, z, 1.5 * scale, 10 * scale~25,15;WOOD~466,16;Wood, false)
+if snowy then
+for level = 0, 3 do
+local width = (12 - level * 2.3) * scale
+local position = V(x, baseY + (7.4 + level * 2.8) * scale, z)
+local rotation =~6438,18;math.rad(level * 19 + 30), 0)~2940,14;LayeredPineBough", V(width, 3 * scale, width), position, RGB(64 + level * 4, 103~17,14;91 + level * 4)~352,16;Grass, false, rotation~162,15;PowderSnow", V(width * 0.9, 0.65~165,15; * 0.9), position + V(0~494,15;0), RGB(232, 239, 231~160,17;Snow~159,19;end
+else
+for i, item~5470,13;-3, 10, 0, 8}, {3, 11, 1, 8}, {0, 14, -1, 9}, {1, 9, -3, 7~5470,13;crown = ball(model, "LeafCluster", x + item[1] *~918,13; + item[2] * scale, z + item[3] * scale, item[4] * scale, RGB(84 + i * 6, 119 + i * 9, 61 + i * 5~462,22;)
+crown.Size = V(~95,17;item[4] * 0.7~135,25;)
+end~1176,24;flower~2313,22;baseY, snowy~3748,18;max(5~3760,13;w * d / 16)) do
+local px = x + ((i * 7.13) %~5222,13;w - 2)) - (w - 2) / 2
+local pz = z + ((i * 4.77~63,16;d - 2)) - (d - 2) / 2~3084,14;"LeafSprig", p~2099,13;4, pz, 0.22, 0.8, 0.22, RGB(78, 112, 60~420,24;~7407,13;snowy and "WinterBerry" or "Flower~127,17;8, pz, 0.65, snowy and RGB(181, 92, 86) or ({RGB(220, 168, 106), RGB(200, 128, 137), RGB(230, 220, 164)})[i % 3 + 1]~925,17;moothPlastic)~555,24;planter~3683,34;snowy, withTree~5250,34;~6009,38;ox(model, "StoneBed~2559,16;9, z, w, 1.8, d~337,17;35, 154, 158) or RGB(142, 146, 119~1209,18;late~2282,15;Soil~123,14;1.84, z, w - 0.8, 0.12, d - 0.8~137,16;233, 239, 231) or RGB(92, 102, 57), snowy and~1354,19;~3308,18;Grass~4928,33;~198,13;Coping", x + s * (w / 2 - 0.2), baseY + 1.9, z, 0.4, 0.3, d~3863,34;~105,22;~85,16; + s * (d~121,13;w, 0.3, 0.4~105,33;end
+flowers(model~1219,19; + 1.8, snowy)
+if withTree then tree~61,14;snowy, 0.85~68,13;) end
+if entry the~7620,36;~65,17;~8306,21;nch~1414,15;yaw~828,56;"ParkBench"~5808,17;pivot = CF(x, baseY, z)~5299,17;0, math.rad(yaw or 0), 0)~1049,17;(~10037,37;~8468,14;model~10095,14;(pivot *~9754,13;).P~10118,26;false, pivot~8439,15;for i = -1, 1 do p("SeatSlat", V(8, 0.3, 0.68), V(0, 2, i * 0.8)~2759,26;Planks) end
+for i = 0, 2 do p("Back~101,14;5, 0.3), V(0, 2.8 + i * 0.65, -1~108,43;~988,27;p("IronLeg", V(0.45, 2, 2.3), V(s * 2.8, 1, 0)~3447,28;p("IronBack", V(0.3, 3.8, 0~76,17;.9, -1~79,29;~754,23;w~9256,21;z, w, d, h, color)
+~5221,21;~5205,13;~9668,13;~132,14;Brick~5145,15;"WallPlinth", x, 0.45, z, w + 0.3, 0.9, d + 0.3~5869,13;INK, 0.1~2484,18;~1277,15;~109,13;Coping", x, h, z, w + 0.4, 0.35, d +~1263,41;~10173,17;undaries~1946,16;~7901,35;"PerimeterArchitecture")
+local hx, hz =~9199,13;/ 2 + 1,~9193,13;/ 2 + 1
+wall(model, "NorthWall", 0, -hz,~9273,15;4, 2, 7, color)~63,14;SouthWall", 0, ~62,47;WestWall", -hx, 0, 2~180,14;+ 4~62,25;EastWall", ~61,37;for _, side~928,23;for x = -hx + 7, hx - 6, 22 do~2271,13;MasonryPier", x, 4.3, side * hz, 2.6, 8.6, ~670,14;WHITE, 0.~3457,18;~1948,23;PierCap", x, 8.6~103,13;3.2, 0.4, 3.6, WHITE)
+end
+for z = -hz + 11, hz - 10~207,34;side * hx, 4.3, z, 3, 8.6, 2.6~207,50;end
+end
+for _, info~3650,13;~633,26;}, {~600,25;}, {~568,26;}, {~29,26;}) do
+local blocker = box(model, "InvisibleSafetyBoundary", info[1], 48, info[2], info[3], 96, info[4], color)
+blocker~8316,15;blocker~8317,23;~1429,23;ground(model~1096,14;~10672,18;floo~216,16;Floor", 0, -2, 0~346,13;, 4~300,13;~90,19;model.PrimaryPart = floor
+~6492,15;Floor = {Width~1186,14;, Depth =~109,14;Y = 0}
+return floor~9935,21;pawns~259,15;positions)
+assert(#positions == 16, "Every map requires sixteen safe spawn positions")
+local folder = group(model, "Spawns")~9850,23;positions) do~4872,20;data[1], 0.25, data[2])
+local marker = part(folder, string.format("Spawn%02d", i), V(4, 0.2, 4~4802,13;WHITE, nil, false)
+marker.CFrame, mar~675,18;mar~674,17;~8048,14;position, V(0, 0.25, 0)), 1, false~7042,29;Spawns, {Name = marker.Name, X = data[1], Z = data[2], Y = 0.25}~2237,26;indow(parent~11857,17;accent~2057,17;indowFrame"~51,17;0.2~5899,29;~75,20;Glass~6612,13;0.18, w - 0.55, h - 0.55, 0.1~6091,24;Glass~98,22;Mullion~100,15;26, 0.18, h, 0.14, WHITE~68,22;Transom~68,19;w, 0.18~68,35;Sill", x, y - h / 2, z + 0.1, w + 0.7, 0.35, 0.65, STONE~2353,21;kiosk~3435,15;labelText~2351,31;GardenKiosk~5957,24;KioskBody", x, 5.5, z, 14, 11, 14, RGB(197, 185, 153~1759,17;Brick~1963,15;FoundationBand", x, 0.5, z, 14.6, 1, 14.6~8028,33;~87,13;RoofCornice", x, 11.2, z, 16, 0.65, 16~4082,46;GreenRoof", x, 11.8, z, 16.6, 0.55, 16.6, RGB(89, 121, 97~265,17;Metal)
+for _, dx~2397,13;5.8, 5.8}) do~6896,14;FacadeColumn", x + dx, 5.5, z + 7.1, 0.7, 10, 0.35, WHITE) end
+window(model, x, 5.4, z + 7.12, 9, 5, RGB(141, 181, 168))
+local board~7044,16;KioskSign", x, 9.8, z + 7.25, 11, 1.9, 0.3, INK)
+sign(board, labelText, "SKY GARDEN", SAG~744,22;valley~1737,13;)
+~2017,21;RGB(124, 148, 8~390,18;Grass)
+local architecture, landscape, details~1737,17;ArcadeAndTerrace"),~34,15;CourtyardGardens~34,18;SmallDetails")
+paving(landscape, "MainSquare", 0, 16, 102, 82, RGB(183, 175, 14~227,18;Cobblestone~95,21;NorthApproach", 0, -27, 38, 34, RGB(194, 186, 162)~71,21;WestPromenade", -64, -4, 20, 126, RGB(185, 178, 15~73,23;Ea~73,14;~72,56;SouthPromenade", 0, 60, 144, 18~72,22;tiles(details, 0, 17, 100, 76, 8, RGB(149, 145, 124))
+deck(~574,14;entry, "ArcadeTerrace", 0, -49, 108, 26, 6, false)
+paving~72,15;"TerraceFlagstones~69,13;7, 25, RGB(193, 185, 160), nil, 6)
+tiles~86,15;0, -49, 106, 24, 6, RGB(158, 153, 132), 6)
+ramp~220,23;WestTerraceRamp", -45, -12, -45, -36, 6, 16~1375,24;, STONE~103,29;Ea~103,16;45, -12, ~101,49;il~352,24;rontBalustrade", V(-35, 6, -36), V(~15,13;INK~5782,32; ~112,27;Side~111,15;s * 54~114,13;s * 54, 6, -62), INK) end
+box~90,16;ArcadeBackWall", 0, 11.5, -61, 108, 11, 2, RGB(186, 172, 14~1960,30;~104,21;Roof", 0, 17.5, -54, 112, 1, 18, RGB(114, 137, 108~6274,29;~100,21;Cornice", 0, 16.85, -44.8, 111, 0.6, 0.5, WHITE)
+for _, ~1869,15;1, -27, -3, 21, 51}) do~324,26;Column", x, 11.4, -46, 1.8, 10.8, 1.8~2189,38;~96,15;ColumnBase", x, 6.3, -46, 2.6, 0.6, 2.6~2612,14;~68,21;Capital", x, 16.35, -46, 2.8, 0.55, 2.8~4317,17;~287,17;39, -15, 9, 36}) do
+window~121,15;x, 11.6, -59.8, 12, 6, RGB(124, 159, 143)~467,28;Lintel", x, 15.5, -45.8, 21, 1.3, 1.7~2789,13;~181,25;39}) do bench(details, x, -56, 0, 6) end
+local fountain = group~1581,13;CourtyardFountai~9628,13;cylinder(fountain, "StoneBasin", 0, 0.85, 9, 18, 1.7~542,23;Slate~82,22;BasinWater", 0, 1.74, 9, 15.4, 0.1, RGB(114, 178, 16~852,18;Glass, fals~104,23;CenterPedestal", 0, 2.7, 9, 3.8, 3, RGB(200, 197, 172~4775,25;~107,29;UpperBowl", 0, 4.35, 9, 8, 0~291,30;~87,34;Water", 0, 4.72, 9, 6.8, 0.08, RGB(140, 197, 17~7424,18;~298,14;ball(fountain, "FountainFinial", 0, 5.8, 9, 1.6, WHITE)
+~6949,16;"Fountain", 0, 9, 18, 18, 2~1183,23;38, 38}) do
+planter(landscape, entry, "FlowerCourt", x, 31, 15, 14, false, true)
+~784,18;44, 0)
+lamp~24,13;19, RGB(247, 223, 168), 11~891,13;~6553,24;kios~2296,16;s * 65, 8, s == -1 and "GARDEN CAFE" or "BOTANICALS"~326,19;~3727,14;s * 65, 8, 14, 14, 11)~302,28;CornerFlowerBed", s * 65, 54, 13, 10~311,15;~286,14;s * 69, -34~292,26;~129,27;TerraceRearGarden", s * 35, -68, 15, 5,~16743,13;~1264,27;20, 20}) do ~118,27;EntryFlowerBed", x, -18, 8~241,13;false) end
+boundarie~5145,16;RGB(133, 145, 115))
+~15512,13;"WestCourtLoop", -20, -7, -20, 54, 18~52,16;Ea~52,14;20, -7, ~50,26;SouthCrossing", -57, 59, 57, 59~51,20;ArcadeUpperLoop", -45, -40, 45, -40, 8, 6)
+~5396,21;{{-65,-22},{65,-22},{-65,35},{65,35},{-26,59},{0,59},{26,59},{-46,59},{46,59},{-65,-57},{65,-57},{-22,7},{22,7},{-18,35},{18,35},{0,-18}~15707,22;contain~8880,18;x, z, color, numbe~6948,32;FreightContainer" .. number~4612,23;CargoShell", x, 4.5, z, 15, 9, 2~14850,29;~8646,33;for offset = -11, 11, 2.75~4359,17;CorrugatedSide", x + s * 7.55, 4.5, z + offset, 0.18, 8.4, 0.42~7419,21;~4517,24; end~4615,14;UpperCornerRail~127,13;3, 9.1, z, 0.4, 0.25, 25.~12660,24;Metal~8794,16;argoDoor", x + s * 3.65, 4.5, z + 12.55, 7.1, 8.4, 0.18~216,21;~2086,18;~115,20;LockingBar", x + s * 4.~115,15;7, 0.16, 7.9, 0.15~214,30;for y = 1.5, 7.5, 3~460,17;DoorHinge", x + s * 6.85, y~120,14;55, 0.3, 0.2~4822,13;end~4768,28;ContainerBadge", x, 6.8, z + 12.8, 4.5, 1.8, 0.15~4775,19;"BT ~800,14;FREIGHT", GOLD~1733,19;CargoContainer", x, z, 15, 25, 9~991,22;rate~987,22;w, d, h~981,31;BandedCargoCrat~11540,25;CrateBody"~8312,24;RGB(159, 121, 7~799,18;WoodPlank~9633,47;SteelBand", x + s * w * 0.31, h / 2~13504,20;0.35, h, 0.1~12342,27;~9940,16;teelBandTop~112,23;+ 0.05, z, 0.35, 0.12, d~8701,32;for y = 0.25, h - 0.2,~10691,13;h - 0.5~5576,18;Crate~6452,15;~242,13;1, w, 0.45, 0.2, RGB(187, 149, 9~8617,18;Wood) end~651,24;rate"~590,17;~14194,21;pot~5473,41;12, 110, 10~10830,18;Concrete~5477,22;cargo~5473,26;LoadingComplex~5437,18;FreightYard~29,18;Depot~5466,17;details, "CentralAsphalt", 0, 17, 90, 126, RGB(74, 81, 8~218,18;Asphalt~90,19;WestAsphaltLane", -84, 0, 21, 154, RGB(82, 88, 8~12022,18;~92,26;Ea~92,16;~91,56;~1933,35;z = -62, 65, 13 do trim(details, "RoadDash", s * 41, 0.09~844,13;04, 5, RGB(218, 183, 110)) end
+~4815,23;WarehouseBody", 0, 12, -68.5, 148, 24, 19, RGB(120, 124, 116~4815,44;WarehouseFoundation", 0, 1, -58.8, 148, 2, 0.4, RGB(165, 156, 13~755,28;~112,29;Roof", 0, 24.4, -68.5, 152, 0.8, 22, RGB(77, 91, 9~107,18;Metal~104,31;Gutter", 0, 24, -57.4, 152, 0.5, 0~13899,28;)
+for x = -70, 70, 14 do~116,30;Pilaster", x, 12, -58.8, 1.1, 24, 0.55, RGB(159, 153, 13~5257,18;Concrete)~4757,23; + 5.9, 19.7, -58.7, 8.5, 5, RGB(137, 173, 170)~3428,27;48, 0, 48})~224,24;RollerDoorFrame", x, 7.8, -58.5, 25, 15.6~341,33;~94,30;", x, 7.5, -58.1, 22.6, 14.7, 0.3, RGB(153, 163, 14~4321,18;~2434,16;, 14, 1.3 do ~128,30;Slat", x, y, -57.9, 22.6, 0.14, 0.2, RGB(103, 115, 10~1681,18;Metal~10724,36;~143,21;LoadingBumper", x + s * 11.2, 1.2, -57.6, 1, 2.4, 0.8, INK~2581,16;warehouseSign =~110,21;WarehouseSign", 0, 27, -57.6, 62, 5, 0~14295,30;sign(~109,13;, "SUNSET DOCKS", "FREIGHT TERMINAL / BAY 04~2633,26;Warehouse", 0~1283,14;19, 24~1485,33;~6818,26;~4518,13;WestLoadingDeck" or "Ea~21,14;, s * 57, -26, 30, 48, 8~6857,31;LoadingDeckSurface~74,16;29.5, 47.5, RGB(150, 148, 126), nil, 8~6700,28;~205,24;Ramp~205,17;Ramp", s * 57, 30, s * 57, -2, 8, 18~5367,26;RGB(158, 157, 138)~6752,22;OuterLoadingRail", V(s * 72, 8, -50)~19,16;2), INK~81,22;Rea~80,21;4~80,26;50~81,28;Inn~162,13;Front~87,17;27)~19,17;~86,44;Rear~172,28;42, 8, -45), INK~1315,22;LoadingCanopy", s * 57, 17.4, -39, 32, 0.6, 24, RGB(77, 99, 9~2071,18;~8581,29;13, 13}) do ~2208,19;CanopySupport", s * 57 + dx, 12.5, -48, 0.8, 9~1084,32; end
+for _, z~1687,14;5, -33~1320,26;CanopyCrossbeam", s * 57, 16.9, z, 30, 0.4~2028,33; end
+container(cargo, entry, s * 20, 26~873,14;RGB(160, 94, 67) or RGB(101, 133, 128)~925,15;21" or "08")
+crate~110,19;62, 61, 14, 12, 5~5542,20;92, -44, RGB(255, 212, 145), 17~51,21;1, 46~50,26;for z = -20, 15, 7~2810,19;DrainGrate", s * 90, 0.08, z, 4, 0.05, 1.7~369,32;end~8259,28;FreightOverpass", 0, -36, 84, 18, 8, tru~1402,25;OverpassTread~63,16;7.5, RGB(154, 157, 13~2125,18;DiamondPlate, 8)~684,27;27}) do~1294,22;verpassRail", V(-42, 8, z), V(42, 8, z~1027,28;OverpassIBeam", 0, 7.35, z, 84, 0.3, 0.6~16573,27;~7257,28;5, 35}) do~227,23;3, -29~1047,25;BridgeSupport", x, 3.6, z, 1.2, 7.2, 1~16630,28;) end~11917,14;18, 65, 14~649,19;CenterLaneMark", 0, 0.1, z, 0.45, 0.05, 5.5, GOLD) end~885,21;0, 65, 16, 9, 4.5)~6177,31;28, 121, 10~6177,18;CentralSprintLane", 0, -51, 0, 52, 24~6230,20;OuterLane", -84, -65, -84, 66, 20~6231,20;OuterLane", 84, -65, ~51,26;DeckToDeckRoute", -57, -36, 57, -36, 16, 8~6182,26;84,-62},{-84,-29},{-84,3},{-84,35},{-84,66},{84,-62},{84,-29},{84,3},{84,35},{84,66},{-34,64},{34,64},{-24,-52},{0,-52},{24,-52},{0,5~6183,23;lodge(paren~10748,32;AlpineLodg~5165,25;LodgeBody", 0, 14, -61, 66, 14, 18, RGB(153, 132, 10~4219,18;WoodPlanks~5028,17;oneFooting", 0, 8.2, -51.8, 67, 2.4, 0.5, RGB(148, 159, 15~3861,18;Slate~7534,24;1, -15, 15, 31~10593,19;TimberUpright", x, 14, -51.7, 1, 14, 0.7, RGB(93, 83, 6~2141,18;Wood) end
+for y = 10, 19, 4.~6353,18;TimberCrossbeam", 0, y, -51.6, 66, 0.8, 0.8~122,47;~7245,18;3, 23}) do ~10768,17;15, -51.2, 11, 6, RGB(201, 183, 131)~6418,19;DoorFrame", 0, 12, -51.3, 12, 10, 0.6, INK~507,15;DoubleDoor", 0, 11.6, -50.9, 10.6, 9.2, 0.3, RGB(95, 125, 11~13118,18;Wood~9623,33;~128,13;BrassHandle", s * 0.65, 11.5, -50.6, 0.15, 1.5, 0.25, GOL~14551,17;~3822,41;
+local slope~17307,17;math.rad(s * 19), 0~17298,18;SlopingRoof", V(72, 0.7, 12.1), V(0, 22.6, -61 + s * 5.5), RGB(85, 108, 10~8666,18;Slate, false, slope~126,15;RoofSnow", V(71.8, 0.28, 12), V(0, 23.03~125,22;231, 238, 2~4924,19;~17231,13;slope)
+~621,17;RoofRidge", 0, 24.8, -61, 73, 0.7, 0.7~9541,14;model, "Chimney", 22, 24.5, -64, 4.5, 11, 4.5, RGB(147, 147, 13~1229,18;~11978,20;ChimneyCap", 22, 30, -64, 5.5, 0.6, 5.5, WHITE~11604,29;LodgeName", 0, 19.3, -50.8, 29, 3, 0.~6825,21;FROSTFALL LODGE", "EST. 1986 / GARDEN PROMENADE", IC~11625,22;pond~6795,20;~1616,31;ReflectingPond~15784,18;core~13663,15;SealedPondFootprint", x, 0.7, z, 42, 1.4, 30~9843,13;8, 1~17092,19;~16605,20;ReflectiveWater", x, 1.43, z, 40.2, 0.12, 28.2, RGB(116, 170, 17~17614,19;l~16540,49;Pond~16544,17;20.6, 1.55, z, 0.8, 0.5, 30~12447,46;~94,14;, 1.55, z + s * 14.6, 42, 0.5, 0.8~16518,38;or i = 1, 6 do
+local px, pz = x + (i * 5.7 % 29) - 14.5, z + (i * 4.6 % 17) - 8.5
+cylinder(model, "IceLily", px, 1.55, pz, 1.7, 0.05, RGB(166, 190, 16~1210,18;Grass~9036,13;~4938,19;terGarden", x, z, 42, 30, 1.8~24665,22;ros~6925,41;211, 223, 21~1246,22;~6921,22;garden~6922,28;dgePromenad~12393,19;Water~12389,25;Alpine~6924,17;garden, "MainGardenWalk", 0, -5, 190, 22, RGB(163, 183, 18~15032,20;~12391,18;garden, "West~96,13;-83, 9, 25, 144~97,65;Ea~97,15;~96,79;South~290,16;70~290,74;CentralBridge~12686,14;24, 28, 104, RGB(172, 190, 18~16303,29;~12493,17;70, 185, 20, 7, RGB(142, 163, 159~12493,30;~645,15;, 0, -55, 132, 30, 7~5637,31;PromenadePaving~67,13;1, 29, RGB(179, 195, 18~4236,18;Cobblestone, 7)
+lodge~106,13;~22896,35;~5699,43;dge~5697,16;dge~5695,15;-10, s * 57, -40, 7~12436,30;RGB(166, 184, 177~5697,23;PromenadeSide~5618,13;66, 7, -70)~19,16;40), INK~10766,17;s * 43, -59~236,14;-90 or 90, ~4916,21;46, -48, RGB(250, 218, 156), 9, 7)
+pond(garden~5063,13;36, 24)
+planter~35,16;"PineGardenNorth", s * 86, -51, 15, 15, true, true~75,36;South", s * 84, ~74,48;LodgeSidePines", s * 39, -80, 18, 9~73,38;WinterFlowerBank", s * 41, 52, 20, 6, true, fals~11202,18;s * 62, 43~435,23;~10941,21;8, -6, RGB(242, 220, 168), 12~50,21;1, 68~50,26;end~673,30;FrontRail", V(-47, 7, -40), V(~15,13;INK~1130,29;GardenBridge", 0, 24, 24, 40, 4~1126,31;BridgeTimbers", 0, 24, 23.6, 40~4267,13;4~4267,32;, 4~13471,29;NorthGardenBridgeRamp", 0, -12, 0, 4, 4, 24~101,28;RGB(151, 134, 108)~118,29;Sou~118,24;60, 0, 4~118,56;~24235,36;~369,15;~137,14;il", V(s * 12, 4, 4)~17,16;4~5603,28;BridgeFascia", s * 12.1, 2.3, 24, 0.25, 2.5, 40, RGB(121~4121,33;end
+for z = 6, 42, ~7950,25;BridgePlankJoint", 0, 4.09, z, 23.5, 0.04, 0.09, INK~4094,43;x = s * 95~5736,22;~6782,16;details, "PergolaColumn", x, 5.4, z, 1.1, 10.8, 1.1, RGB(116, 134, 12~2868,18;Wood) end
+~5718,15;PergolaBeam", x, 10.8, 0, 1.6, 0.7, 29~99,41;
+for z = -12, 12, ~5835,20;PergolaRafter", x, 11.25, z, 9, 0.5, 0.7, RGB(129, 146, 13~218,28;~12008,34;44, 163, 156~12008,21;GardenCircuit", -70, -28, -70, 70~12013,24;~57,16;70, -28, ~55,26;South~113,17;95, 70, 95, 70~5842,20;BridgeCrossing~1154,14;60, 23~50,16;LodgeUpperWalk", -57, -47, 57, -47, 7, 7~5890,26;100,-72},{-100,-34},{-100,3},{-100,38},{-100,71},{100,-72},{100,-34},{100,3},{100,38},{100,71},{-35,72},{0,74},{35,72},{-24,-25},{0,-28},{24,-2~5901,16;older, disk, surfaceText = group, cylinder, sign~3579,16;mineralCluster~22759,16;cale, color, rotation)
+local stone = RGB(66, 72, 88)
+for index~22036,23;0, 3.4, 8}, {2.4, 1, 2.6, 11}, {0, -2.5, 2.7, 6}, {3.5, -2, 1.8, 5~18342,13;height =~21820,16;
+local crystal~29089,16;"QuartzCrystal", V(~22036,17;height,~22061,16;),
+V(~22131,21;height / 2 + .55, z~22145,18;),
+color:Lerp(RGB(227, 241, 255), index * .0~13780,30;,
+~5465,23;index == 2 and -12 or 8), math.rad(~30131,13;0) + index * 32), ~75,18;1 and 17 or -9)))
+crystal~17945,13; = .14~19960,13;"CrystalCore~22444,24;height * .47~315,27;,
+~395,15; * .38, height * .74~432,17; * .38~12727,23;Neon~4433,13;~550,14;MineralBed", V(11 * scale, 1.4, 9 * scale), V(x, .7, z), stone~5753,23;~26658,13;~20914,19;~411,14;, 0)~28996,22;uinColumn~951,15;bottom~29893,18;oss~20371,14;"ColumnFoot", x, bottom + .65, z, 5.2, 1.3, 5.~12883,14;RGB(48, 63, 55), .~10901,19;Slate~116,21;Shaf~117,16;~24493,15;3.4, height, 3~27714,25;Limeston~104,22;~15429,13;~106,16;- .55, z, 5.8, 1.1, 5.~12899,14;RGB(225, 219, 188), .~1932,18;Limestone)~23829,13;~26646,14;height / 4) do~175,20;Join~279,16;level * 3.1, z, 3.48, .12, 3.4~174,18;31, 48, 3~171,23;~14975,14;end
+if moss then~150,14;MossOnCapital", x - .4~330,18;+ .045, z, 4.6, .08, 4.9, moss~5319,30;~113,13;TrailingMoss", x - 1.75~444,20;1.4, z + .8, .1, 2.8, 1.3~117,36;~18973,23;stoneTile~25871,34;angle~31041,33;.12, d), V(x, .065~30704,13;~6809,27;~1057,27;angle~1054,31;castleTor~22172,18;~371,16;orchMount", x, y, z, 2.3, 1, 2.3, RGB(51, 45, 4~594,18;~25392,18;parent, "BrazierBowl", x, y + .65, z, 3, .45, 3, RGB(86, 68, ~17891,19;~25389,20;flame~2008,17;AmberEmber", V(1.5, 2.4, 1.5), V(x, y + 1.65, z), RGB(255, 162, 67),
+~1572,25;~31117,19;math.rad(45), math.rad(8)))~25315,61;~25297,13;~25328,18;Shadows = RGB(255, 184, 103), 15, .45, false
+~25351,15;flam~26635,21;cavern~6154,15;local rock, slate, quartz = RGB(55, 62, 78), RGB(91, 107, 121), RGB(106, 192, 231)
+local p = folder(model, "CrystalGeology"~6218,20;~53,18;ExcavationGallery")
+local w, d = 184, 164
+box(p, "BasaltCourt", 0, -.12, 0, w - 4, .2, d - 4, RGB(71, 80, 9~24862,19;~1358,13;stoneTile(p, "CentralMineralRoute", 0, 0, 26, 156, slat~58,17;Late~58,21;21, 174, 24, s~8711,27;67, 67}) do ~92,14;OuterCircuit", x, 0, 18, 147, slate:Lerp(rock, .18)~10685,27;64, 63~104,35;0, z, 150, 16~104,33;index = 1, 16 do
+local z = -69 + index * 8.6~316,15;RouteJoint", 0, z, 24, .12, rock)
+~101,16;0, 8~4280,14;-80 + index * 20~22053,35;~3214,15;13 + ((index * 7 + (side + 1) * 3) % 13)
+part(p, "CavernWallMass", V(22, height, 9), V(x~3174,13;- .4, side * 79),
+rock:Lerp(slate, (index % 3) * .1~1470,18;Rock, tru~1246,29;(index % 3 - 1) * 4), 0))
+part(p, "WallRockFacet", V(13, height * .52, 5), V(x - 2, height * .36, side * 74.~201,14;RGB(122, 130, 146), .~4486,19;~8663,14;~202,26;side *~3343,14;index % 2 == 0 and 7 or -6)))
+box(p, "QuartzVein", x +~196,14;55, side * 74.7, .3~32,13;65, .16, quartz~3210,29;~1193,14;WallFoot", x, 1.5, side * 76, 17, 3, 8, rock~478,22;~2294,15;~765,15;6 do~738,41;z = -6~799,15;~765,16;6 + (index * 3 % 9)
+part(p, "SideCliff", V(9, height, 22), V(side * 89,~3091,14;), rock~1951,16;~704,47;2) * 5), 0))
+box~147,14;Seam", side * 84.4~3742,13;8, z - 3, .1~477,14;, .3, quartz~897,13;.~6011,18;~491,21;SideRockLedge", side * 87, 4.5, z + 2, 7, 2, 14, slat~3683,17;~495,21;~6279,27;CrystalGalleryDeck", 0, -36, 110, 22, 8, true).Color = slate~19770,32;GalleryRamp", -46, 13, -46, -25, 8~7232,20;Slate, slate~19766,33;~99,14;46, 13, ~97,44;~14121,22;9, -25, 0, 25, 49~11568,39;~14823,20;GalleryStonePier", x, 3.35, z, 3, 6.7, 3~960,22;Slate)~88,20;PierFoot", x, .6, z, 4.3, 1.2, 4.3~548,23;~3585,18;~15009,23;GalleryBackParapet", 0, 9.3, -46.4, 110, 2.6, 1.2~195,29;~10926,22;3, 0, 33~319,32;FrontGuard", x, 9.15, -25.6, 15, 2.3, 1.1~327,48;GalleryGuardQuartz", x, 10.35, -25.6, 14, .12, 1.2~1474,37;~1383,19;12~227,30;PavingSeam", -51~2278,13;5, 8.018, -36, .1, .035, 19.5~244,27;~145,22;, point~5532,15;1, 39, 1.12}, {31, 39, .94}, {-45, -57, .62}, {43, -57, .7}, {-78, 29, .72}, {77, -32, .72}}) do
+~5742,16;, point[1], point[2], point[3]~1359,14;RGB(188, 139, 224)~2269,18;9), index * 27~18542,28;9, 2~981,28;6, 57}) do
+box(p, "LowGeologyCover", x, 1.7, z, 9, 3.4, 5~884,28;)
+part(p, "SlantedRockFace", V(8.7, 1.5, 4.7), V(x, 3.55, z)~2014,33;~5646,25;~2281,13;x), 0)~24443,17;~286,14;77, 77~1267,28;6, 45~287,14;SurveyLantern~1176,17;2.2, 1.2, 2~1063,31;~80,21;", x, 2.1, z, 1, 1.4, 1, RGB(175, 222, 2~4253,19;~1901,22;urveyLanternCap", x, 2.9, z, 1.5, .3, 1~859,24;~32951,18;~3257,19;28 do~32089,14;~2664,19;-1 or 1
+local x = side * (79 +~739,15;1.3)~2440,13;6~3174,13;23) % 130)
+part(p, "PeripheralScree", V(1 + index % 3, .6 + index % 2 * .5, 1.6), V(x, .3, z), slate~2431,22;~2934,33;index * 29~2936,20;3 * 7))~5016,25;themeD~31526,37;~24822,26;result=deck(parent,entry,name,x,z,w,d,y,false)
+result.Color,result.Material=color,material
+return resul~35479,21;themeRamp~122,20;1,z1,x2,z2,width,rise,~99,14;)
+retur~33372,14;~69,23;rise,width,material,color~31055,22;hemedPo~5365,20;y, z~6217,17;lightC~26594,22; .. "Post", x, y~30596,20;7~30596,13;7~34132,39;~105,20;Cap~104,16;, z, 2.6, 0.35, 2.6~96,58;~1150,13;y~30581,14;8, z, 1.6, 1.1, 1.6, lightC~6761,37;~390,21;C~18716,13;~5750,17;~5469,15;WoodenCargo", x, 2.2, z, w, 4.4~26971,26;~18647,20;~3576,26;~6312,14;argoBand", x + side~28289,14;6), 4.48, z, 0.6, 0.16, d, RGB(72, 69~29080,21;~5704,27;CargoCorner~121,25;35), 2.~18778,18;3, 0.7, 4~19525,21;RGB(52, 43, 31), 0~6453,19;~30469,13;~1189,28;dStall~451,15;color, fabric, title, wide)
+local w = wide or 18
+local wood = RGB(98, 69, 45~281,15;StallBack", x, 4.5, z - 5.5, w, 9, 1~518,82;StallPost~397,25;5), 6.4, z + 4.5, 0.9, 12.8, 0.9, wood~9034,22;~107,18;Side~107,25;45), 2.4, z, 0.9, 4.8, 1~248,36;end~111,15;hopCounter", x, 3.1, z + 4, w, 6.2, 2~190,26;Plank~7528,18;unterTop", x, 6.3, z + 4, w + 0.6, 0.25, 3, RGB(209, 174, 1~5043,19;~654,13;for stripe = 1, 6~430,17;AwningStripe", x - w / 2 + (stripe - 0.5) * w / 6, 12.9, z, w / 6, 0.65, 13,
+stripe~2244,14;fabric or RGB(244, 226, 18~18159,18;Fabric~998,22;AwningValanc~170,43;2, z + 6.2, w / 6, 1.4, 0.45~177,81;~20362,18;~576,17;Name", x, 9, z - 4.84, w - 2, 2.3, 0.~580,27;, false)
+surfaceText~36775,15;"", RGB(247, 214, 147))~28988,17;~352,14;GoodsTray", x + i * 4, 6.62, z + 3.8, 3.2, 0.5, 2.2, RGB(130, 88, 5~653,31;~7742,14;arketGoods~113,14;7.25, z + 3.8, 2.5, 0.8, 1.4, ({RGB(225, 147, 63), RGB(132, 156, 75), RGB(195, 92, 65)})[i + 2~30501,30;~1478,38;Rai~1477,13;top~1933,31;PromenadeGuard", x, top + 1.7, z, w, 3~1942,40;~439,14;uardCap", x, top + 3.5, z, w + 0.2, 0.3, d + 0~8618,19;245, 226, 184), 0.~744,18;~1763,17;~7964,16;unstoneBazaar~7205,21;~7122,19;SunstoneMarket~28843,21;sand, cream, clay = RGB(191, 150, 100), RGB(235, 209, 164), RGB(174, 94, 67)
+local gold, teal = RGB(232, 183, 77), RGB(43, 123, 121)
+box~7092,13;arketPaving", 0, 0.04, 21, 108, 0.08, 104, RGB(213, 181~10666,22;Sandstone~1461,13;~24520,18;2, 0, 52~3930,14;PavingInlay", x, 0.095, 20, 0.22, 0.025, 118, gol~1109,17;~769,26;~4063,21;5, 30, 6~4066,15;~136,14;0, 0.1, z, 150, 0.03, 0.22~132,48;themeDeck(p, entry, "BazaarArcade", 0, -57, 122, 24, 8, cream~363,25;)
+themeRamp~88,18;WestRamp", -43, -11, -43, -45, 16~97,64;EastRamp", 43, -11, ~95,53;dRail(p, 0, 8, -69, 122, 1.3, clay)
+for _, edg~2493,13;{-56.5, 9}, {0, 68}, {56.5, 9}}) do~1262,13;, edge[1], 8, -45, edge[2], 1.1, clay~16246,27;55, -27.5, 0, 27.5, 5~580,15;~25215,19;4.5, -65, 2.4, 13, 2.4, san~581,18;andstone)
+box(p~9924,19;8.8, -65, 3.4, 1.6, 3.4~661,23;~921,17;~87,14;~9791,13;20.3, -65, 4, 1.5, 3.~456,33;~747,13;~263,14;Lintel", 0, 21.8, -65, 118, 2.2, 4.5~264,41;~25681,19;23.3, -65, 121, 0.8, 5~179,43;for x = -55, 55, 5 do ~114,14;Dentil", x, 22.7, -62.7, 1.4, 0.8, 1.3~383,39;~605,26;42, -14, 14, 4~1314,15;ArcadeShade", x, 22, -54, 24, 0.6, 17, x < 0 and teal or clay~2544,31;themedPole(p, "ArcadeLamp", x, 8, -61, 8.4~9414,15;8), RGB(255, 220, 135~20895,14;sign~12612,34;ign * 77
+box(p, "MinaretTower", x, 13, -65, 17, 26, 2~569,42;TowerTrim", x, 26.5, -65, 19, 1.2, 27~563,41;~86,13;Parapet", x, 29, -75.5, 19, 4, 2,~385,21;Sandstone~19640,24;6, 0, 6~516,14;TowerBattleme~35746,13;30, -75.5, 3, 3, 2.4~208,54;Window", x + dx, 17, -52.35, 2.5, 6.5, 0.18, RGB(54, 72~17603,21;~1940,47;27, 16, 58}) do~4205,14;, sign * 73, z, sand, sign~754,23;~27,13;"SPICE HOUSE" or "SUNSTONE GOODS", 18~18868,14;~6481,18;5, 25~155,21;x, 52, clay, teal, x < 0 and "WOVEN CLOTH" or "FRESH PRODUCE", 18) end
+disk(p, "FountainBase", 0, 0.9, 10, 18, 1~1248,36;true)~83,18;~26269,13;84, 10, 15, 0.1, RGB(66, 170~26163,22;~25969,14;~94,17;Stem", 0, 4.1, 10, 3.5, 5~1774,33;~177,25;Bowl", 0, 6.5, 10, 9, 1~1505,45;i = 0, 7 do
+local a = i * math.pi / 4
+box~122,13;Mosaic", math.cos(a) * 8.8, 1.7, 10 + math.sin(a) * 8.8, 1, 0.8, 1, teal~791,49;~632,14;86, 86}) do ~7113,24;37, 76}) do~5869,13;, "MarketLamp", x, 0, z, 12, RGB(88, 69, 49~1483,18;45)) end~1714,27;8, 48}) do
+~5598,13;, x, 76, 8, 6, RGB(151, 103, 59)~20091,23;77, 78~1269,14;DesertGarden", x, 1.2, z, 14, 2.4, 6~1381,37;dx = -4, 4, 4 do ~98,14;Pla~1363,14;.5, z, 1.1, 4~14222,14;03, 125, ~802,20;rass~2029,13;~35041,27;pirateCove~3693,40;PirateHarbo~32534,22;wood, pale, iron = RGB(116, 80, 48), RGB(181, 146, 92), RGB(54, 65, 69)
+local aqua, navy = RGB(74, 158, 169), RGB(39, 72, 85)
+box(p, "HarborStreet", 0, 0.06, 0, 32, 0.12, 162, RGB(182, 168~23102,24;bble~1716,22;HarborCross~109,15;7, 43, 198, 0.14, 26~110,56;~685,22;5, -37, 0, 37, 7~7726,16;treetDrain", 0, 0.16, z, 14, 0.08, 0.5, RGB(133, 123, 10~11138,32;~3665,25;CorsairDeck", 64, 0, 40, 78, 8~5585,34;~3565,21;NorthGangway", 64, -73, 64, -39, 18, 8, pal~8211,17;~93,33;Sou~93,16;73, 64, ~91,43;~1180,20;44, 84}) do~3686,15;x, 8, 0, 1.4, 78, navy)
+box(p, "ShipHullSide", x, 3.6, 0, 1.4, 7.2, 78, nav~1139,17;~150,16;z = -35, 35, 10 do
+box(p, "HullRib", x + (x < 64 and -0.2 or 0.2), 4.1, z, 0.6, 7.2, 1.1~5465,35;box(p, "BrassPorthole~110,22;51 or 0.51), 4.5, z, 0.15, 1.8, 2.8, RGB(213, 174~11815,21;~8241,26;~827,17;39, 39~413,20;48.5, 8, z, 9, 1.2, navy~4139,16;79~40,24;~21364,13;36, 36, 6~1520,14;ckPlankSeam", 64, 8.025, z, 36, 0.03, 0.07, RGB(72, 50, ~1071,19;Wood~27533,15;x(p, "ShipMast", 79, 25, 0, 1.8, 34, 1.~913,27;)
+box(p, "MastCrossbar", 68, 37, 0, 24, 1.1~527,48;CanvasSail", 68, 29.2, 0, 22, 14, 0.3, RGB(229, 22~18083,23;~6373,20;, "SailStripe", 68, 30, -0.2, 3, 11, 0.15~830,22;~83,15;~3109,22;9, 2~571,13;Pole(p, "ShipLantern", 79, 8, z, 7, iron~22571,13;3, 124))
+box(p, "DeckCargo", 48, 9.9, z, 5, 3.8, 5~1159,34;end~1688,15;Basin", -67, 0.05, -59, 62, 0.1, 34, aqua~2919,29;~14975,16;0.14~2368,26;-41~4856,20;-67, 0, z, 64, 1.4, w~21091,30;99, -3~3314,13;Rail(p, x, 0, -59, 1.4, 3~78,17;i = 1, 8 do ~277,14;Ripple", -91 + i * 6, 0.13, -57 + (i % 3) * 3, 7, 0.03, 0.18, RGB(137, 199, 1~26434,19;~2911,21;~923,13;MooredBoatHull", -67, 2.4, -61, 28, 4.8, 10~1511,34;~85,18;Deck", -67, 4.86, -61, 25, 0.12~1747,35;~854,17;MooredBoatMast", -67, 14, -61, 0.8, 19, 0~1110,28;~86,27;Sail", -62, 17, -61, 10, 10, 0.2, RGB(227, 213, 17~7237,33;~3276,22;7, -49}) do box(p, "CustomsSideWall", x, 9, 0, 2, 18, 3~29709,13;51~23263,22;Brick~13256,27;19, 1~10514,14;~158,15;2, -54~158,21;DoorPier", x, 9, z, 10, 18, 2~158,47;~91,19;Lintel", -68, 15.2, z, 18, 5.6, 2~563,26;~363,23;79, -57~205,21;Window", x, 11, z + (z > 0 and 1.05 or -1.05), 4.5, 5~1466,28;~1200,13;~26641,13;p, "CustomsRoof", -68, 19, 0, 44, 2, 44, RGB(83, 107, 1~36035,19;~11620,28;83, -73, -63, -53~247,14;RoofSeam", x, 20.06, 0, 0.28, 0.12, 44~355,26;~218,13;~7962,19;, "CustomsName", -68, 16.1, 20.18, 22, ~7957,60;"COVE CUSTOMS", "", RGB(244, 221, 157)~287,24;8, -63, -37~4014,24;69, 12, 9, pal~5654,18;Dock~4166,13;82, 12~1884,19;6, 143~5639,14;~1704,15;3, -38, 0, 38, 73~7047,15;ierPiling", 99, 4, z, 2.4, 8, 2.4~2364,36;PilingCap", 99, 8.1, z, 3, 0.4, 3~497,34;~195,26;83, 83~1101,27;21, 19~4499,21;Harbor~4499,17;3~332,27;~4169,13;~15826,17;ardustCarnival~7864,41;tardustMidway~4173,21;plum, coral, cream = RGB(91, 58, 115), RGB(218, 100, 108), RGB(239, 218, 172~7865,14;blue = RGB(247, 198, 91), RGB(63, 142, 166)
+box(p, "MidwayNorthSouth", 0, 0.055, 17, 30, 0.11, 148~28377,13;9~4187,50;Midway~18315,14;0.06, 25, 184, 0.12, 26~107,56;~32491,25;51~1217,14;SideMidway", x, 0.04, 26, 24, 0.08, 120~136,55;~1843,27;5, 6~1809,15;MidwayGold~7976,14;4, z, 174, 0.05, 0.~7976,44; ~4311,25;Ticke~33871,13;0, -64, 130, 26, 6, RGB(141, 119~34117,22;~4238,33;WestTicke~7993,15;7, -43, -51, 18, 6~5758,23;~98,33;Ea~98,15;43, -17, ~96,54;dRail(p, 0, 6, -77, 130, 1.3, plum)
+for _, spa~7049,13;{-58.5, 13~7996,14;8.5, 13~7997,21;span[1], 6, -51, span[2], 1.1, plum~3845,15;tageBackdrop", 0, 15, -73, 39, 18, 1.2, plu~238,29;~810,21;19, 19~4982,16;ag~8061,14;5, -64, 1.8, 18, 1.8, cor~6042,18;~1600,14;StageFinial", x, 25, -64, 3, 2, ~7666,24;~6111,25;~164,14;anopy", 0, 24.3, -66, 44, 0.8, 20~165,23;~2920,15;local sign = box(p, "StardustStageSign", 0, 19, -72.25, 31, 6, 0~382,28;~2193,21;sign, "STARDUST", "THE MIDWAY", gold)
+for x = -16, 16~6003,15;StageBulb", x, 23.65, -55.95, 0.8, 0.8, 0~8406,24;Neon~8018,34;55, -28, 28, 5~3786,13;Pole(p, "Promen~7921,13;6, -73, 10, plum, gold~7076,15;CarouselPlinth", 0, 0.8, 15, 29, 1.6~346,22;Concret~6899,18;CarouselTurntable", 0, 1.7, 15, 25, 0.3~1053,33;~7072,18;CarouselRoof", 0, 16.8, 15, 31, 1.6~622,23;~718,22;~89,17;Crown", 0, 18, 15, 18, 1.1~260,22;~87,22;box~86,14;entre", 0, 9, 15, 3.5, 16, 3.5~265,27;~7160,44;local x, z =~7119,15;9.5, 15 +~7172,15;9.5~173,17;Pole", x, 9, z, 0.45, 14.5, 0.45~713,22;~12305,19;, "CarouselHorse", x, 5, z, 2.5, 2.1, 4.5, i~11252,14;blue or~458,44;box(p, "HorseNeck~11711,13;- 1.8, 1.5, 3, 1~372,25;~464,38;Bulb",~356,15;15.4, 16.8~363,21;15.4, 0.9, 0.9, 0.9~1043,34;
+end
+local stallTitles = {"MOON POPCORN", "LUCKY STARS", "COMET GIFTS"}~39225,39;i~2359,16;9, 30, 71}) do
+~8393,17;de * 79, z, plum~457,32;stallTitles[i], 18)
+box(p, "ShopPennant"~92,13;16, z - 2, 0.6, 5, 0.6~316,22;~4639,21;PennantFlag", side * 79 + 2.5, 17.7, z - 2, 5, 2.3, 0.2~205,17;gold or blu~3437,17;~11898,19;end
+local wheelX, wheelY, wheelZ = 84, 25, -6~21881,22;wheelZ - 14, wheelZ + 14}~38542,13;le = box(p, "WheelSupport", wheelX, 12, z, 2.2, 25, 2~1839,24;Metal)
+pole~50757,13;~73,13;~41159,18;math.rad(z < wheelZ and -18 or 18), 0, 0~25030,14;0, 15 do
+local a, b~1240,17;8, (i + 1)~23,14;
+local pa = V(~355,14;~8399,17;21, wheelZ~920,17;21)
+local pb~75,31;b~75,26;b~75,14;bar = part(p, "WheelRim", V(0.9, 0.9, (pb - p~49814,16;pa + pb) / 2~1191,23;~1390,15;ar.CFrame~38875,17;~77,15;pb, V(1, 0, 0))
+if i % 2~44524,17;centre~272,19;, wheelZ)
+local spoke~236,17;Spoke", V(0.55, 0.55, (pa - centre~244,20;centre) / ~3441,23;~247,14;spok~677,13;~249,18;~82,13;pa~253,14;~819,13;Cabin", wheelX, pa.Y - 2, pa.Z, 5, 4, 5, i % 4 == 0 and coral~1046,24;~1813,24;binWindow", wheelX - 2.55, pa.Y - 1.8, pa.Z, 0.1, 2, 3.6, RGB(166, 218, 2~18268,19;~9434,14;~9738,29;95, 95~9106,27;29, 11, 51, 8~4612,22;Midway~4612,20;~2674,15;~27651,27;7, 2~16322,15;TicketBooth", x, 5, 83, 12, 10, 9~3322,27;~6354,16;TicketRoof", x, 10.7, 83, 14, 1.4, 1~2527,24;~8369,13;~81,14;Window", x, 6.5, 78.42, 8, 4, 0.16, RGB(92, 174, 1~32696,19;~35833,15;~97,13;~14044,13;4.5, 77.9, 9, 0.4~2246,28;~14595,36;facad~20797,28;h, body, accent, style)
+local p~43594,36;p, "BuildingShell", x, h/~33757,15;body, style~43381,18;~42077,13;~39330,13;Course~27036,14;w+0.6, 1.4, d+0.6, body:Lerp(INK, .2))
+trim(p~39321,20;h+.3, z, w+1.5, .6, d+1.5, body~41268,13;.35)~14737,28;1}) do
+for xx = -w/2+4, w/2-3, 7 do
+for yy = 5, h-2, 7 do window(p, x+xx, yy, z+side*(d/2+.1), 4.2, 4.4, accent) end
+end
+trim(p, "FacadeBand", x, h-1.2~75,16;8), w, .35, .3~46221,30;end~208,15;1, w/2, 10 do
+trim(p, "VerticalPilaster", x+xx, h/2, z+d/2+.28, .55, h, .4~354,18;.25))~210,14;RooftopVent", x-w*.18, h+1.8, z, 7, 3, ~30066,29;for xx=-2.5,2.5,1 do trim(p,"VentSlat",x-w*.18+xx,h+3.33,z,.14,.08,4.6,WHITE,~28537,25;return p~10033,22;peRu~22543,16;y, length, accent~13918,13;"PipeRack",x,y,z,length,.7,.7,INK~139,20;,false)
+for xx=-length/2+2,length/2,6 do~40466,13;"PipeCollar",x+xx,y,z,.5,1.05,1.05,accent~253,21;~1138,24;neo~21169,22;p=group(model,"Distric~13954,22;asphalt, concrete, cyan, pink=RGB(55,64,77),RGB(112,126,139),RGB(77,206,208),RGB(213,105,169~27467,15;entry,asphal~234,16;~34068,16;p,"CentralBoulevard",0,12,32,138,RGB(67,76,87)~77,35;rossStreet",0,28,166,26~72,38;for _,~12170,15;5,65}) do paving(p,"Sidewalk",x,9,23,140,concret~4753,13;~2072,15;1,51}) do
+for x=-12,12,5~94,14;ZebraCrossing",x,z,2.8,11,~35631,15;for z=-54,65,12~70,14;RoadDash",0,z,.4,5,RGB(229,180,95~21236,13;~25321,16;1}) do
+facade(p,"CornerShop",s*35,54,28,23,20,RGB(92,101,125),s<0 and cyan or pink)
+facade(p,"ApartmentFront",s*69,-59,28,26,34,RGB(78,89,107),s<0 and pink or cyan)
+facade(p,"CafeBlock",s*72,-3,19,23,17,RGB(104,107,115),cyan)
+local awning=trim(p,"CafeAwning",s*72,10,10,21,.5,6,pink~956,22;for x=-7,7,3.5 do trim(p,~16027,15;s*72+x,10.3,10,.45,.08,5.8,WHITE) end
+lamp(p,s*50,31,cyan,14)
+lamp(p,s*51,-29,pink,14)
+planter(p,entry,"StreetPlanter",s*33,2,10,12,false,true)
+bench(p,s*54,64,s<0 and 90 or -90)
+for z=-45,58,19 do trim(p,"Drain",s*17,.08,z,1.6,.08,4~1369,24;~32047,15;p,entry,"MetroSkywalk",0,-43,102,20,8,true).Color=concrete
+ramp(p,entry,"WestMetroRamp",-43,1,-43,-33,8,16~141,15;Concrete,concrete)~81,15;Ea~81,13;43,1,~79,47;il(p,"SkywalkBackRail",V(-51,8,-53),V(51,8,-53),INK~55,17;FrontRail",V(-33,8,-33),V(33,8,-33),INK~1213,22;28,0,28}) do~1170,21;50,-36}) do box(p,"SkywalkPier",x,3.6,z,1.4,7.2,1.~473,31;trim(p,"MetroCanopy",x,17,-43,25,.6,18,RGB(81,101,121~1425,16;~33235,13;~177,33;CanopyPost",x,12.5,z,.6,9,.6~646,34;local board=~189,13;Sign",0,18.5,-32.5,34,4,.4,~30128,16;"NEON DISTRICT","RUN THE BOULEVARD",cyan~32138,19;entry,RGB(84,96,112~23790,22;foundry(model,~2056,28;FoundryComplex")
+local iron,rust,amber=RGB(76,89,93),RGB(145,87,56),RGB(243,166,63~2017,21;RGB(99,100,9~450,17;Concrete)
+paving(p,"FoundryMainLane",0,0,28,178,RGB(126,127,111)~56,13;reightCrossing",0,50,204,24,RGB(129,125,109))~1744,40;BrickWorkshop",s*81,-58,34,36,28,rust,RGB(198,177,117))
+for z=-38,70,~3004,13;"YardTrack",s*81,.09,z,1.2,.08,9~2669,26;)
+trim(p,"TrackSleeper",s*81,.04,z,10,.06,.6,RGB(79,71,58~375,16;~27426,14;~2175,17;3,70}) do crate(p,entry,s*47,z,14,12,6) end
+cylinder(p,"BoilerBody",s*82,9,29,18,18,iron~959,26;y=2,17,5 do ~82,18;RivetBand",s*82,y,29,18.5,.55,amber~2972,27;~167,23;Cap",s*82,18.5,29,19,1~168,25;,~4164,13;"ExhaustStack",s*82,25,29,5,14,5~3119,36;y=20,31,3 do trim(p,"Stack~235,16;5.4,.3,5.4,rus~3094,22; end
+pipeRun(p,s*65,-34,19,42,amber)
+lamp(p,s*103,43,amber,17~26,13;5,-75,amber,17)~1924,19;FoundryGantry",0,0,104,20,9~1923,13;iron~1919,19;GantryRamp",-88,0,-52,0,9,18~220,15;~33931,13;iron~1918,20;GantryRamp",88,0,~78,43;~768,20;10,10}) do rail(p,"GantryGuard",V(-52,9,z),V(52,9,z),~28178,15;~14081,15;3,-24,24,4~9740,13;~9772,15;,8~1713,13;GantryColumn",x,4.1,z,1.4,8.2,1.4~853,26;~3067,13;x=-47,47,7~2452,13;eckSafetyInlay",x,9.06,0,.25,.05,18,amber) end
+facade(p,"FurnaceHall",0,-73,100,22,30,RGB(120,98,77),amber~2165,22;31,0,31}) do
+box(p,"FurnaceFrame",x,7,-61.6,20,14~3975,27;)
+trim(p,"FurnaceGlow",x,7,-61.1,16,10,.1,RGB(236,13~1305,20;Neon)
+for dx=-7,7,2 do ~93,16;rille",x+dx,7,-60.9,.45,10,.3~406,31;box(p,"ChimneyTower",x,36,-73,9,15,9~1158,33;end
+for z=-49,77,14 do~1748,29; trim(p,"SafetyLaneDash",s*15,.08,z,.5,.04,5,amber~28498,27;entry,RGB(108,108,9~2192,23;orbital~2192,35;OrbitalConcourse")
+local shell,dark,blue=RGB(186,200,203),RGB(51,67,84),RGB(106,208,231~2197,26;4,112,12~4073,17;~3500,14;96,96,24 do
+for z=-80,80,20 do
+paving(p,"HullFloorPanel",x,z,23.4,19.4,RGB(116,133,145~116,23;trim(p,"PanelFastener",x-10,.1,z-8,.5,.08,.5,dar~3687,23;end
+end~4415,18;Runway",0,5,30,162~70,27;for z=-65,73,13~610,41;ConcourseGuideLight",s*15,.12,z,.45,.1,6,blue~898,20;~16226,15;~2469,33;HabitationWing",s*82,-65,43,25,24,shell~112,20;Metal~4131,14;rgoAirlock",s*85,58,34,29,21,shell,RGB(168,191,23~3225,44;14,20~7777,14;d=group(p,"ResearchPod",~42645,18;pod,"PodBase",s*71,1,z,18,~455,28;~63,14;ObservationTank",s*71,7,z,14,10,RGB(128,190,203~219,16;Glass,~13426,19;=.2
+for _,~17060,15;7,7}) do box(pod,"TankSpine",s*71+dx,7,z,1.4,12,1.4,shell~1348,26;~273,17;Roof",s*71,13,z,19,1~69,26;,~42609,16;pod,"SpecimenCore",s*71,6,z,5,8~680,24;,false)
+~4491,13;110,15,blue,16)
+box(p,"DockClamp",s*104,5,-33,12,10,9~901,31;y=2,9~1675,14;ClampLight",s*104,y,-28.3,9,.3,.2~861,34;~2517,14;WestObservationWalk",-37,-25,20,62~4449,15;shell~69,15;Ea~69,19;~68,47;CommandBridge",0,-46,54~4578,18;shell~2656,19;ConcourseRamp",-37,40,-37,6,8~2582,18;Metal,shell~2654,20;~78,15;37,40,~76,37;~1213,29;rail(p,"OuterObservationRail",V(s*47,8,-56),V(s*47,8,6),dark)
+rail(p,"Inn~62,23;27,8,-36),V(s*2~62,13;~4401,21;2,-15~2688,13;WalkPylon",s*43,3.6,z,1.2,7.2,1.~1140,27;~4580,13;Upper~1547,14;47,8.12,-24,.4,.12,59~690,25;
+end
+rail(p,"BridgeNorthRail",V(-27,8,-56),V(27,8,-5~299,17;BridgeSou~56,17;36),V(27,8,-36),dark)
+local console=trim(p,"CommandSign",0,15,-57,32,4,.4,dark)
+sign(console,"ORBITAL STATION","CONCOURSE 07 / OPEN CIRCUIT",blue~2864,22;16,1~4995,15;ignSupport",x,11.5,-57,.7,7,.7~1281,33;~43030,22;entry,RGB(132,153,165~2525,22;emeral~2395,13;~2525,24;vergrownCloisters"~30526,13;,moss=RGB(148,160,131),RGB(79,126,86~2506,25;101,134,84~1710,17;rass)
+paving(p,"OldProcessionalWay",0,8,26,158,RGB(178,182,149~4783,18;~33751,18;p,"GardenCrossway",0,32,183,22,RGB(169,176,14~1871,17;~82,13;~1073,29;~1317,14;RaisedCloister",s*47,-24,26,60,7,false).Color=ston~5897,16;CloisterAscent",s*47,34,s*47,6,7~1245,18;Cobblestone,~178,13;~24851,15;9,-23,1}) do
+ruinColumn(p,s*57,z,7,12,stone,moss)
+trim(p,"CloisterLintel",s*57,19.5,z-7,4,1.3,19,ston~1065,16;Limestone~1070,14;CloisterInnerGuard",V(s*34,7,-32),V(s*34,7,6),stone)~61,17;Out~61,13;60,7,-54),V(s*60~61,13;~275,20;62,47~44535,14;p,entry,"OvergrownGarden",s*76,z,16,18~6532,13;~331,15;77,z+17,0,8+(z<0 and 4 or 0)~350,13;~5096,24;12,2~14162,13;"RuinedWall",s*83,3,z,13,6,8~373,32;for dx=-4,4,4 do trim(p,"WallMoss",s*83+dx,6.05,z,3,.15,7,moss~951,21;~14029,13;~767,14;SanctuaryCrossing",0,-44,68,20,7~2088,14;tone
+rail(p,"SanctuaryNorthGuard",V(-34,7,-54),V(34,7,-54~530,17;SanctuarySou~61,18;34),V(34,7,-34~530,15;~6514,15;4,0,24}) do~30912,13;,x,-50,0,6.1,stone,moss~5318,18;SacredBasin",0,1,31,20,2~425,21;~45708,16;p,"EmeraldWater",0,2.06,31,17,.1,RGB(81,155,122~3077,28;~26315,18;0,31,.65,RGB(108,213,154),10~270,23;6,26~4889,26;9,5~18926,13;"BrokenPlinth",x,2,z,8,4~678,34;trim(p,"PlinthMoss",x,4.05,z,7.4,.1,7.4~660,26;~10226,13;x=-30,30,20~455,20;71,0,17~454,17;trim(p,"PorticoLintel",0,17,-71,69,2.5,6~883,36;i=1,18~4772,13;allenStone",-85+(i*23%170),.4,72+(i%2)*4,2.5,.8~562,23;Rock~2081,35;3,151,123~2081,24;ber~2079,35;Citadel~22805,22;tone,dark,copper=RGB(145,126,111),RGB(76,76,81),RGB(211,141,82~2102,26;14,113,106~2024,39;KeepCourtyard",0,21,134,107,RGB(167,151,12~82,30;tiles(p,0,25,126,100~3963,13;19,104))~3491,19;Battlement",-57,-26,24,66,8~2036,20;~3487,18;Battlement",~64,48;GatehouseGallery",0,-47,90,24~3486,16;~2164,19;WestBastionRamp",-57,41,-57,7~3408,20;~2163,19;~3490,18;~82,13;57,41,~80,43;~4707,30;~3370,20;9,52~4738,16;FortifiedTower",s*85,z,22,26,30,stone,RGB(114,135,133))
+for dx=-8,8,8 do for dz=-10,10,10 do
+box(p,"TowerMerlon",s*85+dx,32,z+dz,5,4,4~3473,20;Slate,false)
+end end
+for y=4,25~6165,14;TowerCourse",s*85,y,z,22.7,.55,26.7~100,25;) end~3499,14;attlementOuterRail",V(s*69,8,-59),V(s*69,8,7~1900,17;BattlementInnerRail",V(s*45,8,-35),V(s*45~62,13;for z=-53,2,11 do box~79,14;Merlon",s*68,11,z,3,6,5~1287,21;~17453,17;~2371,15;6~6338,16;SiegeSupply",s*30,2,z,12,4,8,RGB(115,87,60~7573,20;Planks~2382,14;~1502,13;SupplyBinding",s*30+dx,4.08,z,.5,.1,8.1~3994,31;~4785,13;93,3,copper,15)
+trim(p,"KeepBanner",s*22,19,-58,7,14,.3,RGB(161,72,5~3449,17;Fabric)
+trim(p,"BannerEmblem",s*22,20,-57.8,2.5,5,.2,copp~7627,22;~3029,14;Gatehouse~8949,14;45,8,-35),V(45,8,-35~598,17;Gatehouse~9064,13;45,8,-59),V(45,8,-59~2496,29;37,3~17717,13;"GalleryButtress",x,3.6,-47,4,7.2,1~2206,22;Brick~7011,16;GreatHall",0,-80,112,22,35,RGB(133,113,96),copper)
+for x=-48,48,12 do box~77,13;Merlon",x,37,-80,6,4,~6215,21;Slate,~15160,17;~42293,17;13}) do~8031,14;razierFoot",x,1,60,7~5793,22;~2711,19;~32551,13;x,4,60,6,1.5~542,27;,false)
+ball(p,"EmberGlow",x,5.3,60,3,RGB(241,150,6~2771,17;Neon)~6893,28;ston~17386,14;definitio~16177,13;
+{"neon","Neon District",180,160~11046,17;"Boulevards, cafes and a metro skywalk"},
+{"cavern","Crystal Cavern",184,164,RGB(106,192,231),"Mineral galleries and basalt formations"},
+{"foundry","Clockwork Foundry",228,186~9205,16;,"Furnace halls, boilers and a crossing gantry"},
+{"bazaar","Sunstone Bazaar",190,172,RGB(232,183,77),"Market stalls and a shaded sandstone arcade"},
+{"emerald","Emerald Ruins",204,184~3231,18;"Overgrown cloisters and a sanctuary bridge"},
+{"pirate","Pirate Cove",226,184,RGB(74,158,169),"A ship deck, gangways and harbor shops"},
+{"carnival","Stardust Carnival",214,202~11618,17;,"A colorful midway and ticket promenade"},
+{"ember","Ember Keep",218,204~2885,16;,"Twin battlements and a gatehouse gallery"},
+{"orbital","Orbital Station",246,192~7592,17;,"Research pods and an observation circuit"},
+}) do~53048,14;catalog,{Id=definition[1],Name=definition[2],Width=definition[3],Dep~20,14;4],Accent=definition[5],Subtitl~84,13;6],Description~26,14;~36010,13;builders={valley=valley,depot=depot,frost=frost,neon=neon,cavern=cavern,foundry=foundry,bazaar=~26269,14;,emerald=emerald,pirate=pirateCove,carnival=~18465,16;,ember=ember,orbital=orbital}
+local groundColors={cavern=RGB(64,74,86),bazaar=RGB(193,161,111),pirate=RGB(184,173,139),carnival=RGB(122,130,125)~66464,17;safeSpawn~1450,13;)
+local old=model:FindFirstChild("Spawns")
+if old then old:Destroy() end~54190,16;Spawns={}~54549,13;d={}
+for _,obj in ipairs(model:GetDescendants()) do
+if obj:IsA("BasePart") and obj.Name~="Floor" and obj.CanCollide then
+local half=obj.Size/2
+local cf=obj.CFrame
+local extent=V(
+math.abs(cf.RightVector.X)*half.X+math.abs(cf.Up~31,15;Y~31,13;Look~33,15;Z,~99,25;Y~99,30;Y~99,32;Y~99,34;Z~99,30;Z~99,32;Z)*half.Z)
+if obj.Position.Y+extent.Y>.3 then~1153,14;blocked,{X=~56,13;X,Z~17,14;Z,HalfX=extent.X+4,HalfZ=extent.Z+4}~58610,20;candidates={}
+for x=-entry.Width/2+12,~17,13;-12,6 do
+for z=-entry.Dep~46,14;Dep~46,13;local clear=true
+for _,b in ipairs(blocked) do
+if math.abs(x-b.X)<b.HalfX and math.abs(z-b.Z)<b.HalfZ then clear=false;break end
+end
+if clear and x*x+z*z>1 then ~1530,15;ndidates,{x,z}~5691,14;assert(#candidates>=16,"Insufficient spawn clearance: "..entry.Name)
+local selected={}
+for i=1,16 do
+local best,bestScore=1,-1
+for j,p in ipairs(candidates) do
+local score=#selected==0 and p[1]*p[1]+p[2]*p[2] or math.huge
+for _,q in ipairs(selected) do score=math.min(score,(p[1]-q[1])^2+(p[2]-q[2])^2) end
+if score>bestScore then~224,16;j,score end~62749,18;selected,table.remove(candidates,best))
+end~38004,14;entry,selected)
+end
+function MapBuilder.BuildInto(parent)
+assert(parent,"BuildInto requires a destination"~30992,15;{}
+for _,entry~433,13;talog) do~67732,13;=0
+entry.Layout={}~1589,15;={Version=VERSION,Id=entry.Id,Name=entry.Name,Width=entry.Width,Depth=entry.Depth,Ramps={},Decks={},Routes={},Spawns={},Obstacles={}}
+local model=~15445,13;entry.Name,"Model")
+model~62642,15;BombTagGenerated",VERSION~47,22;MapWidth",entry.Width~43,25;Depth",entry.Dep~43,27;Id",entry.Id~37,22;DisplayName",entry.Name~82,23;ovementDesign","Run / sprint / dodge. Raised routes use ramps.")
+if~2306,13;[entry.Id] the~56458,15;entry,~47,22;~4944,26;builders[entry.Id]~2284,14;if entry.Id=="pirate" then
+local quarter~6000,14;HarborQuarter")
+facade(quarter,"HarborTavern",-68,44,34,18,20,RGB(162,136,99),RGB(166,189,16~7990,17;~20111,18;Stall(quarter,-15,-62,RGB(136,104,70),RGB(46,118,129),"COVE SUPPLIES",18~80,22;10,66~78,21;182,112,74),"SAILMAKER",18~6808,26;~24605,13;Crate(quarter,x,12,9,10,RGB(169,132,85))
+lamp(quarter,x,-19,RGB(244,204,139),13)
+end
+end~585,32;~4244,23;~51,22;~15842,13;1)) end
+~2860,24;entry.Model=model~1477,14;result,model)
+end~32225,19;~1436,20;GetGeometry(~1382,51;~2015,14;result,~1371,14;~15877,13;~142,34;Catalog~141,26;~137,43;{Id=e.Id,Name=e~1469,13;~1465,14;.Depth~3609,13;e.Description}~198,44;BuildLobby(parent)~1677,16;~1513,25;"Lobby",~43934,15;e={Name="Lobby",Width=148,Depth=118,Layout={},Geometry={~1669,18;~1649,13;}
+local floor=~1285,14;,RGB(125,147~7035,20;~55718,13;~7206,15;GardenReception")
+paving(p,"ReceptionSquare",0,10,108,80,RGB(183,182,15~11760,17;~7069,23;10,104,78,8,RGB(146,149,131))
+deck(p,e,"ViewingTerrace",0,-37,100,24,5,~21957,13;~10254,25;mp(p,e,"ReceptionRamp",s*39,-5,s*39,-25,5~14932,27;STONE)
+planter(p,nil,"WelcomeGarden",s*52,26~8800,19;~56,15;CornerGarden",s*59,-38,13,20~15388,23;31,35,0)
+lamp(p,s*29,22,RGB(245,224,174),12)
+kiosk(p,s*42,45,s<0 and "HOW TO PLAY" or "READY TO RUN"~6155,14;Terrac~6153,15;28,5,-25),V(28,5,-25~15158,15;Terrac~6149,14;50,5,-49),V(50,5,-49),INK~44989,13;=box(p,"WelcomeBoard",0,13,-43,44,8,1~13824,32;sign(board,"HUSS A BOMB","RUN / SPRINT / DODGE",SAGE~1699,23;1,2~22534,13;"WelcomePost",x,8.5,-43,.9,7,.9~154,31;~8178,23;,RGB(144,155,130))
+local spawn=part(model,"LobbySpawn",V(6,1,6),V(0,0.5,25),WHITE,nil,false,nil,"SpawnLocation")
+spawn~58218,14;spawn.Neutral,spawn.Duration=1,true,0~2751,48;~65680,17;return MapBuilder

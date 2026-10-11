@@ -1,0 +1,104 @@
+{
+  "Cases": [
+    {
+      "Bounds": {
+        "MaxX": 141,
+        "MaxZ": -126.81914936678879,
+        "MinX": -141,
+        "MinZ": -367.37958757127336
+      },
+      "Checks": 38456,
+      "Delta": [
+        0,
+        0,
+        127.48085063321118
+      ],
+      "Name": "V7 aligned to uploaded spawn",
+      "TemplateCount": 12
+    },
+    {
+      "Bounds": {
+        "MaxX": 141,
+        "MaxZ": -126.81914936678879,
+        "MinX": -141,
+        "MinZ": -367.37958757127336
+      },
+      "Checks": 76911,
+      "Delta": [
+        0,
+        0,
+        102.48085063321118
+      ],
+      "Name": "V7 after V3 lobby spawn",
+      "TemplateCount": 12
+    },
+    {
+      "Bounds": {
+        "MaxX": 141,
+        "MaxZ": -126.81914936678879,
+        "MinX": -141,
+        "MinZ": -367.37958757127336
+      },
+      "Checks": 115366,
+      "Delta": [
+        0,
+        0,
+        352.46466463275715
+      ],
+      "Name": "Central overlapping rotated lobby",
+      "TemplateCount": 12
+    },
+    {
+      "Bounds": {
+        "MaxX": 979.4826086046803,
+        "MaxZ": -1129.4024980965162,
+        "MinX": 660.5618816098935,
+        "MinZ": -1470.5029315152603
+      },
+      "Checks": 153821,
+      "Delta": [
+        -382.53067440237055,
+        0,
+        0
+      ],
+      "Name": "Shifted tilted templates and rotated anchor",
+      "TemplateCount": 12
+    },
+    {
+      "Bounds": {
+        "MaxX": 377.09557382624547,
+        "MaxZ": 46.45198877446195,
+        "MinX": -141,
+        "MinZ": -367.37958757127336
+      },
+      "Checks": 192278,
+      "Delta": [
+        0,
+        0,
+        -312.6795875712734
+      ],
+      "Name": "Current geometry extends past templates",
+      "TemplateCount": 12
+    },
+    {
+      "Bounds": {
+        "MaxX": 141,
+        "MaxZ": -126.81914936678879,
+        "MinX": -141,
+        "MinZ": -367.37958757127336
+      },
+      "Checks": 230733,
+      "Delta": [
+        0,
+        0,
+        0
+      ],
+      "Name": "Already safely distant",
+      "TemplateCount": 12
+    }
+  ],
+  "Checks": 230744,
+  "Graphics": "No Lighting globals changed; existing named Bloom replaced, other effects retained",
+  "NativeRoblox": false,
+  "SourceSha256": "f314f14e25c9d8a3e0bf798fa8226f4a6504c0a6eba03e89a76db82aee121358"
+}

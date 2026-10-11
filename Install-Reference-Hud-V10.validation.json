@@ -1,0 +1,10 @@
+{
+  "cases": 13,
+  "assertions": 352,
+  "compile": "passed",
+  "rollback_readback_repeat": "passed",
+  "native_studio_tested": false,
+  "bytes": 17383,
+  "sha256": "d8fc65c5fb909924c3c4475efcf2028b6a1f06f8e2a844f28babead8491fe47a",
+  "preserves_lighting_maps_movement_and_server": true
+}

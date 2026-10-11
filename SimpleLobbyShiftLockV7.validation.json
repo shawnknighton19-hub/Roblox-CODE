@@ -1,0 +1,12 @@
+{
+  "cases": 37,
+  "assertions": 1952,
+  "luau_compile": "passed",
+  "preserves_twelve_maps": true,
+  "preserves_server_and_motion_sources_exactly": true,
+  "preserves_v6_speed_distance_cooldown": true,
+  "blank_music_ids_preserve": true,
+  "invalid_ids_abort": true,
+  "rollback": "passed",
+  "native_studio_tested": false
+}

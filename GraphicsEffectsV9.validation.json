@@ -1,0 +1,42 @@
+{
+  "Effects": "MOVEMENT_EFFECTS_V9 219 checks passed; raycasts=147; particles=44",
+  "Graphics": "GRAPHICS_V9 49 checks passed",
+  "PublicAPIPropertiesChecked": 47,
+  "Assets": [
+    {
+      "path": "PlatformContent\\pc\\textures\\sky\\sky512_bk.tex",
+      "manifestMD5": "4ce299ee102e97588c9ce7aace046cab"
+    },
+    {
+      "path": "PlatformContent\\pc\\textures\\sky\\sky512_dn.tex",
+      "manifestMD5": "383fe0258cda26e908ea4a9bd2522b14"
+    },
+    {
+      "path": "PlatformContent\\pc\\textures\\sky\\sky512_ft.tex",
+      "manifestMD5": "5a466b46a2e25c0f26c595ac6adcf9fb"
+    },
+    {
+      "path": "PlatformContent\\pc\\textures\\sky\\sky512_lf.tex",
+      "manifestMD5": "eeddf22de1228bc4ea67f1128cdfaad4"
+    },
+    {
+      "path": "PlatformContent\\pc\\textures\\sky\\sky512_rt.tex",
+      "manifestMD5": "1991a94396b8f0ed2b28805cfc17d2e8"
+    },
+    {
+      "path": "PlatformContent\\pc\\textures\\sky\\sky512_up.tex",
+      "manifestMD5": "f89f7a41395b548fa07bd0d295840e99"
+    },
+    {
+      "path": "content\\sky\\sun.jpg",
+      "manifestMD5": "3acab22ca5aa5c85ca0f31d6fa553dc3"
+    },
+    {
+      "path": "content\\sky\\moon.jpg",
+      "manifestMD5": "10ece876a6e237350af036debdddebab"
+    }
+  ],
+  "ManifestCommit": "41ab074bc29dd2a51a5bb17bc3498e0465842794",
+  "NativeRoblox": false,
+  "Limitation": "Behavior tested with deterministic Luau mocks; native sky rendering and lighting appearance need Studio playtest. Uses verified built-in sky texture art, with a new atmosphere, procedural cloud layer and light settings."
+}

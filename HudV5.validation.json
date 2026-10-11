@@ -1,0 +1,22 @@
+{
+  "source": "/workspace/Roblox-CODE/HudControllerV5.luau",
+  "sha256": "310e4c6962f85ba43d2b6e57da344ffc9c80db97476e4390f4e465afc34b1c0c",
+  "runner": "Standalone Luau 0.742 with Roblox API doubles",
+  "checks": 475,
+  "failures": 0,
+  "exit_code": 0,
+  "coverage": [
+    "Malformed round and bomb packets",
+    "Lobby and round transitions",
+    "Fuse timestamp and bomb passing",
+    "Dodge start versus end and server immunity",
+    "Respawn and late Humanoid",
+    "Results dismissal and cancelled countdown",
+    "V6 voting selection, counts and preview cache",
+    "AFK server authority",
+    "Late V6/AFK/previews replication",
+    "11 desktop/mobile layout cases and 44px actions",
+    "Destroy, deferred startup and reinitialization"
+  ],
+  "limitations": "No Roblox engine, networking, avatar physics, font measurement, real rendering or Studio execution. Exported UI JSON is an offline layout approximation."
+}

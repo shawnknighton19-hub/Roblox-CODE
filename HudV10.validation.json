@@ -1,0 +1,8 @@
+{
+  "source": "HudControllerV10.luau",
+  "sha256": "b5ad202dddc85ec317bf11cc095f16ac3fe8ad468d93da524feb14a52c68cd06",
+  "checks": 699,
+  "failures": 0,
+  "exit_code": 0,
+  "scope": "Actual HUD module under standalone Luau doubles; not Studio."
+}

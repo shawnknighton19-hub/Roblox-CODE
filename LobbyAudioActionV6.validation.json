@@ -1,0 +1,23 @@
+{
+  "installer": "Install-Lobby-Audio-Action-V6.command.luau",
+  "bytes": 51471,
+  "sha256": "3532a78d3b183c13bbd52379d8a50fb35a76e67a4cf121e6e40075b49d4b91fb",
+  "luau_compile": "passed",
+  "sources": {
+    "GameAudioV6.client.luau": "c4b88e349fe942584b4a709baeab3efad5537061b9442afcc0a95302edf294c7",
+    "DodgeActionV6.client.luau": "c1cba67bedd59efb0a33da64842049db985e7ad95ccc905041f0e93173423550",
+    "LobbyBuilderV6.luau": "ecd9b5f3e5da41d5a8cfafd4cf032efb730e5c3be845ccc3ec1751cac0b0e686",
+    "HudControllerV6.luau": "e86008febcefc6004fa2f483eea6d8c927365d85e067616a5750d29b5f41040d"
+  },
+  "installer_checks": {
+    "cases": 26,
+    "assertions": 589,
+    "luau_compile": "passed",
+    "preserves_twelve_maps": true,
+    "preserves_server_and_animate_sources_exactly": true,
+    "rollback": "passed",
+    "native_studio_tested": false
+  },
+  "native_studio_tested": false,
+  "notes": "Complete pasteable update for priorV5, no downloads or assetIDs required. All gamegeometry exceptLobby preserved. Detailed reports alongside sources."
+}

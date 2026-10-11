@@ -1,0 +1,110 @@
+{
+  "scope": "Deterministic Lua execution, analytic solids, sampled no-jump navigation. Not Studio physics, appearance, or performance testing.",
+  "builderSha256": "e3ab5ce9ed29aae2a80d5c3963dbcc4b97c8fd5a827d8c17e2bdce2449b2a597",
+  "geometrySha256": "a3da712fa125b43ad95ffc41a514d823287b20248139d206a2fea78ec04ea08e",
+  "checks": 4558,
+  "errors": [],
+  "warnings": [],
+  "measurements": {
+    "routes": [
+      {
+        "name": "West arrival circuit",
+        "width": 12,
+        "samples": 640
+      },
+      {
+        "name": "West gallery access",
+        "width": 10,
+        "samples": 305
+      },
+      {
+        "name": "East arrival circuit",
+        "width": 12,
+        "samples": 640
+      },
+      {
+        "name": "East gallery access",
+        "width": 10,
+        "samples": 305
+      },
+      {
+        "name": "Fountain south promenade",
+        "width": 12,
+        "samples": 190
+      },
+      {
+        "name": "Fountain north promenade",
+        "width": 10,
+        "samples": 190
+      }
+    ],
+    "ground_radius_2": {
+      "componentSizes": [
+        5024
+      ],
+      "spawnComponent": 5024,
+      "step": 2
+    },
+    "ground_radius_3": {
+      "componentSizes": [
+        4716
+      ],
+      "spawnComponent": 4716,
+      "step": 2
+    },
+    "terrace_5_radius_2": {
+      "componentSizes": [
+        4763
+      ],
+      "step": 1
+    },
+    "terrace_5_radius_3": {
+      "componentSizes": [
+        4247
+      ],
+      "step": 1
+    },
+    "originTransformParts": 285,
+    "parts": 285,
+    "collidableParts": 55,
+    "spawnTopY": 0.0,
+    "ramps": [
+      {
+        "BaseY": 0,
+        "Name": "West promenade ramp",
+        "Rise": 5,
+        "Run": 24,
+        "SlopeDegrees": 11.768288932020646,
+        "Width": 24,
+        "X1": -54,
+        "X2": -54,
+        "Z1": -24,
+        "Z2": -48
+      },
+      {
+        "BaseY": 0,
+        "Name": "East promenade ramp",
+        "Rise": 5,
+        "Run": 24,
+        "SlopeDegrees": 11.768288932020646,
+        "Width": 24,
+        "X1": 54,
+        "X2": 54,
+        "Z1": -24,
+        "Z2": -48
+      }
+    ]
+  },
+  "comparison": {
+    "previousParts": 1074,
+    "currentParts": 285,
+    "previousCollidableParts": 61,
+    "currentCollidableParts": 55,
+    "simplified": "Retained courtyard layout, fountain, twin terrace ramps, pavilions, garden planters, and seating. Removed paving grids, flower stems, facade ornaments, roof seams, dense rail posts, and external scenery."
+  },
+  "independentReview": {
+    "outcome": "Passed after gallery clearance adjustment",
+    "galleryBenchPanelClearanceStuds": 8.4,
+    "notes": "Moved gallery panels and signs outward 2 studs, preserving the validated routes; ground navigation has one component at radius 2 and radius 3."
+  }
+}

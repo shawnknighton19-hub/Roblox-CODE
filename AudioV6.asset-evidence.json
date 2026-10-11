@@ -1,0 +1,80 @@
+{
+  "manifestRepo": "https://github.com/MaximumADHD/Roblox-Client-Tracker",
+  "manifestCommit": "41ab074bc29dd2a51a5bb17bc3498e0465842794",
+  "mirror": "https://github.com/onemapasofficeal/GAMES-CREAT-IN-rolox-studio/tree/main/MeuJogo_20260425_194521",
+  "files": [
+    {
+      "name": "action_falling.ogg",
+      "bytes": 234164,
+      "md5": "5f564d6a6bf26783c55d47403ee770ab",
+      "officialManifestMD5": "5f564d6a6bf26783c55d47403ee770ab",
+      "exactMatch": true,
+      "sha256": "fbd48a312bec8e0b3f33fa23f85f5fa2eb75a995d05d4011fa19add017ef4196"
+    },
+    {
+      "name": "action_footsteps_plastic.mp3",
+      "bytes": 40858,
+      "md5": "d5f07d95003fca43c76de8421a8fd102",
+      "officialManifestMD5": "d5f07d95003fca43c76de8421a8fd102",
+      "exactMatch": true,
+      "sha256": "1ea59522e6b32f2915d9ea9feb0063de0c72e7d0ad686c7bb708bd84ae9858c2"
+    },
+    {
+      "name": "action_get_up.mp3",
+      "bytes": 10347,
+      "md5": "c96cca0f7ff617bdfcda00a9e2f2edf3",
+      "officialManifestMD5": "c96cca0f7ff617bdfcda00a9e2f2edf3",
+      "exactMatch": true,
+      "sha256": "f9b2d0899932c29888dd1df37caea930102e4aeeb97da51ef85b866d76609c61"
+    },
+    {
+      "name": "action_jump.mp3",
+      "bytes": 6585,
+      "md5": "6554c211b61dbe83b023730569f0e9ce",
+      "officialManifestMD5": "6554c211b61dbe83b023730569f0e9ce",
+      "exactMatch": true,
+      "sha256": "0962d7ee2ad7c59ff101f9bac1419202f7bc46ff4aaebd43ef522a06db9d9a3d"
+    },
+    {
+      "name": "action_jump_land.mp3",
+      "bytes": 5331,
+      "md5": "8c9cf30099e86cd65054666267991fc9",
+      "officialManifestMD5": "8c9cf30099e86cd65054666267991fc9",
+      "exactMatch": true,
+      "sha256": "39fa42eedf3e2e15fc009f98a0c6a7077327dc927b896913832fddf640f81b5e"
+    },
+    {
+      "name": "action_swim.mp3",
+      "bytes": 79310,
+      "md5": "debc362e53b735a39b95876ac1187732",
+      "officialManifestMD5": "debc362e53b735a39b95876ac1187732",
+      "exactMatch": true,
+      "sha256": "8b0d5d81e25de05930baf2ade8f1fa59c41166881768ecaae9f32fca5b296f5f"
+    },
+    {
+      "name": "impact_explosion_03.mp3",
+      "bytes": 42529,
+      "md5": "882fb4dafa3a13ffbc03f1eeb300a937",
+      "officialManifestMD5": "882fb4dafa3a13ffbc03f1eeb300a937",
+      "exactMatch": true,
+      "sha256": "55a7565b64477cd9fa0f3db0579adccc36002a10134d698fcb8da66dcfd97949"
+    },
+    {
+      "name": "impact_water.mp3",
+      "bytes": 39186,
+      "md5": "c5d4d91a6b8f25401055492caaa2a092",
+      "officialManifestMD5": "c5d4d91a6b8f25401055492caaa2a092",
+      "exactMatch": true,
+      "sha256": "070bb9aaff4849dbf2244a43b7d8ea731c805ccda6408dd33b2245359923f670"
+    },
+    {
+      "name": "volume_slider.ogg",
+      "bytes": 12475,
+      "md5": "b0b8b9eeee62b6840bbddec5f7d599d1",
+      "officialManifestMD5": "b0b8b9eeee62b6840bbddec5f7d599d1",
+      "exactMatch": true,
+      "sha256": "f2a84ffc3afdaff965186c3085acac4d50dc825743b3c0299554de6e80fd23d3"
+    }
+  ],
+  "use": "Research-only exact-sample analysis. Installed client uses rbxasset://sounds paths; no mirror URL or binary shipped."
+}

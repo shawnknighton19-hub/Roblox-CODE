@@ -1,0 +1,57 @@
+[
+  {
+    "path": "ServerScriptService.Services.RoundService",
+    "old": "local RoundService = {}",
+    "new": "local MapService = require(script.Parent.MapService)\n\nlocal RoundService = {}\nlocal lastRoundState = nil\nlocal roundStateAt = 0"
+  },
+  {
+    "path": "ServerScriptService.Services.RoundService",
+    "old": "local function getLobbySpawn()\n\n\tlocal lobby =\n\t\tworkspace:WaitForChild(\n\t\t\t\"Lobby\"\n\t\t)\n\n\tlocal lobbySpawn =\n\t\tlobby:WaitForChild(\n\t\t\t\"LobbySpawn\"\n\t\t)\n\n\tassert(\n\t\tlobbySpawn:IsA(\"SpawnLocation\"),\n\n\t\t\"Workspace > Lobby > LobbySpawn MUST be a SpawnLocation\"\n\t)\n\n\treturn lobbySpawn\nend\n",
+    "new": "local function getLobbySpawn()\n\treturn MapService.GetLobbySpawn()\nend\n"
+  },
+  {
+    "path": "ServerScriptService.Services.RoundService",
+    "old": "local function sendRoundState(\n\tstate,\n\ttimeLeft,\n\twinner\n)\n\n\troundRemote:FireAllClients({\n\n\t\tState =\n\t\t\tstate,\n\n\t\tTimeLeft =\n\t\t\ttimeLeft or 0,\n\n\t\tAlive =\n\t\t\t#getAlivePlayers(),\n\n\t\tWinner =\n\t\t\twinner\n\t\t\tand winner.DisplayName\n\t\t\tor \"\",\n\t})\nend\n",
+    "new": "local function sendRoundState(state, timeLeft, winner)\n\tlastRoundState = {\n\t\tState = state,\n\t\tTimeLeft = timeLeft or 0,\n\t\tAlive = #getAlivePlayers(),\n\t\tWinner = winner and winner.DisplayName or \"\",\n\t\tMapId = MapService.GetActiveId(),\n\t\tMapName = MapService.GetMapName(),\n\t}\n\troundStateAt = workspace:GetServerTimeNow()\n\troundRemote:FireAllClients(lastRoundState)\nend\n"
+  },
+  {
+    "path": "ServerScriptService.Services.RoundService",
+    "old": "local function getMap()\n\n\tlocal maps =\n\t\tworkspace:WaitForChild(\n\t\t\t\"Maps\"\n\t\t)\n\n\tlocal map =\n\t\tmaps:WaitForChild(\n\t\t\tGameConfig.MapName\n\t\t)\n\n\tassert(\n\t\tmap:IsA(\"Model\"),\n\n\t\t\"Workspace > Maps > \"\n\t\t\t.. tostring(GameConfig.MapName)\n\t\t\t.. \" MUST be a Model\"\n\t)\n\n\treturn map\nend\n",
+    "new": "local function getMap()\n\tlocal map = MapService.GetActiveMap()\n\tassert(map and map:IsA(\"Model\"), \"MapService must supply an active arena\")\n\treturn map\nend\n"
+  },
+  {
+    "path": "ServerScriptService.Services.RoundService",
+    "old": "local function runLobbyStartTimer()\n\n\tlocal totalSeconds =\n\t\tchooseStartSeconds()\n\n\tlocal dramaticSeconds =\n\t\tGameConfig.RoundStartCountdownSeconds\n\n\tlocal lobbySeconds =\n\t\ttotalSeconds\n\t- dramaticSeconds\n\n\tlobbySeconds =\n\t\tmath.max(\n\t\t\t1,\n\t\t\tlobbySeconds\n\t\t)\n\n\tif GameConfig.DebugPrints then\n\n\t\tprint(\n\t\t\t\"[RoundService] --------------------------------\"\n\t\t)\n\n\t\tprint(\n\t\t\t\"[RoundService] NEW ROUND TIMER\"\n\t\t)\n\n\t\tprint(\n\t\t\t\"[RoundService] Total start time:\",\n\t\t\ttotalSeconds\n\t\t)\n\n\t\tprint(\n\t\t\t\"[RoundService] Lobby portion:\",\n\t\t\tlobbySeconds\n\t\t)\n\n\t\tprint(\n\t\t\t\"[RoundService] --------------------------------\"\n\t\t)\n\tend\n\n\tfor remaining =\n\t\tlobbySeconds,\n\t\t1,\n\t\t-1\n\tdo\n\n\t\t----------------------------------------------------\n\t\t-- CANCEL ONLY IF SERVER IS EMPTY\n\t\t----------------------------------------------------\n\n\t\tif #Players:GetPlayers()\n\t\t\t< GameConfig.AbsoluteMinimumPlayers then\n\n\t\t\treturn false\n\t\tend\n\n\t\tlocal totalRemaining =\n\t\t\tremaining\n\t\t\t+ dramaticSeconds\n\n\t\tsendRoundState(\n\t\t\t\"WAITING\",\n\t\t\ttotalRemaining,\n\t\t\tnil\n\t\t)\n\n\t\ttask.wait(1)\n\tend\n\n\treturn true\nend\n",
+    "new": "local function runLobbyStartTimer()\n\tlocal voteSeconds = math.max(1, chooseStartSeconds() - GameConfig.RoundStartCountdownSeconds)\n\tlocal selected = MapService.RunVote(voteSeconds, function()\n\t\treturn running and #Players:GetPlayers() >= GameConfig.AbsoluteMinimumPlayers\n\tend, function(remaining)\n\t\tsendRoundState(\"MAP_VOTE\", remaining, nil)\n\tend)\n\treturn selected ~= nil\nend\n"
+  },
+  {
+    "path": "ServerScriptService.Services.RoundService",
+    "old": "local function runRoundCycle()\n",
+    "new": "local function runRoundCycle()\n\n\tsendRoundState(\"WAITING\", 0, nil)\n"
+  },
+  {
+    "path": "ServerScriptService.Services.RoundService",
+    "old": "\t\t\treleaseRoundPlayers()\n\n\t\t\ttask.wait(2)",
+    "new": "\t\t\tMapService.CancelVote()\n\t\t\treleaseRoundPlayers()\n\t\t\tlocal lobbyOK, lobbyError = pcall(returnEveryoneToLobby)\n\t\t\tif not lobbyOK then warn(\"[RoundService] Lobby recovery:\", lobbyError) end\n\n\t\t\ttask.wait(2)"
+  },
+  {
+    "path": "ServerScriptService.Services.RoundService",
+    "old": "\troundRemote =\n\t\tRemotes.Get(\n\t\t\t\"RoundState\"\n\t\t)\n",
+    "new": "\troundRemote =\n\t\tRemotes.Get(\n\t\t\t\"RoundState\"\n\t\t)\n\n\t-- The HUD requests a snapshot after connecting its listeners. This also\n\t-- covers joins and client restarts in the middle of voting or a round.\n\tMapService.SetStateSync(function(player)\n\t\tif not lastRoundState or player.Parent ~= Players then return end\n\t\tlocal snapshot = table.clone(lastRoundState)\n\t\tsnapshot.TimeLeft = math.max(0, math.ceil(snapshot.TimeLeft - (workspace:GetServerTimeNow() - roundStateAt)))\n\t\tsnapshot.Alive = #getAlivePlayers()\n\t\tsnapshot.MapId = MapService.GetActiveId()\n\t\tsnapshot.MapName = MapService.GetMapName()\n\t\troundRemote:FireClient(player, snapshot)\n\tend)\n"
+  },
+  {
+    "path": "ReplicatedStorage.Shared.Net.Remotes",
+    "old": "\t\"BombState\",",
+    "new": "\t\"BombState\",\n\t\"MapVoteState\",\n\t\"MapVoteCast\",\n\t\"MapVoteSync\","
+  },
+  {
+    "path": "ReplicatedStorage.Shared.Net.Remotes",
+    "old": "\t\t\tif not existing then",
+    "new": "\t\t\tassert(not existing or existing:IsA(\"RemoteEvent\"), \"Expected RemoteEvent: \" .. remoteName)\n\n\t\t\tif not existing then"
+  },
+  {
+    "path": "ServerScriptService.Services.ServerMain",
+    "old": "BombService.Init()",
+    "new": "-- Build the lobby and arenas before RoundService assigns spawns.\nlocal MapService = require(Services.MapService)\nMapService.Init()\n\nBombService.Init()"
+  }
+]

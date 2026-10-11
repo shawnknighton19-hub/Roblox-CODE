@@ -1,0 +1,46 @@
+{
+  "version": "Huss HUD and Dodge V5",
+  "files": {
+    "Install-Hud-And-Dodge-V5.command.luau": {
+      "bytes": 50398,
+      "sha256": "278fd0f2f2dc3671a5216f10f6d7f55b6b2fc64652e512cf02ba1c4cdab1a6d5"
+    },
+    "HudControllerV5.luau": {
+      "bytes": 35842,
+      "sha256": "310e4c6962f85ba43d2b6e57da344ffc9c80db97476e4390f4e465afc34b1c0c"
+    },
+    "DodgeWeaveV5.client.luau": {
+      "bytes": 9836,
+      "sha256": "749fdbf43428fc0fe5139b865ee629efdb0960066c059f06a90e9fdcaaf67f1b"
+    }
+  },
+  "installer_matches_tested_assembly": true,
+  "luau_compile": "passed: final installer and patched movement, Animate, dodge server",
+  "installer": {
+    "cases": 13,
+    "assertions": 247,
+    "authority_exact_diff": "passed",
+    "luau_compile": "passed",
+    "native_studio_tested": false
+  },
+  "server": {
+    "assertions": 381,
+    "server_sources": "uploaded original and actual installer-patched script",
+    "valid_directions": 8,
+    "malformed_vectors": 11,
+    "other_rejections": [
+      "dead",
+      "anchored",
+      "airborne",
+      "no character",
+      "no humanoid",
+      "no root",
+      "cooldown"
+    ],
+    "invalid_cosmetic_actions": 5,
+    "native_studio_tested": false
+  },
+  "preserved_authority": "Exact source comparisons preserve movement physics and full original dodge validation, grant, 0.45-second immunity, cooldown, lifecycle.",
+  "native_studio_tested": false,
+  "limits": "Standalone Luau mocks exercise scripts and installer behavior; native rendering, Roblox networking and multiplayer feel require Studio testing."
+}

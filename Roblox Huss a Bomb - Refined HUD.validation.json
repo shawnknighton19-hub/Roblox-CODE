@@ -1,0 +1,13 @@
+{
+  "original": "/workspace/attachments/ccf2e01e-50e4-43a5-a561-12536d47e464/Roblox Huss a Bomb.rbxl",
+  "output": "/workspace/Roblox-CODE/Roblox Huss a Bomb - Refined HUD.rbxl",
+  "changed_path": "StarterPlayer/StarterPlayerScripts/Controllers/HudController",
+  "changed_property": "Source",
+  "changed_chunk": 957,
+  "chunks_preserved_byte_for_byte": 1952,
+  "instances": 7056,
+  "original_sha256": "6c8043884339d5b96c339870237a116f8a7c3ea4509ba0ea6e9fdfca9fa0060a",
+  "output_sha256": "1919dc0bd3164423a244386719dfed8861f31840ceff2fee086bc30107107d87",
+  "source_sha256": "6a178eb62655f96cce30b9c69e895117b07c5cf6d42df9034f8256722eff4d77",
+  "verified": true
+}

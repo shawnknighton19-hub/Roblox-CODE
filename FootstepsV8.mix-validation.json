@@ -1,0 +1,216 @@
+{
+  "scope": "Exact verified bundled samples, production gains, continuous 120ms fade and 60fps foot polling. Roblox resampling, spatial attenuation, SoundGroup summation implementation, device gain, and subjective quality are not tested.",
+  "samples": {
+    "action_jump_land.mp3": {
+      "sha256": "39fa42eedf3e2e15fc009f98a0c6a7077327dc927b896913832fddf640f81b5e",
+      "manifest_verified": true
+    },
+    "action_get_up.mp3": {
+      "sha256": "f9b2d0899932c29888dd1df37caea930102e4aeeb97da51ef85b866d76609c61",
+      "manifest_verified": true
+    }
+  },
+  "single": {
+    "Stone-24": {
+      "peak": 0.010151494814361823,
+      "peak_dbfs": -39.86940005780551,
+      "rms": 0.002651086660755784,
+      "rms_dbfs": -51.53152150963667,
+      "clipped_samples": 0,
+      "duration": 0.19,
+      "nonzero_end": 0.1814375
+    },
+    "Stone-32": {
+      "peak": 0.013535326419149092,
+      "peak_dbfs": -37.370625325641655,
+      "rms": 0.003534782214341044,
+      "rms_dbfs": -49.03274677747887,
+      "clipped_samples": 0,
+      "duration": 0.19,
+      "nonzero_end": 0.18233333333333332
+    },
+    "Grass-24": {
+      "peak": 0.007890796470826548,
+      "peak_dbfs": -42.05758316665677,
+      "rms": 0.002062222303312394,
+      "rms_dbfs": -53.713290409543205,
+      "clipped_samples": 0,
+      "duration": 0.19,
+      "nonzero_end": 0.18585416666666665
+    },
+    "Grass-32": {
+      "peak": 0.010521061961102064,
+      "peak_dbfs": -39.55880843449353,
+      "rms": 0.002749629737749858,
+      "rms_dbfs": -51.21451567738774,
+      "clipped_samples": 0,
+      "duration": 0.19,
+      "nonzero_end": 0.18689583333333334
+    },
+    "Metal-24": {
+      "peak": 0.009657252347440942,
+      "peak_dbfs": -40.30292840353246,
+      "rms": 0.0024794278972054187,
+      "rms_dbfs": -52.11297033303338,
+      "clipped_samples": 0,
+      "duration": 0.19,
+      "nonzero_end": 0.15508333333333332
+    },
+    "Metal-32": {
+      "peak": 0.012876336463254584,
+      "peak_dbfs": -37.80415367136872,
+      "rms": 0.003305903862940557,
+      "rms_dbfs": -49.61419560087614,
+      "clipped_samples": 0,
+      "duration": 0.19,
+      "nonzero_end": 0.15752083333333333
+    }
+  },
+  "phrases": {
+    "Stone-24": {
+      "peak": 0.010152367168266454,
+      "peak_dbfs": -39.86865368061361,
+      "rms": 0.0019206276432757246,
+      "rms_dbfs": -54.331136493927914,
+      "clipped_samples": 0,
+      "duration": 5.5,
+      "nonzero_end": 5.1295625,
+      "step_count": 15,
+      "mean_interval": 0.34999999999999915
+    },
+    "Stone-32": {
+      "peak": 0.013536489557688599,
+      "peak_dbfs": -37.36987894844975,
+      "rms": 0.0029581403315344017,
+      "rms_dbfs": -50.5796245461351,
+      "clipped_samples": 0,
+      "duration": 5.5,
+      "nonzero_end": 4.980770833333334,
+      "step_count": 20,
+      "mean_interval": 0.2499999999999994
+    },
+    "Grass-24": {
+      "peak": 0.007916987267907969,
+      "peak_dbfs": -42.02880106982371,
+      "rms": 0.0014926092555510033,
+      "rms_dbfs": -56.52107739357808,
+      "clipped_samples": 0,
+      "duration": 5.5,
+      "nonzero_end": 5.13675,
+      "step_count": 15,
+      "mean_interval": 0.34999999999999915
+    },
+    "Grass-32": {
+      "peak": 0.01055598302387729,
+      "peak_dbfs": -39.53002633766045,
+      "rms": 0.0022987986550579544,
+      "rms_dbfs": -52.76998131252021,
+      "clipped_samples": 0,
+      "duration": 5.5,
+      "nonzero_end": 4.9865208333333335,
+      "step_count": 20,
+      "mean_interval": 0.2499999999999994
+    },
+    "Metal-24": {
+      "peak": 0.009679321302383172,
+      "peak_dbfs": -40.283101872342726,
+      "rms": 0.0017966436602423498,
+      "rms_dbfs": -54.91076101465949,
+      "clipped_samples": 0,
+      "duration": 5.5,
+      "nonzero_end": 5.106458333333333,
+      "step_count": 15,
+      "mean_interval": 0.34999999999999915
+    },
+    "Metal-32": {
+      "peak": 0.01290576173651089,
+      "peak_dbfs": -37.78432714017897,
+      "rms": 0.002767233422010006,
+      "rms_dbfs": -51.15908411302794,
+      "clipped_samples": 0,
+      "duration": 5.5,
+      "nonzero_end": 4.956145833333333,
+      "step_count": 20,
+      "mean_interval": 0.2499999999999994
+    }
+  },
+  "cadence": {
+    "24-30": {
+      "steps": 30,
+      "mean_interval": 0.33333333333333254,
+      "min_interval": 0.33333333333333215,
+      "max_interval": 0.33333333333333437
+    },
+    "24-60": {
+      "steps": 29,
+      "mean_interval": 0.3500000000000024,
+      "min_interval": 0.34999999999999876,
+      "max_interval": 0.3500000000000174
+    },
+    "24-144": {
+      "steps": 30,
+      "mean_interval": 0.33333333333334064,
+      "min_interval": 0.33333333333333215,
+      "max_interval": 0.3333333333333428
+    },
+    "24-240": {
+      "steps": 28,
+      "mean_interval": 0.3671296296296206,
+      "min_interval": 0.3250000000000135,
+      "max_interval": 0.3791666666666664
+    },
+    "32-30": {
+      "steps": 38,
+      "mean_interval": 0.266666666666666,
+      "min_interval": 0.2666666666666657,
+      "max_interval": 0.2666666666666675
+    },
+    "32-60": {
+      "steps": 40,
+      "mean_interval": 0.25000000000000167,
+      "min_interval": 0.2499999999999991,
+      "max_interval": 0.25000000000001243
+    },
+    "32-144": {
+      "steps": 36,
+      "mean_interval": 0.2777777777777839,
+      "min_interval": 0.2777777777777768,
+      "max_interval": 0.2777777777777857
+    },
+    "32-240": {
+      "steps": 37,
+      "mean_interval": 0.2708333333333268,
+      "min_interval": 0.27083333333331794,
+      "max_interval": 0.2708333333333468
+    }
+  },
+  "four_sources_no_falloff": {
+    "peak": 0.04196311762883466,
+    "peak_dbfs": -27.54264507176865,
+    "rms": 0.009170235027756646,
+    "rms_dbfs": -40.752390669469534,
+    "clipped_samples": 0,
+    "duration": 5.5,
+    "nonzero_end": 4.9816666666666665
+  },
+  "local_dodge": {
+    "peak": 0.09335491878166607,
+    "peak_dbfs": -20.59725589099619,
+    "rms": 0.01444800861184025,
+    "rms_dbfs": -36.80384016331636,
+    "clipped_samples": 0,
+    "duration": 1.0,
+    "nonzero_end": 0.33629166666666666
+  },
+  "old_loop": {
+    "peak": 0.0420767106115818,
+    "peak_dbfs": -27.51916437854677,
+    "rms": 0.0014093543868511915,
+    "rms_dbfs": -57.01959576724821,
+    "clipped_samples": 0,
+    "duration": 2.4816458333333333,
+    "nonzero_end": 2.4293541666666667
+  },
+  "tail_last_sample_max": 1.2277091035102611e-08,
+  "patch_sha256": "9497a38c0f0f853845fba35296c7939e43328594c290a3433703f2555b6e6c2b"
+}

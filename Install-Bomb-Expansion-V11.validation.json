@@ -1,0 +1,348 @@
+{
+  "bytes": 128308,
+  "sha256": "b15bb13c09fa2e3aa237805c5fb572acdc51eab26115f9afb937b239c7d94b40",
+  "luau_compile": "passed",
+  "components": {
+    "patch_hud.luau": {
+      "bytes": 14152,
+      "sha256": "8c23f5a90b8984818dd897c8ae819080aa29cf7f49fc3cdbadf7b88e65a5db29"
+    },
+    "patch_main.luau": {
+      "bytes": 541,
+      "sha256": "7ab67c5cc1606a71403b9da4c0a651c27ae3672a3e612ff84e5d9e0d0cf980c9"
+    },
+    "patch_core.luau": {
+      "bytes": 3896,
+      "sha256": "2d80665ad8b9cd814667f481ddace1a4a401e5eb69eba64df78bdf69eb4e6c09"
+    },
+    "patch_practice.luau": {
+      "bytes": 1762,
+      "sha256": "f2c1348251388d6fd3ef8420d6f6a6055645e5bc4a4435c8af5c30799a6ba7dc"
+    },
+    "WorldBuilderV11.luau": {
+      "bytes": 25531,
+      "sha256": "f4ff07475e1d986bb3956d3c4ff55724bc6462d10ce008c84bdbaaa67c9ce1e4"
+    },
+    "placement.luau": {
+      "bytes": 2879,
+      "sha256": "9bb295375da818976199242854a8a8dd2075f4b2251c87e0cf008442c9cc81da"
+    },
+    "EconomyServiceV11.luau": {
+      "bytes": 17653,
+      "sha256": "75cd02659df855905aabbc1a959dd65ec32a2efb351efbb192af77e3ff280405"
+    },
+    "HussCatalogV11.luau": {
+      "bytes": 7849,
+      "sha256": "128dca3b4a527eb707ee49f5dfcf0af397e1f0710fc21600dad823beab7a81b3"
+    },
+    "CosmeticsServiceV11.luau": {
+      "bytes": 8706,
+      "sha256": "2f33bf6b345f7a1bc6ed5d41e4677cdc23d616dcc1a3970ef5eefee467a62fdc"
+    },
+    "PracticeServiceV11.luau": {
+      "bytes": 14965,
+      "sha256": "62db98fdde18275dc95877f7641e4e356a0218d9f248e2fc52136067698d2938"
+    },
+    "PerfectWeaveServiceV11.luau": {
+      "bytes": 2229,
+      "sha256": "d0b74f2cbaecb1dbe3745a71ff95e8a9bd2b6a6d8acae50a702724dd724c1ff2"
+    },
+    "CollectionEffectsV11.client.luau": {
+      "bytes": 12914,
+      "sha256": "97e06e70b97bcd2d2d32a19cd25cce748d1bf6d199a138353698bae339b680f0"
+    },
+    "LobbyBoardsV11.client.luau": {
+      "bytes": 5189,
+      "sha256": "70c3a0ac56d52882191f8811a6838a087210efb30452b8cc6142852ebfe39629"
+    }
+  },
+  "validation": {
+    "transaction_faults": {
+      "assertions": 1985,
+      "cases": 57,
+      "results": [
+        {
+          "mode": "normal",
+          "result": "installed"
+        },
+        {
+          "mode": "repeat",
+          "result": "installed"
+        },
+        {
+          "mode": "playMode",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "notStudio",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "missingHUD",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "missingEconomy",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "missingLobby",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "missingLibrary",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "missingPreviews",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "missingAnchor",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "missingArena",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "extraArena",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "badEconomy",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "partialEconomy",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "changedEconomy",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "badHUD",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "badMain",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "badBomb",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "badRound",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "badMovement",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "unarchivable",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "worldBuildFailure",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "sourceProbeFailure",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "newSourceFailure",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "backupParentFailure",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "archiveLibrary",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "archiveLobby",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "archivePreviews",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "archiveArena",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "worldLibrary",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "worldLobby",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "worldPreviews",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "worldArena",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "setMap",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "setVersion",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "disabledOriginals",
+          "result": "installed"
+        },
+        {
+          "mode": "unownedRemote",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "wrongRemote",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "sourceReadback",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "conflict_HussCatalogV11",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "parent_HussCatalogV11",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "conflict_CosmeticsServiceV11",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "parent_CosmeticsServiceV11",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "conflict_PracticeServiceV11",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "parent_PracticeServiceV11",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "conflict_PerfectWeaveServiceV11",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "parent_PerfectWeaveServiceV11",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "conflict_CollectionEffectsV11",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "parent_CollectionEffectsV11",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "conflict_LobbyBoardsV11",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "parent_LobbyBoardsV11",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "write_HUD",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "write_MAIN",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "write_BOMB",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "write_ROUND",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "write_MOVEMENT",
+          "result": "originals preserved"
+        },
+        {
+          "mode": "write_ECONOMY",
+          "result": "originals preserved"
+        }
+      ],
+      "scope": "Atomic installer fault injection, real source patches and source payloads; deterministic small geometry fixture. Native Studio not available."
+    },
+    "actual_world_upgrade": {
+      "assertions": 68,
+      "cases": 2,
+      "results": [
+        {
+          "mode": "normal",
+          "result": "installed"
+        },
+        {
+          "mode": "repeat",
+          "result": "installed"
+        }
+      ],
+      "scope": "Actual V4 maps and V7 lobby upgraded by actual V11 installer, including rerun."
+    },
+    "server_boot": {
+      "passed": true,
+      "init_order": [
+        "Remotes",
+        "EconomyServiceV9",
+        "CosmeticsServiceV11",
+        "BombService",
+        "RoundService"
+      ],
+      "scope": "Actual patched ServerMain executed with deterministic Init stubs; module runtime tests are separate."
+    },
+    "exact_installed_sources": {
+      "files": 13,
+      "all_passed": true,
+      "scope": "Compile exact source retained by the actual installer after all source patches were applied."
+    },
+    "combat": {
+      "server_hook_checks": 56,
+      "perfect_weave_checks": 33,
+      "compile": "passed",
+      "native_studio": false,
+      "movement_runtime_checks": 13
+    },
+    "cosmetics": {
+      "checks": "1330 cosmetics assertions passed",
+      "compile": "passed",
+      "limitations": "Deterministic Instance/signal/math harness. Native Roblox rendering, audio, Animator and physics require Studio playtest.",
+      "files": {
+        "CosmeticsServiceV11.luau": "2f33bf6b345f7a1bc6ed5d41e4677cdc23d616dcc1a3970ef5eefee467a62fdc",
+        "CollectionEffectsV11.client.luau": "97e06e70b97bcd2d2d32a19cd25cce748d1bf6d199a138353698bae339b680f0"
+      }
+    }
+  },
+  "limitations": [
+    "Native Roblox Studio rendering, physical pathfinding, multiplayer replication and published DataStore behavior were not available in this execution environment.",
+    "Installer requires the previously supplied V10 HUD, V9 economy/server hooks, V7 lobby/movement and V4 maps.",
+    "Solo practice uses server-owned simulated bots; it does not earn persistent progression."
+  ]
+}

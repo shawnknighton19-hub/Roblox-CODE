@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "runtime": "Economy V9 checks passed:\t56",
+  "scenarios": [
+    "preview no datastore",
+    "server reward authority",
+    "quest claim replay",
+    "buy equip validation",
+    "UTC reset",
+    "lease release rejoin",
+    "active session refusal",
+    "schema/load failure fail closed",
+    "inflight save mutation leave",
+    "loadafterleave",
+    "leaseexpiry",
+    "session theft",
+    "failed save",
+    "global board cache monotonic writes",
+    "shutdown"
+  ],
+  "sourceBytes": 14881,
+  "sha256": "b9b7a8f5b416105b02ab136c5af6ab217926ebe78e3897ef9854c98d4560029e",
+  "automatedAssertions": 56,
+  "independentAssertions": 39,
+  "nativeStudioTested": false,
+  "liveDataStoreTested": false,
+  "storageMode": "Studio preview uses no data stores; published mode uses leased UpdateAsync profiles and cached OrderedDataStore Wins",
+  "rewards": {
+    "round": 20,
+    "winnerBonus": 80,
+    "quests": {
+      "rounds3": 100,
+      "passes10": 150,
+      "win1": 200
+    }
+  },
+  "notes": [
+    "A participant eliminated then AFK remains eligible for completed-round participation.",
+    "Missing or expired profile pauses rewards and purchases instead of overwriting saved data.",
+    "Earned coins only; no Robux purchases or gameplay boosts.",
+    "Autosave45s, sessionlease180s, server mutations coalesced10s, finalsave lease release."
+  ]
+}

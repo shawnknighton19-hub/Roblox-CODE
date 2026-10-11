@@ -1,0 +1,52 @@
+[
+  {
+    "path": "StarterPlayer.StarterPlayerScripts.Controllers.HudController",
+    "old": "local GameConfig = require(Shared.Config.GameConfig)",
+    "new": "local GameConfig = require(Shared.Config.GameConfig)\nlocal MapVoteController = require(script.Parent:WaitForChild(\"MapVoteController\"))"
+  },
+  {
+    "path": "StarterPlayer.StarterPlayerScripts.Controllers.HudController",
+    "old": "local PHASES = {WAITING = \"WAITING FOR PLAYERS\", INTERMISSION = \"NEXT MATCH\",",
+    "new": "local PHASES = {WAITING = \"WAITING FOR PLAYERS\", INTERMISSION = \"NEXT MATCH\", MAP_VOTE = \"CHOOSE A MAP\","
+  },
+  {
+    "path": "StarterPlayer.StarterPlayerScripts.Controllers.HudController",
+    "old": "local started, reduced, activeMenu = false, false, nil",
+    "new": "local started, reduced, activeMenu = false, false, nil\nlocal mapOverlay = false\nlocal currentMapName = tostring(GameConfig.MapName or \"Arena01\")"
+  },
+  {
+    "path": "StarterPlayer.StarterPlayerScripts.Controllers.HudController",
+    "old": "showModal = function(page)\n\tif player:GetAttribute(\"InRound\") == true or ui.Results.Visible then return end",
+    "new": "showModal = function(page)\n\tif player:GetAttribute(\"InRound\") == true or ui.Results.Visible then return end\n\tif page == \"MAPS\" then closeModal(); MapVoteController.Open(); return end"
+  },
+  {
+    "path": "StarterPlayer.StarterPlayerScripts.Controllers.HudController",
+    "old": "phase, phaseDuration, phaseAt = data.State, number(data.TimeLeft), time()",
+    "new": "phase, phaseDuration, phaseAt = data.State, number(data.TimeLeft), time()\n\tif typeof(data.MapName) == \"string\" then currentMapName = data.MapName end\n\tif mapOverlay and (phase == \"STARTING\" or phase == \"ROUND\" or phase == \"FINAL_DUEL\" or phase == \"PRACTICE\") then MapVoteController.Close() end"
+  },
+  {
+    "path": "StarterPlayer.StarterPlayerScripts.Controllers.HudController",
+    "old": "local blocked = activeMenu ~= nil or ui.Results.Visible",
+    "new": "if inRound and mapOverlay then MapVoteController.Close() end\n\tlocal blocked = activeMenu ~= nil or ui.Results.Visible or mapOverlay"
+  },
+  {
+    "path": "StarterPlayer.StarterPlayerScripts.Controllers.HudController",
+    "old": "elseif phase == \"RESULT\" then detail = \"MATCH FINISHED\"",
+    "new": "elseif phase == \"ROUND\" then detail = currentMapName:upper()\n\telseif phase == \"RESULT\" then detail = \"MATCH FINISHED\""
+  },
+  {
+    "path": "StarterPlayer.StarterPlayerScripts.Controllers.HudController",
+    "old": "(phase == \"STARTING\" or phase == \"INTERMISSION\" or phase == \"PRACTICE\") then detail",
+    "new": "(phase == \"STARTING\" or phase == \"INTERMISSION\" or phase == \"PRACTICE\" or phase == \"MAP_VOTE\") then detail"
+  },
+  {
+    "path": "StarterPlayer.StarterPlayerScripts.Controllers.HudController",
+    "old": "connect(Remotes.Get(\"BombState\").OnClientEvent, onBombState)",
+    "new": "connect(Remotes.Get(\"BombState\").OnClientEvent, onBombState)\n\tMapVoteController.Init(function(visible)\n\t\tmapOverlay = visible\n\t\tif visible then activeMenu = nil; ui.ModalShade.Visible = false end\n\t\trefresh()\n\tend)"
+  },
+  {
+    "path": "StarterPlayer.StarterPlayerScripts.Controllers.HudController",
+    "old": "started, life = false, life + 1\n\tdisconnect(connections)",
+    "new": "started, life = false, life + 1\n\tMapVoteController.Destroy()\n\tmapOverlay = false\n\tdisconnect(connections)"
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "cases": 70,
+  "assertions": 4477,
+  "luau_compile": "passed",
+  "maps_lobby_and_spawn_unchanged": true,
+  "preserves_music_ids": true,
+  "transaction_rollback": "passed",
+  "repeat_install_no_duplicates_or_drift": true,
+  "installer_does_not_run_modules_or_access_datastores": true,
+  "native_studio_tested": false
+}

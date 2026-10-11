@@ -1,0 +1,8 @@
+{
+  "source": "HudControllerV6.luau",
+  "sha256": "e86008febcefc6004fa2f483eea6d8c927365d85e067616a5750d29b5f41040d",
+  "checks": 493,
+  "failures": 0,
+  "exit_code": 0,
+  "scope": "V5 regression plus music/SFX settings, idempotent patch, .72s action display independent of1.5s cooldown. Standalone mocks; not Studio."
+}
