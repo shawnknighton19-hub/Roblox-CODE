@@ -1,0 +1,31 @@
+{
+  "checks": 223,
+  "actual_source_executed": true,
+  "syntax_checked": true,
+  "native_studio_tested": false,
+  "coverage": [
+    "swept melee and clipped final active interval",
+    "single transfer per attack",
+    "deterministic nearest target",
+    "moving projectile/target crossings",
+    "wall obstruction and dodge before wall termination",
+    "antitagback",
+    "carrier, AFK, pause, cooldown and pass rejects",
+    "all nine ability acknowledgements",
+    "shield charge, ground, ceiling, ownership and server/client leap route",
+    "validated dodge recovery timestamp",
+    "carrier gain, loss and respawn speed cleanup",
+    "walking and sprint advantage; existing dodge cap and cooldown unchanged"
+  ],
+  "limitations": [
+    "Mocked raycast and humanoid APIs; native multiplayer playtesting remains required."
+  ],
+  "source_sha256": {
+    "CombatRulesV15.luau": "48898c97313237501a61993f4e0957a2221e85b7a539feaa5d07dede918bbb3b",
+    "HABActionServiceV15.luau": "97f6336f1d6fcff6275d69f79e23c9c871771dfc843e2850e63bcd92e7869ddb",
+    "BombServiceV15.luau": "9c6804582a08abc503138827520386c26fe66d5d6f9d23d346f0ccab6b3dca91",
+    "SnappyMovementV15.client.luau": "1a613266f509468b520d4489cd4f2c0a562a6dd836aa9fefd2b4a433a87c94ae",
+    "PracticeServiceV15.luau": "373b534e894bade985726a11f3d734467d37f87b521e23e84e9659bfb9409bf1",
+    "DodgeIFrameServerV15.server.luau": "84486d9b964341c58016315f0afd56695ca6aa1a6098c4a5cc441709a6f0db75"
+  }
+}

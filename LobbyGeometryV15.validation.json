@@ -1,0 +1,11 @@
+{
+  "builderSHA256": "89837181365e67cf8d06d87d8ee0c7061a7d4bf57d5ae7d296f0e490e4c425b8",
+  "geometrySHA256": "809262ad1cfd06d7e23e3096fb7bb8398eeba235fce6dbe12a1ef195a38a4236",
+  "encoder": "github.com/robloxapi/rbxfile@37f4b3f11ff694d24160b9d7b948174fd384d596",
+  "passed": true,
+  "instances": 275,
+  "propertyValues": 3294,
+  "byteIdenticalToFrozenArtifact": true,
+  "notes": "Fresh portable exporter built the pinned encoder from tracked source; its independent decode matched all generated instances and properties. Original game was not reserialized.",
+  "schemaSHA256": "f37e4c825920b9f26ff080648826e6373af0aa04d3881d5d6361c4fb51797b94"
+}

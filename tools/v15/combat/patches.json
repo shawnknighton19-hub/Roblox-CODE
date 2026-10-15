@@ -1,0 +1,56 @@
+[
+  {
+    "ref": 27176,
+    "path": "ServerScriptService/Services/BombService",
+    "class": "ModuleScript",
+    "replacement": "BombServiceV15.luau",
+    "original_sha256": "aedc12a33e9a4657f1d4a76b59b38ba3e40053fb6af8c498658da4c6f9aa88a8",
+    "replacement_sha256": "9c6804582a08abc503138827520386c26fe66d5d6f9d23d346f0ccab6b3dca91",
+    "disabled": null
+  },
+  {
+    "ref": 27189,
+    "path": "ServerScriptService/Services/HABActionService",
+    "class": "ModuleScript",
+    "replacement": "HABActionServiceV15.luau",
+    "original_sha256": "701fca7c16cffcdb879fa0481f5b50762f93d6067c301e4eeffa99b6a28df88a",
+    "replacement_sha256": "97f6336f1d6fcff6275d69f79e23c9c871771dfc843e2850e63bcd92e7869ddb",
+    "disabled": null
+  },
+  {
+    "ref": 27168,
+    "path": "ReplicatedStorage/HABExpansion/CombatRules",
+    "class": "ModuleScript",
+    "replacement": "CombatRulesV15.luau",
+    "original_sha256": "7963103a7d5565282794ec111386e96b1b263e246e83bd08a646d2978fb6bab0",
+    "replacement_sha256": "48898c97313237501a61993f4e0957a2221e85b7a539feaa5d07dede918bbb3b",
+    "disabled": null
+  },
+  {
+    "ref": 8432,
+    "path": "StarterPlayer/StarterPlayerScripts/SnappyMovement",
+    "class": "LocalScript",
+    "replacement": "SnappyMovementV15.client.luau",
+    "original_sha256": "1f9edc588a52a5098fc7ae9e88884bd60ffec317da3b2283732b66e363875af5",
+    "replacement_sha256": "1a613266f509468b520d4489cd4f2c0a562a6dd836aa9fefd2b4a433a87c94ae",
+    "disabled": false
+  },
+  {
+    "ref": 27183,
+    "path": "ServerScriptService/Services/PracticeServiceV11",
+    "class": "ModuleScript",
+    "replacement": "PracticeServiceV15.luau",
+    "original_sha256": "fdba8f440957472f4d88aca083d650a8c74cb024d54edd7a76a1d3d962d3a9a3",
+    "replacement_sha256": "373b534e894bade985726a11f3d734467d37f87b521e23e84e9659bfb9409bf1",
+    "disabled": null
+  },
+  {
+    "ref": 27217,
+    "path": "ServerScriptService/DodgeIFrameServer",
+    "class": "Script",
+    "replacement": "DodgeIFrameServerV15.server.luau",
+    "original_sha256": "69c232bd6935b5b03de51816b1391740c3807870ac470a178f91546762098b32",
+    "replacement_sha256": "84486d9b964341c58016315f0afd56695ca6aa1a6098c4a5cc441709a6f0db75",
+    "disabled": false
+  }
+]

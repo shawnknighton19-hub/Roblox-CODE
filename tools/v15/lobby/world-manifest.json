@@ -1,0 +1,63 @@
+{
+  "version": 15,
+  "geometry": "tools/v15/lobby/generated.rbxl",
+  "builder": "LobbyBuilderV15.luau",
+  "sourceSHA256": "89837181365e67cf8d06d87d8ee0c7061a7d4bf57d5ae7d296f0e490e4c425b8",
+  "newRoots": {
+    "HABPolishedLobbyV15": "Workspace/Lobby"
+  },
+  "archiveOriginal": {
+    "6809": "Workspace/Lobby/Promenades",
+    "6824": "Workspace/Lobby/Bomb fountain",
+    "6872": "Workspace/Lobby/North terrace",
+    "7021": "Workspace/Lobby/Gardens and seating",
+    "7124": "Workspace/Lobby/Arrival",
+    "7169": "Workspace/Lobby/Boundary"
+  },
+  "preservePaths": [
+    "Workspace/Lobby/Floor",
+    "Workspace/Lobby/LobbySpawn",
+    "Workspace/Lobby/V11 Bomb Exchange",
+    "Workspace/Lobby/HABCrateAnnex",
+    "Workspace/Lobby/HABExpansionLobby"
+  ],
+  "notes": [
+    "Archive the six named original architecture Models under the installation backup Folder. Do not move or clone functional booths.",
+    "Retain original Lobby model and PrimaryPart. New geometry has no services or scripts.",
+    "The new PASSES and ABILITIES prompts use existing HABOpenPanel attributes; server remains the existing expansion API.",
+    "Two 28-stud wide ramps climb 5 over 24 to reach existing leaderboards and spectator overlook."
+  ],
+  "textChanges": [
+    {
+      "ref": 7547,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/EMOTES/HussSignV11/Body/Heading",
+      "original": "EMOTES",
+      "new": "LOCKER"
+    },
+    {
+      "ref": 7549,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/EMOTES/HussSignV11/Body/Subtitle",
+      "original": "SHOW YOUR STYLE",
+      "new": "YOUR EFFECTS COLLECTION"
+    },
+    {
+      "ref": 7592,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/ShopPanelV12/ShopIdleV12/Body/Title",
+      "original": "EMOTES EXCHANGE",
+      "new": "LOCKER"
+    },
+    {
+      "ref": 7594,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/ShopPanelV12/ShopIdleV12/Body/Hint",
+      "original": "WALK UP TO BROWSE",
+      "new": "WALK UP TO BROWSE"
+    },
+    {
+      "ref": 7596,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/ShopPanelV12/ShopIdleV12/Body/Details",
+      "original": "CELEBRATE EVERY CLOSE CALL",
+      "new": "TRAILS \u2022 COSMETICS \u2022 COLLECTION"
+    }
+  ],
+  "geometry_sha256": "809262ad1cfd06d7e23e3096fb7bb8398eeba235fce6dbe12a1ef195a38a4236"
+}

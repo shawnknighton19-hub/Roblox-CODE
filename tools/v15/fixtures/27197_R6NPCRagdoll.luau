@@ -1,0 +1,1 @@
+require(game.ServerScriptService.R6Ragdoll.ModuleScript):Setup(script.Parent)

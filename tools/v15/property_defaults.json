@@ -1,0 +1,1415 @@
+{
+  "version": [
+    0,
+    741,
+    19,
+    7411056
+  ],
+  "source": "https://github.com/rojo-rbx/rbx-dom/blob/master/rbx_reflection_database/database.msgpack",
+  "source_sha256": "cca78d6aba8d3daadcf129e6a607c48d063aed2fe48948955755c83d83187178",
+  "classes": {
+    "Part": {
+      "Anchored": {
+        "Bool": false
+      },
+      "Archivable": {
+        "Bool": true
+      },
+      "Attributes": {
+        "Attributes": {}
+      },
+      "AudioCanCollide": {
+        "Bool": true
+      },
+      "BackParamA": {
+        "Float32": -0.5
+      },
+      "BackParamB": {
+        "Float32": 0.5
+      },
+      "BackSurface": {
+        "Enum": 0
+      },
+      "BackSurfaceInput": {
+        "Enum": 0
+      },
+      "BottomParamA": {
+        "Float32": -0.5
+      },
+      "BottomParamB": {
+        "Float32": 0.5
+      },
+      "BottomSurface": {
+        "Enum": 4
+      },
+      "BottomSurfaceInput": {
+        "Enum": 0
+      },
+      "CFrame": {
+        "CFrame": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        ]
+      },
+      "CanCollide": {
+        "Bool": true
+      },
+      "CanQuery": {
+        "Bool": true
+      },
+      "CanTouch": {
+        "Bool": true
+      },
+      "Capabilities": {
+        "SecurityCapabilities": 0
+      },
+      "CastShadow": {
+        "Bool": true
+      },
+      "CollisionGroup": {
+        "String": "Default"
+      },
+      "CollisionGroupId": {
+        "Int32": 0
+      },
+      "Color": {
+        "Color3uint8": [
+          163,
+          162,
+          165
+        ]
+      },
+      "CustomPhysicalProperties": {
+        "PhysicalProperties": "Default"
+      },
+      "EnableFluidForces": {
+        "Bool": true
+      },
+      "FormFactor": {
+        "Enum": 1
+      },
+      "FrontParamA": {
+        "Float32": -0.5
+      },
+      "FrontParamB": {
+        "Float32": 0.5
+      },
+      "FrontSurface": {
+        "Enum": 0
+      },
+      "FrontSurfaceInput": {
+        "Enum": 0
+      },
+      "HistoryId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "LeftParamA": {
+        "Float32": -0.5
+      },
+      "LeftParamB": {
+        "Float32": 0.5
+      },
+      "LeftSurface": {
+        "Enum": 0
+      },
+      "LeftSurfaceInput": {
+        "Enum": 0
+      },
+      "Locked": {
+        "Bool": false
+      },
+      "Massless": {
+        "Bool": false
+      },
+      "Material": {
+        "Enum": 256
+      },
+      "MaterialVariant": {
+        "String": ""
+      },
+      "PivotOffset": {
+        "CFrame": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        ]
+      },
+      "Reflectance": {
+        "Float32": 0.0
+      },
+      "RightParamA": {
+        "Float32": -0.5
+      },
+      "RightParamB": {
+        "Float32": 0.5
+      },
+      "RightSurface": {
+        "Enum": 0
+      },
+      "RightSurfaceInput": {
+        "Enum": 0
+      },
+      "RootPriority": {
+        "Int32": 0
+      },
+      "RotVelocity": {
+        "Vector3": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "Sandboxed": {
+        "Bool": false
+      },
+      "Shape": {
+        "Enum": 1
+      },
+      "Size": {
+        "Vector3": [
+          4.0,
+          1.2000000476837158,
+          2.0
+        ]
+      },
+      "SourceAssetId": {
+        "Int64": -1
+      },
+      "Tags": {
+        "Tags": []
+      },
+      "TopParamA": {
+        "Float32": -0.5
+      },
+      "TopParamB": {
+        "Float32": 0.5
+      },
+      "TopSurface": {
+        "Enum": 3
+      },
+      "TopSurfaceInput": {
+        "Enum": 0
+      },
+      "Transparency": {
+        "Float32": 0.0
+      },
+      "UniqueId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "Velocity": {
+        "Vector3": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "WedgePart": {
+      "Anchored": {
+        "Bool": false
+      },
+      "Archivable": {
+        "Bool": true
+      },
+      "Attributes": {
+        "Attributes": {}
+      },
+      "AudioCanCollide": {
+        "Bool": true
+      },
+      "BackParamA": {
+        "Float32": -0.5
+      },
+      "BackParamB": {
+        "Float32": 0.5
+      },
+      "BackSurface": {
+        "Enum": 0
+      },
+      "BackSurfaceInput": {
+        "Enum": 0
+      },
+      "BottomParamA": {
+        "Float32": -0.5
+      },
+      "BottomParamB": {
+        "Float32": 0.5
+      },
+      "BottomSurface": {
+        "Enum": 4
+      },
+      "BottomSurfaceInput": {
+        "Enum": 0
+      },
+      "CFrame": {
+        "CFrame": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        ]
+      },
+      "CanCollide": {
+        "Bool": true
+      },
+      "CanQuery": {
+        "Bool": true
+      },
+      "CanTouch": {
+        "Bool": true
+      },
+      "Capabilities": {
+        "SecurityCapabilities": 0
+      },
+      "CastShadow": {
+        "Bool": true
+      },
+      "CollisionGroup": {
+        "String": "Default"
+      },
+      "CollisionGroupId": {
+        "Int32": 0
+      },
+      "Color": {
+        "Color3uint8": [
+          163,
+          162,
+          165
+        ]
+      },
+      "CustomPhysicalProperties": {
+        "PhysicalProperties": "Default"
+      },
+      "EnableFluidForces": {
+        "Bool": true
+      },
+      "FormFactor": {
+        "Enum": 1
+      },
+      "FrontParamA": {
+        "Float32": -0.5
+      },
+      "FrontParamB": {
+        "Float32": 0.5
+      },
+      "FrontSurface": {
+        "Enum": 0
+      },
+      "FrontSurfaceInput": {
+        "Enum": 0
+      },
+      "HistoryId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "LeftParamA": {
+        "Float32": -0.5
+      },
+      "LeftParamB": {
+        "Float32": 0.5
+      },
+      "LeftSurface": {
+        "Enum": 0
+      },
+      "LeftSurfaceInput": {
+        "Enum": 0
+      },
+      "Locked": {
+        "Bool": false
+      },
+      "Massless": {
+        "Bool": false
+      },
+      "Material": {
+        "Enum": 256
+      },
+      "MaterialVariant": {
+        "String": ""
+      },
+      "PivotOffset": {
+        "CFrame": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        ]
+      },
+      "Reflectance": {
+        "Float32": 0.0
+      },
+      "RightParamA": {
+        "Float32": -0.5
+      },
+      "RightParamB": {
+        "Float32": 0.5
+      },
+      "RightSurface": {
+        "Enum": 0
+      },
+      "RightSurfaceInput": {
+        "Enum": 0
+      },
+      "RootPriority": {
+        "Int32": 0
+      },
+      "RotVelocity": {
+        "Vector3": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "Sandboxed": {
+        "Bool": false
+      },
+      "Size": {
+        "Vector3": [
+          4.0,
+          1.2000000476837158,
+          2.0
+        ]
+      },
+      "SourceAssetId": {
+        "Int64": -1
+      },
+      "Tags": {
+        "Tags": []
+      },
+      "TopParamA": {
+        "Float32": -0.5
+      },
+      "TopParamB": {
+        "Float32": 0.5
+      },
+      "TopSurface": {
+        "Enum": 0
+      },
+      "TopSurfaceInput": {
+        "Enum": 0
+      },
+      "Transparency": {
+        "Float32": 0.0
+      },
+      "UniqueId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "Velocity": {
+        "Vector3": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "Model": {
+      "Archivable": {
+        "Bool": true
+      },
+      "Attributes": {
+        "Attributes": {}
+      },
+      "Capabilities": {
+        "SecurityCapabilities": 0
+      },
+      "HistoryId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "LevelOfDetail": {
+        "Enum": 0
+      },
+      "ModelMeshCFrame": {
+        "CFrame": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        ]
+      },
+      "ModelMeshData": {
+        "SharedString": []
+      },
+      "ModelMeshSize": {
+        "Vector3": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "ModelStreamingMode": {
+        "Enum": 0
+      },
+      "NeedsPivotMigration": {
+        "Bool": false
+      },
+      "Sandboxed": {
+        "Bool": false
+      },
+      "Scale": {
+        "Float32": 1.0
+      },
+      "SlimHash": {
+        "SharedString": []
+      },
+      "SourceAssetId": {
+        "Int64": -1
+      },
+      "Tags": {
+        "Tags": []
+      },
+      "UniqueId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "WorldPivotData": {
+        "OptionalCFrame": null
+      }
+    },
+    "Folder": {
+      "Archivable": {
+        "Bool": true
+      },
+      "Attributes": {
+        "Attributes": {}
+      },
+      "Capabilities": {
+        "SecurityCapabilities": 0
+      },
+      "HistoryId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "IconTint": {
+        "Color3": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "Sandboxed": {
+        "Bool": false
+      },
+      "SourceAssetId": {
+        "Int64": -1
+      },
+      "Tags": {
+        "Tags": []
+      },
+      "UniqueId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      }
+    },
+    "SurfaceGui": {
+      "Active": {
+        "Bool": true
+      },
+      "AlwaysOnTop": {
+        "Bool": false
+      },
+      "Archivable": {
+        "Bool": true
+      },
+      "Attributes": {
+        "Attributes": {}
+      },
+      "AutoLocalize": {
+        "Bool": true
+      },
+      "Brightness": {
+        "Float32": 1.0
+      },
+      "CanvasSize": {
+        "Vector2": [
+          800.0,
+          600.0
+        ]
+      },
+      "Capabilities": {
+        "SecurityCapabilities": 0
+      },
+      "ClipsDescendants": {
+        "Bool": false
+      },
+      "Enabled": {
+        "Bool": true
+      },
+      "Face": {
+        "Enum": 5
+      },
+      "HistoryId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "LightInfluence": {
+        "Float32": 0.0
+      },
+      "MaxDistance": {
+        "Float32": 0.0
+      },
+      "PixelsPerStud": {
+        "Float32": 50.0
+      },
+      "ResetOnSpawn": {
+        "Bool": true
+      },
+      "Sandboxed": {
+        "Bool": false
+      },
+      "SelectionBehaviorDown": {
+        "Enum": 0
+      },
+      "SelectionBehaviorLeft": {
+        "Enum": 0
+      },
+      "SelectionBehaviorRight": {
+        "Enum": 0
+      },
+      "SelectionBehaviorUp": {
+        "Enum": 0
+      },
+      "SelectionGroup": {
+        "Bool": false
+      },
+      "SizingMode": {
+        "Enum": 0
+      },
+      "SourceAssetId": {
+        "Int64": -1
+      },
+      "Tags": {
+        "Tags": []
+      },
+      "ToolPunchThroughDistance": {
+        "Float32": 0.0
+      },
+      "UniqueId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "ZIndexBehavior": {
+        "Enum": 0
+      },
+      "ZOffset": {
+        "Float32": 0.0
+      }
+    },
+    "Frame": {
+      "Active": {
+        "Bool": false
+      },
+      "AnchorPoint": {
+        "Vector2": [
+          0.0,
+          0.0
+        ]
+      },
+      "Archivable": {
+        "Bool": true
+      },
+      "Attributes": {
+        "Attributes": {}
+      },
+      "AutoLocalize": {
+        "Bool": true
+      },
+      "AutomaticSize": {
+        "Enum": 0
+      },
+      "BackgroundColor3": {
+        "Color3": [
+          0.6392157077789307,
+          0.6352941393852234,
+          0.6470588445663452
+        ]
+      },
+      "BackgroundTransparency": {
+        "Float32": 0.0
+      },
+      "BorderColor3": {
+        "Color3": [
+          0.10588235408067703,
+          0.16470588743686676,
+          0.2078431397676468
+        ]
+      },
+      "BorderMode": {
+        "Enum": 0
+      },
+      "BorderSizePixel": {
+        "Int32": 1
+      },
+      "Capabilities": {
+        "SecurityCapabilities": 0
+      },
+      "ClipsDescendants": {
+        "Bool": false
+      },
+      "Draggable": {
+        "Bool": false
+      },
+      "HistoryId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "Interactable": {
+        "Bool": true
+      },
+      "LayoutOrder": {
+        "Int32": 0
+      },
+      "Position": {
+        "UDim2": [
+          [
+            0.0,
+            0
+          ],
+          [
+            0.0,
+            0
+          ]
+        ]
+      },
+      "Rotation": {
+        "Float32": 0.0
+      },
+      "Sandboxed": {
+        "Bool": false
+      },
+      "Selectable": {
+        "Bool": false
+      },
+      "SelectionBehaviorDown": {
+        "Enum": 0
+      },
+      "SelectionBehaviorLeft": {
+        "Enum": 0
+      },
+      "SelectionBehaviorRight": {
+        "Enum": 0
+      },
+      "SelectionBehaviorUp": {
+        "Enum": 0
+      },
+      "SelectionGroup": {
+        "Bool": false
+      },
+      "SelectionOrder": {
+        "Int32": 0
+      },
+      "Sink": {
+        "Enum": 0
+      },
+      "Size": {
+        "UDim2": [
+          [
+            0.0,
+            0
+          ],
+          [
+            0.0,
+            0
+          ]
+        ]
+      },
+      "SizeConstraint": {
+        "Enum": 0
+      },
+      "SourceAssetId": {
+        "Int64": -1
+      },
+      "Style": {
+        "Enum": 0
+      },
+      "Tags": {
+        "Tags": []
+      },
+      "UniqueId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "Visible": {
+        "Bool": true
+      },
+      "ZIndex": {
+        "Int32": 1
+      }
+    },
+    "TextLabel": {
+      "Active": {
+        "Bool": false
+      },
+      "AnchorPoint": {
+        "Vector2": [
+          0.0,
+          0.0
+        ]
+      },
+      "Archivable": {
+        "Bool": true
+      },
+      "Attributes": {
+        "Attributes": {}
+      },
+      "AutoLocalize": {
+        "Bool": true
+      },
+      "AutomaticSize": {
+        "Enum": 0
+      },
+      "BackgroundColor3": {
+        "Color3": [
+          0.6392157077789307,
+          0.6352941393852234,
+          0.6470588445663452
+        ]
+      },
+      "BackgroundTransparency": {
+        "Float32": 0.0
+      },
+      "BorderColor3": {
+        "Color3": [
+          0.10588235408067703,
+          0.16470588743686676,
+          0.2078431397676468
+        ]
+      },
+      "BorderMode": {
+        "Enum": 0
+      },
+      "BorderSizePixel": {
+        "Int32": 1
+      },
+      "Capabilities": {
+        "SecurityCapabilities": 0
+      },
+      "ClipsDescendants": {
+        "Bool": false
+      },
+      "Draggable": {
+        "Bool": false
+      },
+      "FontFace": {
+        "Font": [
+          "rbxasset://fonts/families/LegacyArial.json",
+          "Regular",
+          "Normal",
+          "rbxasset://fonts/Arimo-Regular.ttf"
+        ]
+      },
+      "HistoryId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "Interactable": {
+        "Bool": true
+      },
+      "LayoutOrder": {
+        "Int32": 0
+      },
+      "LineHeight": {
+        "Float32": 1.0
+      },
+      "LocalizationMatchIdentifier": {
+        "String": ""
+      },
+      "LocalizationMatchedSourceText": {
+        "String": ""
+      },
+      "MaxVisibleGraphemes": {
+        "Int32": -1
+      },
+      "OpenTypeFeatures": {
+        "String": ""
+      },
+      "Position": {
+        "UDim2": [
+          [
+            0.0,
+            0
+          ],
+          [
+            0.0,
+            0
+          ]
+        ]
+      },
+      "RichText": {
+        "Bool": false
+      },
+      "Rotation": {
+        "Float32": 0.0
+      },
+      "Sandboxed": {
+        "Bool": false
+      },
+      "Selectable": {
+        "Bool": false
+      },
+      "SelectionBehaviorDown": {
+        "Enum": 0
+      },
+      "SelectionBehaviorLeft": {
+        "Enum": 0
+      },
+      "SelectionBehaviorRight": {
+        "Enum": 0
+      },
+      "SelectionBehaviorUp": {
+        "Enum": 0
+      },
+      "SelectionGroup": {
+        "Bool": false
+      },
+      "SelectionOrder": {
+        "Int32": 0
+      },
+      "Sink": {
+        "Enum": 0
+      },
+      "Size": {
+        "UDim2": [
+          [
+            0.0,
+            0
+          ],
+          [
+            0.0,
+            0
+          ]
+        ]
+      },
+      "SizeConstraint": {
+        "Enum": 0
+      },
+      "SourceAssetId": {
+        "Int64": -1
+      },
+      "Tags": {
+        "Tags": []
+      },
+      "Text": {
+        "String": "Label"
+      },
+      "TextColor3": {
+        "Color3": [
+          0.10588236153125763,
+          0.16470588743686676,
+          0.20784315466880798
+        ]
+      },
+      "TextDirection": {
+        "Enum": 0
+      },
+      "TextScaled": {
+        "Bool": false
+      },
+      "TextSize": {
+        "Float32": 8.0
+      },
+      "TextStrokeColor3": {
+        "Color3": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "TextStrokeTransparency": {
+        "Float32": 1.0
+      },
+      "TextTransparency": {
+        "Float32": 0.0
+      },
+      "TextTruncate": {
+        "Enum": 0
+      },
+      "TextWrapped": {
+        "Bool": false
+      },
+      "TextXAlignment": {
+        "Enum": 2
+      },
+      "TextYAlignment": {
+        "Enum": 1
+      },
+      "UniqueId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "Visible": {
+        "Bool": true
+      },
+      "ZIndex": {
+        "Int32": 1
+      }
+    },
+    "UICorner": {
+      "Archivable": {
+        "Bool": true
+      },
+      "Attributes": {
+        "Attributes": {}
+      },
+      "BottomLeftRadius": {
+        "UDim": [
+          0.0,
+          8
+        ]
+      },
+      "BottomRightRadius": {
+        "UDim": [
+          0.0,
+          8
+        ]
+      },
+      "Capabilities": {
+        "SecurityCapabilities": 0
+      },
+      "HistoryId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "Sandboxed": {
+        "Bool": false
+      },
+      "SourceAssetId": {
+        "Int64": -1
+      },
+      "Tags": {
+        "Tags": []
+      },
+      "TopLeftRadius": {
+        "UDim": [
+          0.0,
+          8
+        ]
+      },
+      "TopRightRadius": {
+        "UDim": [
+          0.0,
+          8
+        ]
+      },
+      "UniqueId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      }
+    },
+    "UIStroke": {
+      "ApplyStrokeMode": {
+        "Enum": 0
+      },
+      "Archivable": {
+        "Bool": true
+      },
+      "Attributes": {
+        "Attributes": {}
+      },
+      "BorderOffset": {
+        "UDim": [
+          0.0,
+          0
+        ]
+      },
+      "BorderStrokePosition": {
+        "Enum": 0
+      },
+      "Capabilities": {
+        "SecurityCapabilities": 0
+      },
+      "Color": {
+        "Color3": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "Enabled": {
+        "Bool": true
+      },
+      "HistoryId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "LineJoinMode": {
+        "Enum": 0
+      },
+      "Sandboxed": {
+        "Bool": false
+      },
+      "SourceAssetId": {
+        "Int64": -1
+      },
+      "StrokeSizingMode": {
+        "Enum": 0
+      },
+      "Tags": {
+        "Tags": []
+      },
+      "Thickness": {
+        "Float32": 1.0
+      },
+      "Transparency": {
+        "Float32": 0.0
+      },
+      "UniqueId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "ZIndex": {
+        "Int32": 1
+      }
+    },
+    "ProximityPrompt": {
+      "ActionText": {
+        "String": "Interact"
+      },
+      "Archivable": {
+        "Bool": true
+      },
+      "Attributes": {
+        "Attributes": {}
+      },
+      "AutoLocalize": {
+        "Bool": true
+      },
+      "Capabilities": {
+        "SecurityCapabilities": 0
+      },
+      "ClickablePrompt": {
+        "Bool": true
+      },
+      "Enabled": {
+        "Bool": true
+      },
+      "Exclusivity": {
+        "Enum": 0
+      },
+      "GamepadKeyCode": {
+        "Enum": 1000
+      },
+      "HistoryId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "HoldDuration": {
+        "Float32": 0.0
+      },
+      "KeyboardKeyCode": {
+        "Enum": 101
+      },
+      "MaxActivationDistance": {
+        "Float32": 10.0
+      },
+      "MaxIndicatorDistance": {
+        "Float32": 0.0
+      },
+      "ObjectText": {
+        "String": ""
+      },
+      "RequiresLineOfSight": {
+        "Bool": true
+      },
+      "Sandboxed": {
+        "Bool": false
+      },
+      "SourceAssetId": {
+        "Int64": -1
+      },
+      "Style": {
+        "Enum": 0
+      },
+      "Tags": {
+        "Tags": []
+      },
+      "UIOffset": {
+        "Vector2": [
+          0.0,
+          0.0
+        ]
+      },
+      "UniqueId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      }
+    },
+    "Script": {
+      "Archivable": {
+        "Bool": true
+      },
+      "Attributes": {
+        "Attributes": {}
+      },
+      "Capabilities": {
+        "SecurityCapabilities": 0
+      },
+      "Disabled": {
+        "Bool": false
+      },
+      "HistoryId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "LinkedSource": {
+        "ContentId": ""
+      },
+      "RunContext": {
+        "Enum": 0
+      },
+      "Sandboxed": {
+        "Bool": false
+      },
+      "ScriptGuid": {
+        "String": ""
+      },
+      "Source": {
+        "String": ""
+      },
+      "SourceAssetId": {
+        "Int64": -1
+      },
+      "Tags": {
+        "Tags": []
+      },
+      "UniqueId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      }
+    },
+    "LocalScript": {
+      "Archivable": {
+        "Bool": true
+      },
+      "Attributes": {
+        "Attributes": {}
+      },
+      "Capabilities": {
+        "SecurityCapabilities": 0
+      },
+      "Disabled": {
+        "Bool": false
+      },
+      "HistoryId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "LinkedSource": {
+        "ContentId": ""
+      },
+      "RunContext": {
+        "Enum": 0
+      },
+      "Sandboxed": {
+        "Bool": false
+      },
+      "ScriptGuid": {
+        "String": ""
+      },
+      "Source": {
+        "String": ""
+      },
+      "SourceAssetId": {
+        "Int64": -1
+      },
+      "Tags": {
+        "Tags": []
+      },
+      "UniqueId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      }
+    },
+    "ModuleScript": {
+      "Archivable": {
+        "Bool": true
+      },
+      "Attributes": {
+        "Attributes": {}
+      },
+      "Capabilities": {
+        "SecurityCapabilities": 0
+      },
+      "HistoryId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "LinkedSource": {
+        "ContentId": ""
+      },
+      "Sandboxed": {
+        "Bool": false
+      },
+      "ScriptGuid": {
+        "String": ""
+      },
+      "Source": {
+        "String": ""
+      },
+      "SourceAssetId": {
+        "Int64": -1
+      },
+      "Tags": {
+        "Tags": []
+      },
+      "UniqueId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      }
+    },
+    "StringValue": {
+      "Archivable": {
+        "Bool": true
+      },
+      "Attributes": {
+        "Attributes": {}
+      },
+      "Capabilities": {
+        "SecurityCapabilities": 0
+      },
+      "HistoryId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "Sandboxed": {
+        "Bool": false
+      },
+      "SourceAssetId": {
+        "Int64": -1
+      },
+      "Tags": {
+        "Tags": []
+      },
+      "UniqueId": {
+        "UniqueId": {
+          "binary_hex": "00000000000000000000000000000000"
+        }
+      },
+      "Value": {
+        "String": ""
+      }
+    }
+  }
+}

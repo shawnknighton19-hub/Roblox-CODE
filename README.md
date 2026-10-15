@@ -1,3 +1,15 @@
+## Current HABWAS polish (V15)
+
+Download [Huss-A-Bomb-V15.rbxl](Huss-A-Bomb-V15.rbxl) and open it in Studio, or copy all of [Huss-A-Bomb-V15.txt](Huss-A-Bomb-V15.txt) into the **Command Bar with Play stopped**. Use GitHub’s **Download raw file** button for a Windows download. This update targets your latest uploaded **HABWAS.rbxl**, with its current abilities, crates and manual bomb attacks; do not run older installers first.
+
+V15 adds authored bomb-strike, throw, hit/block and nine ability animations; tighter server contact checks; a consistent +3 carrier speed bonus; a simpler lobby retaining the booths; fewer non-trail effects; and a less crowded, rounded HUD. Existing maps, voting, AFK, saves and practice reward exclusion remain in place. Retired emotes stay retired. The new action poses need no uploaded animation IDs.
+
+Official purchase IDs belong in `ReplicatedStorage/HABMonetizationConfigV15`. All supplied IDs are zero until you create the offers in your experience. [Purchase setup](V15-Monetization-Setup.md) covers the nine passes/bundles and three Gem products. Existing configured IDs are preserved by verified reruns.
+
+The installer checks actual sources and dependencies, compiles before applying, creates backups and rolls back failed commits. [Installation and playtest guide](V15-Current-Game-Guide.md) explains downloads, compatibility errors and restoration. [V15-Release.validation.json](V15-Release.validation.json) records final artifact hashes and checks. Native Studio rendering, live purchases and multiplayer playtesting remain necessary before publishing.
+
+---
+
 ## Published animation repair and sculpted trails (V13)
 
 **Set R6 before publishing:** in Studio, open **File → Avatar Settings → the top ⋯ menu → R6**. Save the avatar settings, publish, and join a new server. Roblox protects this experience setting; a Command Bar script cannot change it.

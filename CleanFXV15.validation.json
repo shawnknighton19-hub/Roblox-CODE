@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "output": "CLEAN_FX_V15 69 checks passed",
+  "source_sha256": {
+    "HABCleanCosmeticsV15.luau": "6f6dbd67a7cc11d5f12c8ebc298ec01014344e903410fe9ba0bfd9b9651919ce",
+    "HABRendererV15.luau": "7eb6d3cf8315f6e5143b4ec2277834e8b9fbc522584154367e20a9a6fcebd205",
+    "HABHalloweenEffectsV15.client.luau": "3624c89e0916420e101e1a40d80b3393057e2a1473b9d2995b386e85eb773bbc"
+  },
+  "limits": "Actual-source deterministic API/lifecycle doubles, not native Studio rendering."
+}

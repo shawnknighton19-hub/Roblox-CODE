@@ -1,0 +1,24 @@
+{
+  "version": 15,
+  "checks": 1498,
+  "passed": true,
+  "errors": [],
+  "groundAccessPoints": 14,
+  "terraceAccessPoints": 8,
+  "standingClearanceRadius": 2,
+  "standingEnvelopeHeight": 6.4,
+  "rampWidth": 28,
+  "rampRise": 5,
+  "rampRun": 24,
+  "rampSlopeDegrees": 11.768288932020646,
+  "newParts": 200,
+  "archivedArchitectureParts": 233,
+  "retainedExistingParts": 465,
+  "newFootprintInsideOldFootprint": true,
+  "sourceSHA256": {
+    "LobbyBuilderV15.luau": "89837181365e67cf8d06d87d8ee0c7061a7d4bf57d5ae7d296f0e490e4c425b8"
+  },
+  "inputSHA256": "c354d8c3c7ac43b9364749aa292716aa592eee6f496f532c98c0bafb88279309",
+  "providedOriginalVerified": true,
+  "limits": "Analytic geometry with decoded input booth collision; not Roblox Humanoid/PathfindingService playtesting."
+}

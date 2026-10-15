@@ -1,0 +1,234 @@
+local baseIsA=methods.IsA
+function methods:IsA(class)
+ if class=='BaseScript' then return self.ClassName=='Script' or self.ClassName=='LocalScript' end
+ if class=='LuaSourceContainer' then return self.ClassName=='ModuleScript' or self:IsA('BaseScript') end
+ return baseIsA(self,class)
+end
+function methods:IsDescendantOf(ancestor)
+ local p=self.Parent;while p do if p==ancestor then return true end;p=p.Parent end;return false
+end
+local checks=0
+local function check(ok,message) checks+=1;assert(ok,message) end
+local warnings={}
+local function warn(message) warnings[#warnings+1]=tostring(message) end
+local function make(class,parent,name,source)
+ local o=Instance.new(class);o.Name=name;o.Parent=parent
+ if source then o.Source=source end
+ if o:IsA('BaseScript') then o.Disabled=false end
+ return o
+end
+local function find(path)
+ local parts=string.split(path,'/');local o=services[parts[1]]
+ for i=2,#parts do o=o and o:FindFirstChild(parts[i]) end
+ return o
+end
+local function capture(roots)
+ local result={}
+ local function add(o)
+  result[o]={Parent=o.Parent,Name=o.Name,Class=o.ClassName,Source=o.Source,Disabled=o.Disabled,
+   Attributes=json(o:GetAttributes()),CFrame=o.CFrame,Size=o.Size,PrimaryPart=o.PrimaryPart,Text=o.Text}
+  for _,c in ipairs(o:GetChildren()) do add(c) end
+ end
+ for _,root in ipairs(roots) do add(root) end
+ return result
+end
+local function same(original,label,signChanges)
+ for o,p in pairs(original) do
+  check(o.Parent==p.Parent and o.Name==p.Name and o.ClassName==p.Class,label..' parent/name/class '..p.Name)
+  check(o.Source==p.Source and o.Disabled==p.Disabled,label..' source/enabled '..p.Name)
+  check(json(o:GetAttributes())==p.Attributes,label..' attributes '..p.Name)
+  check(o.CFrame==p.CFrame and o.Size==p.Size and o.PrimaryPart==p.PrimaryPart,label..' geometry '..p.Name)
+  check(o.Text==p.Text or signChanges and signChanges[o]==o.Text,label..' text '..p.Name)
+ end
+end
+local function fixture(mode)
+ workspace=Instance.new('Workspace');workspace.Name='Workspace';services.Workspace=workspace
+ for _,name in ipairs({'StarterPlayer','StarterGui','ServerStorage','ReplicatedStorage','ServerScriptService','Lighting','TextChatService','SoundService'}) do
+  services[name]=Instance.new(name);services[name].Name=name
+ end
+ services.RunService={IsStudio=function() return mode~='notStudio' end,IsRunning=function() return mode=='playMode' end}
+ services.CollectionService={AddTag=function(_,o,t) o:SetAttribute('_TestTag_'..t,true) end,HasTag=function(_,o,t) return o:GetAttribute('_TestTag_'..t)==true end}
+ local types={StarterPlayerScripts='StarterPlayerScripts',StarterCharacterScripts='StarterCharacterScripts'}
+ for _,entry in ipairs(fixtureSources) do
+  local parts=string.split(entry.path,'/');local parent=services[parts[1]]
+  if not parent then parent=Instance.new(parts[1]);parent.Name=parts[1];services[parts[1]]=parent end
+  for i=2,#parts-1 do parent=parent:FindFirstChild(parts[i]) or make(types[parts[i]] or 'Folder',parent,parts[i]) end
+  local object=make(entry.class,parent,parts[#parts],entry.source)
+  if entry.disabled~=nil then object.Disabled=entry.disabled end
+ end
+ local lobby=make('Model',workspace,'Lobby')
+ local floor=make('Part',lobby,'Floor');floor.Size=Vector3.new(204,6,188);floor.CFrame=CFrame.new(0,-1.5,86.66000366210938);lobby.PrimaryPart=floor
+ local origin=floor.CFrame*CFrame.new(0,3,0)
+ local spawn=make('SpawnLocation',lobby,'LobbySpawn');spawn.CFrame=origin*CFrame.new(0,.5,64)
+ local archive={}
+ for _,name in ipairs({'Promenades','Bomb fountain','North terrace','Gardens and seating','Arrival','Boundary'}) do
+  local old=make('Model',lobby,name);archive[name]=old
+  make('Part',old,'OriginalArchitecture')
+ end
+ local exchange=make('Model',lobby,'V11 Bomb Exchange')
+ for name,pos in pairs({Bombs=Vector3.new(-79.5,5.5,-17),Trails=Vector3.new(-79.5,5.5,20),Titles=Vector3.new(79.5,5.5,-17),Emotes=Vector3.new(79.5,5.5,20)}) do
+  local kiosk=make('Model',exchange,name..' kiosk');local anchor=make('Part',kiosk,'Browse '..name);anchor.CFrame=origin*CFrame.new(pos)
+  anchor:SetAttribute('HussShopCategory',name);anchor:SetAttribute('HussShopRadius',12);anchor:SetAttribute('HussShopStandEnabled',true)
+  local prompt=make('ProximityPrompt',anchor,'BrowseShop');prompt:SetAttribute('HussShopCategory',name);prompt.Enabled=false
+ end
+ local emotes=exchange:FindFirstChild('Emotes kiosk');local signs={}
+ for _,row in ipairs({{'EMOTES/HussSignV11/Body/Heading','EMOTES','LOCKER'},{'EMOTES/HussSignV11/Body/Subtitle','SHOW YOUR STYLE','YOUR EFFECTS COLLECTION'},{'ShopPanelV12/ShopIdleV12/Body/Title','EMOTES EXCHANGE','LOCKER'},{'ShopPanelV12/ShopIdleV12/Body/Hint','WALK UP TO BROWSE','WALK UP TO BROWSE'},{'ShopPanelV12/ShopIdleV12/Body/Details','CELEBRATE EVERY CLOSE CALL','TRAILS • COSMETICS • COLLECTION'}}) do
+  local names=string.split(row[1],'/');local parent=emotes
+  for i,name in ipairs(names) do parent=parent:FindFirstChild(name) or make(i==#names and 'TextLabel' or 'Folder',parent,name) end
+  parent.Text=row[2]
+  signs[parent]=row[3]
+ end
+ make('Model',exchange,'Lobby leaderboards')
+ local expansion=make('Model',lobby,'HABExpansionLobby')
+ for name,pos in pairs({Bundle_Cyber=Vector3.new(-28,3.6,68.3),Bundle_Glacier=Vector3.new(28,3.6,68.3),Bundle_Solar=Vector3.new(52,3.6,-7.7),Bundle_Phantom=Vector3.new(-52,3.6,-7.7),CrateStand=Vector3.new(68,3.8,35.5)}) do
+  local stand=make('Model',expansion,name);local anchor=make('Part',stand,'BrowseStand');anchor.CFrame=origin*CFrame.new(pos)
+  local prompt=make('ProximityPrompt',anchor,'ProximityPrompt');prompt:SetAttribute('HABOpenPanel',name=='CrateStand' and 'CRATES' or 'BUNDLES');prompt:SetAttribute('HABOffer',name);prompt.Enabled=true
+ end
+ make('Model',expansion,'SpectatorOverlook');make('Model',expansion,'InvisibleLobbyBarrier')
+ local annex=make('Model',lobby,'HABCrateAnnex');make('Part',annex,'KeepOriginalBooth')
+ local maps=make('Folder',workspace,'Maps');local arena=make('Model',maps,'Arena01');make('Part',arena,'KeepOriginalMap')
+ local library=make('Folder',services.ServerStorage,'MapLibrary');local map=make('Model',library,'KeepOriginalTemplate');make('Part',map,'Floor');make('Folder',map,'Spawns')
+ local lighting=make('Sky',services.Lighting,'ExistingSky');lighting.SkyboxBk='Keep sky';services.Lighting.ClockTime=10
+ local sentinel=make('Script',services.ServerScriptService,'UnrelatedScript','print("unrelated")')
+ local backup=make('Folder',services.ServerStorage,'ExistingUserBackup');make('Script',backup,'OldReceipt','MarketplaceService.ProcessReceipt = function() end')
+ workspace:SetAttribute('HussDodgeV5',true);workspace:SetAttribute('HussDodgeDuration',.72)
+ workspace:SetAttribute('HussExpansionVersion',12);workspace:SetAttribute('CurrentVotedMap','Sunset Docks')
+ return {lobby=lobby,floor=floor,spawn=spawn,exchange=exchange,expansion=expansion,annex=annex,maps=maps,library=library,sentinel=sentinel,backup=backup,signs=signs,archive=archive}
+end
+
+local activeMode,requireCount=nil,0
+local function require(module)
+ check(module.Name=='SyntaxProbe' and module.Parent.Parent==services.ServerStorage,'only fresh inert syntax modules are required')
+ check(module.Source:sub(1,18)=='return function()\n','attached script body never executed')
+ requireCount+=1
+ local text=module.Source
+ if activeMode=='syntaxFailure' and requireCount==1 then text='return function()\nlocal =\nend' end
+ local fn,err=loadstring(text);assert(fn,err)
+ return fn()
+end
+local function install()
+__INSTALLER__
+end
+
+local results={}
+local modes={'normal','repeat','configuredRepeat','repairMissingModule','crlfSources','playMode','notStudio','unknownVersion','missingMain','duplicateMain','missingMapFloor','noMaps','movedSpawn','changedLobbyFloor','unknownReceipt','unknownBracketReceipt','disabledReceipt','unknownConfig','unarchivable','syntaxFailure','stageSourceFailure','backupParentFailure','versionWriteFailure','sourceReadbackFailure','lobbyArchiveFailure','lobbyCommitFailure','restoreFailure','innerLobbyRestoreFailure','nestedLobbyRestoreFailure'}
+for index,entry in ipairs(expectedEntries) do
+ if entry.target and not entry.add then modes[#modes+1]='write_'..index;modes[#modes+1]='custom_'..index end
+ if entry.add then modes[#modes+1]='parent_'..index;modes[#modes+1]='misplaced_'..index;modes[#modes+1]='duplicate_'..index end
+ if entry.disable then modes[#modes+1]='disable_'..index end
+ if not entry.target and not entry.disable then modes[#modes+1]='customPreserve_'..index end
+end
+local expectedSuccess={normal=true,['repeat']=true,configuredRepeat=true,repairMissingModule=true,crlfSources=true,disabledReceipt=true}
+local function countBackups()
+ local n=0;for _,o in ipairs(services.ServerStorage:GetChildren()) do if o.Name:sub(1,19)=='HABPolishV15Backup_' then n+=1 end end;return n
+end
+for _,mode in ipairs(modes) do
+ activeMode=mode;requireCount=0
+ local f=fixture(mode)
+ local roots={services.StarterPlayer,services.StarterGui,services.ServerScriptService,services.ReplicatedStorage,workspace}
+ local prefix,index=mode:match('^(%a+)_(%d+)$');index=tonumber(index)
+ local entry=index and expectedEntries[index]
+ if mode=='unknownVersion' then workspace:SetAttribute('HABPolishVersion',14)
+ elseif mode=='missingMain' then find('ServerScriptService/Services/ServerMain'):Destroy()
+ elseif mode=='duplicateMain' then find('ServerScriptService/Services/ServerMain'):Clone().Parent=services.ServerScriptService
+ elseif mode=='missingMapFloor' then f.library:FindFirstChild('KeepOriginalTemplate'):FindFirstChild('Floor'):Destroy()
+ elseif mode=='noMaps' then f.maps:ClearAllChildren()
+ elseif mode=='movedSpawn' then f.spawn.CFrame=f.spawn.CFrame+CFrame.new(0,0,5).Position
+ elseif mode=='changedLobbyFloor' then f.floor.Size=Vector3.new(208,6,188)
+ elseif mode=='unknownReceipt' or mode=='unknownBracketReceipt' or mode=='disabledReceipt' then
+  local body=mode=='unknownBracketReceipt' and 'local M=game:GetService("MarketplaceService"); M["ProcessReceipt"] = function() return nil end' or 'local M=game:GetService("MarketplaceService"); M.ProcessReceipt = function() return nil end'
+  local o=make('Script',services.ServerScriptService,'OtherReceipt',body);o.Disabled=mode=='disabledReceipt'
+ elseif mode=='unknownConfig' then make('ModuleScript',services.ReplicatedStorage,'HABMonetizationConfigV15','return {Passes={VIP=123}}')
+ elseif mode=='unarchivable' then find('StarterPlayer/StarterPlayerScripts/Controllers/HudController').Archivable=false
+ elseif mode=='crlfSources' then
+  for _,root in ipairs(roots) do for _,o in ipairs(root:GetDescendants()) do if o:IsA('LuaSourceContainer') then o.Source=o.Source:gsub('\n','\r\n') end end end
+ elseif prefix=='custom' or prefix=='customPreserve' then find(entry.path).Source..='\n-- Preserve this user customization.'
+ elseif prefix=='misplaced' then make('ModuleScript',make('Folder',services.ReplicatedStorage,'Elsewhere'),entry.path:match('[^/]+$'),entry.target)
+ elseif prefix=='duplicate' then
+  local parentPath=entry.path:match('^(.*)/[^/]+$')
+  make('ModuleScript',find(parentPath),entry.path:match('[^/]+$'),entry.target)
+  make('ModuleScript',make('Folder',services.ReplicatedStorage,'Elsewhere'),entry.path:match('[^/]+$'),entry.target)
+ end
+ local original=capture(roots)
+ local untouched=capture({f.maps,f.library,f.spawn,f.floor,f.exchange,f.expansion,f.annex,f.sentinel,f.backup,services.Lighting})
+ local originalMarker=workspace:GetAttribute('HABPolishVersion')
+ local originalIndex,originalAttribute=mt.__newindex,methods.SetAttribute
+ local armed=true;local fired=false;local innerRestoreFailed=false
+ mt.__newindex=function(o,key,value)
+  local failure=false
+  if mode=='innerLobbyRestoreFailure' or mode=='nestedLobbyRestoreFailure' then
+   if not fired and o==f.archive['North terrace'] and key=='Parent' and value and value.Name=='LobbyArchitecture' then
+    fired=true;error('Injected lobby archive failure')
+   elseif fired and o==f.archive['Bomb fountain'] and key=='Parent' and value==f.lobby
+    and (not innerRestoreFailed or mode=='nestedLobbyRestoreFailure') then
+    innerRestoreFailed=true;error('Injected inner lobby restoration refusal')
+   end
+  end
+  if mode=='restoreFailure' and o==find('StarterPlayer/StarterPlayerScripts/Controllers/HudController') and key=='Source' then
+   fired=true;error('Injected write and restoration refusal')
+  end
+  if armed then
+   if prefix=='write' then failure=o==find(entry.path) and key=='Source' and value==entry.target
+   elseif prefix=='parent' then failure=o.Name==entry.path:match('[^/]+$') and key=='Parent' and value==find(entry.path:match('^(.*)/[^/]+$'))
+   elseif prefix=='disable' then failure=o==find(entry.path) and key=='Disabled' and value==true
+   elseif mode=='stageSourceFailure' then failure=o.Name=='HABActionAnimationsV15' and key=='Source'
+   elseif mode=='backupParentFailure' then failure=key=='Parent' and value==services.ServerStorage and o.Name:sub(1,19)=='HABPolishV15Backup_'
+   elseif mode=='lobbyArchiveFailure' then failure=key=='Parent' and o.Name=='North terrace' and value and value.Name=='LobbyArchitecture'
+   elseif mode=='lobbyCommitFailure' then failure=key=='Parent' and o.Name=='HABPolishedLobbyV15' and value==f.lobby
+   elseif mode=='sourceReadbackFailure' and o==find('StarterPlayer/StarterPlayerScripts/Controllers/HudController') and key=='Source' and value~=original[o].Source then
+    armed=false;fired=true;return
+   end
+  end
+  if failure then armed=false;fired=true;error('Injected '..mode) end
+  return originalIndex(o,key,value)
+ end
+ methods.SetAttribute=function(o,key,value)
+  if armed and mode=='versionWriteFailure' and o==workspace and key=='HABPolishVersion' then armed=false;fired=true;error('Injected marker commit failure') end
+  return originalAttribute(o,key,value)
+ end
+ local ok,err=pcall(install)
+ mt.__newindex=originalIndex;methods.SetAttribute=originalAttribute
+ check(ok==(expectedSuccess[mode]==true),mode..': unexpected '..tostring(ok)..' / '..tostring(err))
+ if ok then
+  check(workspace:GetAttribute('HABPolishVersion')==15,'version committed')
+  for _,e in ipairs(expectedEntries) do
+   local o=find(e.path);check(o and o.ClassName==e.class,'required target '..e.path)
+   if e.target then check(o.Source==e.target or (mode=='crlfSources' and not e.add and not e.target),'installed source '..e.path) end
+   if e.disable then check(o.Disabled==true,'legacy source disabled '..e.path) end
+  end
+  check(f.lobby:FindFirstChild('HABPolishedLobbyV15')~=nil,'new lobby attached')
+  same(untouched,'preserved',f.signs)
+  check(requireCount>=60,'all required bodies syntactically checked')
+  if mode=='repeat' or mode=='configuredRepeat' or mode=='repairMissingModule' then
+   local first=capture(roots);local count=countBackups()
+   local configuration=find('ReplicatedStorage/HABMonetizationConfigV15')
+   if mode=='configuredRepeat' then
+    configuration.Source=configuration.Source:gsub('VIP = 0','VIP = 123456789'):gsub('pouch = 0','pouch = 987654321'):gsub('pouch = true','pouch = false')
+    first=capture(roots)
+   elseif mode=='repairMissingModule' then find('ReplicatedStorage/HABModalV15'):Destroy() end
+   local second,why=pcall(install);check(second,'safe rerun: '..tostring(why))
+   if mode~='repairMissingModule' then same(first,'rerun');check(countBackups()==count,'no redundant backup on no-op')
+   else check(find('ReplicatedStorage/HABModalV15')~=nil,'missing known module repaired');check(countBackups()==count+1,'repair backup') end
+   if mode=='configuredRepeat' then check(configuration.Source:find('VIP = 123456789',1,true)~=nil and configuration.Source:find('pouch = false',1,true)~=nil,'owner configuration preserved') end
+  end
+ else
+  if mode=='nestedLobbyRestoreFailure' then
+   local displaced=f.archive['Bomb fountain']
+   check(innerRestoreFailed and displaced.Parent and displaced.Parent.Name=='LobbyArchitecture' and displaced:IsDescendantOf(services.ServerStorage),'only surviving architecture remains safely archived')
+   check(displaced:FindFirstChild('OriginalArchitecture')~=nil,'archived descendants not destroyed')
+   check(countBackups()==1 and tostring(err):find('Backup retained',1,true)~=nil,'nested restoration failure retains backup and clear report')
+   original[displaced].Parent=displaced.Parent -- this one explicitly reported restoration could not complete
+  elseif mode=='innerLobbyRestoreFailure' then
+   check(innerRestoreFailed and countBackups()==0,'outer world journal recovers failed inner rollback')
+  end
+  same(original,'failure rollback')
+  check(workspace:GetAttribute('HABPolishVersion')==originalMarker,'prior version retained')
+  check(f.lobby:FindFirstChild('HABPolishedLobbyV15')==nil,'failure leaves no new lobby')
+  check(services.ServerStorage:FindFirstChild('HABPolishV15Preflight')==nil,'failure clears staging')
+  for _,e in ipairs(expectedEntries) do if e.add then local added=find(e.path);check(not added or original[added]~=nil,'failure leaves no added module '..e.path) end end
+  if mode=='restoreFailure' then check(countBackups()==1 and tostring(err):find('Backup retained',1,true)~=nil,'restore refusal retains backup and reports exact location') end
+  if prefix=='write' or prefix=='parent' or prefix=='disable' or mode:find('Failure',1,true) and mode~='syntaxFailure' then check(fired,'fault was reached: '..mode) end
+ end
+ results[#results+1]={scenario=mode,passed=true}
+end
+print('INSTALL_REPORT '..json({checks=checks,scenario_count=#results,results=results,passed=true}))

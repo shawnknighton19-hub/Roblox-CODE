@@ -1,0 +1,576 @@
+{
+  "input_name": "HABWAS.rbxl",
+  "input_sha256": "c354d8c3c7ac43b9364749aa292716aa592eee6f496f532c98c0bafb88279309",
+  "instance_count": 110801,
+  "script_count": 179,
+  "starter_player_game_settings_avatar": {
+    "value": 0,
+    "name": "R6"
+  },
+  "workspace_attributes": {
+    "CurrentVotedMap": "Sunset Docks",
+    "DetailedMapsTerrainMigrated": 1.0,
+    "HussDodgeDuration": 0.72,
+    "HussDodgeV5": true,
+    "HussExpansionVersion": 12.0,
+    "SunsetV9TerrainActive": false
+  },
+  "live_spawns": [
+    "Workspace/Lobby/LobbySpawn"
+  ],
+  "runtime_source_inventory": {
+    "StarterPlayer/StarterPlayerScripts/DamageScreen": {
+      "class": "LocalScript",
+      "disabled": true,
+      "sha256": "95017e41c0970906c1c2c8fd873b3d15df0bdb72ef59f8763e3739cf70cb204e"
+    },
+    "StarterPlayer/StarterPlayerScripts/DeathScreenUI": {
+      "class": "LocalScript",
+      "disabled": true,
+      "sha256": "8ee5b727378a77f88a0cde77abdb75dce4c325b93f74c78ef733f4644fa287c1"
+    },
+    "StarterPlayer/StarterPlayerScripts/Footsteps": {
+      "class": "LocalScript",
+      "disabled": true,
+      "sha256": "4f5036b04d164613c520df8dd495c06f0947a3d6099d2e7deaa7e1f37d786105"
+    },
+    "StarterPlayer/StarterPlayerScripts/IK": {
+      "class": "LocalScript",
+      "disabled": true,
+      "sha256": "ce7aa17c0e39a006620e96b69d9f2d2af72504cd68de7e6412f121de2cf5671a"
+    },
+    "StarterPlayer/StarterPlayerScripts/RbxCharacterSounds": {
+      "class": "LocalScript",
+      "disabled": false,
+      "sha256": "080f683288fc9584ebe4a88da67d02debe9278fb9b0d9b0b80cc270e1a28aba7"
+    },
+    "StarterPlayer/StarterPlayerScripts/StaminaSystem": {
+      "class": "LocalScript",
+      "disabled": true,
+      "sha256": "0cc1c7beadf7f267b76b8a0c58d0c03431084c84be97e06cd659a5841ec65cb7"
+    },
+    "StarterPlayer/StarterPlayerScripts/ClientMain": {
+      "class": "LocalScript",
+      "disabled": false,
+      "sha256": "1d2e4bd2960095c34369564a9cd0b1786dc84ca06ae3b4f0c797f27fe0cdc4b4"
+    },
+    "StarterPlayer/StarterPlayerScripts/SnappyMovement": {
+      "class": "LocalScript",
+      "disabled": false,
+      "sha256": "1f9edc588a52a5098fc7ae9e88884bd60ffec317da3b2283732b66e363875af5"
+    },
+    "StarterPlayer/StarterPlayerScripts/ForcedShiftLock": {
+      "class": "LocalScript",
+      "disabled": false,
+      "sha256": "4ca517de534fad771eabdb04bd082c2b2fb6710f5e9c746990a4842c4de65a61"
+    },
+    "StarterPlayer/StarterPlayerScripts/BombTagMapVoteClient": {
+      "class": "LocalScript",
+      "disabled": true,
+      "sha256": "8747e233d95cfb40ce374d773fd7ff7fcdf2f39744c963f359415b73d72f27d7"
+    },
+    "StarterPlayer/StarterPlayerScripts/BombTagAFKClient": {
+      "class": "LocalScript",
+      "disabled": true,
+      "sha256": "408716460ef0de731b0bd9580466d28e1bbb29ba134f422f62688f71282f3950"
+    },
+    "StarterPlayer/StarterPlayerScripts/BombTagVoteClientV6": {
+      "class": "LocalScript",
+      "disabled": true,
+      "sha256": "9888b1b0ce7de0d2f3c19c1a01d468a3fea7f46b41ef8c208266a3fdd4c9dfc0"
+    },
+    "StarterPlayer/StarterPlayerScripts/DodgeWeaveV5": {
+      "class": "LocalScript",
+      "disabled": false,
+      "sha256": "349717f6514d4e09b5f8970cc23bd1e1d382a6782c587eb2a3a43c88d5b34e36"
+    },
+    "StarterPlayer/StarterPlayerScripts/GameAudioV6": {
+      "class": "LocalScript",
+      "disabled": false,
+      "sha256": "8438a0ccaa2eea6753d7293fc3e1b53911c00e9a1024570094cf53c2506c7000"
+    },
+    "StarterPlayer/StarterPlayerScripts/MovementEffectsV8": {
+      "class": "LocalScript",
+      "disabled": false,
+      "sha256": "520441b8a878636a9b2e9b06ca44dbe99afc008e94a47260817966de1d5b62df"
+    },
+    "StarterPlayer/StarterPlayerScripts/CollectionEffectsV11": {
+      "class": "LocalScript",
+      "disabled": false,
+      "sha256": "fb53353bc62381f00a63113a93e87d9590ac77a7aa4597a7001e13f6393b0b29"
+    },
+    "StarterPlayer/StarterPlayerScripts/LobbyBoardsV11": {
+      "class": "LocalScript",
+      "disabled": false,
+      "sha256": "70c3a0ac56d52882191f8811a6838a087210efb30452b8cc6142852ebfe39629"
+    },
+    "StarterPlayer/StarterPlayerScripts/OwnerFeedbackV12": {
+      "class": "LocalScript",
+      "disabled": false,
+      "sha256": "568ebd8829b50e065dc249717f90480f6b8e9d8bc7a9403b6e6a064e4625db89"
+    },
+    "StarterPlayer/StarterPlayerScripts/CarrierPanicV12": {
+      "class": "LocalScript",
+      "disabled": false,
+      "sha256": "f7ddcc5c41d731441b99676b0a526941f0a868d9971d45029e950533b5615759"
+    },
+    "StarterPlayer/StarterPlayerScripts/StandShopV12": {
+      "class": "LocalScript",
+      "disabled": false,
+      "sha256": "fb7315fa555dc558714cd8747d2b6b19a6a0b585b678d48e6e171777df3e5ed5"
+    },
+    "StarterPlayer/StarterPlayerScripts/HABHalloweenEffects": {
+      "class": "LocalScript",
+      "disabled": false,
+      "sha256": "a2b87b26310399c9ffd72a01792ea6ed248d6bf65b0f00eb5928214c2e9d93da"
+    },
+    "StarterPlayer/StarterPlayerScripts/HABCrateShopClient": {
+      "class": "LocalScript",
+      "disabled": false,
+      "sha256": "547d211c82b3f3cc31facbcc1334b02e8b098a11b827c3e4c040ba6bc0f33a00"
+    },
+    "StarterPlayer/StarterPlayerScripts/HABCombatFX": {
+      "class": "LocalScript",
+      "disabled": false,
+      "sha256": "c85f639fb743688c1bc572bf80b57621a61155fded0a3c96d1f36ddc87e8a9a2"
+    },
+    "StarterPlayer/StarterPlayerScripts/HABActionClient": {
+      "class": "LocalScript",
+      "disabled": false,
+      "sha256": "485e08bcb9350f5f92eb9a33c839b40fbf8f4e7456148d56bd089a276da84e48"
+    },
+    "StarterPlayer/StarterPlayerScripts/HABExpansionClient": {
+      "class": "LocalScript",
+      "disabled": false,
+      "sha256": "bd0e2f3a2ee1ee94cb8012a652074b708bc45d02fb27a2f1990c45d6b73c5916"
+    },
+    "StarterPlayer/StarterPlayerScripts/HABFunAbilityFX": {
+      "class": "LocalScript",
+      "disabled": false,
+      "sha256": "decd3078c160662814cd115a6f9339712cbff5ced3cebef9112f9211b3b955be"
+    },
+    "StarterPlayer/StarterCharacterScripts/Animate": {
+      "class": "LocalScript",
+      "disabled": false,
+      "sha256": "b140eb9f148a1bd56b1621671c10a78c6f2f9dc808eaa1259763dfb8b1a05b5b"
+    },
+    "StarterPlayer/StarterCharacterScripts/Crouching": {
+      "class": "LocalScript",
+      "disabled": true,
+      "sha256": "25adbbddc18ae4d121fb3b91beeda66a93168b237a7db9edec3679ad3a3efdbe"
+    },
+    "StarterPlayer/StarterCharacterScripts/CustomShiftLock": {
+      "class": "LocalScript",
+      "disabled": true,
+      "sha256": "bfb87dde8f6e3cd329e7a58640e2b0e222dd9b0ff51250cbefe434bad2d1c8ba"
+    },
+    "StarterPlayer/StarterCharacterScripts/FallSystem": {
+      "class": "LocalScript",
+      "disabled": true,
+      "sha256": "db19da9a14e2f131b328ea38bc49038b99cb9ca03ce697247966d1600acf2eb2"
+    },
+    "StarterPlayer/StarterCharacterScripts/Turning": {
+      "class": "LocalScript",
+      "disabled": true,
+      "sha256": "941224e4e2ff80a10be6f2eb5de157851209de123e79db823ff760c09a5d41ed"
+    },
+    "ServerScriptService/ServerScriptService/R6Ragdoll/R6RagdollClient": {
+      "class": "LocalScript",
+      "disabled": true,
+      "sha256": "ffb36b96c96956b5144939565b4ac59c97f01ebdd476e4f12557c7d0108f0e71"
+    },
+    "StarterPlayer/StarterPlayerScripts/Controllers/HudController": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "3d9bfdabbd1c881c985968109ee57b43c3c7c1a007e29fc9216ca6bba3f1044f"
+    },
+    "StarterPlayer/StarterPlayerScripts/Controllers/MovementController": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "6bc825d3269582fd11a95e8746b23c99f4ad51b295e6e155e845261c5bad9224"
+    },
+    "StarterPlayer/StarterPlayerScripts/Controllers/MovementAnimationController": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "13af47fa738003d92044d7baa78a180509043af15f56d5d791eddcf4b9e3dc5b"
+    },
+    "StarterPlayer/StarterPlayerScripts/RbxCharacterSounds/AtomicBinding": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "26a2ecefe6cc3a7047b8406e9da8feeb1d57d57c1e2b7db477d70fa95693094c"
+    },
+    "StarterPlayer/StarterCharacterScripts/CustomShiftLock/SmoothShiftLock": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "840c3e8f9e2e81dafcb58110b10e6eddc7de2d4d74c6c7c2fbd3a3e6548631c8"
+    },
+    "StarterPlayer/StarterCharacterScripts/CustomShiftLock/SmoothShiftLock/Maid": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "33ebc4f0e02dd677046ef94d4aad274a2632ce85ee3c290c04f66824225c6273"
+    },
+    "StarterPlayer/StarterCharacterScripts/CustomShiftLock/SmoothShiftLock/Spring": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "e61e70509822fe606998e604a0404f7e09ddecbcb5df97803dc20a627aadc887"
+    },
+    "ReplicatedStorage/Shared/Config/GameConfig": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "c8fb8ccd2f942e78906ae0321492812462a033995a493507a9484e527697519d"
+    },
+    "ReplicatedStorage/Shared/Config/MovementConfig": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "5403a3ea345c695c9eaaa7e8845dd2d61c11ad1678fa44c957476284b9578733"
+    },
+    "ReplicatedStorage/Shared/Config/AnimationConfig": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "f802414f6848b073f1040a4a8aceb0ab9050424df1fd14f2a7c92c1d9dff344b"
+    },
+    "ReplicatedStorage/Shared/Net/Remotes": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "c4765559c7d728fd53ceb3b67394a8c92764db91c78ecd49cd1bb3857201cb5d"
+    },
+    "ReplicatedStorage/Modules/FootstepModule": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "28924112339a52abb1adc15728a66901a997ae615ad98a09d72e1db94a8f0c8c"
+    },
+    "ReplicatedStorage/Modules/FootstepModule/Footsteps/Default": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "818d35abde5401f18bda769297b07caf3dc0fdf553c465dc5e4638ccdfbedd3f"
+    },
+    "ReplicatedStorage/Modules/FootstepModule/Footsteps/Fart": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "33a608e6902526dbbe7dbe0553dcc8802ce145ff3b702f7278278ac5db790799"
+    },
+    "ReplicatedStorage/Modules/FootstepModule/Footsteps/Water": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "4ff5d8a4cada0e3cfc3e6f5f6dac9a8cb92e42fd4564e5d40af6ac8601cd9a32"
+    },
+    "ReplicatedStorage/Modules/FootstepModule/Landing/Default": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "0f99d0470e6d728fa28f54e99242979dff14ebf7176d2899699613b08ed6ce6e"
+    },
+    "ReplicatedStorage/Modules/FootstepModule/Landing/Fart": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "a940495ebba9aa4528e1eac60db7befa9688122288e3f42321cf16f05b53a810"
+    },
+    "ReplicatedStorage/Modules/FootstepModule/Landing/Water": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "3675d33a5f0ead94f81d65e7bcb4e2c2190bd9d6c107b221a633b72b89df17d8"
+    },
+    "ReplicatedStorage/Modules/FootstepModule/Jumping/Default": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "8fc9c6b3a86e1b3e555056915392908ffa7b1d4b117f7dd23247c49164e354c1"
+    },
+    "ReplicatedStorage/Modules/FootstepModule/Jumping/Fart": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "28914385dbe9da8ac5592f7d735e647e8f187fd1c3642b0a058442c53ec67942"
+    },
+    "ReplicatedStorage/Modules/FootstepModule/Jumping/Water": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "a990aa373647dbb39023e165fd229bf4926f04820e857d369f65dbaff9051eed"
+    },
+    "ReplicatedStorage/CameraShakeCall": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "ae2b26051f0a066f702191283b67a918a6b477658e95b530493c6fa5f7a480ed"
+    },
+    "ReplicatedStorage/CameraShaker": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "0ee01419d9b51006b161a417ad6be1b8c0f2001fa1ba466f42c274e19544f411"
+    },
+    "ReplicatedStorage/CameraShaker/CameraShakeInstance": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "032adbbba9dcc15ac98db8ddb5ea51b5984c8c9663f371b6ba0f0f0342af54a0"
+    },
+    "ReplicatedStorage/CameraShaker/CameraShakePresets": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "8a0ee28017525b4872c7340b47d937b897272545a47e8299bc99a2b5a2195dda"
+    },
+    "ReplicatedStorage/HussCatalogV11": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "d9b39136108549548fb45b1236a092910b98b077a0e9e0d106e7988063f9f266"
+    },
+    "ReplicatedStorage/BombSkinBuilderV12": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "d4777c1a1a5733a560d82e4e2539e1ec60c2625b6aafa0cbb2a43a48949fe67a"
+    },
+    "ReplicatedStorage/HABHalloween/Effects": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "3dc75aa1f63101f0c7276f8e3c608655d2285c75110254906dec41749e9da789"
+    },
+    "ReplicatedStorage/HABHalloween/Catalog": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "7fb06599966980917cb4e1f16e48337c1d3b445a3834f6726d2740152ca3e2f0"
+    },
+    "ReplicatedStorage/HABHalloween/Renderer": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "ca0e8c30d7b86bfb3b836a7f36d134fb8eaae113d669654715fdfd0571aa7021"
+    },
+    "ReplicatedStorage/HABHalloween/Settings": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "0a31c781704db99982c21660d86d8fd79bc5fe5089aa2d28faeadd6cccbbfc22"
+    },
+    "ReplicatedStorage/HABHalloween/CrateReveal": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "bfad4006e171457cb395d6c6a8b8eeda67eb4bfff254ea5e90925a7cf04d1734"
+    },
+    "ReplicatedStorage/HABHalloween/ExtraFXPart01": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "360b2a28cf43e88399eb2a8deecf06a2da0b714e0bc526266439f3e8f58c22b3"
+    },
+    "ReplicatedStorage/HABHalloween/ExtraFXPart02": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "8bf8b0ccd9758d83bc506048f9c895525e2d987de67a9b67c04eb45ed295d39d"
+    },
+    "ReplicatedStorage/HABHalloween/ExtraFXPart03": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "616ce9b1fd0ef872a2a14d56ba13854c0ca0c13aa7b1f99a46465cfea23024fc"
+    },
+    "ReplicatedStorage/HABHalloween/ExtraFXPart04": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "5d889e84f3fc6adebca270bd74201183a4172dc86e7cd8e56d51be09ab3ed2de"
+    },
+    "ReplicatedStorage/HABHalloween/ExtraFXData": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "9d0620c824095d3b0fc5b46b5e56983de520ce261d6606252c2b955858568edc"
+    },
+    "ReplicatedStorage/HABHalloween/NativeFX": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "a6048d60ee59855a51271a41178f02d28ebf59ddc5e52eba807c2a660cc2ca5f"
+    },
+    "ReplicatedStorage/HABHalloween/CrateArt": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "9a7943691386bd2bf3f0171fcea7ed3527b5ed3ea6819b713e75e93200fd4969"
+    },
+    "ReplicatedStorage/HABHalloween/FXCanvas": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "831a0e4089c10a1886c93a0e768521c23384b6bd8293bd1033ecfb60e28087e9"
+    },
+    "ReplicatedStorage/HABHalloween/HABReferenceTheme": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "8d3d199f6be85acc9bc5a7e7ab47040e36e2b109d78a3a198080625b1ef93240"
+    },
+    "ReplicatedStorage/HABHalloween/HABEffectNames": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "25d7467fff3617ff238fd38ab899c688c9e757aca85c6a8a5d882056400783d5"
+    },
+    "ReplicatedStorage/HABHalloween/CollectionViewModel": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "62e53368e014f69d6f58af0ad5e4638d74ca8c8b4a80d9361fd045fa6aa38dcd"
+    },
+    "ReplicatedStorage/HABHalloween/HABKillSounds": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "14c3b87fc96e55260b3796b4d956ef4a832ca2d7a87e92edcbb75d1c1a0ebf29"
+    },
+    "ReplicatedStorage/HABHalloween/HABKillSoundPlayer": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "74d925680b5e08403a56392d1cd8d202bab2fd3337a2e610eea54237968afaf9"
+    },
+    "ReplicatedStorage/HABExpansion/Config": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "600ba38c2af5d2636c1bf9e4898469fb73976820c3c95bd3c35e5ea805450319"
+    },
+    "ReplicatedStorage/HABExpansion/CombatRules": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "7963103a7d5565282794ec111386e96b1b263e246e83bd08a646d2978fb6bab0"
+    },
+    "ReplicatedStorage/HABExpansion/HABCombatHUD": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "d9449d2f3b6013dd18bf04a86044c24953adc1395ad81c315ddee71fa4a39cac"
+    },
+    "ServerScriptService/Services/BombService": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "aedc12a33e9a4657f1d4a76b59b38ba3e40053fb6af8c498658da4c6f9aa88a8"
+    },
+    "ServerScriptService/Services/RoundService": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "08ff6d80706b859e642aa93ad5db15311e5b7b373bca045c4e98f4accc5704c7"
+    },
+    "ServerScriptService/Services/MapService": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "10933520c40f30bab3d0379d9e8bd7bd3f46427bd9e61a6cf1d51bb87710ea43"
+    },
+    "ServerScriptService/Services/BombTagMapVoteServiceV6": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "89bc87fb26ee7468ad5c86a4ecdd150bbfea83292914002583b6667899c0a0bf"
+    },
+    "ServerScriptService/Services/EconomyServiceV9": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "345765ebf39ca25b999b9d7c4ff0846fa4fa98d9d12f11d88f74f6e052c66dd3"
+    },
+    "ServerScriptService/Services/CosmeticsServiceV11": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "38d716361d4adcef98e492d995e11b060ee12d678c1f67d7600989e504dc655b"
+    },
+    "ServerScriptService/Services/PracticeServiceV11": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "fdba8f440957472f4d88aca083d650a8c74cb024d54edd7a76a1d3d962d3a9a3"
+    },
+    "ServerScriptService/Services/PerfectWeaveServiceV11": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "e4edbce30f9759a5aab6b8e8341f3384f529020c50b1faba6f81da8f83ade781"
+    },
+    "ServerScriptService/Services/OwnerCommandsV12": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "dd03c0d2d35d4b9d170fa25058c60208ccacd88f995ba9a2e995ab9e8a1c4df5"
+    },
+    "ServerScriptService/Services/HABCrateService": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "80f066fd5b163014a8118b5e99bbb609134541ca4f519c92ce919b69db928005"
+    },
+    "ServerScriptService/Services/HABGemPurchases": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "1e0bdd209f00afab6de02da08809cc0bded4ff2ec7da0b8f9cd9f223cf1dfe0b"
+    },
+    "ServerScriptService/Services/HABCrateInventoryRules": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "32b2af4fc46d6b18bcbcdb85cb0b46be3abd6b9a9164f10334257b50b30b68ba"
+    },
+    "ServerScriptService/Services/HABActionService": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "701fca7c16cffcdb879fa0481f5b50762f93d6067c301e4eeffa99b6a28df88a"
+    },
+    "ServerScriptService/Services/HABPassService": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "3797efb60df9d14246b49c38b7194931fce3812baa21c7ff91b06234a2b95d88"
+    },
+    "ServerScriptService/Services/HABRetirementRules": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "079bffcc6af83dea90c31e8c9cc12c03b4ba3715fcdddf5df873725778fd79d4"
+    },
+    "ServerScriptService/ServerScriptService/R6Ragdoll/ModuleScript": {
+      "class": "ModuleScript",
+      "disabled": null,
+      "sha256": "bdba76b2689a3ffd6300aab439d7fc45fea83033432662c821771245751b99b7"
+    },
+    "ServerScriptService/Services/ServerMain": {
+      "class": "Script",
+      "disabled": false,
+      "sha256": "cc28aa182a31eca4705df640caa33db01991c12104e6b076d69fb431774bf372"
+    },
+    "ServerScriptService/ServerScriptService/TrueHealthController": {
+      "class": "Script",
+      "disabled": true,
+      "sha256": "d8d64e3e0573c851b82340f239de7794dfa33dc116f4aa9d5f91fd89fe483790"
+    },
+    "ServerScriptService/ServerScriptService/R6Ragdoll": {
+      "class": "Script",
+      "disabled": true,
+      "sha256": "b899fadb2e53b435dc926da41adc9704385c5188a1d9f28f305e409baa99aca6"
+    },
+    "ServerScriptService/ServerScriptService/R6Ragdoll/R6NPCRagdoll": {
+      "class": "Script",
+      "disabled": true,
+      "sha256": "585418ca438f150110cb2fb2fb1f5ff96a7d03e0c40f7bedafc5c67cd0190bdb"
+    },
+    "ServerScriptService/ServerScriptService/NoCollision": {
+      "class": "Script",
+      "disabled": true,
+      "sha256": "7679db85dc2315741765b9635462e09cadcb60c188a0bbe542b2346b1e224b9f"
+    },
+    "ServerScriptService/ServerScriptService/DisableDefaultShiftLock": {
+      "class": "Script",
+      "disabled": true,
+      "sha256": "fd47e8226278f6a56ba6284e8c7df6663c3c154781fde167e2fc114bc5f5b4b5"
+    },
+    "ServerScriptService/ServerScriptService/DeathRespawnHandler": {
+      "class": "Script",
+      "disabled": true,
+      "sha256": "0b75a75b69e6c9359546cb44dcc25587f3923846b55f734cc712edd3a806f69c"
+    },
+    "ServerScriptService/DodgeIFrameServer": {
+      "class": "Script",
+      "disabled": false,
+      "sha256": "69c232bd6935b5b03de51816b1391740c3807870ac470a178f91546762098b32"
+    },
+    "ServerScriptService/BombTagMapVoteServer": {
+      "class": "Script",
+      "disabled": true,
+      "sha256": "a1f67d7a2c164914b223aca542b0c9af55635a8427d098400dbb902ef1b8df80"
+    },
+    "ServerScriptService/BombTagAFKServer": {
+      "class": "Script",
+      "disabled": false,
+      "sha256": "fa6129c22b79c2fbc14122e856c65e6074640d6799ca4ebf719ed1429148f915"
+    },
+    "ServerScriptService/SunsetDocksTerrainV9": {
+      "class": "Script",
+      "disabled": true,
+      "sha256": "dfb5fceeba87c576a077ff8b0780e448d98eed8c2b874bf1502cc4d70b69556c"
+    },
+    "ServerScriptService/HABCrateBoot": {
+      "class": "Script",
+      "disabled": false,
+      "sha256": "5789d01fd9a98559ba259461d6c277a52d52a93e05c5498cb43e8b7d7b888039"
+    }
+  },
+  "findings": [
+    "Uploaded avatar setting is already R6. Preserve it in the patched binary.",
+    "ServerMain is ServerScriptService/Services/ServerMain.",
+    "ClientMain intentionally does not start MovementAnimationController.",
+    "CosmeticsServiceV11 explicitly rejects retired emotes; this is not a missing animation asset.",
+    "DodgeWeaveV5, CarrierPanicV12, CollectionEffectsV11 and HABActionClient previously wrote joint transforms independently.",
+    "The original carrier speed bonus applies only while sprinting.",
+    "The original server dodge acceptance omitted HussDodgeStartedAt, making server action recovery checks ineffective.",
+    "Current visual pack repeats Aura, BombFX, DodgeFX and Trail effects; trail rendering must be kept while other texture overlays are removed."
+  ],
+  "limits": [
+    "Read-only binary and source inspection; not a native Roblox execution or visual playtest."
+  ]
+}

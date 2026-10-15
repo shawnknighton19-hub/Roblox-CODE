@@ -1,0 +1,315 @@
+{
+  "passed": true,
+  "input_sha256": "c354d8c3c7ac43b9364749aa292716aa592eee6f496f532c98c0bafb88279309",
+  "output_sha256": "8af7c44aec6346f536a189ae3368c0d04db7ed4179727fadc1641984d9c028c1",
+  "input_instances": 110801,
+  "output_instances": 111111,
+  "verified_script_entries": 75,
+  "script_entries": [
+    {
+      "path": "StarterPlayer/StarterPlayerScripts/Controllers/HudController",
+      "source_sha256": "75a2d31d09c8f05f46f5bac5e173cb22a61f19433b52da6bcbc3e7ecefbe6df6"
+    },
+    {
+      "path": "StarterPlayer/StarterPlayerScripts/SnappyMovement",
+      "source_sha256": "1a613266f509468b520d4489cd4f2c0a562a6dd836aa9fefd2b4a433a87c94ae"
+    },
+    {
+      "path": "StarterPlayer/StarterPlayerScripts/CarrierPanicV12",
+      "source_sha256": "43db6967a19e0c0b408520b049fef0c6553f84928a6befc120127423a2b3f67e"
+    },
+    {
+      "path": "StarterPlayer/StarterPlayerScripts/StandShopV12",
+      "source_sha256": "39eb522564555b968f700274760eae6ca1aee4ccbdaed99ffbe0151ab3c2ae3f"
+    },
+    {
+      "path": "StarterPlayer/StarterPlayerScripts/HABHalloweenEffects",
+      "source_sha256": "3624c89e0916420e101e1a40d80b3393057e2a1473b9d2995b386e85eb773bbc"
+    },
+    {
+      "path": "StarterPlayer/StarterPlayerScripts/HABCrateShopClient",
+      "source_sha256": "29df5c68205d2ec3d62662f2b82452afedc8db0edd836810c45a3a6d769bf6fe"
+    },
+    {
+      "path": "StarterPlayer/StarterPlayerScripts/HABCombatFX",
+      "source_sha256": "73e827dac0b34d32475f8f9cbc42e83fd7aba98c8aadd6ed6d4ade5cd1ecd7f2"
+    },
+    {
+      "path": "StarterPlayer/StarterPlayerScripts/HABActionClient",
+      "source_sha256": "80f63c3062ab211effd1446f23437dbcd6cb056faf9fd918cab6c5bbc84dfa0f"
+    },
+    {
+      "path": "StarterPlayer/StarterPlayerScripts/HABExpansionClient",
+      "source_sha256": "fe7fbe751e1807648ce3a6fa0881d07312d6088c9fff5d7928b546f1427370ff"
+    },
+    {
+      "path": "ReplicatedStorage/HABHalloween/Renderer",
+      "source_sha256": "7eb6d3cf8315f6e5143b4ec2277834e8b9fbc522584154367e20a9a6fcebd205"
+    },
+    {
+      "path": "ReplicatedStorage/HABHalloween/Settings",
+      "source_sha256": "407847de56d66f04da763bc796a8dc669ac3f22f29fa81666effa80a3ebbf077"
+    },
+    {
+      "path": "ReplicatedStorage/HABHalloween/FXCanvas",
+      "source_sha256": "ba4390865e28a4adb3409ff5f48dfc2127d12ef02c98177a1761ba209a71a0ec"
+    },
+    {
+      "path": "ReplicatedStorage/HABHalloween/HABReferenceTheme",
+      "source_sha256": "22c4f9a52c2699a93b6a8162ab93679a8e507769d2f8926b9c56d91277ae5cbc"
+    },
+    {
+      "path": "ReplicatedStorage/HABExpansion/Config",
+      "source_sha256": "9cd3fb041b3f3bbfe6fef9581fdf0da2e7b1c8c9b7a476d27abf6a2f4b509103"
+    },
+    {
+      "path": "ReplicatedStorage/HABExpansion/CombatRules",
+      "source_sha256": "48898c97313237501a61993f4e0957a2221e85b7a539feaa5d07dede918bbb3b"
+    },
+    {
+      "path": "ReplicatedStorage/HABExpansion/HABCombatHUD",
+      "source_sha256": "6adff366b11291eff4412645ae37fcbfa8c94756631a1fac81254fb6dbacc38a"
+    },
+    {
+      "path": "ServerScriptService/Services/BombService",
+      "source_sha256": "9c6804582a08abc503138827520386c26fe66d5d6f9d23d346f0ccab6b3dca91"
+    },
+    {
+      "path": "ServerScriptService/Services/PracticeServiceV11",
+      "source_sha256": "373b534e894bade985726a11f3d734467d37f87b521e23e84e9659bfb9409bf1"
+    },
+    {
+      "path": "ServerScriptService/Services/HABCrateService",
+      "source_sha256": "41900a551b8fc89da54dacbd558d441b39ce9f3075e7d9cb26ea5d9041bc138d"
+    },
+    {
+      "path": "ServerScriptService/Services/HABGemPurchases",
+      "source_sha256": "6f379b96cc29eb6e294f454ee70226337ea9aa4112ad42c8f0d4682cdedc1022"
+    },
+    {
+      "path": "ServerScriptService/Services/HABActionService",
+      "source_sha256": "97f6336f1d6fcff6275d69f79e23c9c871771dfc843e2850e63bcd92e7869ddb"
+    },
+    {
+      "path": "ServerScriptService/Services/HABPassService",
+      "source_sha256": "9cc9ab2f7bb74137a8a6dcbfcdcbe9cdb7937b3ab7aa04daee88a8e0dc9426cf"
+    },
+    {
+      "path": "ServerScriptService/DodgeIFrameServer",
+      "source_sha256": "84486d9b964341c58016315f0afd56695ca6aa1a6098c4a5cc441709a6f0db75"
+    },
+    {
+      "path": "StarterPlayer/StarterPlayerScripts/HABFunAbilityFX",
+      "source_sha256": "decd3078c160662814cd115a6f9339712cbff5ced3cebef9112f9211b3b955be"
+    },
+    {
+      "path": "StarterGui/StarterGui/Ui",
+      "source_sha256": "58736f9ddb4fb6155928beed2ba1b1e05433ed9ff445c8e8e51aed7b3b6b9de6"
+    },
+    {
+      "path": "StarterPlayer/StarterPlayerScripts/RbxCharacterSounds",
+      "source_sha256": "080f683288fc9584ebe4a88da67d02debe9278fb9b0d9b0b80cc270e1a28aba7"
+    },
+    {
+      "path": "StarterPlayer/StarterPlayerScripts/RbxCharacterSounds/AtomicBinding",
+      "source_sha256": "26a2ecefe6cc3a7047b8406e9da8feeb1d57d57c1e2b7db477d70fa95693094c"
+    },
+    {
+      "path": "StarterPlayer/StarterPlayerScripts/ClientMain",
+      "source_sha256": "1d2e4bd2960095c34369564a9cd0b1786dc84ca06ae3b4f0c797f27fe0cdc4b4"
+    },
+    {
+      "path": "StarterPlayer/StarterPlayerScripts/ForcedShiftLock",
+      "source_sha256": "4ca517de534fad771eabdb04bd082c2b2fb6710f5e9c746990a4842c4de65a61"
+    },
+    {
+      "path": "StarterPlayer/StarterPlayerScripts/DodgeWeaveV5",
+      "source_sha256": "349717f6514d4e09b5f8970cc23bd1e1d382a6782c587eb2a3a43c88d5b34e36"
+    },
+    {
+      "path": "StarterPlayer/StarterPlayerScripts/GameAudioV6",
+      "source_sha256": "8438a0ccaa2eea6753d7293fc3e1b53911c00e9a1024570094cf53c2506c7000"
+    },
+    {
+      "path": "StarterPlayer/StarterPlayerScripts/MovementEffectsV8",
+      "source_sha256": "520441b8a878636a9b2e9b06ca44dbe99afc008e94a47260817966de1d5b62df"
+    },
+    {
+      "path": "StarterPlayer/StarterPlayerScripts/CollectionEffectsV11",
+      "source_sha256": "fb53353bc62381f00a63113a93e87d9590ac77a7aa4597a7001e13f6393b0b29"
+    },
+    {
+      "path": "StarterPlayer/StarterPlayerScripts/LobbyBoardsV11",
+      "source_sha256": "70c3a0ac56d52882191f8811a6838a087210efb30452b8cc6142852ebfe39629"
+    },
+    {
+      "path": "StarterPlayer/StarterPlayerScripts/OwnerFeedbackV12",
+      "source_sha256": "568ebd8829b50e065dc249717f90480f6b8e9d8bc7a9403b6e6a064e4625db89"
+    },
+    {
+      "path": "StarterPlayer/StarterCharacterScripts/Animate",
+      "source_sha256": "b140eb9f148a1bd56b1621671c10a78c6f2f9dc808eaa1259763dfb8b1a05b5b"
+    },
+    {
+      "path": "StarterGui/StarterGui/Bobbing Camera",
+      "source_sha256": "6f2c72faa34fd416553e4d50fe8b89bf15503802f93b3e178a7fb5d615538d55"
+    },
+    {
+      "path": "ReplicatedStorage/Shared/Config/GameConfig",
+      "source_sha256": "c8fb8ccd2f942e78906ae0321492812462a033995a493507a9484e527697519d"
+    },
+    {
+      "path": "ReplicatedStorage/Shared/Config/MovementConfig",
+      "source_sha256": "5403a3ea345c695c9eaaa7e8845dd2d61c11ad1678fa44c957476284b9578733"
+    },
+    {
+      "path": "ReplicatedStorage/Shared/Config/AnimationConfig",
+      "source_sha256": "f802414f6848b073f1040a4a8aceb0ab9050424df1fd14f2a7c92c1d9dff344b"
+    },
+    {
+      "path": "ReplicatedStorage/Shared/Net/Remotes",
+      "source_sha256": "c4765559c7d728fd53ceb3b67394a8c92764db91c78ecd49cd1bb3857201cb5d"
+    },
+    {
+      "path": "ReplicatedStorage/HussCatalogV11",
+      "source_sha256": "d9b39136108549548fb45b1236a092910b98b077a0e9e0d106e7988063f9f266"
+    },
+    {
+      "path": "ReplicatedStorage/BombSkinBuilderV12",
+      "source_sha256": "d4777c1a1a5733a560d82e4e2539e1ec60c2625b6aafa0cbb2a43a48949fe67a"
+    },
+    {
+      "path": "ReplicatedStorage/HABHalloween/Effects",
+      "source_sha256": "3dc75aa1f63101f0c7276f8e3c608655d2285c75110254906dec41749e9da789"
+    },
+    {
+      "path": "ReplicatedStorage/HABHalloween/Catalog",
+      "source_sha256": "7fb06599966980917cb4e1f16e48337c1d3b445a3834f6726d2740152ca3e2f0"
+    },
+    {
+      "path": "ReplicatedStorage/HABHalloween/CrateReveal",
+      "source_sha256": "bfad4006e171457cb395d6c6a8b8eeda67eb4bfff254ea5e90925a7cf04d1734"
+    },
+    {
+      "path": "ReplicatedStorage/HABHalloween/ExtraFXPart01",
+      "source_sha256": "360b2a28cf43e88399eb2a8deecf06a2da0b714e0bc526266439f3e8f58c22b3"
+    },
+    {
+      "path": "ReplicatedStorage/HABHalloween/ExtraFXPart02",
+      "source_sha256": "8bf8b0ccd9758d83bc506048f9c895525e2d987de67a9b67c04eb45ed295d39d"
+    },
+    {
+      "path": "ReplicatedStorage/HABHalloween/ExtraFXPart03",
+      "source_sha256": "616ce9b1fd0ef872a2a14d56ba13854c0ca0c13aa7b1f99a46465cfea23024fc"
+    },
+    {
+      "path": "ReplicatedStorage/HABHalloween/ExtraFXPart04",
+      "source_sha256": "5d889e84f3fc6adebca270bd74201183a4172dc86e7cd8e56d51be09ab3ed2de"
+    },
+    {
+      "path": "ReplicatedStorage/HABHalloween/ExtraFXData",
+      "source_sha256": "9d0620c824095d3b0fc5b46b5e56983de520ce261d6606252c2b955858568edc"
+    },
+    {
+      "path": "ReplicatedStorage/HABHalloween/NativeFX",
+      "source_sha256": "a6048d60ee59855a51271a41178f02d28ebf59ddc5e52eba807c2a660cc2ca5f"
+    },
+    {
+      "path": "ReplicatedStorage/HABHalloween/CrateArt",
+      "source_sha256": "9a7943691386bd2bf3f0171fcea7ed3527b5ed3ea6819b713e75e93200fd4969"
+    },
+    {
+      "path": "ReplicatedStorage/HABHalloween/HABEffectNames",
+      "source_sha256": "25d7467fff3617ff238fd38ab899c688c9e757aca85c6a8a5d882056400783d5"
+    },
+    {
+      "path": "ReplicatedStorage/HABHalloween/CollectionViewModel",
+      "source_sha256": "62e53368e014f69d6f58af0ad5e4638d74ca8c8b4a80d9361fd045fa6aa38dcd"
+    },
+    {
+      "path": "ReplicatedStorage/HABHalloween/HABKillSounds",
+      "source_sha256": "14c3b87fc96e55260b3796b4d956ef4a832ca2d7a87e92edcbb75d1c1a0ebf29"
+    },
+    {
+      "path": "ReplicatedStorage/HABHalloween/HABKillSoundPlayer",
+      "source_sha256": "74d925680b5e08403a56392d1cd8d202bab2fd3337a2e610eea54237968afaf9"
+    },
+    {
+      "path": "ServerScriptService/Services/ServerMain",
+      "source_sha256": "cc28aa182a31eca4705df640caa33db01991c12104e6b076d69fb431774bf372"
+    },
+    {
+      "path": "ServerScriptService/Services/RoundService",
+      "source_sha256": "08ff6d80706b859e642aa93ad5db15311e5b7b373bca045c4e98f4accc5704c7"
+    },
+    {
+      "path": "ServerScriptService/Services/MapService",
+      "source_sha256": "10933520c40f30bab3d0379d9e8bd7bd3f46427bd9e61a6cf1d51bb87710ea43"
+    },
+    {
+      "path": "ServerScriptService/Services/BombTagMapVoteServiceV6",
+      "source_sha256": "89bc87fb26ee7468ad5c86a4ecdd150bbfea83292914002583b6667899c0a0bf"
+    },
+    {
+      "path": "ServerScriptService/Services/EconomyServiceV9",
+      "source_sha256": "345765ebf39ca25b999b9d7c4ff0846fa4fa98d9d12f11d88f74f6e052c66dd3"
+    },
+    {
+      "path": "ServerScriptService/Services/CosmeticsServiceV11",
+      "source_sha256": "38d716361d4adcef98e492d995e11b060ee12d678c1f67d7600989e504dc655b"
+    },
+    {
+      "path": "ServerScriptService/Services/PerfectWeaveServiceV11",
+      "source_sha256": "e4edbce30f9759a5aab6b8e8341f3384f529020c50b1faba6f81da8f83ade781"
+    },
+    {
+      "path": "ServerScriptService/Services/OwnerCommandsV12",
+      "source_sha256": "dd03c0d2d35d4b9d170fa25058c60208ccacd88f995ba9a2e995ab9e8a1c4df5"
+    },
+    {
+      "path": "ServerScriptService/Services/HABCrateInventoryRules",
+      "source_sha256": "32b2af4fc46d6b18bcbcdb85cb0b46be3abd6b9a9164f10334257b50b30b68ba"
+    },
+    {
+      "path": "ServerScriptService/Services/HABRetirementRules",
+      "source_sha256": "079bffcc6af83dea90c31e8c9cc12c03b4ba3715fcdddf5df873725778fd79d4"
+    },
+    {
+      "path": "ServerScriptService/BombTagAFKServer",
+      "source_sha256": "fa6129c22b79c2fbc14122e856c65e6074640d6799ca4ebf719ed1429148f915"
+    },
+    {
+      "path": "ServerScriptService/HABCrateBoot",
+      "source_sha256": "5789d01fd9a98559ba259461d6c277a52d52a93e05c5498cb43e8b7d7b888039"
+    },
+    {
+      "path": "ReplicatedStorage/HABMonetizationConfigV15",
+      "source_sha256": "aa0b372cd3324297166ef94ef62c85996f7b0634cb1597f52a281514b35496b8"
+    },
+    {
+      "path": "ReplicatedStorage/HABModalV15",
+      "source_sha256": "f3fc4ca23e7b8deb8978d3dc7edd66772bcf2bccd876e502dbc05606a2a1fb42"
+    },
+    {
+      "path": "ReplicatedStorage/HABUILayoutV15",
+      "source_sha256": "d714ccd920cde1461d4d23610248f51bf2668a09daa1b957e6334357f34acc57"
+    },
+    {
+      "path": "ReplicatedStorage/HABExpansion/HABActionAnimationsV15",
+      "source_sha256": "cc17ccdb606af3d6f59150e983a11bebb4d8467dc0ad27a8db448986eee9dd70"
+    },
+    {
+      "path": "ReplicatedStorage/HABExpansion/HABAbilityEffectsV15",
+      "source_sha256": "f81ed80839023cab9ea5d7230ac805548698a6fe50e0fafb7717a6f8ec4c4757"
+    },
+    {
+      "path": "ReplicatedStorage/HABHalloween/HABCleanCosmeticsV15",
+      "source_sha256": "6f6dbd67a7cc11d5f12c8ebc298ec01014344e903410fe9ba0bfd9b9651919ce"
+    }
+  ],
+  "avatar_setting_preserved": "R6",
+  "workspace_existing_attributes_preserved": true,
+  "backup_script_entries": 25,
+  "backup_executable_scripts_disabled": true,
+  "limits": "Read-only binary/source consistency review. Native Studio opening, rendering, network replication and purchases are not simulated."
+}

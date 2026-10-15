@@ -1,0 +1,28 @@
+{
+  "assertions": 66,
+  "actual_source_executed": true,
+  "syntax_checked": true,
+  "native_studio_tested": false,
+  "coverage": [
+    "central zero/invalid/duplicate IDs",
+    "verified on-sale metadata and missing product IsForSale field",
+    "ownership failures and late profile delivery",
+    "purchase-complete event validation",
+    "zero-ID deferred receipts",
+    "single callback rerun/conflict handling",
+    "unknown/malformed/absent-player receipts",
+    "profile loading and departed players",
+    "durable ledger deduplication/retry/overlap",
+    "lost lease and failed save never acknowledge",
+    "loaded prior receipt and max balance handling"
+  ],
+  "source_sha256": {
+    "HABMonetizationConfigV15.luau": "aa0b372cd3324297166ef94ef62c85996f7b0634cb1597f52a281514b35496b8",
+    "HABPassServiceV15.luau": "9cc9ab2f7bb74137a8a6dcbfcdcbe9cdb7937b3ab7aa04daee88a8e0dc9426cf",
+    "HABGemPurchasesV15.luau": "6f379b96cc29eb6e294f454ee70226337ea9aa4112ad42c8f0d4682cdedc1022",
+    "HABExpansionConfigV15.luau": "9cd3fb041b3f3bbfe6fef9581fdf0da2e7b1c8c9b7a476d27abf6a2f4b509103",
+    "HABHalloweenSettingsV15.luau": "407847de56d66f04da763bc796a8dc669ac3f22f29fa81666effa80a3ebbf077",
+    "HABCrateServiceV15.luau": "41900a551b8fc89da54dacbd558d441b39ce9f3075e7d9cb26ea5d9041bc138d",
+    "tools/v15/fixtures/27181_EconomyServiceV9.luau": "345765ebf39ca25b999b9d7c4ff0846fa4fa98d9d12f11d88f74f6e052c66dd3"
+  }
+}

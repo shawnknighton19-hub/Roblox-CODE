@@ -1,0 +1,19 @@
+{
+  "assertions": 120,
+  "actual_source_executed": true,
+  "trail_source_preserved_exactly": true,
+  "native_studio_tested": false,
+  "coverage": [
+    "non-trail PNG-free geometry",
+    "bounded static preview/cleanup",
+    "sound icon delegation",
+    "original trail texture animation",
+    "shared lazy trail loop",
+    "literal-only monetization preservation"
+  ],
+  "source_sha256": {
+    "FXCanvasV15.luau": "ba4390865e28a4adb3409ff5f48dfc2127d12ef02c98177a1761ba209a71a0ec",
+    "tools/v15/monetization_adapter.luau": "609570d7e6d7d3b42233bfd17538583019740dabbe8d43bd0c08a663a55e501d",
+    "HABMonetizationConfigV15.luau": "aa0b372cd3324297166ef94ef62c85996f7b0634cb1597f52a281514b35496b8"
+  }
+}

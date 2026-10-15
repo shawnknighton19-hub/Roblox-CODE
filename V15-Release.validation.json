@@ -1,0 +1,81 @@
+{
+  "version": 15,
+  "status": "passed",
+  "base_place": "HABWAS.rbxl",
+  "input_sha256": "c354d8c3c7ac43b9364749aa292716aa592eee6f496f532c98c0bafb88279309",
+  "artifacts": {
+    "Huss-A-Bomb-V15.rbxl": {
+      "bytes": 1746428,
+      "sha256": "8af7c44aec6346f536a189ae3368c0d04db7ed4179727fadc1641984d9c028c1"
+    },
+    "Install-Polish-V15.command.luau": {
+      "bytes": 1369721,
+      "sha256": "723334ac319b990181676f953d42c8cae03e24fb7a82e9c33694adb81e043357"
+    },
+    "Huss-A-Bomb-V15.txt": {
+      "bytes": 1395509,
+      "sha256": "c66b31aec18b7df8c3b541bb141e3147ea514400a97a1a5e1ef47b733a3f8971"
+    },
+    "Install-Polish-V15.txt": {
+      "bytes": 1395509,
+      "sha256": "c66b31aec18b7df8c3b541bb141e3147ea514400a97a1a5e1ef47b733a3f8971"
+    }
+  },
+  "runtime_sources": {
+    "BombServiceV15.luau": "9c6804582a08abc503138827520386c26fe66d5d6f9d23d346f0ccab6b3dca91",
+    "CarrierPanicV15.client.luau": "43db6967a19e0c0b408520b049fef0c6553f84928a6befc120127423a2b3f67e",
+    "CombatRulesV15.luau": "48898c97313237501a61993f4e0957a2221e85b7a539feaa5d07dede918bbb3b",
+    "DodgeIFrameServerV15.server.luau": "84486d9b964341c58016315f0afd56695ca6aa1a6098c4a5cc441709a6f0db75",
+    "FXCanvasV15.luau": "ba4390865e28a4adb3409ff5f48dfc2127d12ef02c98177a1761ba209a71a0ec",
+    "HABAbilityEffectsV15.luau": "f81ed80839023cab9ea5d7230ac805548698a6fe50e0fafb7717a6f8ec4c4757",
+    "HABActionAnimationsV15.luau": "cc17ccdb606af3d6f59150e983a11bebb4d8467dc0ad27a8db448986eee9dd70",
+    "HABActionClientV15.client.luau": "80f63c3062ab211effd1446f23437dbcd6cb056faf9fd918cab6c5bbc84dfa0f",
+    "HABActionServiceV15.luau": "97f6336f1d6fcff6275d69f79e23c9c871771dfc843e2850e63bcd92e7869ddb",
+    "HABCleanCosmeticsV15.luau": "6f6dbd67a7cc11d5f12c8ebc298ec01014344e903410fe9ba0bfd9b9651919ce",
+    "HABCombatFXV15.client.luau": "73e827dac0b34d32475f8f9cbc42e83fd7aba98c8aadd6ed6d4ade5cd1ecd7f2",
+    "HABCombatHUDV15.luau": "6adff366b11291eff4412645ae37fcbfa8c94756631a1fac81254fb6dbacc38a",
+    "HABCrateServiceV15.luau": "41900a551b8fc89da54dacbd558d441b39ce9f3075e7d9cb26ea5d9041bc138d",
+    "HABCrateShopClientV15.client.luau": "29df5c68205d2ec3d62662f2b82452afedc8db0edd836810c45a3a6d769bf6fe",
+    "HABExpansionClientV15.client.luau": "fe7fbe751e1807648ce3a6fa0881d07312d6088c9fff5d7928b546f1427370ff",
+    "HABExpansionConfigV15.luau": "9cd3fb041b3f3bbfe6fef9581fdf0da2e7b1c8c9b7a476d27abf6a2f4b509103",
+    "HABGemPurchasesV15.luau": "6f379b96cc29eb6e294f454ee70226337ea9aa4112ad42c8f0d4682cdedc1022",
+    "HABHalloweenEffectsV15.client.luau": "3624c89e0916420e101e1a40d80b3393057e2a1473b9d2995b386e85eb773bbc",
+    "HABHalloweenSettingsV15.luau": "407847de56d66f04da763bc796a8dc669ac3f22f29fa81666effa80a3ebbf077",
+    "HABModalV15.luau": "f3fc4ca23e7b8deb8978d3dc7edd66772bcf2bccd876e502dbc05606a2a1fb42",
+    "HABMonetizationConfigV15.luau": "aa0b372cd3324297166ef94ef62c85996f7b0634cb1597f52a281514b35496b8",
+    "HABPassServiceV15.luau": "9cc9ab2f7bb74137a8a6dcbfcdcbe9cdb7937b3ab7aa04daee88a8e0dc9426cf",
+    "HABReferenceThemeV15.luau": "22c4f9a52c2699a93b6a8162ab93679a8e507769d2f8926b9c56d91277ae5cbc",
+    "HABRendererV15.luau": "7eb6d3cf8315f6e5143b4ec2277834e8b9fbc522584154367e20a9a6fcebd205",
+    "HABUILayoutV15.luau": "d714ccd920cde1461d4d23610248f51bf2668a09daa1b957e6334357f34acc57",
+    "HudControllerV15.luau": "75a2d31d09c8f05f46f5bac5e173cb22a61f19433b52da6bcbc3e7ecefbe6df6",
+    "LobbyBuilderV15.luau": "89837181365e67cf8d06d87d8ee0c7061a7d4bf57d5ae7d296f0e490e4c425b8",
+    "PracticeServiceV15.luau": "373b534e894bade985726a11f3d734467d37f87b521e23e84e9659bfb9409bf1",
+    "SnappyMovementV15.client.luau": "1a613266f509468b520d4489cd4f2c0a562a6dd836aa9fefd2b4a433a87c94ae",
+    "StandShopV15.client.luau": "39eb522564555b968f700274760eae6ca1aee4ccbdaed99ffbe0151ab3c2ae3f"
+  },
+  "reports": {
+    "ActionsV15.validation.json": "8069f884fa2bac04b85c8f636a79a3bf2e60798819de3a1ba9f0dc9c42d03d45",
+    "CleanFXV15.validation.json": "dc3f5fa5dfe4fd224c85b31163b0e6bcdf045ac7452bbc79ecbf782edaba0683",
+    "CombatV15.validation.json": "c53c255476b8f94815bf8311662436d45a5bea0a55389d5c8fff0e15d4c54951",
+    "FXCanvasV15.validation.json": "2feac695f2a8c7e823fe161d36763ff43cf9d8d46fca5d303bf91781d849017c",
+    "Install-Polish-V15.validation.json": "b688dfc3c6f711c2248815668f2fd29b8f5f08888ba293f93008ca9c7b12f85c",
+    "LobbyInstallerV15.validation.json": "28e76ddcca8b24bacd2fcb559ac77008db093344ddf8056490e06f03384231ff",
+    "LobbyV15.validation.json": "4d1597a9551c0688ca319d8dd653ba767ee480724423f89b4388a2023b613950",
+    "LobbyGeometryV15.validation.json": "0a2158bdfe91ecb1a79ccd387344c1964cabc358f43466a15a3b8a4fa6d4ed2e",
+    "MonetizationV15.validation.json": "d9da0bcdcf529b0dc94e49aa87ffbc8474dd7bbf9a2b43dcc230691cc0d52908",
+    "UIV15.validation.json": "7f5360064d61703cd82a3b1e43ba76ffbf1541f3cce21404970e398b052acdb6",
+    "V15-APIReview.validation.json": "b5173f052656d797088d90c81fdf991c0f641bf2cc0f50b081c26f64d119d6bb",
+    "V15-InputAudit.validation.json": "9d234d3ae85183f40d7357eb48af9d9cb8de1330bc402ed571479a33e2578ba1",
+    "Huss-A-Bomb-V15.validation.json": "ffa11c1d75919d329fb5d566dd5341610bf8d8be96ad3a5851eaea6e681c2f56",
+    "ModernRBXLV15.validation.json": "8ad139d5993a4eb627de21f877879e7ebf700dc27174b29c71881a2bb7c59ded",
+    "V15-FinalPlaceReview.validation.json": "88f83f97e04d982820f6e316d0af6bb40fceab537d4056f53ed90e171702a3ec"
+  },
+  "installer_scenarios": 139,
+  "native_studio_tested": false,
+  "official_roblox_offer_ids_configured": false,
+  "limits": [
+    "Component and installation execution used deterministic Roblox API adapters.",
+    "Independent binary decode and original-property preservation do not prove native Studio behavior.",
+    "Native multiplayer, rendering, existing animation permissions, purchases and save/rejoin require playtesting."
+  ]
+}

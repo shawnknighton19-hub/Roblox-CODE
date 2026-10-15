@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "assertions": 78957,
+  "run_command": "python tools/v15/animation-tests/test_actions.py",
+  "checks": [
+    "Actual clip finite transforms, neutral entry/recovery, all9ability signatures, mirrored strikes, authoritativecontact timing.",
+    "Actual actionclient prediction/rejection, hits/blocks, dodge priority, panic ownership, freshAnimatorbaseline, ragdoll, respawn, destruction.",
+    "All9nativeability effects, sanitized decoys, partgroupcaps, ReducedMotion, shutdown and zero-perframe allocations.",
+    "R6 canonical rotated joints and R15Motor6D/AnimationConstraint role coverage."
+  ],
+  "limitations": "Offline deterministic Roblox API/math/signals adapter. Native Studio rendering, server/client replication, and uploaded asset permissions still require Studio playtest.",
+  "sha256": {
+    "HABActionAnimationsV15.luau": "cc17ccdb606af3d6f59150e983a11bebb4d8467dc0ad27a8db448986eee9dd70",
+    "HABAbilityEffectsV15.luau": "f81ed80839023cab9ea5d7230ac805548698a6fe50e0fafb7717a6f8ec4c4757",
+    "HABActionClientV15.client.luau": "80f63c3062ab211effd1446f23437dbcd6cb056faf9fd918cab6c5bbc84dfa0f",
+    "CarrierPanicV15.client.luau": "43db6967a19e0c0b408520b049fef0c6553f84928a6befc120127423a2b3f67e"
+  }
+}

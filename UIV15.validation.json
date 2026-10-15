@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "sourceSha256": {
+    "HABModalV15.luau": "f3fc4ca23e7b8deb8978d3dc7edd66772bcf2bccd876e502dbc05606a2a1fb42",
+    "HABUILayoutV15.luau": "d714ccd920cde1461d4d23610248f51bf2668a09daa1b957e6334357f34acc57",
+    "HABReferenceThemeV15.luau": "22c4f9a52c2699a93b6a8162ab93679a8e507769d2f8926b9c56d91277ae5cbc",
+    "HudControllerV15.luau": "75a2d31d09c8f05f46f5bac5e173cb22a61f19433b52da6bcbc3e7ecefbe6df6",
+    "HABCombatHUDV15.luau": "6adff366b11291eff4412645ae37fcbfa8c94756631a1fac81254fb6dbacc38a",
+    "HABExpansionClientV15.client.luau": "fe7fbe751e1807648ce3a6fa0881d07312d6088c9fff5d7928b546f1427370ff",
+    "HABCrateShopClientV15.client.luau": "29df5c68205d2ec3d62662f2b82452afedc8db0edd836810c45a3a6d769bf6fe",
+    "StandShopV15.client.luau": "39eb522564555b968f700274760eae6ca1aee4ccbdaed99ffbe0151ab3c2ae3f",
+    "HABCombatFXV15.client.luau": "73e827dac0b34d32475f8f9cbc42e83fd7aba98c8aadd6ed6d4ade5cd1ecd7f2"
+  },
+  "output": "UI_V15 289 assertions passed",
+  "checks": [
+    "Actual five UI owners and kill feed execute in standalone GUI doubles",
+    "Modal transfer among core HUD, ability picker, store, collection and physical booth",
+    "Modal close/reopen, round start, teardown and input suppression attribute contract",
+    "Ability/tag/owned throw visibility; real callback actions and cooldown states",
+    "Lobby four-entry dock; all secondary pages reachable; retired emotes stay retired",
+    "Shared responsive layout bounds and overlap across desktop, portrait and short landscape safe areas",
+    "Pass prices require server verified availability and retain local metadata query",
+    "Physical stand proximity and purchase remote preserved",
+    "HUD map voting, AFK, stats and settings callbacks retained"
+  ],
+  "limitations": [
+    "Standalone Luau GUI doubles do not render native Studio, measure actual glyphs, emulate Marketplace, or certify touch playtesting."
+  ],
+  "assertions": 289
+}

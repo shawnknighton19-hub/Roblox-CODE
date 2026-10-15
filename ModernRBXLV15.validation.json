@@ -1,0 +1,2414 @@
+{
+  "raw_binary_decoded": true,
+  "input_projection_or_property_removal": false,
+  "native_studio_tested": false,
+  "new_decoder_warnings": false,
+  "original": {
+    "decoder": "rbx_binary 3.0.1 / rbx_dom_weak 4.2.0",
+    "read_only": true,
+    "file_sha256": "c354d8c3c7ac43b9364749aa292716aa592eee6f496f532c98c0bafb88279309",
+    "file_bytes": 1552493,
+    "instance_count": 110801,
+    "script_count": 179,
+    "warnings": "WARN: Unknown value type ID 0x23 (35) in Roblox binary model file. Found in property Terrain.VoxelGridAssetContentMap.",
+    "warning_count": 1,
+    "scripts": [
+      {
+        "path": "ReplicatedStorage/BombSkinBuilderV12",
+        "class": "ModuleScript",
+        "source_sha256": "d4777c1a1a5733a560d82e4e2539e1ec60c2625b6aafa0cbb2a43a48949fe67a",
+        "bytes": 20652
+      },
+      {
+        "path": "ReplicatedStorage/CameraShakeCall",
+        "class": "ModuleScript",
+        "source_sha256": "ae2b26051f0a066f702191283b67a918a6b477658e95b530493c6fa5f7a480ed",
+        "bytes": 1138
+      },
+      {
+        "path": "ReplicatedStorage/CameraShaker",
+        "class": "ModuleScript",
+        "source_sha256": "0ee01419d9b51006b161a417ad6be1b8c0f2001fa1ba466f42c274e19544f411",
+        "bytes": 6043
+      },
+      {
+        "path": "ReplicatedStorage/CameraShaker/CameraShakeInstance",
+        "class": "ModuleScript",
+        "source_sha256": "032adbbba9dcc15ac98db8ddb5ea51b5984c8c9663f371b6ba0f0f0342af54a0",
+        "bytes": 3890
+      },
+      {
+        "path": "ReplicatedStorage/CameraShaker/CameraShakePresets",
+        "class": "ModuleScript",
+        "source_sha256": "8a0ee28017525b4872c7340b47d937b897272545a47e8299bc99a2b5a2195dda",
+        "bytes": 3325
+      },
+      {
+        "path": "ReplicatedStorage/HABExpansion/CombatRules",
+        "class": "ModuleScript",
+        "source_sha256": "7963103a7d5565282794ec111386e96b1b263e246e83bd08a646d2978fb6bab0",
+        "bytes": 2232
+      },
+      {
+        "path": "ReplicatedStorage/HABExpansion/Config",
+        "class": "ModuleScript",
+        "source_sha256": "600ba38c2af5d2636c1bf9e4898469fb73976820c3c95bd3c35e5ea805450319",
+        "bytes": 8665
+      },
+      {
+        "path": "ReplicatedStorage/HABExpansion/HABCombatHUD",
+        "class": "ModuleScript",
+        "source_sha256": "d9449d2f3b6013dd18bf04a86044c24953adc1395ad81c315ddee71fa4a39cac",
+        "bytes": 16497
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/Catalog",
+        "class": "ModuleScript",
+        "source_sha256": "7fb06599966980917cb4e1f16e48337c1d3b445a3834f6726d2740152ca3e2f0",
+        "bytes": 12153
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/CollectionViewModel",
+        "class": "ModuleScript",
+        "source_sha256": "62e53368e014f69d6f58af0ad5e4638d74ca8c8b4a80d9361fd045fa6aa38dcd",
+        "bytes": 6113
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/CrateArt",
+        "class": "ModuleScript",
+        "source_sha256": "9a7943691386bd2bf3f0171fcea7ed3527b5ed3ea6819b713e75e93200fd4969",
+        "bytes": 4400
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/CrateReveal",
+        "class": "ModuleScript",
+        "source_sha256": "bfad4006e171457cb395d6c6a8b8eeda67eb4bfff254ea5e90925a7cf04d1734",
+        "bytes": 8655
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/Effects",
+        "class": "ModuleScript",
+        "source_sha256": "3dc75aa1f63101f0c7276f8e3c608655d2285c75110254906dec41749e9da789",
+        "bytes": 13007
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/ExtraFXData",
+        "class": "ModuleScript",
+        "source_sha256": "9d0620c824095d3b0fc5b46b5e56983de520ce261d6606252c2b955858568edc",
+        "bytes": 809
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/ExtraFXPart01",
+        "class": "ModuleScript",
+        "source_sha256": "360b2a28cf43e88399eb2a8deecf06a2da0b714e0bc526266439f3e8f58c22b3",
+        "bytes": 56015
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/ExtraFXPart02",
+        "class": "ModuleScript",
+        "source_sha256": "8bf8b0ccd9758d83bc506048f9c895525e2d987de67a9b67c04eb45ed295d39d",
+        "bytes": 56015
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/ExtraFXPart03",
+        "class": "ModuleScript",
+        "source_sha256": "616ce9b1fd0ef872a2a14d56ba13854c0ca0c13aa7b1f99a46465cfea23024fc",
+        "bytes": 56015
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/ExtraFXPart04",
+        "class": "ModuleScript",
+        "source_sha256": "5d889e84f3fc6adebca270bd74201183a4172dc86e7cd8e56d51be09ab3ed2de",
+        "bytes": 48107
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/FXCanvas",
+        "class": "ModuleScript",
+        "source_sha256": "831a0e4089c10a1886c93a0e768521c23384b6bd8293bd1033ecfb60e28087e9",
+        "bytes": 9097
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/HABEffectNames",
+        "class": "ModuleScript",
+        "source_sha256": "25d7467fff3617ff238fd38ab899c688c9e757aca85c6a8a5d882056400783d5",
+        "bytes": 10446
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/HABKillSoundPlayer",
+        "class": "ModuleScript",
+        "source_sha256": "74d925680b5e08403a56392d1cd8d202bab2fd3337a2e610eea54237968afaf9",
+        "bytes": 4162
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/HABKillSounds",
+        "class": "ModuleScript",
+        "source_sha256": "14c3b87fc96e55260b3796b4d956ef4a832ca2d7a87e92edcbb75d1c1a0ebf29",
+        "bytes": 2283
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/HABReferenceTheme",
+        "class": "ModuleScript",
+        "source_sha256": "8d3d199f6be85acc9bc5a7e7ab47040e36e2b109d78a3a198080625b1ef93240",
+        "bytes": 11993
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/NativeFX",
+        "class": "ModuleScript",
+        "source_sha256": "a6048d60ee59855a51271a41178f02d28ebf59ddc5e52eba807c2a660cc2ca5f",
+        "bytes": 11367
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/Renderer",
+        "class": "ModuleScript",
+        "source_sha256": "ca0e8c30d7b86bfb3b836a7f36d134fb8eaae113d669654715fdfd0571aa7021",
+        "bytes": 7840
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/Settings",
+        "class": "ModuleScript",
+        "source_sha256": "0a31c781704db99982c21660d86d8fd79bc5fe5089aa2d28faeadd6cccbbfc22",
+        "bytes": 1727
+      },
+      {
+        "path": "ReplicatedStorage/HussCatalogV11",
+        "class": "ModuleScript",
+        "source_sha256": "d9b39136108549548fb45b1236a092910b98b077a0e9e0d106e7988063f9f266",
+        "bytes": 12348
+      },
+      {
+        "path": "ReplicatedStorage/Modules/FootstepModule",
+        "class": "ModuleScript",
+        "source_sha256": "28924112339a52abb1adc15728a66901a997ae615ad98a09d72e1db94a8f0c8c",
+        "bytes": 6221
+      },
+      {
+        "path": "ReplicatedStorage/Modules/FootstepModule/Footsteps/Default",
+        "class": "ModuleScript",
+        "source_sha256": "818d35abde5401f18bda769297b07caf3dc0fdf553c465dc5e4638ccdfbedd3f",
+        "bytes": 6819
+      },
+      {
+        "path": "ReplicatedStorage/Modules/FootstepModule/Footsteps/Fart",
+        "class": "ModuleScript",
+        "source_sha256": "33a608e6902526dbbe7dbe0553dcc8802ce145ff3b702f7278278ac5db790799",
+        "bytes": 1355
+      },
+      {
+        "path": "ReplicatedStorage/Modules/FootstepModule/Footsteps/Water",
+        "class": "ModuleScript",
+        "source_sha256": "4ff5d8a4cada0e3cfc3e6f5f6dac9a8cb92e42fd4564e5d40af6ac8601cd9a32",
+        "bytes": 2677
+      },
+      {
+        "path": "ReplicatedStorage/Modules/FootstepModule/Jumping/Default",
+        "class": "ModuleScript",
+        "source_sha256": "8fc9c6b3a86e1b3e555056915392908ffa7b1d4b117f7dd23247c49164e354c1",
+        "bytes": 2750
+      },
+      {
+        "path": "ReplicatedStorage/Modules/FootstepModule/Jumping/Fart",
+        "class": "ModuleScript",
+        "source_sha256": "28914385dbe9da8ac5592f7d735e647e8f187fd1c3642b0a058442c53ec67942",
+        "bytes": 1353
+      },
+      {
+        "path": "ReplicatedStorage/Modules/FootstepModule/Jumping/Water",
+        "class": "ModuleScript",
+        "source_sha256": "a990aa373647dbb39023e165fd229bf4926f04820e857d369f65dbaff9051eed",
+        "bytes": 2522
+      },
+      {
+        "path": "ReplicatedStorage/Modules/FootstepModule/Landing/Default",
+        "class": "ModuleScript",
+        "source_sha256": "0f99d0470e6d728fa28f54e99242979dff14ebf7176d2899699613b08ed6ce6e",
+        "bytes": 3214
+      },
+      {
+        "path": "ReplicatedStorage/Modules/FootstepModule/Landing/Fart",
+        "class": "ModuleScript",
+        "source_sha256": "a940495ebba9aa4528e1eac60db7befa9688122288e3f42321cf16f05b53a810",
+        "bytes": 1354
+      },
+      {
+        "path": "ReplicatedStorage/Modules/FootstepModule/Landing/Water",
+        "class": "ModuleScript",
+        "source_sha256": "3675d33a5f0ead94f81d65e7bcb4e2c2190bd9d6c107b221a633b72b89df17d8",
+        "bytes": 2541
+      },
+      {
+        "path": "ReplicatedStorage/Shared/Config/AnimationConfig",
+        "class": "ModuleScript",
+        "source_sha256": "f802414f6848b073f1040a4a8aceb0ab9050424df1fd14f2a7c92c1d9dff344b",
+        "bytes": 2797
+      },
+      {
+        "path": "ReplicatedStorage/Shared/Config/GameConfig",
+        "class": "ModuleScript",
+        "source_sha256": "c8fb8ccd2f942e78906ae0321492812462a033995a493507a9484e527697519d",
+        "bytes": 3069
+      },
+      {
+        "path": "ReplicatedStorage/Shared/Config/MovementConfig",
+        "class": "ModuleScript",
+        "source_sha256": "5403a3ea345c695c9eaaa7e8845dd2d61c11ad1678fa44c957476284b9578733",
+        "bytes": 3907
+      },
+      {
+        "path": "ReplicatedStorage/Shared/Net/Remotes",
+        "class": "ModuleScript",
+        "source_sha256": "c4765559c7d728fd53ceb3b67394a8c92764db91c78ecd49cd1bb3857201cb5d",
+        "bytes": 1719
+      },
+      {
+        "path": "ServerScriptService/BombTagAFKServer",
+        "class": "Script",
+        "source_sha256": "fa6129c22b79c2fbc14122e856c65e6074640d6799ca4ebf719ed1429148f915",
+        "bytes": 3769
+      },
+      {
+        "path": "ServerScriptService/BombTagMapVoteServer",
+        "class": "Script",
+        "source_sha256": "a1f67d7a2c164914b223aca542b0c9af55635a8427d098400dbb902ef1b8df80",
+        "bytes": 8652
+      },
+      {
+        "path": "ServerScriptService/DodgeIFrameServer",
+        "class": "Script",
+        "source_sha256": "69c232bd6935b5b03de51816b1391740c3807870ac470a178f91546762098b32",
+        "bytes": 9995
+      },
+      {
+        "path": "ServerScriptService/HABCrateBoot",
+        "class": "Script",
+        "source_sha256": "5789d01fd9a98559ba259461d6c277a52d52a93e05c5498cb43e8b7d7b888039",
+        "bytes": 706
+      },
+      {
+        "path": "ServerScriptService/ServerScriptService/DeathRespawnHandler",
+        "class": "Script",
+        "source_sha256": "0b75a75b69e6c9359546cb44dcc25587f3923846b55f734cc712edd3a806f69c",
+        "bytes": 1236
+      },
+      {
+        "path": "ServerScriptService/ServerScriptService/DisableDefaultShiftLock",
+        "class": "Script",
+        "source_sha256": "fd47e8226278f6a56ba6284e8c7df6663c3c154781fde167e2fc114bc5f5b4b5",
+        "bytes": 148
+      },
+      {
+        "path": "ServerScriptService/ServerScriptService/NoCollision",
+        "class": "Script",
+        "source_sha256": "7679db85dc2315741765b9635462e09cadcb60c188a0bbe542b2346b1e224b9f",
+        "bytes": 765
+      },
+      {
+        "path": "ServerScriptService/ServerScriptService/R6Ragdoll",
+        "class": "Script",
+        "source_sha256": "b899fadb2e53b435dc926da41adc9704385c5188a1d9f28f305e409baa99aca6",
+        "bytes": 2259
+      },
+      {
+        "path": "ServerScriptService/ServerScriptService/R6Ragdoll/ModuleScript",
+        "class": "ModuleScript",
+        "source_sha256": "bdba76b2689a3ffd6300aab439d7fc45fea83033432662c821771245751b99b7",
+        "bytes": 2688
+      },
+      {
+        "path": "ServerScriptService/ServerScriptService/R6Ragdoll/R6NPCRagdoll",
+        "class": "Script",
+        "source_sha256": "585418ca438f150110cb2fb2fb1f5ff96a7d03e0c40f7bedafc5c67cd0190bdb",
+        "bytes": 77
+      },
+      {
+        "path": "ServerScriptService/ServerScriptService/R6Ragdoll/R6RagdollClient",
+        "class": "LocalScript",
+        "source_sha256": "ffb36b96c96956b5144939565b4ac59c97f01ebdd476e4f12557c7d0108f0e71",
+        "bytes": 822
+      },
+      {
+        "path": "ServerScriptService/ServerScriptService/TrueHealthController",
+        "class": "Script",
+        "source_sha256": "d8d64e3e0573c851b82340f239de7794dfa33dc116f4aa9d5f91fd89fe483790",
+        "bytes": 1278
+      },
+      {
+        "path": "ServerScriptService/Services/BombService",
+        "class": "ModuleScript",
+        "source_sha256": "aedc12a33e9a4657f1d4a76b59b38ba3e40053fb6af8c498658da4c6f9aa88a8",
+        "bytes": 10571
+      },
+      {
+        "path": "ServerScriptService/Services/BombTagMapVoteServiceV6",
+        "class": "ModuleScript",
+        "source_sha256": "89bc87fb26ee7468ad5c86a4ecdd150bbfea83292914002583b6667899c0a0bf",
+        "bytes": 4996
+      },
+      {
+        "path": "ServerScriptService/Services/CosmeticsServiceV11",
+        "class": "ModuleScript",
+        "source_sha256": "38d716361d4adcef98e492d995e11b060ee12d678c1f67d7600989e504dc655b",
+        "bytes": 5237
+      },
+      {
+        "path": "ServerScriptService/Services/EconomyServiceV9",
+        "class": "ModuleScript",
+        "source_sha256": "345765ebf39ca25b999b9d7c4ff0846fa4fa98d9d12f11d88f74f6e052c66dd3",
+        "bytes": 54460
+      },
+      {
+        "path": "ServerScriptService/Services/HABActionService",
+        "class": "ModuleScript",
+        "source_sha256": "701fca7c16cffcdb879fa0481f5b50762f93d6067c301e4eeffa99b6a28df88a",
+        "bytes": 16752
+      },
+      {
+        "path": "ServerScriptService/Services/HABCrateInventoryRules",
+        "class": "ModuleScript",
+        "source_sha256": "32b2af4fc46d6b18bcbcdb85cb0b46be3abd6b9a9164f10334257b50b30b68ba",
+        "bytes": 4156
+      },
+      {
+        "path": "ServerScriptService/Services/HABCrateService",
+        "class": "ModuleScript",
+        "source_sha256": "80f066fd5b163014a8118b5e99bbb609134541ca4f519c92ce919b69db928005",
+        "bytes": 12147
+      },
+      {
+        "path": "ServerScriptService/Services/HABGemPurchases",
+        "class": "ModuleScript",
+        "source_sha256": "1e0bdd209f00afab6de02da08809cc0bded4ff2ec7da0b8f9cd9f223cf1dfe0b",
+        "bytes": 2269
+      },
+      {
+        "path": "ServerScriptService/Services/HABPassService",
+        "class": "ModuleScript",
+        "source_sha256": "3797efb60df9d14246b49c38b7194931fce3812baa21c7ff91b06234a2b95d88",
+        "bytes": 4884
+      },
+      {
+        "path": "ServerScriptService/Services/HABRetirementRules",
+        "class": "ModuleScript",
+        "source_sha256": "079bffcc6af83dea90c31e8c9cc12c03b4ba3715fcdddf5df873725778fd79d4",
+        "bytes": 4408
+      },
+      {
+        "path": "ServerScriptService/Services/MapService",
+        "class": "ModuleScript",
+        "source_sha256": "10933520c40f30bab3d0379d9e8bd7bd3f46427bd9e61a6cf1d51bb87710ea43",
+        "bytes": 2177
+      },
+      {
+        "path": "ServerScriptService/Services/OwnerCommandsV12",
+        "class": "ModuleScript",
+        "source_sha256": "dd03c0d2d35d4b9d170fa25058c60208ccacd88f995ba9a2e995ab9e8a1c4df5",
+        "bytes": 5995
+      },
+      {
+        "path": "ServerScriptService/Services/PerfectWeaveServiceV11",
+        "class": "ModuleScript",
+        "source_sha256": "e4edbce30f9759a5aab6b8e8341f3384f529020c50b1faba6f81da8f83ade781",
+        "bytes": 2300
+      },
+      {
+        "path": "ServerScriptService/Services/PracticeServiceV11",
+        "class": "ModuleScript",
+        "source_sha256": "fdba8f440957472f4d88aca083d650a8c74cb024d54edd7a76a1d3d962d3a9a3",
+        "bytes": 15247
+      },
+      {
+        "path": "ServerScriptService/Services/RoundService",
+        "class": "ModuleScript",
+        "source_sha256": "08ff6d80706b859e642aa93ad5db15311e5b7b373bca045c4e98f4accc5704c7",
+        "bytes": 21043
+      },
+      {
+        "path": "ServerScriptService/Services/ServerMain",
+        "class": "Script",
+        "source_sha256": "cc28aa182a31eca4705df640caa33db01991c12104e6b076d69fb431774bf372",
+        "bytes": 1050
+      },
+      {
+        "path": "ServerScriptService/SunsetDocksTerrainV9",
+        "class": "Script",
+        "source_sha256": "dfb5fceeba87c576a077ff8b0780e448d98eed8c2b874bf1502cc4d70b69556c",
+        "bytes": 2995
+      },
+      {
+        "path": "ServerStorage/ExpansionV11Backup_1791726024/Scripts/BombService",
+        "class": "ModuleScript",
+        "source_sha256": "e10274268dfa54bba756f83897ec679e00989487e2e0afd9d76b362d8c5a34b3",
+        "bytes": 12904
+      },
+      {
+        "path": "ServerStorage/ExpansionV11Backup_1791726024/Scripts/HudController",
+        "class": "ModuleScript",
+        "source_sha256": "349cadf636ac84ba17077d3bcad7060a2c54f9892d4a191c12f67f17777cde6b",
+        "bytes": 43157
+      },
+      {
+        "path": "ServerStorage/ExpansionV11Backup_1791726024/Scripts/MovementEffectsV8",
+        "class": "LocalScript",
+        "source_sha256": "b4eda6060bbd8aa7c85532008bed08a5559a2f494d27063cc5d766be79587779",
+        "bytes": 8341
+      },
+      {
+        "path": "ServerStorage/ExpansionV11Backup_1791726024/Scripts/RoundService",
+        "class": "ModuleScript",
+        "source_sha256": "80005213be1419f0e7b0f96a2af9a6b5c69541cd1e03d055a48b8b4a3dbc550a",
+        "bytes": 21588
+      },
+      {
+        "path": "ServerStorage/ExpansionV11Backup_1791726024/Scripts/ServerMain",
+        "class": "Script",
+        "source_sha256": "3ee3aadaf604a8bd7d17b3526b365552da360750a41a1a7245bdf036ffdcbd2c",
+        "bytes": 885
+      },
+      {
+        "path": "ServerStorage/ExpansionV11Backup_1791726024/Scripts/SnappyMovement",
+        "class": "LocalScript",
+        "source_sha256": "e0a4e4801f5f9dadf3d636266b426db94bb8f6711d7f8afcfa5071f95a76b792",
+        "bytes": 22072
+      },
+      {
+        "path": "ServerStorage/ExpansionV12Backup_1791727957/Scripts/BombService",
+        "class": "ModuleScript",
+        "source_sha256": "9e538cd154a5ec461bd4529e58a8e76bfb428bf88909f35f98e91760d30c6f11",
+        "bytes": 13683
+      },
+      {
+        "path": "ServerStorage/ExpansionV12Backup_1791727957/Scripts/CosmeticsServiceV11",
+        "class": "ModuleScript",
+        "source_sha256": "2f33bf6b345f7a1bc6ed5d41e4677cdc23d616dcc1a3970ef5eefee467a62fdc",
+        "bytes": 8706
+      },
+      {
+        "path": "ServerStorage/ExpansionV12Backup_1791727957/Scripts/EconomyServiceV9",
+        "class": "ModuleScript",
+        "source_sha256": "75cd02659df855905aabbc1a959dd65ec32a2efb351efbb192af77e3ff280405",
+        "bytes": 17653
+      },
+      {
+        "path": "ServerStorage/ExpansionV12Backup_1791727957/Scripts/HudController",
+        "class": "ModuleScript",
+        "source_sha256": "3225d0a30ad98fdc8bb719079ac842ca33892aa491109dd79fd93fdd8b3ce10c",
+        "bytes": 63384
+      },
+      {
+        "path": "ServerStorage/ExpansionV12Backup_1791727957/Scripts/HussCatalogV11",
+        "class": "ModuleScript",
+        "source_sha256": "128dca3b4a527eb707ee49f5dfcf0af397e1f0710fc21600dad823beab7a81b3",
+        "bytes": 7849
+      },
+      {
+        "path": "ServerStorage/GlossyEffectsBackup_1791698209/GameAudioV6",
+        "class": "LocalScript",
+        "source_sha256": "df07c969c7d3e2fd2fdf530018846f6b480fbdb60dd848877dade8b0df2537a6",
+        "bytes": 16700
+      },
+      {
+        "path": "ServerStorage/GlossyEffectsBackup_1791698209/HudController",
+        "class": "ModuleScript",
+        "source_sha256": "a881eab1267c547723d6932c22852e7d88d57970a18eb0dcf1da384790f02f62",
+        "bytes": 36594
+      },
+      {
+        "path": "ServerStorage/HudMotionBackup_1791694876/Animate",
+        "class": "LocalScript",
+        "source_sha256": "e0eeddcd72aab697d34889057cd95e71af7bb8593b45538e0912b4866c401319",
+        "bytes": 13341
+      },
+      {
+        "path": "ServerStorage/HudMotionBackup_1791694876/BombTagAFKClient",
+        "class": "LocalScript",
+        "source_sha256": "408716460ef0de731b0bd9580466d28e1bbb29ba134f422f62688f71282f3950",
+        "bytes": 3533
+      },
+      {
+        "path": "ServerStorage/HudMotionBackup_1791694876/BombTagVoteClientV6",
+        "class": "LocalScript",
+        "source_sha256": "9888b1b0ce7de0d2f3c19c1a01d468a3fea7f46b41ef8c208266a3fdd4c9dfc0",
+        "bytes": 7311
+      },
+      {
+        "path": "ServerStorage/HudMotionBackup_1791694876/DodgeIFrameServer",
+        "class": "Script",
+        "source_sha256": "7137216dd8d2167e6ff7621cb4cc4e704173c9966a0fb4b50696a7cbd1f4ecd6",
+        "bytes": 9272
+      },
+      {
+        "path": "ServerStorage/HudMotionBackup_1791694876/HudController",
+        "class": "ModuleScript",
+        "source_sha256": "0f6ae11073a7b2a98c95c07f16c3e27621c94801fcf8e51f7ebd21afeb974da0",
+        "bytes": 33162
+      },
+      {
+        "path": "ServerStorage/HudMotionBackup_1791694876/SnappyMovement",
+        "class": "LocalScript",
+        "source_sha256": "e0e0f78ed8ec21a71b5982d8264d2bd78b7c2c81ee765306d8a2994e33d9ea0f",
+        "bytes": 21244
+      },
+      {
+        "path": "ServerStorage/LobbyAudioActionBackup_1791696392/DodgeWeaveV5",
+        "class": "LocalScript",
+        "source_sha256": "749fdbf43428fc0fe5139b865ee629efdb0960066c059f06a90e9fdcaaf67f1b",
+        "bytes": 9836
+      },
+      {
+        "path": "ServerStorage/LobbyAudioActionBackup_1791696392/HudController",
+        "class": "ModuleScript",
+        "source_sha256": "310e4c6962f85ba43d2b6e57da344ffc9c80db97476e4390f4e465afc34b1c0c",
+        "bytes": 35842
+      },
+      {
+        "path": "ServerStorage/LobbyAudioActionBackup_1791696392/SnappyMovement",
+        "class": "LocalScript",
+        "source_sha256": "eaf978396a0d8797904932b51909012c95177dd820a9039500eed06dddc7df6c",
+        "bytes": 21262
+      },
+      {
+        "path": "ServerStorage/MovementMapsBackup_1791693230/BombTagVoteClientV6",
+        "class": "LocalScript",
+        "source_sha256": "d757d006ae7929aac3c683602912b630fdce65cdc30df2c3dccf9eb3482cd37a",
+        "bytes": 6856
+      },
+      {
+        "path": "ServerStorage/MovementMapsBackup_1791693230/HudController",
+        "class": "ModuleScript",
+        "source_sha256": "1a38f37f630612a35fd2d7ef139b6902e6159c9d15943762900dd77d5ca71119",
+        "bytes": 33130
+      },
+      {
+        "path": "ServerStorage/MovementMapsBackup_1791693230/SunsetDocksTerrainV9",
+        "class": "Script",
+        "source_sha256": "dfb5fceeba87c576a077ff8b0780e448d98eed8c2b874bf1502cc4d70b69556c",
+        "bytes": 2995
+      },
+      {
+        "path": "ServerStorage/PlayerModule",
+        "class": "ModuleScript",
+        "source_sha256": "12ec70b02aa3cf92c03c804bbe0bb59faef7f4e78f148625dd2401994423f3b3",
+        "bytes": 824
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule",
+        "class": "ModuleScript",
+        "source_sha256": "e040580c9cbc4f0a53fadbdb139baaa80d165c0048d137b7e2f676d8f3e76315",
+        "bytes": 23490
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/BaseCamera",
+        "class": "ModuleScript",
+        "source_sha256": "2510a3dda259e81b6f9bfb815b054aa0ce401eeb8a0cb7db69d224c001af5305",
+        "bytes": 27753
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/BaseOcclusion",
+        "class": "ModuleScript",
+        "source_sha256": "dc7b9800cdd6aee1371420ba4f68563f0d5ce89425e3db297733fb845d2e1d0a",
+        "bytes": 1455
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/CameraInput",
+        "class": "ModuleScript",
+        "source_sha256": "d8dbc45e06db75766e44988a34e0a28dd7e4f462ee46bc08fefd3924c102eca3",
+        "bytes": 16077
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/CameraToggleStateController",
+        "class": "ModuleScript",
+        "source_sha256": "aeafc4cb287dbab770faa021199a20a4e24b82004e5f8abd5f512b46dddce0bf",
+        "bytes": 2564
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/CameraUI",
+        "class": "ModuleScript",
+        "source_sha256": "3308f59a9795c506d1ec93469601cc0c6d9bb0d3caa1867013bfa3778a9d46bb",
+        "bytes": 784
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/CameraUtils",
+        "class": "ModuleScript",
+        "source_sha256": "818f160733e1953b758a29915a695b316c7fd72e407dc0d5eff1906cb48c5503",
+        "bytes": 9321
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/ClassicCamera",
+        "class": "ModuleScript",
+        "source_sha256": "a36551dba34edd7cdd8b13b91dd4d389c9230eab40ab77ca9be424edd279211b",
+        "bytes": 9474
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/Invisicam",
+        "class": "ModuleScript",
+        "source_sha256": "f1a59cb284ac005cd26231033b5bb01ded7aff89583debcc0ea60c11cf92fcb1",
+        "bytes": 20341
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/LegacyCamera",
+        "class": "ModuleScript",
+        "source_sha256": "4fcccdb29893230bd8f8ee160d32b4c10c809b7da2a8096e9e26bd52f3ecda49",
+        "bytes": 3967
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/MouseLockController",
+        "class": "ModuleScript",
+        "source_sha256": "e97d4eb8f525eaea5e34eff459c3ad7695eb749f2e3d08db03887d74a2d4719e",
+        "bytes": 7105
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/OrbitalCamera",
+        "class": "ModuleScript",
+        "source_sha256": "01d0d9e0edaf98b97f5e324fd02c6c29823ddd6faa4f2084296c1195c5bf9cce",
+        "bytes": 14055
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/Poppercam",
+        "class": "ModuleScript",
+        "source_sha256": "daf92c3191626221986746579b472fae21557b3f89a885583f274261fe13166b",
+        "bytes": 3160
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/TransparencyController",
+        "class": "ModuleScript",
+        "source_sha256": "c94f11a84072a5e464289d4a722dc3afab1f9c9b0ed3dcf37ad636b4d61e3e78",
+        "bytes": 5911
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/VRBaseCamera",
+        "class": "ModuleScript",
+        "source_sha256": "bf0dabe8ec648fcf38cfe72162c180667be76da170dcccaf61c97ee00515f400",
+        "bytes": 13057
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/VRCamera",
+        "class": "ModuleScript",
+        "source_sha256": "e8194af907f9932c40bb79dbe7bcf04aef1787cdacf6a7805bf0c035f37ce30c",
+        "bytes": 16179
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/VRVehicleCamera",
+        "class": "ModuleScript",
+        "source_sha256": "185c41a839b86f8259dee8049966cf24a94547d24302b8e809bdd24ff2e45c8a",
+        "bytes": 7378
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/VehicleCamera",
+        "class": "ModuleScript",
+        "source_sha256": "3e3997f9fd87f9b9cec375156a88cd96f3b47cf961af275ea7a092e97988c3d3",
+        "bytes": 7072
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/VehicleCamera/VehicleCameraConfig",
+        "class": "ModuleScript",
+        "source_sha256": "cee8b4915863c5549332f66e7293604d18a472e3c43834e44a3a4027831c5956",
+        "bytes": 2011
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/VehicleCamera/VehicleCameraCore",
+        "class": "ModuleScript",
+        "source_sha256": "6f69833e64f5c115509553539afaf0a40d74311f0ec884954329ab7566e901b2",
+        "bytes": 4860
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/ZoomController",
+        "class": "ModuleScript",
+        "source_sha256": "6bd989754a4d577dcc82cac9a56de40a7f95427810c480e5c24239b3162d0b38",
+        "bytes": 3735
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/ZoomController/Popper",
+        "class": "ModuleScript",
+        "source_sha256": "640a0273c9ebc049b81026cb2a28d76d0366244aa455457cacdb3ae955ad904a",
+        "bytes": 9341
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule",
+        "class": "ModuleScript",
+        "source_sha256": "8e4b089de668c535096714e38ff52fa172e7900db7c043871c3cb1ab1881617f",
+        "bytes": 25915
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/BaseCharacterController",
+        "class": "ModuleScript",
+        "source_sha256": "7561e06f4447df302f653d3a7b6efe29b24563cc58d6e2bd8d74eec84384ccde",
+        "bytes": 1401
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/ClickToMoveController",
+        "class": "ModuleScript",
+        "source_sha256": "6527e528bf55075b6b879d9d0c9e1886156532d40bc50bd44fd20a0796a74830",
+        "bytes": 36659
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/ClickToMoveDisplay",
+        "class": "ModuleScript",
+        "source_sha256": "3aae87e2a5c1aaad29e0f7dfba8b4fbe6ef49f9695d03afc48ece1133fcd5063",
+        "bytes": 17009
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/DynamicThumbstick",
+        "class": "ModuleScript",
+        "source_sha256": "11830e4ae621e4b0f36dab4f6a068151354147c1b393ee48878167137b21cf67",
+        "bytes": 20455
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/Gamepad",
+        "class": "ModuleScript",
+        "source_sha256": "d21fbebf061fd79a7ccd39b5da3cc24103010da9426582e639fd41e4e95adeb3",
+        "bytes": 6809
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/Keyboard",
+        "class": "ModuleScript",
+        "source_sha256": "8458cddd061b5923f056cc05a471494afcfe1893169ad64dd5546f3bf00895d3",
+        "bytes": 6155
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/PathDisplay",
+        "class": "ModuleScript",
+        "source_sha256": "be80f8695ebcb9fd2f74c13130a340575dfeb3806623d04b617534df8e59f848",
+        "bytes": 3315
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/TouchJump",
+        "class": "ModuleScript",
+        "source_sha256": "5ff69f11e63804a1b336000d8f6d1a4369c4865f7b2800b9385d48b36892317a",
+        "bytes": 6166
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/TouchThumbstick",
+        "class": "ModuleScript",
+        "source_sha256": "903abf2199e9edc458674af11048d4d25fe4b8495014b2a0e76c2930e8b667ad",
+        "bytes": 8132
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/VRNavigation",
+        "class": "ModuleScript",
+        "source_sha256": "313531fb1c35ed71ea9c239876b49a774addc192b7d07a0636d240ed884dd182",
+        "bytes": 13574
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/VehicleController",
+        "class": "ModuleScript",
+        "source_sha256": "4031a1a3cf06584d503722f9ffcba711fd32e07456b1eff53d7c165e09638673",
+        "bytes": 6509
+      },
+      {
+        "path": "ServerStorage/ReferenceHUDBackup_1791700908/HudController",
+        "class": "ModuleScript",
+        "source_sha256": "860d1a318d33ace291bced30d44285717ec0b492db445706be612854b0e52ec5",
+        "bytes": 38397
+      },
+      {
+        "path": "ServerStorage/SimpleLobbyShiftLockBackup_1791697162/ForcedShiftLock",
+        "class": "LocalScript",
+        "source_sha256": "7f3845285418f0aa02f52bcb297193c0c979f684bc7ab4406ba56e7e648c2720",
+        "bytes": 14863
+      },
+      {
+        "path": "ServerStorage/SimpleLobbyShiftLockBackup_1791697162/GameAudioV6",
+        "class": "LocalScript",
+        "source_sha256": "c4b88e349fe942584b4a709baeab3efad5537061b9442afcc0a95302edf294c7",
+        "bytes": 17146
+      },
+      {
+        "path": "ServerStorage/SimpleLobbyShiftLockBackup_1791697162/HudController",
+        "class": "ModuleScript",
+        "source_sha256": "e86008febcefc6004fa2f483eea6d8c927365d85e067616a5750d29b5f41040d",
+        "bytes": 36621
+      },
+      {
+        "path": "ServerStorage/SimpleLobbyShiftLockBackup_1791697162/SnappyMovement",
+        "class": "LocalScript",
+        "source_sha256": "1ba15deb211d2f6abb3b43609e48a704b62d00314a8e5f317659766f38d79cfc",
+        "bytes": 21342
+      },
+      {
+        "path": "StarterGui/StarterGui/Bobbing Camera",
+        "class": "LocalScript",
+        "source_sha256": "6f2c72faa34fd416553e4d50fe8b89bf15503802f93b3e178a7fb5d615538d55",
+        "bytes": 7905
+      },
+      {
+        "path": "StarterGui/StarterGui/Ui",
+        "class": "LocalScript",
+        "source_sha256": "58736f9ddb4fb6155928beed2ba1b1e05433ed9ff445c8e8e51aed7b3b6b9de6",
+        "bytes": 11366
+      },
+      {
+        "path": "StarterPlayer/StarterCharacterScripts/Animate",
+        "class": "LocalScript",
+        "source_sha256": "b140eb9f148a1bd56b1621671c10a78c6f2f9dc808eaa1259763dfb8b1a05b5b",
+        "bytes": 6079
+      },
+      {
+        "path": "StarterPlayer/StarterCharacterScripts/Crouching",
+        "class": "LocalScript",
+        "source_sha256": "25adbbddc18ae4d121fb3b91beeda66a93168b237a7db9edec3679ad3a3efdbe",
+        "bytes": 21505
+      },
+      {
+        "path": "StarterPlayer/StarterCharacterScripts/CustomShiftLock",
+        "class": "LocalScript",
+        "source_sha256": "bfb87dde8f6e3cd329e7a58640e2b0e222dd9b0ff51250cbefe434bad2d1c8ba",
+        "bytes": 111
+      },
+      {
+        "path": "StarterPlayer/StarterCharacterScripts/CustomShiftLock/SmoothShiftLock",
+        "class": "ModuleScript",
+        "source_sha256": "840c3e8f9e2e81dafcb58110b10e6eddc7de2d4d74c6c7c2fbd3a3e6548631c8",
+        "bytes": 7226
+      },
+      {
+        "path": "StarterPlayer/StarterCharacterScripts/CustomShiftLock/SmoothShiftLock/Maid",
+        "class": "ModuleScript",
+        "source_sha256": "33ebc4f0e02dd677046ef94d4aad274a2632ce85ee3c290c04f66824225c6273",
+        "bytes": 4323
+      },
+      {
+        "path": "StarterPlayer/StarterCharacterScripts/CustomShiftLock/SmoothShiftLock/Spring",
+        "class": "ModuleScript",
+        "source_sha256": "e61e70509822fe606998e604a0404f7e09ddecbcb5df97803dc20a627aadc887",
+        "bytes": 5777
+      },
+      {
+        "path": "StarterPlayer/StarterCharacterScripts/FallSystem",
+        "class": "LocalScript",
+        "source_sha256": "db19da9a14e2f131b328ea38bc49038b99cb9ca03ce697247966d1600acf2eb2",
+        "bytes": 8960
+      },
+      {
+        "path": "StarterPlayer/StarterCharacterScripts/Turning",
+        "class": "LocalScript",
+        "source_sha256": "941224e4e2ff80a10be6f2eb5de157851209de123e79db823ff760c09a5d41ed",
+        "bytes": 9202
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/BombTagAFKClient",
+        "class": "LocalScript",
+        "source_sha256": "408716460ef0de731b0bd9580466d28e1bbb29ba134f422f62688f71282f3950",
+        "bytes": 3533
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/BombTagMapVoteClient",
+        "class": "LocalScript",
+        "source_sha256": "8747e233d95cfb40ce374d773fd7ff7fcdf2f39744c963f359415b73d72f27d7",
+        "bytes": 11856
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/BombTagVoteClientV6",
+        "class": "LocalScript",
+        "source_sha256": "9888b1b0ce7de0d2f3c19c1a01d468a3fea7f46b41ef8c208266a3fdd4c9dfc0",
+        "bytes": 7311
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/CarrierPanicV12",
+        "class": "LocalScript",
+        "source_sha256": "f7ddcc5c41d731441b99676b0a526941f0a868d9971d45029e950533b5615759",
+        "bytes": 13720
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/ClientMain",
+        "class": "LocalScript",
+        "source_sha256": "1d2e4bd2960095c34369564a9cd0b1786dc84ca06ae3b4f0c797f27fe0cdc4b4",
+        "bytes": 1025
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/CollectionEffectsV11",
+        "class": "LocalScript",
+        "source_sha256": "fb53353bc62381f00a63113a93e87d9590ac77a7aa4597a7001e13f6393b0b29",
+        "bytes": 14864
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/Controllers/HudController",
+        "class": "ModuleScript",
+        "source_sha256": "3d9bfdabbd1c881c985968109ee57b43c3c7c1a007e29fc9216ca6bba3f1044f",
+        "bytes": 66229
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/Controllers/MovementAnimationController",
+        "class": "ModuleScript",
+        "source_sha256": "13af47fa738003d92044d7baa78a180509043af15f56d5d791eddcf4b9e3dc5b",
+        "bytes": 10482
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/Controllers/MovementController",
+        "class": "ModuleScript",
+        "source_sha256": "6bc825d3269582fd11a95e8746b23c99f4ad51b295e6e155e845261c5bad9224",
+        "bytes": 40257
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/DamageScreen",
+        "class": "LocalScript",
+        "source_sha256": "95017e41c0970906c1c2c8fd873b3d15df0bdb72ef59f8763e3739cf70cb204e",
+        "bytes": 4457
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/DeathScreenUI",
+        "class": "LocalScript",
+        "source_sha256": "8ee5b727378a77f88a0cde77abdb75dce4c325b93f74c78ef733f4644fa287c1",
+        "bytes": 18020
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/DodgeWeaveV5",
+        "class": "LocalScript",
+        "source_sha256": "349717f6514d4e09b5f8970cc23bd1e1d382a6782c587eb2a3a43c88d5b34e36",
+        "bytes": 9988
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/Footsteps",
+        "class": "LocalScript",
+        "source_sha256": "4f5036b04d164613c520df8dd495c06f0947a3d6099d2e7deaa7e1f37d786105",
+        "bytes": 9341
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/ForcedShiftLock",
+        "class": "LocalScript",
+        "source_sha256": "4ca517de534fad771eabdb04bd082c2b2fb6710f5e9c746990a4842c4de65a61",
+        "bytes": 14805
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/GameAudioV6",
+        "class": "LocalScript",
+        "source_sha256": "8438a0ccaa2eea6753d7293fc3e1b53911c00e9a1024570094cf53c2506c7000",
+        "bytes": 19446
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/HABActionClient",
+        "class": "LocalScript",
+        "source_sha256": "485e08bcb9350f5f92eb9a33c839b40fbf8f4e7456148d56bd089a276da84e48",
+        "bytes": 14246
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/HABCombatFX",
+        "class": "LocalScript",
+        "source_sha256": "c85f639fb743688c1bc572bf80b57621a61155fded0a3c96d1f36ddc87e8a9a2",
+        "bytes": 6524
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/HABCrateShopClient",
+        "class": "LocalScript",
+        "source_sha256": "547d211c82b3f3cc31facbcc1334b02e8b098a11b827c3e4c040ba6bc0f33a00",
+        "bytes": 37466
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/HABExpansionClient",
+        "class": "LocalScript",
+        "source_sha256": "bd0e2f3a2ee1ee94cb8012a652074b708bc45d02fb27a2f1990c45d6b73c5916",
+        "bytes": 14425
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/HABFunAbilityFX",
+        "class": "LocalScript",
+        "source_sha256": "decd3078c160662814cd115a6f9339712cbff5ced3cebef9112f9211b3b955be",
+        "bytes": 5351
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/HABHalloweenEffects",
+        "class": "LocalScript",
+        "source_sha256": "a2b87b26310399c9ffd72a01792ea6ed248d6bf65b0f00eb5928214c2e9d93da",
+        "bytes": 9164
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/IK",
+        "class": "LocalScript",
+        "source_sha256": "ce7aa17c0e39a006620e96b69d9f2d2af72504cd68de7e6412f121de2cf5671a",
+        "bytes": 7457
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/LobbyBoardsV11",
+        "class": "LocalScript",
+        "source_sha256": "70c3a0ac56d52882191f8811a6838a087210efb30452b8cc6142852ebfe39629",
+        "bytes": 5189
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/MovementEffectsV8",
+        "class": "LocalScript",
+        "source_sha256": "520441b8a878636a9b2e9b06ca44dbe99afc008e94a47260817966de1d5b62df",
+        "bytes": 42229
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/OwnerFeedbackV12",
+        "class": "LocalScript",
+        "source_sha256": "568ebd8829b50e065dc249717f90480f6b8e9d8bc7a9403b6e6a064e4625db89",
+        "bytes": 2505
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/RbxCharacterSounds",
+        "class": "LocalScript",
+        "source_sha256": "080f683288fc9584ebe4a88da67d02debe9278fb9b0d9b0b80cc270e1a28aba7",
+        "bytes": 12989
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/RbxCharacterSounds/AtomicBinding",
+        "class": "ModuleScript",
+        "source_sha256": "26a2ecefe6cc3a7047b8406e9da8feeb1d57d57c1e2b7db477d70fa95693094c",
+        "bytes": 7745
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/SnappyMovement",
+        "class": "LocalScript",
+        "source_sha256": "1f9edc588a52a5098fc7ae9e88884bd60ffec317da3b2283732b66e363875af5",
+        "bytes": 23142
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/StaminaSystem",
+        "class": "LocalScript",
+        "source_sha256": "0cc1c7beadf7f267b76b8a0c58d0c03431084c84be97e06cd659a5841ec65cb7",
+        "bytes": 15139
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/StandShopV12",
+        "class": "LocalScript",
+        "source_sha256": "fb7315fa555dc558714cd8747d2b6b19a6a0b585b678d48e6e171777df3e5ed5",
+        "bytes": 17769
+      },
+      {
+        "path": "TestService/LuauLSP_Settings",
+        "class": "ModuleScript",
+        "source_sha256": "3725bb666745ffa8090661255682b1a36175986b3b917afe3a0819b91ae003bf",
+        "bytes": 1205
+      },
+      {
+        "path": "Workspace/READ ME",
+        "class": "Script",
+        "source_sha256": "59bea846cca9d53000eaf46026d01cc9721e772c3332b87261b71cd2fe092647",
+        "bytes": 80
+      },
+      {
+        "path": "Workspace/Read me",
+        "class": "Script",
+        "source_sha256": "49c8c944b6f9ab2479abc98f8975e28888cf92bddc03c355888d2f66ce35763c",
+        "bytes": 352
+      },
+      {
+        "path": "Workspace/Ultimate R6 Movement System by Arczi/IF U WANT ANIMS READ ME",
+        "class": "Script",
+        "source_sha256": "5c1143e0a31035fc12ac2a8475ab12ab059b2968cd63c5f89d923a39b7eeb470",
+        "bytes": 1305
+      }
+    ],
+    "physical_properties": {
+      "property_count": 95792,
+      "defaults": 95792,
+      "custom": 0,
+      "acoustic_absorption_not_one": 0,
+      "property_counts_by_class": {
+        "Part": 95473,
+        "SpawnLocation": 6,
+        "Terrain": 1,
+        "TrussPart": 45,
+        "WedgePart": 267
+      }
+    },
+    "supported_physical_discriminators": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "native_studio_tested": false
+  },
+  "finished": {
+    "decoder": "rbx_binary 3.0.1 / rbx_dom_weak 4.2.0",
+    "read_only": true,
+    "file_sha256": "8af7c44aec6346f536a189ae3368c0d04db7ed4179727fadc1641984d9c028c1",
+    "file_bytes": 1746428,
+    "instance_count": 111111,
+    "script_count": 210,
+    "warnings": "WARN: Unknown value type ID 0x23 (35) in Roblox binary model file. Found in property Terrain.VoxelGridAssetContentMap.",
+    "warning_count": 1,
+    "scripts": [
+      {
+        "path": "ReplicatedStorage/BombSkinBuilderV12",
+        "class": "ModuleScript",
+        "source_sha256": "d4777c1a1a5733a560d82e4e2539e1ec60c2625b6aafa0cbb2a43a48949fe67a",
+        "bytes": 20652
+      },
+      {
+        "path": "ReplicatedStorage/CameraShakeCall",
+        "class": "ModuleScript",
+        "source_sha256": "ae2b26051f0a066f702191283b67a918a6b477658e95b530493c6fa5f7a480ed",
+        "bytes": 1138
+      },
+      {
+        "path": "ReplicatedStorage/CameraShaker",
+        "class": "ModuleScript",
+        "source_sha256": "0ee01419d9b51006b161a417ad6be1b8c0f2001fa1ba466f42c274e19544f411",
+        "bytes": 6043
+      },
+      {
+        "path": "ReplicatedStorage/CameraShaker/CameraShakeInstance",
+        "class": "ModuleScript",
+        "source_sha256": "032adbbba9dcc15ac98db8ddb5ea51b5984c8c9663f371b6ba0f0f0342af54a0",
+        "bytes": 3890
+      },
+      {
+        "path": "ReplicatedStorage/CameraShaker/CameraShakePresets",
+        "class": "ModuleScript",
+        "source_sha256": "8a0ee28017525b4872c7340b47d937b897272545a47e8299bc99a2b5a2195dda",
+        "bytes": 3325
+      },
+      {
+        "path": "ReplicatedStorage/HABExpansion/CombatRules",
+        "class": "ModuleScript",
+        "source_sha256": "48898c97313237501a61993f4e0957a2221e85b7a539feaa5d07dede918bbb3b",
+        "bytes": 3033
+      },
+      {
+        "path": "ReplicatedStorage/HABExpansion/Config",
+        "class": "ModuleScript",
+        "source_sha256": "9cd3fb041b3f3bbfe6fef9581fdf0da2e7b1c8c9b7a476d27abf6a2f4b509103",
+        "bytes": 8934
+      },
+      {
+        "path": "ReplicatedStorage/HABExpansion/HABAbilityEffectsV15",
+        "class": "ModuleScript",
+        "source_sha256": "f81ed80839023cab9ea5d7230ac805548698a6fe50e0fafb7717a6f8ec4c4757",
+        "bytes": 8420
+      },
+      {
+        "path": "ReplicatedStorage/HABExpansion/HABActionAnimationsV15",
+        "class": "ModuleScript",
+        "source_sha256": "cc17ccdb606af3d6f59150e983a11bebb4d8467dc0ad27a8db448986eee9dd70",
+        "bytes": 14927
+      },
+      {
+        "path": "ReplicatedStorage/HABExpansion/HABCombatHUD",
+        "class": "ModuleScript",
+        "source_sha256": "6adff366b11291eff4412645ae37fcbfa8c94756631a1fac81254fb6dbacc38a",
+        "bytes": 16397
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/Catalog",
+        "class": "ModuleScript",
+        "source_sha256": "7fb06599966980917cb4e1f16e48337c1d3b445a3834f6726d2740152ca3e2f0",
+        "bytes": 12153
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/CollectionViewModel",
+        "class": "ModuleScript",
+        "source_sha256": "62e53368e014f69d6f58af0ad5e4638d74ca8c8b4a80d9361fd045fa6aa38dcd",
+        "bytes": 6113
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/CrateArt",
+        "class": "ModuleScript",
+        "source_sha256": "9a7943691386bd2bf3f0171fcea7ed3527b5ed3ea6819b713e75e93200fd4969",
+        "bytes": 4400
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/CrateReveal",
+        "class": "ModuleScript",
+        "source_sha256": "bfad4006e171457cb395d6c6a8b8eeda67eb4bfff254ea5e90925a7cf04d1734",
+        "bytes": 8655
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/Effects",
+        "class": "ModuleScript",
+        "source_sha256": "3dc75aa1f63101f0c7276f8e3c608655d2285c75110254906dec41749e9da789",
+        "bytes": 13007
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/ExtraFXData",
+        "class": "ModuleScript",
+        "source_sha256": "9d0620c824095d3b0fc5b46b5e56983de520ce261d6606252c2b955858568edc",
+        "bytes": 809
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/ExtraFXPart01",
+        "class": "ModuleScript",
+        "source_sha256": "360b2a28cf43e88399eb2a8deecf06a2da0b714e0bc526266439f3e8f58c22b3",
+        "bytes": 56015
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/ExtraFXPart02",
+        "class": "ModuleScript",
+        "source_sha256": "8bf8b0ccd9758d83bc506048f9c895525e2d987de67a9b67c04eb45ed295d39d",
+        "bytes": 56015
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/ExtraFXPart03",
+        "class": "ModuleScript",
+        "source_sha256": "616ce9b1fd0ef872a2a14d56ba13854c0ca0c13aa7b1f99a46465cfea23024fc",
+        "bytes": 56015
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/ExtraFXPart04",
+        "class": "ModuleScript",
+        "source_sha256": "5d889e84f3fc6adebca270bd74201183a4172dc86e7cd8e56d51be09ab3ed2de",
+        "bytes": 48107
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/FXCanvas",
+        "class": "ModuleScript",
+        "source_sha256": "ba4390865e28a4adb3409ff5f48dfc2127d12ef02c98177a1761ba209a71a0ec",
+        "bytes": 13473
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/HABCleanCosmeticsV15",
+        "class": "ModuleScript",
+        "source_sha256": "6f6dbd67a7cc11d5f12c8ebc298ec01014344e903410fe9ba0bfd9b9651919ce",
+        "bytes": 5032
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/HABEffectNames",
+        "class": "ModuleScript",
+        "source_sha256": "25d7467fff3617ff238fd38ab899c688c9e757aca85c6a8a5d882056400783d5",
+        "bytes": 10446
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/HABKillSoundPlayer",
+        "class": "ModuleScript",
+        "source_sha256": "74d925680b5e08403a56392d1cd8d202bab2fd3337a2e610eea54237968afaf9",
+        "bytes": 4162
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/HABKillSounds",
+        "class": "ModuleScript",
+        "source_sha256": "14c3b87fc96e55260b3796b4d956ef4a832ca2d7a87e92edcbb75d1c1a0ebf29",
+        "bytes": 2283
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/HABReferenceTheme",
+        "class": "ModuleScript",
+        "source_sha256": "22c4f9a52c2699a93b6a8162ab93679a8e507769d2f8926b9c56d91277ae5cbc",
+        "bytes": 13246
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/NativeFX",
+        "class": "ModuleScript",
+        "source_sha256": "a6048d60ee59855a51271a41178f02d28ebf59ddc5e52eba807c2a660cc2ca5f",
+        "bytes": 11367
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/Renderer",
+        "class": "ModuleScript",
+        "source_sha256": "7eb6d3cf8315f6e5143b4ec2277834e8b9fbc522584154367e20a9a6fcebd205",
+        "bytes": 8223
+      },
+      {
+        "path": "ReplicatedStorage/HABHalloween/Settings",
+        "class": "ModuleScript",
+        "source_sha256": "407847de56d66f04da763bc796a8dc669ac3f22f29fa81666effa80a3ebbf077",
+        "bytes": 1831
+      },
+      {
+        "path": "ReplicatedStorage/HABModalV15",
+        "class": "ModuleScript",
+        "source_sha256": "f3fc4ca23e7b8deb8978d3dc7edd66772bcf2bccd876e502dbc05606a2a1fb42",
+        "bytes": 1060
+      },
+      {
+        "path": "ReplicatedStorage/HABMonetizationConfigV15",
+        "class": "ModuleScript",
+        "source_sha256": "aa0b372cd3324297166ef94ef62c85996f7b0634cb1597f52a281514b35496b8",
+        "bytes": 2242
+      },
+      {
+        "path": "ReplicatedStorage/HABUILayoutV15",
+        "class": "ModuleScript",
+        "source_sha256": "d714ccd920cde1461d4d23610248f51bf2668a09daa1b957e6334357f34acc57",
+        "bytes": 1362
+      },
+      {
+        "path": "ReplicatedStorage/HussCatalogV11",
+        "class": "ModuleScript",
+        "source_sha256": "d9b39136108549548fb45b1236a092910b98b077a0e9e0d106e7988063f9f266",
+        "bytes": 12348
+      },
+      {
+        "path": "ReplicatedStorage/Modules/FootstepModule",
+        "class": "ModuleScript",
+        "source_sha256": "28924112339a52abb1adc15728a66901a997ae615ad98a09d72e1db94a8f0c8c",
+        "bytes": 6221
+      },
+      {
+        "path": "ReplicatedStorage/Modules/FootstepModule/Footsteps/Default",
+        "class": "ModuleScript",
+        "source_sha256": "818d35abde5401f18bda769297b07caf3dc0fdf553c465dc5e4638ccdfbedd3f",
+        "bytes": 6819
+      },
+      {
+        "path": "ReplicatedStorage/Modules/FootstepModule/Footsteps/Fart",
+        "class": "ModuleScript",
+        "source_sha256": "33a608e6902526dbbe7dbe0553dcc8802ce145ff3b702f7278278ac5db790799",
+        "bytes": 1355
+      },
+      {
+        "path": "ReplicatedStorage/Modules/FootstepModule/Footsteps/Water",
+        "class": "ModuleScript",
+        "source_sha256": "4ff5d8a4cada0e3cfc3e6f5f6dac9a8cb92e42fd4564e5d40af6ac8601cd9a32",
+        "bytes": 2677
+      },
+      {
+        "path": "ReplicatedStorage/Modules/FootstepModule/Jumping/Default",
+        "class": "ModuleScript",
+        "source_sha256": "8fc9c6b3a86e1b3e555056915392908ffa7b1d4b117f7dd23247c49164e354c1",
+        "bytes": 2750
+      },
+      {
+        "path": "ReplicatedStorage/Modules/FootstepModule/Jumping/Fart",
+        "class": "ModuleScript",
+        "source_sha256": "28914385dbe9da8ac5592f7d735e647e8f187fd1c3642b0a058442c53ec67942",
+        "bytes": 1353
+      },
+      {
+        "path": "ReplicatedStorage/Modules/FootstepModule/Jumping/Water",
+        "class": "ModuleScript",
+        "source_sha256": "a990aa373647dbb39023e165fd229bf4926f04820e857d369f65dbaff9051eed",
+        "bytes": 2522
+      },
+      {
+        "path": "ReplicatedStorage/Modules/FootstepModule/Landing/Default",
+        "class": "ModuleScript",
+        "source_sha256": "0f99d0470e6d728fa28f54e99242979dff14ebf7176d2899699613b08ed6ce6e",
+        "bytes": 3214
+      },
+      {
+        "path": "ReplicatedStorage/Modules/FootstepModule/Landing/Fart",
+        "class": "ModuleScript",
+        "source_sha256": "a940495ebba9aa4528e1eac60db7befa9688122288e3f42321cf16f05b53a810",
+        "bytes": 1354
+      },
+      {
+        "path": "ReplicatedStorage/Modules/FootstepModule/Landing/Water",
+        "class": "ModuleScript",
+        "source_sha256": "3675d33a5f0ead94f81d65e7bcb4e2c2190bd9d6c107b221a633b72b89df17d8",
+        "bytes": 2541
+      },
+      {
+        "path": "ReplicatedStorage/Shared/Config/AnimationConfig",
+        "class": "ModuleScript",
+        "source_sha256": "f802414f6848b073f1040a4a8aceb0ab9050424df1fd14f2a7c92c1d9dff344b",
+        "bytes": 2797
+      },
+      {
+        "path": "ReplicatedStorage/Shared/Config/GameConfig",
+        "class": "ModuleScript",
+        "source_sha256": "c8fb8ccd2f942e78906ae0321492812462a033995a493507a9484e527697519d",
+        "bytes": 3069
+      },
+      {
+        "path": "ReplicatedStorage/Shared/Config/MovementConfig",
+        "class": "ModuleScript",
+        "source_sha256": "5403a3ea345c695c9eaaa7e8845dd2d61c11ad1678fa44c957476284b9578733",
+        "bytes": 3907
+      },
+      {
+        "path": "ReplicatedStorage/Shared/Net/Remotes",
+        "class": "ModuleScript",
+        "source_sha256": "c4765559c7d728fd53ceb3b67394a8c92764db91c78ecd49cd1bb3857201cb5d",
+        "bytes": 1719
+      },
+      {
+        "path": "ServerScriptService/BombTagAFKServer",
+        "class": "Script",
+        "source_sha256": "fa6129c22b79c2fbc14122e856c65e6074640d6799ca4ebf719ed1429148f915",
+        "bytes": 3769
+      },
+      {
+        "path": "ServerScriptService/BombTagMapVoteServer",
+        "class": "Script",
+        "source_sha256": "a1f67d7a2c164914b223aca542b0c9af55635a8427d098400dbb902ef1b8df80",
+        "bytes": 8652
+      },
+      {
+        "path": "ServerScriptService/DodgeIFrameServer",
+        "class": "Script",
+        "source_sha256": "84486d9b964341c58016315f0afd56695ca6aa1a6098c4a5cc441709a6f0db75",
+        "bytes": 10847
+      },
+      {
+        "path": "ServerScriptService/HABCrateBoot",
+        "class": "Script",
+        "source_sha256": "5789d01fd9a98559ba259461d6c277a52d52a93e05c5498cb43e8b7d7b888039",
+        "bytes": 706
+      },
+      {
+        "path": "ServerScriptService/ServerScriptService/DeathRespawnHandler",
+        "class": "Script",
+        "source_sha256": "0b75a75b69e6c9359546cb44dcc25587f3923846b55f734cc712edd3a806f69c",
+        "bytes": 1236
+      },
+      {
+        "path": "ServerScriptService/ServerScriptService/DisableDefaultShiftLock",
+        "class": "Script",
+        "source_sha256": "fd47e8226278f6a56ba6284e8c7df6663c3c154781fde167e2fc114bc5f5b4b5",
+        "bytes": 148
+      },
+      {
+        "path": "ServerScriptService/ServerScriptService/NoCollision",
+        "class": "Script",
+        "source_sha256": "7679db85dc2315741765b9635462e09cadcb60c188a0bbe542b2346b1e224b9f",
+        "bytes": 765
+      },
+      {
+        "path": "ServerScriptService/ServerScriptService/R6Ragdoll",
+        "class": "Script",
+        "source_sha256": "b899fadb2e53b435dc926da41adc9704385c5188a1d9f28f305e409baa99aca6",
+        "bytes": 2259
+      },
+      {
+        "path": "ServerScriptService/ServerScriptService/R6Ragdoll/ModuleScript",
+        "class": "ModuleScript",
+        "source_sha256": "bdba76b2689a3ffd6300aab439d7fc45fea83033432662c821771245751b99b7",
+        "bytes": 2688
+      },
+      {
+        "path": "ServerScriptService/ServerScriptService/R6Ragdoll/R6NPCRagdoll",
+        "class": "Script",
+        "source_sha256": "585418ca438f150110cb2fb2fb1f5ff96a7d03e0c40f7bedafc5c67cd0190bdb",
+        "bytes": 77
+      },
+      {
+        "path": "ServerScriptService/ServerScriptService/R6Ragdoll/R6RagdollClient",
+        "class": "LocalScript",
+        "source_sha256": "ffb36b96c96956b5144939565b4ac59c97f01ebdd476e4f12557c7d0108f0e71",
+        "bytes": 822
+      },
+      {
+        "path": "ServerScriptService/ServerScriptService/TrueHealthController",
+        "class": "Script",
+        "source_sha256": "d8d64e3e0573c851b82340f239de7794dfa33dc116f4aa9d5f91fd89fe483790",
+        "bytes": 1278
+      },
+      {
+        "path": "ServerScriptService/Services/BombService",
+        "class": "ModuleScript",
+        "source_sha256": "9c6804582a08abc503138827520386c26fe66d5d6f9d23d346f0ccab6b3dca91",
+        "bytes": 10662
+      },
+      {
+        "path": "ServerScriptService/Services/BombTagMapVoteServiceV6",
+        "class": "ModuleScript",
+        "source_sha256": "89bc87fb26ee7468ad5c86a4ecdd150bbfea83292914002583b6667899c0a0bf",
+        "bytes": 4996
+      },
+      {
+        "path": "ServerScriptService/Services/CosmeticsServiceV11",
+        "class": "ModuleScript",
+        "source_sha256": "38d716361d4adcef98e492d995e11b060ee12d678c1f67d7600989e504dc655b",
+        "bytes": 5237
+      },
+      {
+        "path": "ServerScriptService/Services/EconomyServiceV9",
+        "class": "ModuleScript",
+        "source_sha256": "345765ebf39ca25b999b9d7c4ff0846fa4fa98d9d12f11d88f74f6e052c66dd3",
+        "bytes": 54460
+      },
+      {
+        "path": "ServerScriptService/Services/HABActionService",
+        "class": "ModuleScript",
+        "source_sha256": "97f6336f1d6fcff6275d69f79e23c9c871771dfc843e2850e63bcd92e7869ddb",
+        "bytes": 19393
+      },
+      {
+        "path": "ServerScriptService/Services/HABCrateInventoryRules",
+        "class": "ModuleScript",
+        "source_sha256": "32b2af4fc46d6b18bcbcdb85cb0b46be3abd6b9a9164f10334257b50b30b68ba",
+        "bytes": 4156
+      },
+      {
+        "path": "ServerScriptService/Services/HABCrateService",
+        "class": "ModuleScript",
+        "source_sha256": "41900a551b8fc89da54dacbd558d441b39ce9f3075e7d9cb26ea5d9041bc138d",
+        "bytes": 12126
+      },
+      {
+        "path": "ServerScriptService/Services/HABGemPurchases",
+        "class": "ModuleScript",
+        "source_sha256": "6f379b96cc29eb6e294f454ee70226337ea9aa4112ad42c8f0d4682cdedc1022",
+        "bytes": 5176
+      },
+      {
+        "path": "ServerScriptService/Services/HABPassService",
+        "class": "ModuleScript",
+        "source_sha256": "9cc9ab2f7bb74137a8a6dcbfcdcbe9cdb7937b3ab7aa04daee88a8e0dc9426cf",
+        "bytes": 9042
+      },
+      {
+        "path": "ServerScriptService/Services/HABRetirementRules",
+        "class": "ModuleScript",
+        "source_sha256": "079bffcc6af83dea90c31e8c9cc12c03b4ba3715fcdddf5df873725778fd79d4",
+        "bytes": 4408
+      },
+      {
+        "path": "ServerScriptService/Services/MapService",
+        "class": "ModuleScript",
+        "source_sha256": "10933520c40f30bab3d0379d9e8bd7bd3f46427bd9e61a6cf1d51bb87710ea43",
+        "bytes": 2177
+      },
+      {
+        "path": "ServerScriptService/Services/OwnerCommandsV12",
+        "class": "ModuleScript",
+        "source_sha256": "dd03c0d2d35d4b9d170fa25058c60208ccacd88f995ba9a2e995ab9e8a1c4df5",
+        "bytes": 5995
+      },
+      {
+        "path": "ServerScriptService/Services/PerfectWeaveServiceV11",
+        "class": "ModuleScript",
+        "source_sha256": "e4edbce30f9759a5aab6b8e8341f3384f529020c50b1faba6f81da8f83ade781",
+        "bytes": 2300
+      },
+      {
+        "path": "ServerScriptService/Services/PracticeServiceV11",
+        "class": "ModuleScript",
+        "source_sha256": "373b534e894bade985726a11f3d734467d37f87b521e23e84e9659bfb9409bf1",
+        "bytes": 15229
+      },
+      {
+        "path": "ServerScriptService/Services/RoundService",
+        "class": "ModuleScript",
+        "source_sha256": "08ff6d80706b859e642aa93ad5db15311e5b7b373bca045c4e98f4accc5704c7",
+        "bytes": 21043
+      },
+      {
+        "path": "ServerScriptService/Services/ServerMain",
+        "class": "Script",
+        "source_sha256": "cc28aa182a31eca4705df640caa33db01991c12104e6b076d69fb431774bf372",
+        "bytes": 1050
+      },
+      {
+        "path": "ServerScriptService/SunsetDocksTerrainV9",
+        "class": "Script",
+        "source_sha256": "dfb5fceeba87c576a077ff8b0780e448d98eed8c2b874bf1502cc4d70b69556c",
+        "bytes": 2995
+      },
+      {
+        "path": "ServerStorage/ExpansionV11Backup_1791726024/Scripts/BombService",
+        "class": "ModuleScript",
+        "source_sha256": "e10274268dfa54bba756f83897ec679e00989487e2e0afd9d76b362d8c5a34b3",
+        "bytes": 12904
+      },
+      {
+        "path": "ServerStorage/ExpansionV11Backup_1791726024/Scripts/HudController",
+        "class": "ModuleScript",
+        "source_sha256": "349cadf636ac84ba17077d3bcad7060a2c54f9892d4a191c12f67f17777cde6b",
+        "bytes": 43157
+      },
+      {
+        "path": "ServerStorage/ExpansionV11Backup_1791726024/Scripts/MovementEffectsV8",
+        "class": "LocalScript",
+        "source_sha256": "b4eda6060bbd8aa7c85532008bed08a5559a2f494d27063cc5d766be79587779",
+        "bytes": 8341
+      },
+      {
+        "path": "ServerStorage/ExpansionV11Backup_1791726024/Scripts/RoundService",
+        "class": "ModuleScript",
+        "source_sha256": "80005213be1419f0e7b0f96a2af9a6b5c69541cd1e03d055a48b8b4a3dbc550a",
+        "bytes": 21588
+      },
+      {
+        "path": "ServerStorage/ExpansionV11Backup_1791726024/Scripts/ServerMain",
+        "class": "Script",
+        "source_sha256": "3ee3aadaf604a8bd7d17b3526b365552da360750a41a1a7245bdf036ffdcbd2c",
+        "bytes": 885
+      },
+      {
+        "path": "ServerStorage/ExpansionV11Backup_1791726024/Scripts/SnappyMovement",
+        "class": "LocalScript",
+        "source_sha256": "e0a4e4801f5f9dadf3d636266b426db94bb8f6711d7f8afcfa5071f95a76b792",
+        "bytes": 22072
+      },
+      {
+        "path": "ServerStorage/ExpansionV12Backup_1791727957/Scripts/BombService",
+        "class": "ModuleScript",
+        "source_sha256": "9e538cd154a5ec461bd4529e58a8e76bfb428bf88909f35f98e91760d30c6f11",
+        "bytes": 13683
+      },
+      {
+        "path": "ServerStorage/ExpansionV12Backup_1791727957/Scripts/CosmeticsServiceV11",
+        "class": "ModuleScript",
+        "source_sha256": "2f33bf6b345f7a1bc6ed5d41e4677cdc23d616dcc1a3970ef5eefee467a62fdc",
+        "bytes": 8706
+      },
+      {
+        "path": "ServerStorage/ExpansionV12Backup_1791727957/Scripts/EconomyServiceV9",
+        "class": "ModuleScript",
+        "source_sha256": "75cd02659df855905aabbc1a959dd65ec32a2efb351efbb192af77e3ff280405",
+        "bytes": 17653
+      },
+      {
+        "path": "ServerStorage/ExpansionV12Backup_1791727957/Scripts/HudController",
+        "class": "ModuleScript",
+        "source_sha256": "3225d0a30ad98fdc8bb719079ac842ca33892aa491109dd79fd93fdd8b3ce10c",
+        "bytes": 63384
+      },
+      {
+        "path": "ServerStorage/ExpansionV12Backup_1791727957/Scripts/HussCatalogV11",
+        "class": "ModuleScript",
+        "source_sha256": "128dca3b4a527eb707ee49f5dfcf0af397e1f0710fc21600dad823beab7a81b3",
+        "bytes": 7849
+      },
+      {
+        "path": "ServerStorage/GlossyEffectsBackup_1791698209/GameAudioV6",
+        "class": "LocalScript",
+        "source_sha256": "df07c969c7d3e2fd2fdf530018846f6b480fbdb60dd848877dade8b0df2537a6",
+        "bytes": 16700
+      },
+      {
+        "path": "ServerStorage/GlossyEffectsBackup_1791698209/HudController",
+        "class": "ModuleScript",
+        "source_sha256": "a881eab1267c547723d6932c22852e7d88d57970a18eb0dcf1da384790f02f62",
+        "bytes": 36594
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/27147_Renderer",
+        "class": "ModuleScript",
+        "source_sha256": "ca0e8c30d7b86bfb3b836a7f36d134fb8eaae113d669654715fdfd0571aa7021",
+        "bytes": 7840
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/27151_Settings",
+        "class": "ModuleScript",
+        "source_sha256": "0a31c781704db99982c21660d86d8fd79bc5fe5089aa2d28faeadd6cccbbfc22",
+        "bytes": 1727
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/27160_FXCanvas",
+        "class": "ModuleScript",
+        "source_sha256": "831a0e4089c10a1886c93a0e768521c23384b6bd8293bd1033ecfb60e28087e9",
+        "bytes": 9097
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/27161_HABReferenceTheme",
+        "class": "ModuleScript",
+        "source_sha256": "8d3d199f6be85acc9bc5a7e7ab47040e36e2b109d78a3a198080625b1ef93240",
+        "bytes": 11993
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/27167_Config",
+        "class": "ModuleScript",
+        "source_sha256": "600ba38c2af5d2636c1bf9e4898469fb73976820c3c95bd3c35e5ea805450319",
+        "bytes": 8665
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/27168_CombatRules",
+        "class": "ModuleScript",
+        "source_sha256": "7963103a7d5565282794ec111386e96b1b263e246e83bd08a646d2978fb6bab0",
+        "bytes": 2232
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/27172_HABCombatHUD",
+        "class": "ModuleScript",
+        "source_sha256": "d9449d2f3b6013dd18bf04a86044c24953adc1395ad81c315ddee71fa4a39cac",
+        "bytes": 16497
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/27176_BombService",
+        "class": "ModuleScript",
+        "source_sha256": "aedc12a33e9a4657f1d4a76b59b38ba3e40053fb6af8c498658da4c6f9aa88a8",
+        "bytes": 10571
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/27183_PracticeServiceV11",
+        "class": "ModuleScript",
+        "source_sha256": "fdba8f440957472f4d88aca083d650a8c74cb024d54edd7a76a1d3d962d3a9a3",
+        "bytes": 15247
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/27186_HABCrateService",
+        "class": "ModuleScript",
+        "source_sha256": "80f066fd5b163014a8118b5e99bbb609134541ca4f519c92ce919b69db928005",
+        "bytes": 12147
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/27187_HABGemPurchases",
+        "class": "ModuleScript",
+        "source_sha256": "1e0bdd209f00afab6de02da08809cc0bded4ff2ec7da0b8f9cd9f223cf1dfe0b",
+        "bytes": 2269
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/27189_HABActionService",
+        "class": "ModuleScript",
+        "source_sha256": "701fca7c16cffcdb879fa0481f5b50762f93d6067c301e4eeffa99b6a28df88a",
+        "bytes": 16752
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/27190_HABPassService",
+        "class": "ModuleScript",
+        "source_sha256": "3797efb60df9d14246b49c38b7194931fce3812baa21c7ff91b06234a2b95d88",
+        "bytes": 4884
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/27217_DodgeIFrameServer",
+        "class": "Script",
+        "source_sha256": "69c232bd6935b5b03de51816b1391740c3807870ac470a178f91546762098b32",
+        "bytes": 9995
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/8417_HudController",
+        "class": "ModuleScript",
+        "source_sha256": "3d9bfdabbd1c881c985968109ee57b43c3c7c1a007e29fc9216ca6bba3f1044f",
+        "bytes": 66229
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/8432_SnappyMovement",
+        "class": "LocalScript",
+        "source_sha256": "1f9edc588a52a5098fc7ae9e88884bd60ffec317da3b2283732b66e363875af5",
+        "bytes": 23142
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/8443_CarrierPanicV12",
+        "class": "LocalScript",
+        "source_sha256": "f7ddcc5c41d731441b99676b0a526941f0a868d9971d45029e950533b5615759",
+        "bytes": 13720
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/8444_StandShopV12",
+        "class": "LocalScript",
+        "source_sha256": "fb7315fa555dc558714cd8747d2b6b19a6a0b585b678d48e6e171777df3e5ed5",
+        "bytes": 17769
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/8445_HABHalloweenEffects",
+        "class": "LocalScript",
+        "source_sha256": "a2b87b26310399c9ffd72a01792ea6ed248d6bf65b0f00eb5928214c2e9d93da",
+        "bytes": 9164
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/8446_HABCrateShopClient",
+        "class": "LocalScript",
+        "source_sha256": "547d211c82b3f3cc31facbcc1334b02e8b098a11b827c3e4c040ba6bc0f33a00",
+        "bytes": 37466
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/8447_HABCombatFX",
+        "class": "LocalScript",
+        "source_sha256": "c85f639fb743688c1bc572bf80b57621a61155fded0a3c96d1f36ddc87e8a9a2",
+        "bytes": 6524
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/8448_HABActionClient",
+        "class": "LocalScript",
+        "source_sha256": "485e08bcb9350f5f92eb9a33c839b40fbf8f4e7456148d56bd089a276da84e48",
+        "bytes": 14246
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/8449_HABExpansionClient",
+        "class": "LocalScript",
+        "source_sha256": "bd0e2f3a2ee1ee94cb8012a652074b708bc45d02fb27a2f1990c45d6b73c5916",
+        "bytes": 14425
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/8450_HABFunAbilityFX",
+        "class": "LocalScript",
+        "source_sha256": "decd3078c160662814cd115a6f9339712cbff5ced3cebef9112f9211b3b955be",
+        "bytes": 5351
+      },
+      {
+        "path": "ServerStorage/HABPolishV15FileBackup/Scripts/8481_Ui",
+        "class": "LocalScript",
+        "source_sha256": "58736f9ddb4fb6155928beed2ba1b1e05433ed9ff445c8e8e51aed7b3b6b9de6",
+        "bytes": 11366
+      },
+      {
+        "path": "ServerStorage/HudMotionBackup_1791694876/Animate",
+        "class": "LocalScript",
+        "source_sha256": "e0eeddcd72aab697d34889057cd95e71af7bb8593b45538e0912b4866c401319",
+        "bytes": 13341
+      },
+      {
+        "path": "ServerStorage/HudMotionBackup_1791694876/BombTagAFKClient",
+        "class": "LocalScript",
+        "source_sha256": "408716460ef0de731b0bd9580466d28e1bbb29ba134f422f62688f71282f3950",
+        "bytes": 3533
+      },
+      {
+        "path": "ServerStorage/HudMotionBackup_1791694876/BombTagVoteClientV6",
+        "class": "LocalScript",
+        "source_sha256": "9888b1b0ce7de0d2f3c19c1a01d468a3fea7f46b41ef8c208266a3fdd4c9dfc0",
+        "bytes": 7311
+      },
+      {
+        "path": "ServerStorage/HudMotionBackup_1791694876/DodgeIFrameServer",
+        "class": "Script",
+        "source_sha256": "7137216dd8d2167e6ff7621cb4cc4e704173c9966a0fb4b50696a7cbd1f4ecd6",
+        "bytes": 9272
+      },
+      {
+        "path": "ServerStorage/HudMotionBackup_1791694876/HudController",
+        "class": "ModuleScript",
+        "source_sha256": "0f6ae11073a7b2a98c95c07f16c3e27621c94801fcf8e51f7ebd21afeb974da0",
+        "bytes": 33162
+      },
+      {
+        "path": "ServerStorage/HudMotionBackup_1791694876/SnappyMovement",
+        "class": "LocalScript",
+        "source_sha256": "e0e0f78ed8ec21a71b5982d8264d2bd78b7c2c81ee765306d8a2994e33d9ea0f",
+        "bytes": 21244
+      },
+      {
+        "path": "ServerStorage/LobbyAudioActionBackup_1791696392/DodgeWeaveV5",
+        "class": "LocalScript",
+        "source_sha256": "749fdbf43428fc0fe5139b865ee629efdb0960066c059f06a90e9fdcaaf67f1b",
+        "bytes": 9836
+      },
+      {
+        "path": "ServerStorage/LobbyAudioActionBackup_1791696392/HudController",
+        "class": "ModuleScript",
+        "source_sha256": "310e4c6962f85ba43d2b6e57da344ffc9c80db97476e4390f4e465afc34b1c0c",
+        "bytes": 35842
+      },
+      {
+        "path": "ServerStorage/LobbyAudioActionBackup_1791696392/SnappyMovement",
+        "class": "LocalScript",
+        "source_sha256": "eaf978396a0d8797904932b51909012c95177dd820a9039500eed06dddc7df6c",
+        "bytes": 21262
+      },
+      {
+        "path": "ServerStorage/MovementMapsBackup_1791693230/BombTagVoteClientV6",
+        "class": "LocalScript",
+        "source_sha256": "d757d006ae7929aac3c683602912b630fdce65cdc30df2c3dccf9eb3482cd37a",
+        "bytes": 6856
+      },
+      {
+        "path": "ServerStorage/MovementMapsBackup_1791693230/HudController",
+        "class": "ModuleScript",
+        "source_sha256": "1a38f37f630612a35fd2d7ef139b6902e6159c9d15943762900dd77d5ca71119",
+        "bytes": 33130
+      },
+      {
+        "path": "ServerStorage/MovementMapsBackup_1791693230/SunsetDocksTerrainV9",
+        "class": "Script",
+        "source_sha256": "dfb5fceeba87c576a077ff8b0780e448d98eed8c2b874bf1502cc4d70b69556c",
+        "bytes": 2995
+      },
+      {
+        "path": "ServerStorage/PlayerModule",
+        "class": "ModuleScript",
+        "source_sha256": "12ec70b02aa3cf92c03c804bbe0bb59faef7f4e78f148625dd2401994423f3b3",
+        "bytes": 824
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule",
+        "class": "ModuleScript",
+        "source_sha256": "e040580c9cbc4f0a53fadbdb139baaa80d165c0048d137b7e2f676d8f3e76315",
+        "bytes": 23490
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/BaseCamera",
+        "class": "ModuleScript",
+        "source_sha256": "2510a3dda259e81b6f9bfb815b054aa0ce401eeb8a0cb7db69d224c001af5305",
+        "bytes": 27753
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/BaseOcclusion",
+        "class": "ModuleScript",
+        "source_sha256": "dc7b9800cdd6aee1371420ba4f68563f0d5ce89425e3db297733fb845d2e1d0a",
+        "bytes": 1455
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/CameraInput",
+        "class": "ModuleScript",
+        "source_sha256": "d8dbc45e06db75766e44988a34e0a28dd7e4f462ee46bc08fefd3924c102eca3",
+        "bytes": 16077
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/CameraToggleStateController",
+        "class": "ModuleScript",
+        "source_sha256": "aeafc4cb287dbab770faa021199a20a4e24b82004e5f8abd5f512b46dddce0bf",
+        "bytes": 2564
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/CameraUI",
+        "class": "ModuleScript",
+        "source_sha256": "3308f59a9795c506d1ec93469601cc0c6d9bb0d3caa1867013bfa3778a9d46bb",
+        "bytes": 784
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/CameraUtils",
+        "class": "ModuleScript",
+        "source_sha256": "818f160733e1953b758a29915a695b316c7fd72e407dc0d5eff1906cb48c5503",
+        "bytes": 9321
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/ClassicCamera",
+        "class": "ModuleScript",
+        "source_sha256": "a36551dba34edd7cdd8b13b91dd4d389c9230eab40ab77ca9be424edd279211b",
+        "bytes": 9474
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/Invisicam",
+        "class": "ModuleScript",
+        "source_sha256": "f1a59cb284ac005cd26231033b5bb01ded7aff89583debcc0ea60c11cf92fcb1",
+        "bytes": 20341
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/LegacyCamera",
+        "class": "ModuleScript",
+        "source_sha256": "4fcccdb29893230bd8f8ee160d32b4c10c809b7da2a8096e9e26bd52f3ecda49",
+        "bytes": 3967
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/MouseLockController",
+        "class": "ModuleScript",
+        "source_sha256": "e97d4eb8f525eaea5e34eff459c3ad7695eb749f2e3d08db03887d74a2d4719e",
+        "bytes": 7105
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/OrbitalCamera",
+        "class": "ModuleScript",
+        "source_sha256": "01d0d9e0edaf98b97f5e324fd02c6c29823ddd6faa4f2084296c1195c5bf9cce",
+        "bytes": 14055
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/Poppercam",
+        "class": "ModuleScript",
+        "source_sha256": "daf92c3191626221986746579b472fae21557b3f89a885583f274261fe13166b",
+        "bytes": 3160
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/TransparencyController",
+        "class": "ModuleScript",
+        "source_sha256": "c94f11a84072a5e464289d4a722dc3afab1f9c9b0ed3dcf37ad636b4d61e3e78",
+        "bytes": 5911
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/VRBaseCamera",
+        "class": "ModuleScript",
+        "source_sha256": "bf0dabe8ec648fcf38cfe72162c180667be76da170dcccaf61c97ee00515f400",
+        "bytes": 13057
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/VRCamera",
+        "class": "ModuleScript",
+        "source_sha256": "e8194af907f9932c40bb79dbe7bcf04aef1787cdacf6a7805bf0c035f37ce30c",
+        "bytes": 16179
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/VRVehicleCamera",
+        "class": "ModuleScript",
+        "source_sha256": "185c41a839b86f8259dee8049966cf24a94547d24302b8e809bdd24ff2e45c8a",
+        "bytes": 7378
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/VehicleCamera",
+        "class": "ModuleScript",
+        "source_sha256": "3e3997f9fd87f9b9cec375156a88cd96f3b47cf961af275ea7a092e97988c3d3",
+        "bytes": 7072
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/VehicleCamera/VehicleCameraConfig",
+        "class": "ModuleScript",
+        "source_sha256": "cee8b4915863c5549332f66e7293604d18a472e3c43834e44a3a4027831c5956",
+        "bytes": 2011
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/VehicleCamera/VehicleCameraCore",
+        "class": "ModuleScript",
+        "source_sha256": "6f69833e64f5c115509553539afaf0a40d74311f0ec884954329ab7566e901b2",
+        "bytes": 4860
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/ZoomController",
+        "class": "ModuleScript",
+        "source_sha256": "6bd989754a4d577dcc82cac9a56de40a7f95427810c480e5c24239b3162d0b38",
+        "bytes": 3735
+      },
+      {
+        "path": "ServerStorage/PlayerModule/CameraModule/ZoomController/Popper",
+        "class": "ModuleScript",
+        "source_sha256": "640a0273c9ebc049b81026cb2a28d76d0366244aa455457cacdb3ae955ad904a",
+        "bytes": 9341
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule",
+        "class": "ModuleScript",
+        "source_sha256": "8e4b089de668c535096714e38ff52fa172e7900db7c043871c3cb1ab1881617f",
+        "bytes": 25915
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/BaseCharacterController",
+        "class": "ModuleScript",
+        "source_sha256": "7561e06f4447df302f653d3a7b6efe29b24563cc58d6e2bd8d74eec84384ccde",
+        "bytes": 1401
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/ClickToMoveController",
+        "class": "ModuleScript",
+        "source_sha256": "6527e528bf55075b6b879d9d0c9e1886156532d40bc50bd44fd20a0796a74830",
+        "bytes": 36659
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/ClickToMoveDisplay",
+        "class": "ModuleScript",
+        "source_sha256": "3aae87e2a5c1aaad29e0f7dfba8b4fbe6ef49f9695d03afc48ece1133fcd5063",
+        "bytes": 17009
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/DynamicThumbstick",
+        "class": "ModuleScript",
+        "source_sha256": "11830e4ae621e4b0f36dab4f6a068151354147c1b393ee48878167137b21cf67",
+        "bytes": 20455
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/Gamepad",
+        "class": "ModuleScript",
+        "source_sha256": "d21fbebf061fd79a7ccd39b5da3cc24103010da9426582e639fd41e4e95adeb3",
+        "bytes": 6809
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/Keyboard",
+        "class": "ModuleScript",
+        "source_sha256": "8458cddd061b5923f056cc05a471494afcfe1893169ad64dd5546f3bf00895d3",
+        "bytes": 6155
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/PathDisplay",
+        "class": "ModuleScript",
+        "source_sha256": "be80f8695ebcb9fd2f74c13130a340575dfeb3806623d04b617534df8e59f848",
+        "bytes": 3315
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/TouchJump",
+        "class": "ModuleScript",
+        "source_sha256": "5ff69f11e63804a1b336000d8f6d1a4369c4865f7b2800b9385d48b36892317a",
+        "bytes": 6166
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/TouchThumbstick",
+        "class": "ModuleScript",
+        "source_sha256": "903abf2199e9edc458674af11048d4d25fe4b8495014b2a0e76c2930e8b667ad",
+        "bytes": 8132
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/VRNavigation",
+        "class": "ModuleScript",
+        "source_sha256": "313531fb1c35ed71ea9c239876b49a774addc192b7d07a0636d240ed884dd182",
+        "bytes": 13574
+      },
+      {
+        "path": "ServerStorage/PlayerModule/ControlModule/VehicleController",
+        "class": "ModuleScript",
+        "source_sha256": "4031a1a3cf06584d503722f9ffcba711fd32e07456b1eff53d7c165e09638673",
+        "bytes": 6509
+      },
+      {
+        "path": "ServerStorage/ReferenceHUDBackup_1791700908/HudController",
+        "class": "ModuleScript",
+        "source_sha256": "860d1a318d33ace291bced30d44285717ec0b492db445706be612854b0e52ec5",
+        "bytes": 38397
+      },
+      {
+        "path": "ServerStorage/SimpleLobbyShiftLockBackup_1791697162/ForcedShiftLock",
+        "class": "LocalScript",
+        "source_sha256": "7f3845285418f0aa02f52bcb297193c0c979f684bc7ab4406ba56e7e648c2720",
+        "bytes": 14863
+      },
+      {
+        "path": "ServerStorage/SimpleLobbyShiftLockBackup_1791697162/GameAudioV6",
+        "class": "LocalScript",
+        "source_sha256": "c4b88e349fe942584b4a709baeab3efad5537061b9442afcc0a95302edf294c7",
+        "bytes": 17146
+      },
+      {
+        "path": "ServerStorage/SimpleLobbyShiftLockBackup_1791697162/HudController",
+        "class": "ModuleScript",
+        "source_sha256": "e86008febcefc6004fa2f483eea6d8c927365d85e067616a5750d29b5f41040d",
+        "bytes": 36621
+      },
+      {
+        "path": "ServerStorage/SimpleLobbyShiftLockBackup_1791697162/SnappyMovement",
+        "class": "LocalScript",
+        "source_sha256": "1ba15deb211d2f6abb3b43609e48a704b62d00314a8e5f317659766f38d79cfc",
+        "bytes": 21342
+      },
+      {
+        "path": "StarterGui/StarterGui/Bobbing Camera",
+        "class": "LocalScript",
+        "source_sha256": "6f2c72faa34fd416553e4d50fe8b89bf15503802f93b3e178a7fb5d615538d55",
+        "bytes": 7905
+      },
+      {
+        "path": "StarterGui/StarterGui/Ui",
+        "class": "LocalScript",
+        "source_sha256": "58736f9ddb4fb6155928beed2ba1b1e05433ed9ff445c8e8e51aed7b3b6b9de6",
+        "bytes": 11366
+      },
+      {
+        "path": "StarterPlayer/StarterCharacterScripts/Animate",
+        "class": "LocalScript",
+        "source_sha256": "b140eb9f148a1bd56b1621671c10a78c6f2f9dc808eaa1259763dfb8b1a05b5b",
+        "bytes": 6079
+      },
+      {
+        "path": "StarterPlayer/StarterCharacterScripts/Crouching",
+        "class": "LocalScript",
+        "source_sha256": "25adbbddc18ae4d121fb3b91beeda66a93168b237a7db9edec3679ad3a3efdbe",
+        "bytes": 21505
+      },
+      {
+        "path": "StarterPlayer/StarterCharacterScripts/CustomShiftLock",
+        "class": "LocalScript",
+        "source_sha256": "bfb87dde8f6e3cd329e7a58640e2b0e222dd9b0ff51250cbefe434bad2d1c8ba",
+        "bytes": 111
+      },
+      {
+        "path": "StarterPlayer/StarterCharacterScripts/CustomShiftLock/SmoothShiftLock",
+        "class": "ModuleScript",
+        "source_sha256": "840c3e8f9e2e81dafcb58110b10e6eddc7de2d4d74c6c7c2fbd3a3e6548631c8",
+        "bytes": 7226
+      },
+      {
+        "path": "StarterPlayer/StarterCharacterScripts/CustomShiftLock/SmoothShiftLock/Maid",
+        "class": "ModuleScript",
+        "source_sha256": "33ebc4f0e02dd677046ef94d4aad274a2632ce85ee3c290c04f66824225c6273",
+        "bytes": 4323
+      },
+      {
+        "path": "StarterPlayer/StarterCharacterScripts/CustomShiftLock/SmoothShiftLock/Spring",
+        "class": "ModuleScript",
+        "source_sha256": "e61e70509822fe606998e604a0404f7e09ddecbcb5df97803dc20a627aadc887",
+        "bytes": 5777
+      },
+      {
+        "path": "StarterPlayer/StarterCharacterScripts/FallSystem",
+        "class": "LocalScript",
+        "source_sha256": "db19da9a14e2f131b328ea38bc49038b99cb9ca03ce697247966d1600acf2eb2",
+        "bytes": 8960
+      },
+      {
+        "path": "StarterPlayer/StarterCharacterScripts/Turning",
+        "class": "LocalScript",
+        "source_sha256": "941224e4e2ff80a10be6f2eb5de157851209de123e79db823ff760c09a5d41ed",
+        "bytes": 9202
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/BombTagAFKClient",
+        "class": "LocalScript",
+        "source_sha256": "408716460ef0de731b0bd9580466d28e1bbb29ba134f422f62688f71282f3950",
+        "bytes": 3533
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/BombTagMapVoteClient",
+        "class": "LocalScript",
+        "source_sha256": "8747e233d95cfb40ce374d773fd7ff7fcdf2f39744c963f359415b73d72f27d7",
+        "bytes": 11856
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/BombTagVoteClientV6",
+        "class": "LocalScript",
+        "source_sha256": "9888b1b0ce7de0d2f3c19c1a01d468a3fea7f46b41ef8c208266a3fdd4c9dfc0",
+        "bytes": 7311
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/CarrierPanicV12",
+        "class": "LocalScript",
+        "source_sha256": "43db6967a19e0c0b408520b049fef0c6553f84928a6befc120127423a2b3f67e",
+        "bytes": 13895
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/ClientMain",
+        "class": "LocalScript",
+        "source_sha256": "1d2e4bd2960095c34369564a9cd0b1786dc84ca06ae3b4f0c797f27fe0cdc4b4",
+        "bytes": 1025
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/CollectionEffectsV11",
+        "class": "LocalScript",
+        "source_sha256": "fb53353bc62381f00a63113a93e87d9590ac77a7aa4597a7001e13f6393b0b29",
+        "bytes": 14864
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/Controllers/HudController",
+        "class": "ModuleScript",
+        "source_sha256": "75a2d31d09c8f05f46f5bac5e173cb22a61f19433b52da6bcbc3e7ecefbe6df6",
+        "bytes": 69963
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/Controllers/MovementAnimationController",
+        "class": "ModuleScript",
+        "source_sha256": "13af47fa738003d92044d7baa78a180509043af15f56d5d791eddcf4b9e3dc5b",
+        "bytes": 10482
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/Controllers/MovementController",
+        "class": "ModuleScript",
+        "source_sha256": "6bc825d3269582fd11a95e8746b23c99f4ad51b295e6e155e845261c5bad9224",
+        "bytes": 40257
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/DamageScreen",
+        "class": "LocalScript",
+        "source_sha256": "95017e41c0970906c1c2c8fd873b3d15df0bdb72ef59f8763e3739cf70cb204e",
+        "bytes": 4457
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/DeathScreenUI",
+        "class": "LocalScript",
+        "source_sha256": "8ee5b727378a77f88a0cde77abdb75dce4c325b93f74c78ef733f4644fa287c1",
+        "bytes": 18020
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/DodgeWeaveV5",
+        "class": "LocalScript",
+        "source_sha256": "349717f6514d4e09b5f8970cc23bd1e1d382a6782c587eb2a3a43c88d5b34e36",
+        "bytes": 9988
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/Footsteps",
+        "class": "LocalScript",
+        "source_sha256": "4f5036b04d164613c520df8dd495c06f0947a3d6099d2e7deaa7e1f37d786105",
+        "bytes": 9341
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/ForcedShiftLock",
+        "class": "LocalScript",
+        "source_sha256": "4ca517de534fad771eabdb04bd082c2b2fb6710f5e9c746990a4842c4de65a61",
+        "bytes": 14805
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/GameAudioV6",
+        "class": "LocalScript",
+        "source_sha256": "8438a0ccaa2eea6753d7293fc3e1b53911c00e9a1024570094cf53c2506c7000",
+        "bytes": 19446
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/HABActionClient",
+        "class": "LocalScript",
+        "source_sha256": "80f63c3062ab211effd1446f23437dbcd6cb056faf9fd918cab6c5bbc84dfa0f",
+        "bytes": 16700
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/HABCombatFX",
+        "class": "LocalScript",
+        "source_sha256": "73e827dac0b34d32475f8f9cbc42e83fd7aba98c8aadd6ed6d4ade5cd1ecd7f2",
+        "bytes": 6817
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/HABCrateShopClient",
+        "class": "LocalScript",
+        "source_sha256": "29df5c68205d2ec3d62662f2b82452afedc8db0edd836810c45a3a6d769bf6fe",
+        "bytes": 37721
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/HABExpansionClient",
+        "class": "LocalScript",
+        "source_sha256": "fe7fbe751e1807648ce3a6fa0881d07312d6088c9fff5d7928b546f1427370ff",
+        "bytes": 14153
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/HABFunAbilityFX",
+        "class": "LocalScript",
+        "source_sha256": "decd3078c160662814cd115a6f9339712cbff5ced3cebef9112f9211b3b955be",
+        "bytes": 5351
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/HABHalloweenEffects",
+        "class": "LocalScript",
+        "source_sha256": "3624c89e0916420e101e1a40d80b3393057e2a1473b9d2995b386e85eb773bbc",
+        "bytes": 8112
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/IK",
+        "class": "LocalScript",
+        "source_sha256": "ce7aa17c0e39a006620e96b69d9f2d2af72504cd68de7e6412f121de2cf5671a",
+        "bytes": 7457
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/LobbyBoardsV11",
+        "class": "LocalScript",
+        "source_sha256": "70c3a0ac56d52882191f8811a6838a087210efb30452b8cc6142852ebfe39629",
+        "bytes": 5189
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/MovementEffectsV8",
+        "class": "LocalScript",
+        "source_sha256": "520441b8a878636a9b2e9b06ca44dbe99afc008e94a47260817966de1d5b62df",
+        "bytes": 42229
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/OwnerFeedbackV12",
+        "class": "LocalScript",
+        "source_sha256": "568ebd8829b50e065dc249717f90480f6b8e9d8bc7a9403b6e6a064e4625db89",
+        "bytes": 2505
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/RbxCharacterSounds",
+        "class": "LocalScript",
+        "source_sha256": "080f683288fc9584ebe4a88da67d02debe9278fb9b0d9b0b80cc270e1a28aba7",
+        "bytes": 12989
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/RbxCharacterSounds/AtomicBinding",
+        "class": "ModuleScript",
+        "source_sha256": "26a2ecefe6cc3a7047b8406e9da8feeb1d57d57c1e2b7db477d70fa95693094c",
+        "bytes": 7745
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/SnappyMovement",
+        "class": "LocalScript",
+        "source_sha256": "1a613266f509468b520d4489cd4f2c0a562a6dd836aa9fefd2b4a433a87c94ae",
+        "bytes": 23118
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/StaminaSystem",
+        "class": "LocalScript",
+        "source_sha256": "0cc1c7beadf7f267b76b8a0c58d0c03431084c84be97e06cd659a5841ec65cb7",
+        "bytes": 15139
+      },
+      {
+        "path": "StarterPlayer/StarterPlayerScripts/StandShopV12",
+        "class": "LocalScript",
+        "source_sha256": "39eb522564555b968f700274760eae6ca1aee4ccbdaed99ffbe0151ab3c2ae3f",
+        "bytes": 17867
+      },
+      {
+        "path": "TestService/LuauLSP_Settings",
+        "class": "ModuleScript",
+        "source_sha256": "3725bb666745ffa8090661255682b1a36175986b3b917afe3a0819b91ae003bf",
+        "bytes": 1205
+      },
+      {
+        "path": "Workspace/READ ME",
+        "class": "Script",
+        "source_sha256": "59bea846cca9d53000eaf46026d01cc9721e772c3332b87261b71cd2fe092647",
+        "bytes": 80
+      },
+      {
+        "path": "Workspace/Read me",
+        "class": "Script",
+        "source_sha256": "49c8c944b6f9ab2479abc98f8975e28888cf92bddc03c355888d2f66ce35763c",
+        "bytes": 352
+      },
+      {
+        "path": "Workspace/Ultimate R6 Movement System by Arczi/IF U WANT ANIMS READ ME",
+        "class": "Script",
+        "source_sha256": "5c1143e0a31035fc12ac2a8475ab12ab059b2968cd63c5f89d923a39b7eeb470",
+        "bytes": 1305
+      }
+    ],
+    "physical_properties": {
+      "property_count": 95992,
+      "defaults": 95992,
+      "custom": 0,
+      "acoustic_absorption_not_one": 0,
+      "property_counts_by_class": {
+        "Part": 95671,
+        "SpawnLocation": 6,
+        "Terrain": 1,
+        "TrussPart": 45,
+        "WedgePart": 269
+      }
+    },
+    "supported_physical_discriminators": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "native_studio_tested": false
+  },
+  "limitations": [
+    "The decoder does not interpret a property type named in warnings; original binary chunks are retained by the packager.",
+    "Structural decoding and source hashes do not establish Roblox runtime behavior."
+  ],
+  "source_sha256": {
+    "tools/v15/modern-verify/src/main.rs": "6afbffb4ec93d24934efaa1d1d8f8af05a9b6de43bf8d70f36e87f11aa8f4032",
+    "tools/v15/modern-verify/Cargo.toml": "336a07ed8e7dad119a344202a32c7f6d969262828f884a1cc900275d0998e083",
+    "tools/v15/modern-verify/Cargo.lock": "a86ea3578b5b8b0c0938492a0e1ab82284a6d53e0301c1b4a54acc0f1ebfc1c7",
+    "tools/v15/verify_modern_rbxl.py": "16918fc97ee181acf7256c5e412ec97214b1a20b26472b7129a7892d2684ecfd"
+  }
+}

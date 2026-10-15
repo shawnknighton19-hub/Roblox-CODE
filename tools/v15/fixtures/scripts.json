@@ -1,0 +1,1028 @@
+[
+  {
+    "ref": 8420,
+    "path": "StarterPlayer/StarterPlayerScripts/DamageScreen",
+    "class": "LocalScript",
+    "bytes": 4457,
+    "disabled": true,
+    "source": "tools/v15/fixtures/8420_DamageScreen.luau",
+    "sha256": "95017e41c0970906c1c2c8fd873b3d15df0bdb72ef59f8763e3739cf70cb204e"
+  },
+  {
+    "ref": 8421,
+    "path": "StarterPlayer/StarterPlayerScripts/DeathScreenUI",
+    "class": "LocalScript",
+    "bytes": 18020,
+    "disabled": true,
+    "source": "tools/v15/fixtures/8421_DeathScreenUI.luau",
+    "sha256": "8ee5b727378a77f88a0cde77abdb75dce4c325b93f74c78ef733f4644fa287c1"
+  },
+  {
+    "ref": 8425,
+    "path": "StarterPlayer/StarterPlayerScripts/Footsteps",
+    "class": "LocalScript",
+    "bytes": 9341,
+    "disabled": true,
+    "source": "tools/v15/fixtures/8425_Footsteps.luau",
+    "sha256": "4f5036b04d164613c520df8dd495c06f0947a3d6099d2e7deaa7e1f37d786105"
+  },
+  {
+    "ref": 8426,
+    "path": "StarterPlayer/StarterPlayerScripts/IK",
+    "class": "LocalScript",
+    "bytes": 7457,
+    "disabled": true,
+    "source": "tools/v15/fixtures/8426_IK.luau",
+    "sha256": "ce7aa17c0e39a006620e96b69d9f2d2af72504cd68de7e6412f121de2cf5671a"
+  },
+  {
+    "ref": 8427,
+    "path": "StarterPlayer/StarterPlayerScripts/RbxCharacterSounds",
+    "class": "LocalScript",
+    "bytes": 12989,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8427_RbxCharacterSounds.luau",
+    "sha256": "080f683288fc9584ebe4a88da67d02debe9278fb9b0d9b0b80cc270e1a28aba7"
+  },
+  {
+    "ref": 8429,
+    "path": "StarterPlayer/StarterPlayerScripts/StaminaSystem",
+    "class": "LocalScript",
+    "bytes": 15139,
+    "disabled": true,
+    "source": "tools/v15/fixtures/8429_StaminaSystem.luau",
+    "sha256": "0cc1c7beadf7f267b76b8a0c58d0c03431084c84be97e06cd659a5841ec65cb7"
+  },
+  {
+    "ref": 8431,
+    "path": "StarterPlayer/StarterPlayerScripts/ClientMain",
+    "class": "LocalScript",
+    "bytes": 1025,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8431_ClientMain.luau",
+    "sha256": "1d2e4bd2960095c34369564a9cd0b1786dc84ca06ae3b4f0c797f27fe0cdc4b4"
+  },
+  {
+    "ref": 8432,
+    "path": "StarterPlayer/StarterPlayerScripts/SnappyMovement",
+    "class": "LocalScript",
+    "bytes": 23142,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8432_SnappyMovement.luau",
+    "sha256": "1f9edc588a52a5098fc7ae9e88884bd60ffec317da3b2283732b66e363875af5"
+  },
+  {
+    "ref": 8433,
+    "path": "StarterPlayer/StarterPlayerScripts/ForcedShiftLock",
+    "class": "LocalScript",
+    "bytes": 14805,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8433_ForcedShiftLock.luau",
+    "sha256": "4ca517de534fad771eabdb04bd082c2b2fb6710f5e9c746990a4842c4de65a61"
+  },
+  {
+    "ref": 8434,
+    "path": "StarterPlayer/StarterPlayerScripts/BombTagMapVoteClient",
+    "class": "LocalScript",
+    "bytes": 11856,
+    "disabled": true,
+    "source": "tools/v15/fixtures/8434_BombTagMapVoteClient.luau",
+    "sha256": "8747e233d95cfb40ce374d773fd7ff7fcdf2f39744c963f359415b73d72f27d7"
+  },
+  {
+    "ref": 8435,
+    "path": "StarterPlayer/StarterPlayerScripts/BombTagAFKClient",
+    "class": "LocalScript",
+    "bytes": 3533,
+    "disabled": true,
+    "source": "tools/v15/fixtures/8435_BombTagAFKClient.luau",
+    "sha256": "408716460ef0de731b0bd9580466d28e1bbb29ba134f422f62688f71282f3950"
+  },
+  {
+    "ref": 8436,
+    "path": "StarterPlayer/StarterPlayerScripts/BombTagVoteClientV6",
+    "class": "LocalScript",
+    "bytes": 7311,
+    "disabled": true,
+    "source": "tools/v15/fixtures/8436_BombTagVoteClientV6.luau",
+    "sha256": "9888b1b0ce7de0d2f3c19c1a01d468a3fea7f46b41ef8c208266a3fdd4c9dfc0"
+  },
+  {
+    "ref": 8437,
+    "path": "StarterPlayer/StarterPlayerScripts/DodgeWeaveV5",
+    "class": "LocalScript",
+    "bytes": 9988,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8437_DodgeWeaveV5.luau",
+    "sha256": "349717f6514d4e09b5f8970cc23bd1e1d382a6782c587eb2a3a43c88d5b34e36"
+  },
+  {
+    "ref": 8438,
+    "path": "StarterPlayer/StarterPlayerScripts/GameAudioV6",
+    "class": "LocalScript",
+    "bytes": 19446,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8438_GameAudioV6.luau",
+    "sha256": "8438a0ccaa2eea6753d7293fc3e1b53911c00e9a1024570094cf53c2506c7000"
+  },
+  {
+    "ref": 8439,
+    "path": "StarterPlayer/StarterPlayerScripts/MovementEffectsV8",
+    "class": "LocalScript",
+    "bytes": 42229,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8439_MovementEffectsV8.luau",
+    "sha256": "520441b8a878636a9b2e9b06ca44dbe99afc008e94a47260817966de1d5b62df"
+  },
+  {
+    "ref": 8440,
+    "path": "StarterPlayer/StarterPlayerScripts/CollectionEffectsV11",
+    "class": "LocalScript",
+    "bytes": 14864,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8440_CollectionEffectsV11.luau",
+    "sha256": "fb53353bc62381f00a63113a93e87d9590ac77a7aa4597a7001e13f6393b0b29"
+  },
+  {
+    "ref": 8441,
+    "path": "StarterPlayer/StarterPlayerScripts/LobbyBoardsV11",
+    "class": "LocalScript",
+    "bytes": 5189,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8441_LobbyBoardsV11.luau",
+    "sha256": "70c3a0ac56d52882191f8811a6838a087210efb30452b8cc6142852ebfe39629"
+  },
+  {
+    "ref": 8442,
+    "path": "StarterPlayer/StarterPlayerScripts/OwnerFeedbackV12",
+    "class": "LocalScript",
+    "bytes": 2505,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8442_OwnerFeedbackV12.luau",
+    "sha256": "568ebd8829b50e065dc249717f90480f6b8e9d8bc7a9403b6e6a064e4625db89"
+  },
+  {
+    "ref": 8443,
+    "path": "StarterPlayer/StarterPlayerScripts/CarrierPanicV12",
+    "class": "LocalScript",
+    "bytes": 13720,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8443_CarrierPanicV12.luau",
+    "sha256": "f7ddcc5c41d731441b99676b0a526941f0a868d9971d45029e950533b5615759"
+  },
+  {
+    "ref": 8444,
+    "path": "StarterPlayer/StarterPlayerScripts/StandShopV12",
+    "class": "LocalScript",
+    "bytes": 17769,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8444_StandShopV12.luau",
+    "sha256": "fb7315fa555dc558714cd8747d2b6b19a6a0b585b678d48e6e171777df3e5ed5"
+  },
+  {
+    "ref": 8445,
+    "path": "StarterPlayer/StarterPlayerScripts/HABHalloweenEffects",
+    "class": "LocalScript",
+    "bytes": 9164,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8445_HABHalloweenEffects.luau",
+    "sha256": "a2b87b26310399c9ffd72a01792ea6ed248d6bf65b0f00eb5928214c2e9d93da"
+  },
+  {
+    "ref": 8446,
+    "path": "StarterPlayer/StarterPlayerScripts/HABCrateShopClient",
+    "class": "LocalScript",
+    "bytes": 37466,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8446_HABCrateShopClient.luau",
+    "sha256": "547d211c82b3f3cc31facbcc1334b02e8b098a11b827c3e4c040ba6bc0f33a00"
+  },
+  {
+    "ref": 8447,
+    "path": "StarterPlayer/StarterPlayerScripts/HABCombatFX",
+    "class": "LocalScript",
+    "bytes": 6524,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8447_HABCombatFX.luau",
+    "sha256": "c85f639fb743688c1bc572bf80b57621a61155fded0a3c96d1f36ddc87e8a9a2"
+  },
+  {
+    "ref": 8448,
+    "path": "StarterPlayer/StarterPlayerScripts/HABActionClient",
+    "class": "LocalScript",
+    "bytes": 14246,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8448_HABActionClient.luau",
+    "sha256": "485e08bcb9350f5f92eb9a33c839b40fbf8f4e7456148d56bd089a276da84e48"
+  },
+  {
+    "ref": 8449,
+    "path": "StarterPlayer/StarterPlayerScripts/HABExpansionClient",
+    "class": "LocalScript",
+    "bytes": 14425,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8449_HABExpansionClient.luau",
+    "sha256": "bd0e2f3a2ee1ee94cb8012a652074b708bc45d02fb27a2f1990c45d6b73c5916"
+  },
+  {
+    "ref": 8450,
+    "path": "StarterPlayer/StarterPlayerScripts/HABFunAbilityFX",
+    "class": "LocalScript",
+    "bytes": 5351,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8450_HABFunAbilityFX.luau",
+    "sha256": "decd3078c160662814cd115a6f9339712cbff5ced3cebef9112f9211b3b955be"
+  },
+  {
+    "ref": 8452,
+    "path": "StarterPlayer/StarterCharacterScripts/Animate",
+    "class": "LocalScript",
+    "bytes": 6079,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8452_Animate.luau",
+    "sha256": "b140eb9f148a1bd56b1621671c10a78c6f2f9dc808eaa1259763dfb8b1a05b5b"
+  },
+  {
+    "ref": 8459,
+    "path": "StarterPlayer/StarterCharacterScripts/Crouching",
+    "class": "LocalScript",
+    "bytes": 21505,
+    "disabled": true,
+    "source": "tools/v15/fixtures/8459_Crouching.luau",
+    "sha256": "25adbbddc18ae4d121fb3b91beeda66a93168b237a7db9edec3679ad3a3efdbe"
+  },
+  {
+    "ref": 8468,
+    "path": "StarterPlayer/StarterCharacterScripts/CustomShiftLock",
+    "class": "LocalScript",
+    "bytes": 111,
+    "disabled": true,
+    "source": "tools/v15/fixtures/8468_CustomShiftLock.luau",
+    "sha256": "bfb87dde8f6e3cd329e7a58640e2b0e222dd9b0ff51250cbefe434bad2d1c8ba"
+  },
+  {
+    "ref": 8472,
+    "path": "StarterPlayer/StarterCharacterScripts/FallSystem",
+    "class": "LocalScript",
+    "bytes": 8960,
+    "disabled": true,
+    "source": "tools/v15/fixtures/8472_FallSystem.luau",
+    "sha256": "db19da9a14e2f131b328ea38bc49038b99cb9ca03ce697247966d1600acf2eb2"
+  },
+  {
+    "ref": 8475,
+    "path": "StarterPlayer/StarterCharacterScripts/Turning",
+    "class": "LocalScript",
+    "bytes": 9202,
+    "disabled": true,
+    "source": "tools/v15/fixtures/8475_Turning.luau",
+    "sha256": "941224e4e2ff80a10be6f2eb5de157851209de123e79db823ff760c09a5d41ed"
+  },
+  {
+    "ref": 8481,
+    "path": "StarterGui/StarterGui/Ui",
+    "class": "LocalScript",
+    "bytes": 11366,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8481_Ui.luau",
+    "sha256": "58736f9ddb4fb6155928beed2ba1b1e05433ed9ff445c8e8e51aed7b3b6b9de6"
+  },
+  {
+    "ref": 8482,
+    "path": "StarterGui/StarterGui/Bobbing Camera",
+    "class": "LocalScript",
+    "bytes": 7905,
+    "disabled": false,
+    "source": "tools/v15/fixtures/8482_Bobbing Camera.luau",
+    "sha256": "6f2c72faa34fd416553e4d50fe8b89bf15503802f93b3e178a7fb5d615538d55"
+  },
+  {
+    "ref": 27196,
+    "path": "ServerScriptService/ServerScriptService/R6Ragdoll/R6RagdollClient",
+    "class": "LocalScript",
+    "bytes": 822,
+    "disabled": true,
+    "source": "tools/v15/fixtures/27196_R6RagdollClient.luau",
+    "sha256": "ffb36b96c96956b5144939565b4ac59c97f01ebdd476e4f12557c7d0108f0e71"
+  },
+  {
+    "ref": 8417,
+    "path": "StarterPlayer/StarterPlayerScripts/Controllers/HudController",
+    "class": "ModuleScript",
+    "bytes": 66229,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8417_HudController.luau",
+    "sha256": "3d9bfdabbd1c881c985968109ee57b43c3c7c1a007e29fc9216ca6bba3f1044f"
+  },
+  {
+    "ref": 8418,
+    "path": "StarterPlayer/StarterPlayerScripts/Controllers/MovementController",
+    "class": "ModuleScript",
+    "bytes": 40257,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8418_MovementController.luau",
+    "sha256": "6bc825d3269582fd11a95e8746b23c99f4ad51b295e6e155e845261c5bad9224"
+  },
+  {
+    "ref": 8419,
+    "path": "StarterPlayer/StarterPlayerScripts/Controllers/MovementAnimationController",
+    "class": "ModuleScript",
+    "bytes": 10482,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8419_MovementAnimationController.luau",
+    "sha256": "13af47fa738003d92044d7baa78a180509043af15f56d5d791eddcf4b9e3dc5b"
+  },
+  {
+    "ref": 8428,
+    "path": "StarterPlayer/StarterPlayerScripts/RbxCharacterSounds/AtomicBinding",
+    "class": "ModuleScript",
+    "bytes": 7745,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8428_AtomicBinding.luau",
+    "sha256": "26a2ecefe6cc3a7047b8406e9da8feeb1d57d57c1e2b7db477d70fa95693094c"
+  },
+  {
+    "ref": 8469,
+    "path": "StarterPlayer/StarterCharacterScripts/CustomShiftLock/SmoothShiftLock",
+    "class": "ModuleScript",
+    "bytes": 7226,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8469_SmoothShiftLock.luau",
+    "sha256": "840c3e8f9e2e81dafcb58110b10e6eddc7de2d4d74c6c7c2fbd3a3e6548631c8"
+  },
+  {
+    "ref": 8470,
+    "path": "StarterPlayer/StarterCharacterScripts/CustomShiftLock/SmoothShiftLock/Maid",
+    "class": "ModuleScript",
+    "bytes": 4323,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8470_Maid.luau",
+    "sha256": "33ebc4f0e02dd677046ef94d4aad274a2632ce85ee3c290c04f66824225c6273"
+  },
+  {
+    "ref": 8471,
+    "path": "StarterPlayer/StarterCharacterScripts/CustomShiftLock/SmoothShiftLock/Spring",
+    "class": "ModuleScript",
+    "bytes": 5777,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8471_Spring.luau",
+    "sha256": "e61e70509822fe606998e604a0404f7e09ddecbcb5df97803dc20a627aadc887"
+  },
+  {
+    "ref": 8523,
+    "path": "ReplicatedStorage/Shared/Config/GameConfig",
+    "class": "ModuleScript",
+    "bytes": 3069,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8523_GameConfig.luau",
+    "sha256": "c8fb8ccd2f942e78906ae0321492812462a033995a493507a9484e527697519d"
+  },
+  {
+    "ref": 8524,
+    "path": "ReplicatedStorage/Shared/Config/MovementConfig",
+    "class": "ModuleScript",
+    "bytes": 3907,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8524_MovementConfig.luau",
+    "sha256": "5403a3ea345c695c9eaaa7e8845dd2d61c11ad1678fa44c957476284b9578733"
+  },
+  {
+    "ref": 8525,
+    "path": "ReplicatedStorage/Shared/Config/AnimationConfig",
+    "class": "ModuleScript",
+    "bytes": 2797,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8525_AnimationConfig.luau",
+    "sha256": "f802414f6848b073f1040a4a8aceb0ab9050424df1fd14f2a7c92c1d9dff344b"
+  },
+  {
+    "ref": 8527,
+    "path": "ReplicatedStorage/Shared/Net/Remotes",
+    "class": "ModuleScript",
+    "bytes": 1719,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8527_Remotes.luau",
+    "sha256": "c4765559c7d728fd53ceb3b67394a8c92764db91c78ecd49cd1bb3857201cb5d"
+  },
+  {
+    "ref": 8534,
+    "path": "ReplicatedStorage/Modules/FootstepModule",
+    "class": "ModuleScript",
+    "bytes": 6221,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8534_FootstepModule.luau",
+    "sha256": "28924112339a52abb1adc15728a66901a997ae615ad98a09d72e1db94a8f0c8c"
+  },
+  {
+    "ref": 8536,
+    "path": "ReplicatedStorage/Modules/FootstepModule/Footsteps/Default",
+    "class": "ModuleScript",
+    "bytes": 6819,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8536_Default.luau",
+    "sha256": "818d35abde5401f18bda769297b07caf3dc0fdf553c465dc5e4638ccdfbedd3f"
+  },
+  {
+    "ref": 8537,
+    "path": "ReplicatedStorage/Modules/FootstepModule/Footsteps/Fart",
+    "class": "ModuleScript",
+    "bytes": 1355,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8537_Fart.luau",
+    "sha256": "33a608e6902526dbbe7dbe0553dcc8802ce145ff3b702f7278278ac5db790799"
+  },
+  {
+    "ref": 8538,
+    "path": "ReplicatedStorage/Modules/FootstepModule/Footsteps/Water",
+    "class": "ModuleScript",
+    "bytes": 2677,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8538_Water.luau",
+    "sha256": "4ff5d8a4cada0e3cfc3e6f5f6dac9a8cb92e42fd4564e5d40af6ac8601cd9a32"
+  },
+  {
+    "ref": 8540,
+    "path": "ReplicatedStorage/Modules/FootstepModule/Landing/Default",
+    "class": "ModuleScript",
+    "bytes": 3214,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8540_Default.luau",
+    "sha256": "0f99d0470e6d728fa28f54e99242979dff14ebf7176d2899699613b08ed6ce6e"
+  },
+  {
+    "ref": 8541,
+    "path": "ReplicatedStorage/Modules/FootstepModule/Landing/Fart",
+    "class": "ModuleScript",
+    "bytes": 1354,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8541_Fart.luau",
+    "sha256": "a940495ebba9aa4528e1eac60db7befa9688122288e3f42321cf16f05b53a810"
+  },
+  {
+    "ref": 8542,
+    "path": "ReplicatedStorage/Modules/FootstepModule/Landing/Water",
+    "class": "ModuleScript",
+    "bytes": 2541,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8542_Water.luau",
+    "sha256": "3675d33a5f0ead94f81d65e7bcb4e2c2190bd9d6c107b221a633b72b89df17d8"
+  },
+  {
+    "ref": 8544,
+    "path": "ReplicatedStorage/Modules/FootstepModule/Jumping/Default",
+    "class": "ModuleScript",
+    "bytes": 2750,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8544_Default.luau",
+    "sha256": "8fc9c6b3a86e1b3e555056915392908ffa7b1d4b117f7dd23247c49164e354c1"
+  },
+  {
+    "ref": 8545,
+    "path": "ReplicatedStorage/Modules/FootstepModule/Jumping/Fart",
+    "class": "ModuleScript",
+    "bytes": 1353,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8545_Fart.luau",
+    "sha256": "28914385dbe9da8ac5592f7d735e647e8f187fd1c3642b0a058442c53ec67942"
+  },
+  {
+    "ref": 8546,
+    "path": "ReplicatedStorage/Modules/FootstepModule/Jumping/Water",
+    "class": "ModuleScript",
+    "bytes": 2522,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8546_Water.luau",
+    "sha256": "a990aa373647dbb39023e165fd229bf4926f04820e857d369f65dbaff9051eed"
+  },
+  {
+    "ref": 8567,
+    "path": "ReplicatedStorage/CameraShakeCall",
+    "class": "ModuleScript",
+    "bytes": 1138,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8567_CameraShakeCall.luau",
+    "sha256": "ae2b26051f0a066f702191283b67a918a6b477658e95b530493c6fa5f7a480ed"
+  },
+  {
+    "ref": 8568,
+    "path": "ReplicatedStorage/CameraShaker",
+    "class": "ModuleScript",
+    "bytes": 6043,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8568_CameraShaker.luau",
+    "sha256": "0ee01419d9b51006b161a417ad6be1b8c0f2001fa1ba466f42c274e19544f411"
+  },
+  {
+    "ref": 8569,
+    "path": "ReplicatedStorage/CameraShaker/CameraShakeInstance",
+    "class": "ModuleScript",
+    "bytes": 3890,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8569_CameraShakeInstance.luau",
+    "sha256": "032adbbba9dcc15ac98db8ddb5ea51b5984c8c9663f371b6ba0f0f0342af54a0"
+  },
+  {
+    "ref": 8570,
+    "path": "ReplicatedStorage/CameraShaker/CameraShakePresets",
+    "class": "ModuleScript",
+    "bytes": 3325,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8570_CameraShakePresets.luau",
+    "sha256": "8a0ee28017525b4872c7340b47d937b897272545a47e8299bc99a2b5a2195dda"
+  },
+  {
+    "ref": 8679,
+    "path": "ReplicatedStorage/HussCatalogV11",
+    "class": "ModuleScript",
+    "bytes": 12348,
+    "disabled": null,
+    "source": "tools/v15/fixtures/8679_HussCatalogV11.luau",
+    "sha256": "d9b39136108549548fb45b1236a092910b98b077a0e9e0d106e7988063f9f266"
+  },
+  {
+    "ref": 27143,
+    "path": "ReplicatedStorage/BombSkinBuilderV12",
+    "class": "ModuleScript",
+    "bytes": 20652,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27143_BombSkinBuilderV12.luau",
+    "sha256": "d4777c1a1a5733a560d82e4e2539e1ec60c2625b6aafa0cbb2a43a48949fe67a"
+  },
+  {
+    "ref": 27145,
+    "path": "ReplicatedStorage/HABHalloween/Effects",
+    "class": "ModuleScript",
+    "bytes": 13007,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27145_Effects.luau",
+    "sha256": "3dc75aa1f63101f0c7276f8e3c608655d2285c75110254906dec41749e9da789"
+  },
+  {
+    "ref": 27146,
+    "path": "ReplicatedStorage/HABHalloween/Catalog",
+    "class": "ModuleScript",
+    "bytes": 12153,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27146_Catalog.luau",
+    "sha256": "7fb06599966980917cb4e1f16e48337c1d3b445a3834f6726d2740152ca3e2f0"
+  },
+  {
+    "ref": 27147,
+    "path": "ReplicatedStorage/HABHalloween/Renderer",
+    "class": "ModuleScript",
+    "bytes": 7840,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27147_Renderer.luau",
+    "sha256": "ca0e8c30d7b86bfb3b836a7f36d134fb8eaae113d669654715fdfd0571aa7021"
+  },
+  {
+    "ref": 27151,
+    "path": "ReplicatedStorage/HABHalloween/Settings",
+    "class": "ModuleScript",
+    "bytes": 1727,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27151_Settings.luau",
+    "sha256": "0a31c781704db99982c21660d86d8fd79bc5fe5089aa2d28faeadd6cccbbfc22"
+  },
+  {
+    "ref": 27152,
+    "path": "ReplicatedStorage/HABHalloween/CrateReveal",
+    "class": "ModuleScript",
+    "bytes": 8655,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27152_CrateReveal.luau",
+    "sha256": "bfad4006e171457cb395d6c6a8b8eeda67eb4bfff254ea5e90925a7cf04d1734"
+  },
+  {
+    "ref": 27153,
+    "path": "ReplicatedStorage/HABHalloween/ExtraFXPart01",
+    "class": "ModuleScript",
+    "bytes": 56015,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27153_ExtraFXPart01.luau",
+    "sha256": "360b2a28cf43e88399eb2a8deecf06a2da0b714e0bc526266439f3e8f58c22b3"
+  },
+  {
+    "ref": 27154,
+    "path": "ReplicatedStorage/HABHalloween/ExtraFXPart02",
+    "class": "ModuleScript",
+    "bytes": 56015,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27154_ExtraFXPart02.luau",
+    "sha256": "8bf8b0ccd9758d83bc506048f9c895525e2d987de67a9b67c04eb45ed295d39d"
+  },
+  {
+    "ref": 27155,
+    "path": "ReplicatedStorage/HABHalloween/ExtraFXPart03",
+    "class": "ModuleScript",
+    "bytes": 56015,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27155_ExtraFXPart03.luau",
+    "sha256": "616ce9b1fd0ef872a2a14d56ba13854c0ca0c13aa7b1f99a46465cfea23024fc"
+  },
+  {
+    "ref": 27156,
+    "path": "ReplicatedStorage/HABHalloween/ExtraFXPart04",
+    "class": "ModuleScript",
+    "bytes": 48107,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27156_ExtraFXPart04.luau",
+    "sha256": "5d889e84f3fc6adebca270bd74201183a4172dc86e7cd8e56d51be09ab3ed2de"
+  },
+  {
+    "ref": 27157,
+    "path": "ReplicatedStorage/HABHalloween/ExtraFXData",
+    "class": "ModuleScript",
+    "bytes": 809,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27157_ExtraFXData.luau",
+    "sha256": "9d0620c824095d3b0fc5b46b5e56983de520ce261d6606252c2b955858568edc"
+  },
+  {
+    "ref": 27158,
+    "path": "ReplicatedStorage/HABHalloween/NativeFX",
+    "class": "ModuleScript",
+    "bytes": 11367,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27158_NativeFX.luau",
+    "sha256": "a6048d60ee59855a51271a41178f02d28ebf59ddc5e52eba807c2a660cc2ca5f"
+  },
+  {
+    "ref": 27159,
+    "path": "ReplicatedStorage/HABHalloween/CrateArt",
+    "class": "ModuleScript",
+    "bytes": 4400,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27159_CrateArt.luau",
+    "sha256": "9a7943691386bd2bf3f0171fcea7ed3527b5ed3ea6819b713e75e93200fd4969"
+  },
+  {
+    "ref": 27160,
+    "path": "ReplicatedStorage/HABHalloween/FXCanvas",
+    "class": "ModuleScript",
+    "bytes": 9097,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27160_FXCanvas.luau",
+    "sha256": "831a0e4089c10a1886c93a0e768521c23384b6bd8293bd1033ecfb60e28087e9"
+  },
+  {
+    "ref": 27161,
+    "path": "ReplicatedStorage/HABHalloween/HABReferenceTheme",
+    "class": "ModuleScript",
+    "bytes": 11993,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27161_HABReferenceTheme.luau",
+    "sha256": "8d3d199f6be85acc9bc5a7e7ab47040e36e2b109d78a3a198080625b1ef93240"
+  },
+  {
+    "ref": 27162,
+    "path": "ReplicatedStorage/HABHalloween/HABEffectNames",
+    "class": "ModuleScript",
+    "bytes": 10446,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27162_HABEffectNames.luau",
+    "sha256": "25d7467fff3617ff238fd38ab899c688c9e757aca85c6a8a5d882056400783d5"
+  },
+  {
+    "ref": 27163,
+    "path": "ReplicatedStorage/HABHalloween/CollectionViewModel",
+    "class": "ModuleScript",
+    "bytes": 6113,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27163_CollectionViewModel.luau",
+    "sha256": "62e53368e014f69d6f58af0ad5e4638d74ca8c8b4a80d9361fd045fa6aa38dcd"
+  },
+  {
+    "ref": 27164,
+    "path": "ReplicatedStorage/HABHalloween/HABKillSounds",
+    "class": "ModuleScript",
+    "bytes": 2283,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27164_HABKillSounds.luau",
+    "sha256": "14c3b87fc96e55260b3796b4d956ef4a832ca2d7a87e92edcbb75d1c1a0ebf29"
+  },
+  {
+    "ref": 27165,
+    "path": "ReplicatedStorage/HABHalloween/HABKillSoundPlayer",
+    "class": "ModuleScript",
+    "bytes": 4162,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27165_HABKillSoundPlayer.luau",
+    "sha256": "74d925680b5e08403a56392d1cd8d202bab2fd3337a2e610eea54237968afaf9"
+  },
+  {
+    "ref": 27167,
+    "path": "ReplicatedStorage/HABExpansion/Config",
+    "class": "ModuleScript",
+    "bytes": 8665,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27167_Config.luau",
+    "sha256": "600ba38c2af5d2636c1bf9e4898469fb73976820c3c95bd3c35e5ea805450319"
+  },
+  {
+    "ref": 27168,
+    "path": "ReplicatedStorage/HABExpansion/CombatRules",
+    "class": "ModuleScript",
+    "bytes": 2232,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27168_CombatRules.luau",
+    "sha256": "7963103a7d5565282794ec111386e96b1b263e246e83bd08a646d2978fb6bab0"
+  },
+  {
+    "ref": 27172,
+    "path": "ReplicatedStorage/HABExpansion/HABCombatHUD",
+    "class": "ModuleScript",
+    "bytes": 16497,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27172_HABCombatHUD.luau",
+    "sha256": "d9449d2f3b6013dd18bf04a86044c24953adc1395ad81c315ddee71fa4a39cac"
+  },
+  {
+    "ref": 27176,
+    "path": "ServerScriptService/Services/BombService",
+    "class": "ModuleScript",
+    "bytes": 10571,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27176_BombService.luau",
+    "sha256": "aedc12a33e9a4657f1d4a76b59b38ba3e40053fb6af8c498658da4c6f9aa88a8"
+  },
+  {
+    "ref": 27178,
+    "path": "ServerScriptService/Services/RoundService",
+    "class": "ModuleScript",
+    "bytes": 21043,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27178_RoundService.luau",
+    "sha256": "08ff6d80706b859e642aa93ad5db15311e5b7b373bca045c4e98f4accc5704c7"
+  },
+  {
+    "ref": 27179,
+    "path": "ServerScriptService/Services/MapService",
+    "class": "ModuleScript",
+    "bytes": 2177,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27179_MapService.luau",
+    "sha256": "10933520c40f30bab3d0379d9e8bd7bd3f46427bd9e61a6cf1d51bb87710ea43"
+  },
+  {
+    "ref": 27180,
+    "path": "ServerScriptService/Services/BombTagMapVoteServiceV6",
+    "class": "ModuleScript",
+    "bytes": 4996,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27180_BombTagMapVoteServiceV6.luau",
+    "sha256": "89bc87fb26ee7468ad5c86a4ecdd150bbfea83292914002583b6667899c0a0bf"
+  },
+  {
+    "ref": 27181,
+    "path": "ServerScriptService/Services/EconomyServiceV9",
+    "class": "ModuleScript",
+    "bytes": 54460,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27181_EconomyServiceV9.luau",
+    "sha256": "345765ebf39ca25b999b9d7c4ff0846fa4fa98d9d12f11d88f74f6e052c66dd3"
+  },
+  {
+    "ref": 27182,
+    "path": "ServerScriptService/Services/CosmeticsServiceV11",
+    "class": "ModuleScript",
+    "bytes": 5237,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27182_CosmeticsServiceV11.luau",
+    "sha256": "38d716361d4adcef98e492d995e11b060ee12d678c1f67d7600989e504dc655b"
+  },
+  {
+    "ref": 27183,
+    "path": "ServerScriptService/Services/PracticeServiceV11",
+    "class": "ModuleScript",
+    "bytes": 15247,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27183_PracticeServiceV11.luau",
+    "sha256": "fdba8f440957472f4d88aca083d650a8c74cb024d54edd7a76a1d3d962d3a9a3"
+  },
+  {
+    "ref": 27184,
+    "path": "ServerScriptService/Services/PerfectWeaveServiceV11",
+    "class": "ModuleScript",
+    "bytes": 2300,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27184_PerfectWeaveServiceV11.luau",
+    "sha256": "e4edbce30f9759a5aab6b8e8341f3384f529020c50b1faba6f81da8f83ade781"
+  },
+  {
+    "ref": 27185,
+    "path": "ServerScriptService/Services/OwnerCommandsV12",
+    "class": "ModuleScript",
+    "bytes": 5995,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27185_OwnerCommandsV12.luau",
+    "sha256": "dd03c0d2d35d4b9d170fa25058c60208ccacd88f995ba9a2e995ab9e8a1c4df5"
+  },
+  {
+    "ref": 27186,
+    "path": "ServerScriptService/Services/HABCrateService",
+    "class": "ModuleScript",
+    "bytes": 12147,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27186_HABCrateService.luau",
+    "sha256": "80f066fd5b163014a8118b5e99bbb609134541ca4f519c92ce919b69db928005"
+  },
+  {
+    "ref": 27187,
+    "path": "ServerScriptService/Services/HABGemPurchases",
+    "class": "ModuleScript",
+    "bytes": 2269,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27187_HABGemPurchases.luau",
+    "sha256": "1e0bdd209f00afab6de02da08809cc0bded4ff2ec7da0b8f9cd9f223cf1dfe0b"
+  },
+  {
+    "ref": 27188,
+    "path": "ServerScriptService/Services/HABCrateInventoryRules",
+    "class": "ModuleScript",
+    "bytes": 4156,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27188_HABCrateInventoryRules.luau",
+    "sha256": "32b2af4fc46d6b18bcbcdb85cb0b46be3abd6b9a9164f10334257b50b30b68ba"
+  },
+  {
+    "ref": 27189,
+    "path": "ServerScriptService/Services/HABActionService",
+    "class": "ModuleScript",
+    "bytes": 16752,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27189_HABActionService.luau",
+    "sha256": "701fca7c16cffcdb879fa0481f5b50762f93d6067c301e4eeffa99b6a28df88a"
+  },
+  {
+    "ref": 27190,
+    "path": "ServerScriptService/Services/HABPassService",
+    "class": "ModuleScript",
+    "bytes": 4884,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27190_HABPassService.luau",
+    "sha256": "3797efb60df9d14246b49c38b7194931fce3812baa21c7ff91b06234a2b95d88"
+  },
+  {
+    "ref": 27191,
+    "path": "ServerScriptService/Services/HABRetirementRules",
+    "class": "ModuleScript",
+    "bytes": 4408,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27191_HABRetirementRules.luau",
+    "sha256": "079bffcc6af83dea90c31e8c9cc12c03b4ba3715fcdddf5df873725778fd79d4"
+  },
+  {
+    "ref": 27195,
+    "path": "ServerScriptService/ServerScriptService/R6Ragdoll/ModuleScript",
+    "class": "ModuleScript",
+    "bytes": 2688,
+    "disabled": null,
+    "source": "tools/v15/fixtures/27195_ModuleScript.luau",
+    "sha256": "bdba76b2689a3ffd6300aab439d7fc45fea83033432662c821771245751b99b7"
+  },
+  {
+    "ref": 110794,
+    "path": "TestService/LuauLSP_Settings",
+    "class": "ModuleScript",
+    "bytes": 1205,
+    "disabled": null,
+    "source": "tools/v15/fixtures/110794_LuauLSP_Settings.luau",
+    "sha256": "3725bb666745ffa8090661255682b1a36175986b3b917afe3a0819b91ae003bf"
+  },
+  {
+    "ref": 6768,
+    "path": "Workspace/Ultimate R6 Movement System by Arczi/IF U WANT ANIMS READ ME",
+    "class": "Script",
+    "bytes": 1305,
+    "disabled": false,
+    "source": "tools/v15/fixtures/6768_IF U WANT ANIMS READ ME.luau",
+    "sha256": "5c1143e0a31035fc12ac2a8475ab12ab059b2968cd63c5f89d923a39b7eeb470"
+  },
+  {
+    "ref": 6801,
+    "path": "Workspace/Read me",
+    "class": "Script",
+    "bytes": 352,
+    "disabled": true,
+    "source": "tools/v15/fixtures/6801_Read me.luau",
+    "sha256": "49c8c944b6f9ab2479abc98f8975e28888cf92bddc03c355888d2f66ce35763c"
+  },
+  {
+    "ref": 6802,
+    "path": "Workspace/READ ME",
+    "class": "Script",
+    "bytes": 80,
+    "disabled": true,
+    "source": "tools/v15/fixtures/6802_READ ME.luau",
+    "sha256": "59bea846cca9d53000eaf46026d01cc9721e772c3332b87261b71cd2fe092647"
+  },
+  {
+    "ref": 27177,
+    "path": "ServerScriptService/Services/ServerMain",
+    "class": "Script",
+    "bytes": 1050,
+    "disabled": false,
+    "source": "tools/v15/fixtures/27177_ServerMain.luau",
+    "sha256": "cc28aa182a31eca4705df640caa33db01991c12104e6b076d69fb431774bf372"
+  },
+  {
+    "ref": 27193,
+    "path": "ServerScriptService/ServerScriptService/TrueHealthController",
+    "class": "Script",
+    "bytes": 1278,
+    "disabled": true,
+    "source": "tools/v15/fixtures/27193_TrueHealthController.luau",
+    "sha256": "d8d64e3e0573c851b82340f239de7794dfa33dc116f4aa9d5f91fd89fe483790"
+  },
+  {
+    "ref": 27194,
+    "path": "ServerScriptService/ServerScriptService/R6Ragdoll",
+    "class": "Script",
+    "bytes": 2259,
+    "disabled": true,
+    "source": "tools/v15/fixtures/27194_R6Ragdoll.luau",
+    "sha256": "b899fadb2e53b435dc926da41adc9704385c5188a1d9f28f305e409baa99aca6"
+  },
+  {
+    "ref": 27197,
+    "path": "ServerScriptService/ServerScriptService/R6Ragdoll/R6NPCRagdoll",
+    "class": "Script",
+    "bytes": 77,
+    "disabled": true,
+    "source": "tools/v15/fixtures/27197_R6NPCRagdoll.luau",
+    "sha256": "585418ca438f150110cb2fb2fb1f5ff96a7d03e0c40f7bedafc5c67cd0190bdb"
+  },
+  {
+    "ref": 27214,
+    "path": "ServerScriptService/ServerScriptService/NoCollision",
+    "class": "Script",
+    "bytes": 765,
+    "disabled": true,
+    "source": "tools/v15/fixtures/27214_NoCollision.luau",
+    "sha256": "7679db85dc2315741765b9635462e09cadcb60c188a0bbe542b2346b1e224b9f"
+  },
+  {
+    "ref": 27215,
+    "path": "ServerScriptService/ServerScriptService/DisableDefaultShiftLock",
+    "class": "Script",
+    "bytes": 148,
+    "disabled": true,
+    "source": "tools/v15/fixtures/27215_DisableDefaultShiftLock.luau",
+    "sha256": "fd47e8226278f6a56ba6284e8c7df6663c3c154781fde167e2fc114bc5f5b4b5"
+  },
+  {
+    "ref": 27216,
+    "path": "ServerScriptService/ServerScriptService/DeathRespawnHandler",
+    "class": "Script",
+    "bytes": 1236,
+    "disabled": true,
+    "source": "tools/v15/fixtures/27216_DeathRespawnHandler.luau",
+    "sha256": "0b75a75b69e6c9359546cb44dcc25587f3923846b55f734cc712edd3a806f69c"
+  },
+  {
+    "ref": 27217,
+    "path": "ServerScriptService/DodgeIFrameServer",
+    "class": "Script",
+    "bytes": 9995,
+    "disabled": false,
+    "source": "tools/v15/fixtures/27217_DodgeIFrameServer.luau",
+    "sha256": "69c232bd6935b5b03de51816b1391740c3807870ac470a178f91546762098b32"
+  },
+  {
+    "ref": 27218,
+    "path": "ServerScriptService/BombTagMapVoteServer",
+    "class": "Script",
+    "bytes": 8652,
+    "disabled": true,
+    "source": "tools/v15/fixtures/27218_BombTagMapVoteServer.luau",
+    "sha256": "a1f67d7a2c164914b223aca542b0c9af55635a8427d098400dbb902ef1b8df80"
+  },
+  {
+    "ref": 27219,
+    "path": "ServerScriptService/BombTagAFKServer",
+    "class": "Script",
+    "bytes": 3769,
+    "disabled": false,
+    "source": "tools/v15/fixtures/27219_BombTagAFKServer.luau",
+    "sha256": "fa6129c22b79c2fbc14122e856c65e6074640d6799ca4ebf719ed1429148f915"
+  },
+  {
+    "ref": 27220,
+    "path": "ServerScriptService/SunsetDocksTerrainV9",
+    "class": "Script",
+    "bytes": 2995,
+    "disabled": true,
+    "source": "tools/v15/fixtures/27220_SunsetDocksTerrainV9.luau",
+    "sha256": "dfb5fceeba87c576a077ff8b0780e448d98eed8c2b874bf1502cc4d70b69556c"
+  },
+  {
+    "ref": 27221,
+    "path": "ServerScriptService/HABCrateBoot",
+    "class": "Script",
+    "bytes": 706,
+    "disabled": false,
+    "source": "tools/v15/fixtures/27221_HABCrateBoot.luau",
+    "sha256": "5789d01fd9a98559ba259461d6c277a52d52a93e05c5498cb43e8b7d7b888039"
+  }
+]

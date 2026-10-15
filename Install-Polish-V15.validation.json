@@ -1,0 +1,566 @@
+{
+  "checks": 148633,
+  "passed": true,
+  "results": [
+    {
+      "passed": true,
+      "scenario": "normal"
+    },
+    {
+      "passed": true,
+      "scenario": "repeat"
+    },
+    {
+      "passed": true,
+      "scenario": "configuredRepeat"
+    },
+    {
+      "passed": true,
+      "scenario": "repairMissingModule"
+    },
+    {
+      "passed": true,
+      "scenario": "crlfSources"
+    },
+    {
+      "passed": true,
+      "scenario": "playMode"
+    },
+    {
+      "passed": true,
+      "scenario": "notStudio"
+    },
+    {
+      "passed": true,
+      "scenario": "unknownVersion"
+    },
+    {
+      "passed": true,
+      "scenario": "missingMain"
+    },
+    {
+      "passed": true,
+      "scenario": "duplicateMain"
+    },
+    {
+      "passed": true,
+      "scenario": "missingMapFloor"
+    },
+    {
+      "passed": true,
+      "scenario": "noMaps"
+    },
+    {
+      "passed": true,
+      "scenario": "movedSpawn"
+    },
+    {
+      "passed": true,
+      "scenario": "changedLobbyFloor"
+    },
+    {
+      "passed": true,
+      "scenario": "unknownReceipt"
+    },
+    {
+      "passed": true,
+      "scenario": "unknownBracketReceipt"
+    },
+    {
+      "passed": true,
+      "scenario": "disabledReceipt"
+    },
+    {
+      "passed": true,
+      "scenario": "unknownConfig"
+    },
+    {
+      "passed": true,
+      "scenario": "unarchivable"
+    },
+    {
+      "passed": true,
+      "scenario": "syntaxFailure"
+    },
+    {
+      "passed": true,
+      "scenario": "stageSourceFailure"
+    },
+    {
+      "passed": true,
+      "scenario": "backupParentFailure"
+    },
+    {
+      "passed": true,
+      "scenario": "versionWriteFailure"
+    },
+    {
+      "passed": true,
+      "scenario": "sourceReadbackFailure"
+    },
+    {
+      "passed": true,
+      "scenario": "lobbyArchiveFailure"
+    },
+    {
+      "passed": true,
+      "scenario": "lobbyCommitFailure"
+    },
+    {
+      "passed": true,
+      "scenario": "restoreFailure"
+    },
+    {
+      "passed": true,
+      "scenario": "innerLobbyRestoreFailure"
+    },
+    {
+      "passed": true,
+      "scenario": "nestedLobbyRestoreFailure"
+    },
+    {
+      "passed": true,
+      "scenario": "write_1"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_1"
+    },
+    {
+      "passed": true,
+      "scenario": "write_2"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_2"
+    },
+    {
+      "passed": true,
+      "scenario": "write_3"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_3"
+    },
+    {
+      "passed": true,
+      "scenario": "write_4"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_4"
+    },
+    {
+      "passed": true,
+      "scenario": "write_5"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_5"
+    },
+    {
+      "passed": true,
+      "scenario": "write_6"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_6"
+    },
+    {
+      "passed": true,
+      "scenario": "write_7"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_7"
+    },
+    {
+      "passed": true,
+      "scenario": "write_8"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_8"
+    },
+    {
+      "passed": true,
+      "scenario": "write_9"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_9"
+    },
+    {
+      "passed": true,
+      "scenario": "write_10"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_10"
+    },
+    {
+      "passed": true,
+      "scenario": "write_11"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_11"
+    },
+    {
+      "passed": true,
+      "scenario": "write_12"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_12"
+    },
+    {
+      "passed": true,
+      "scenario": "write_13"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_13"
+    },
+    {
+      "passed": true,
+      "scenario": "write_14"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_14"
+    },
+    {
+      "passed": true,
+      "scenario": "write_15"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_15"
+    },
+    {
+      "passed": true,
+      "scenario": "write_16"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_16"
+    },
+    {
+      "passed": true,
+      "scenario": "write_17"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_17"
+    },
+    {
+      "passed": true,
+      "scenario": "write_18"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_18"
+    },
+    {
+      "passed": true,
+      "scenario": "write_19"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_19"
+    },
+    {
+      "passed": true,
+      "scenario": "write_20"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_20"
+    },
+    {
+      "passed": true,
+      "scenario": "write_21"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_21"
+    },
+    {
+      "passed": true,
+      "scenario": "write_22"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_22"
+    },
+    {
+      "passed": true,
+      "scenario": "write_23"
+    },
+    {
+      "passed": true,
+      "scenario": "custom_23"
+    },
+    {
+      "passed": true,
+      "scenario": "disable_24"
+    },
+    {
+      "passed": true,
+      "scenario": "disable_25"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_26"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_27"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_28"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_29"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_30"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_31"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_32"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_33"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_34"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_35"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_36"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_37"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_38"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_39"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_40"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_41"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_42"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_43"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_44"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_45"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_46"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_47"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_48"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_49"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_50"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_51"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_52"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_53"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_54"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_55"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_56"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_57"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_58"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_59"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_60"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_61"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_62"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_63"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_64"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_65"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_66"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_67"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_68"
+    },
+    {
+      "passed": true,
+      "scenario": "customPreserve_69"
+    },
+    {
+      "passed": true,
+      "scenario": "parent_70"
+    },
+    {
+      "passed": true,
+      "scenario": "misplaced_70"
+    },
+    {
+      "passed": true,
+      "scenario": "duplicate_70"
+    },
+    {
+      "passed": true,
+      "scenario": "parent_71"
+    },
+    {
+      "passed": true,
+      "scenario": "misplaced_71"
+    },
+    {
+      "passed": true,
+      "scenario": "duplicate_71"
+    },
+    {
+      "passed": true,
+      "scenario": "parent_72"
+    },
+    {
+      "passed": true,
+      "scenario": "misplaced_72"
+    },
+    {
+      "passed": true,
+      "scenario": "duplicate_72"
+    },
+    {
+      "passed": true,
+      "scenario": "parent_73"
+    },
+    {
+      "passed": true,
+      "scenario": "misplaced_73"
+    },
+    {
+      "passed": true,
+      "scenario": "duplicate_73"
+    },
+    {
+      "passed": true,
+      "scenario": "parent_74"
+    },
+    {
+      "passed": true,
+      "scenario": "misplaced_74"
+    },
+    {
+      "passed": true,
+      "scenario": "duplicate_74"
+    },
+    {
+      "passed": true,
+      "scenario": "parent_75"
+    },
+    {
+      "passed": true,
+      "scenario": "misplaced_75"
+    },
+    {
+      "passed": true,
+      "scenario": "duplicate_75"
+    }
+  ],
+  "scenario_count": 139,
+  "installer_sha256": "723334ac319b990181676f953d42c8cae03e24fb7a82e9c33694adb81e043357",
+  "fixture_manifest_sha256": "b2e7d251be5e7e836659b5c90cbddbc3f0fb5ae4de82fbda74f235bc9e1902fc",
+  "scope": "Actual complete generated installer, source-exact uploaded scripts, real lobby Plan/Apply, injected transaction failures. Deterministic Instance adapter; no native Studio rendering or network execution."
+}

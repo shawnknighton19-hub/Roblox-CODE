@@ -1,0 +1,21 @@
+{
+  "checks": 58,
+  "passed": true,
+  "scenarios": [
+    "fresh",
+    "rerun",
+    "moved spawn",
+    "changed floor",
+    "duplicate floor",
+    "moved booth",
+    "unknown replacement",
+    "missing bundle",
+    "invalid backup",
+    "mid-archive rollback",
+    "commit rollback"
+  ],
+  "sourceSHA256": {
+    "LobbyBuilderV15.luau": "89837181365e67cf8d06d87d8ee0c7061a7d4bf57d5ae7d296f0e490e4c425b8"
+  },
+  "limits": "Actual Luau code exercised in deterministic Instance adapter; not Roblox Studio integration."
+}
