@@ -1,4 +1,14 @@
-## Current HABWAS polish (V15)
+## Active game: original HABWAS
+
+We are starting again from the untouched **[HABWAS.rbxl](HABWAS.rbxl)** uploaded by the owner. Download it with **Download raw file**, then use **File → Open from File** in Roblox Studio.
+
+This file is byte-for-byte identical to the upload: 1,552,493 bytes, SHA-256 `c354d8c3c7ac43b9364749aa292716aa592eee6f496f532c98c0bafb88279309`. Its original HUD, lobby, scripts and settings are intact. V15 and the subsequent repair work have been superseded; future changes start from this original place.
+
+The older builds below are retained as history. Do not apply their installers to this fresh baseline unless explicitly requested.
+
+---
+
+## Archived V15 build
 
 Download [Huss-A-Bomb-V15.rbxl](Huss-A-Bomb-V15.rbxl) and open it in Studio, or copy all of [Huss-A-Bomb-V15.txt](Huss-A-Bomb-V15.txt) into the **Command Bar with Play stopped**. Use GitHub’s **Download raw file** button for a Windows download. This update targets your latest uploaded **HABWAS.rbxl**, with its current abilities, crates and manual bomb attacks; do not run older installers first.
 
