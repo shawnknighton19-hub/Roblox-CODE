@@ -1,0 +1,19 @@
+{
+  "builderSHA256": "29e235c96a8f5bbfd43f3679faed760d240258d6b7f3d7480905854cdffeae86",
+  "geometrySHA256": "52c79f330ff567ebf1bdbf97535ecc952bb2acfd96129fefad784d7a3f694c16",
+  "geometryRawSHA256": "d9c3f3d6bf7e8eb8fa550284d2732de49284260da25347a591f25abfb0f81570",
+  "geometryRoundTrip": {
+    "instances": 9377,
+    "propertyValues": 130534,
+    "encoder": "rbxfile encoder and decoder property comparison"
+  },
+  "basePlaceSHA256": "c354d8c3c7ac43b9364749aa292716aa592eee6f496f532c98c0bafb88279309",
+  "mapCount": 15,
+  "activeName": "Sky Garden",
+  "activeDisplayName": "Sunset Docks",
+  "activeAnchor": [
+    0,
+    -27,
+    -190
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "version": 16,
+  "baseSHA256": "c354d8c3c7ac43b9364749aa292716aa592eee6f496f532c98c0bafb88279309",
+  "builder": "MapBuilderV16.luau",
+  "sourceSHA256": "29e235c96a8f5bbfd43f3679faed760d240258d6b7f3d7480905854cdffeae86",
+  "geometry": "tools/v16/maps/generated.rbxl",
+  "geometry_sha256": "52c79f330ff567ebf1bdbf97535ecc952bb2acfd96129fefad784d7a3f694c16",
+  "backupFolder": "OriginalMaps",
+  "newRoots": {
+    "MapLibrary": "ServerStorage",
+    "BombTagV6Previews": "ReplicatedStorage",
+    "BombTagPreviewGalleryV5": "ReplicatedStorage",
+    "Maps": "Workspace"
+  },
+  "archiveOriginal": {
+    "85931": "ServerStorage/MapLibrary",
+    "8680": "ReplicatedStorage/BombTagV6Previews",
+    "8587": "ReplicatedStorage/BombTagPreviewGalleryV5",
+    "3": "Workspace/Maps"
+  },
+  "preservePaths": [
+    "Workspace/Lobby",
+    "Workspace/ActiveArenaAnchor"
+  ],
+  "notes": [
+    "All15 map/vote identities retained; original map and voting scripts are unchanged.",
+    "Floor direct child and PrimaryPart has topY0 in each template; each direct Spawns folder has16 clear invisible markers.",
+    "Two ramp entrances per raised deck, width22\u201324studs, grades under14degrees. Every pair of spawns connects without jumping in the analytic route check.",
+    "Active map preserves configured alias Sky Garden and voted/display identity Sunset Docks, floor top at(0,-27,-190). Anchor mutation belongs to the lobby manifest.",
+    "Four folder roots are replaced only after original roots are archived. Builder itself only creates detached instances.",
+    "Native geometry and highresolution SurfaceGui lettering only; no scripts, sound IDs, particles, decals or imported art in generated maps.",
+    "Preview images are offline renders of generated geometry, not Roblox Studio captures. Live Humanoid and multiplayer playtesting remains necessary."
+  ]
+}

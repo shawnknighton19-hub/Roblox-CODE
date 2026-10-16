@@ -1,10 +1,14 @@
-## Active game: original HABWAS
+## Current build: HABWAS polish V16
 
-We are starting again from the untouched **[HABWAS.rbxl](HABWAS.rbxl)** uploaded by the owner. Download it with **Download raw file**, then use **File → Open from File** in Roblox Studio.
+Download **[HABWAS-Polished-V16.rbxl](HABWAS-Polished-V16.rbxl)** with GitHub's **Download raw file** button, then open it in Roblox Studio using **File → Open from File**. Alternatively, copy the entire **[HABWAS-Polish-V16.txt](HABWAS-Polish-V16.txt)** into Studio's Command Bar with Play stopped, starting from the original HABWAS. Do not install V15 first.
 
-This file is byte-for-byte identical to the upload: 1,552,493 bytes, SHA-256 `c354d8c3c7ac43b9364749aa292716aa592eee6f496f532c98c0bafb88279309`. Its original HUD, lobby, scripts and settings are intact. V15 and the subsequent repair work have been superseded; future changes start from this original place.
+V16 preserves the original HUD and gameplay. It adds an organized spectator lobby, 15 rebuilt no-jump arenas, directional weave and ability animations, and removes extra cosmetic effects while keeping trails, auras and ability effects. The lobby gives players a clear view of the live match. Saved ownership and practice reward exclusion remain intact.
 
-The older builds below are retained as history. Do not apply their installers to this fresh baseline unless explicitly requested.
+See the **[installation and playtest guide](V16-Install-and-Playtest.md)**, [animation notes](V16-Animation-Notes.md), and [release validation](V16-Release.validation.json). Native Studio rendering and multiplayer playtesting remain necessary before publishing.
+
+Offline previews: [maps](MapsV16-Preview.png), [lobby layout](LobbyV16-Overview.png), [view from the spectator balcony](LobbyV16-Spectator.png), [ability poses](ActionAnimationsV16-Poses.png), and [directional weave](WeaveV16-Poses.png). These render the authored geometry and poses outside Roblox; they are not Studio screenshots.
+
+Your untouched **[HABWAS.rbxl](HABWAS.rbxl)** remains available: 1,552,493 bytes, SHA-256 `c354d8c3c7ac43b9364749aa292716aa592eee6f496f532c98c0bafb88279309`. Older builds below are retained as history.
 
 ---
 

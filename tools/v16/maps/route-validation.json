@@ -1,0 +1,355 @@
+{
+  "geometryRawSHA256": "d9c3f3d6bf7e8eb8fa550284d2732de49284260da25347a591f25abfb0f81570",
+  "maps": [
+    {
+      "name": "Orbital Station",
+      "parts": 216,
+      "size": [
+        244,
+        216
+      ],
+      "spawns": 16,
+      "spawnPairChecks": 120,
+      "ramps": 2,
+      "rampSampleChecks": 62,
+      "rampWidths": [
+        24,
+        24
+      ],
+      "maximumRampDegrees": 11.31,
+      "connectedWalkableCells": 9274,
+      "groundedRouteAreaApprox": 33484,
+      "independentDeckEntrances": 2,
+      "gridStuds": 2,
+      "avatarClearanceRadius": 2,
+      "limitations": "Analytic authored geometry only; Roblox Studio playtest still required."
+    },
+    {
+      "name": "Pirate Cove",
+      "parts": 249,
+      "size": [
+        256,
+        208
+      ],
+      "spawns": 16,
+      "spawnPairChecks": 120,
+      "ramps": 2,
+      "rampSampleChecks": 62,
+      "rampWidths": [
+        24,
+        24
+      ],
+      "maximumRampDegrees": 11.89,
+      "connectedWalkableCells": 9486,
+      "groundedRouteAreaApprox": 34276,
+      "independentDeckEntrances": 2,
+      "gridStuds": 2,
+      "avatarClearanceRadius": 2,
+      "limitations": "Analytic authored geometry only; Roblox Studio playtest still required."
+    },
+    {
+      "name": "Neon District",
+      "parts": 237,
+      "size": [
+        240,
+        208
+      ],
+      "spawns": 16,
+      "spawnPairChecks": 120,
+      "ramps": 2,
+      "rampSampleChecks": 62,
+      "rampWidths": [
+        24,
+        24
+      ],
+      "maximumRampDegrees": 9.46,
+      "connectedWalkableCells": 9793,
+      "groundedRouteAreaApprox": 36064,
+      "independentDeckEntrances": 2,
+      "gridStuds": 2,
+      "avatarClearanceRadius": 2,
+      "limitations": "Analytic authored geometry only; Roblox Studio playtest still required."
+    },
+    {
+      "name": "Emerald Ruins",
+      "parts": 236,
+      "size": [
+        212,
+        228
+      ],
+      "spawns": 16,
+      "spawnPairChecks": 120,
+      "ramps": 2,
+      "rampSampleChecks": 62,
+      "rampWidths": [
+        24,
+        24
+      ],
+      "maximumRampDegrees": 11.89,
+      "connectedWalkableCells": 9000,
+      "groundedRouteAreaApprox": 32976,
+      "independentDeckEntrances": 2,
+      "gridStuds": 2,
+      "avatarClearanceRadius": 2,
+      "limitations": "Analytic authored geometry only; Roblox Studio playtest still required."
+    },
+    {
+      "name": "Sky Garden",
+      "parts": 260,
+      "size": [
+        224,
+        204
+      ],
+      "spawns": 16,
+      "spawnPairChecks": 120,
+      "ramps": 2,
+      "rampSampleChecks": 62,
+      "rampWidths": [
+        24,
+        24
+      ],
+      "maximumRampDegrees": 11.63,
+      "connectedWalkableCells": 8863,
+      "groundedRouteAreaApprox": 32536,
+      "independentDeckEntrances": 2,
+      "gridStuds": 2,
+      "avatarClearanceRadius": 2,
+      "limitations": "Analytic authored geometry only; Roblox Studio playtest still required."
+    },
+    {
+      "name": "Ember Keep",
+      "parts": 196,
+      "size": [
+        248,
+        224
+      ],
+      "spawns": 16,
+      "spawnPairChecks": 120,
+      "ramps": 2,
+      "rampSampleChecks": 62,
+      "rampWidths": [
+        24,
+        24
+      ],
+      "maximumRampDegrees": 13.09,
+      "connectedWalkableCells": 11535,
+      "groundedRouteAreaApprox": 42296,
+      "independentDeckEntrances": 2,
+      "gridStuds": 2,
+      "avatarClearanceRadius": 2,
+      "limitations": "Analytic authored geometry only; Roblox Studio playtest still required."
+    },
+    {
+      "name": "Clockwork Foundry",
+      "parts": 249,
+      "size": [
+        264,
+        200
+      ],
+      "spawns": 16,
+      "spawnPairChecks": 120,
+      "ramps": 2,
+      "rampSampleChecks": 62,
+      "rampWidths": [
+        24,
+        24
+      ],
+      "maximumRampDegrees": 11.89,
+      "connectedWalkableCells": 9898,
+      "groundedRouteAreaApprox": 36320,
+      "independentDeckEntrances": 2,
+      "gridStuds": 2,
+      "avatarClearanceRadius": 2,
+      "limitations": "Analytic authored geometry only; Roblox Studio playtest still required."
+    },
+    {
+      "name": "Frostfall Village",
+      "parts": 247,
+      "size": [
+        252,
+        216
+      ],
+      "spawns": 16,
+      "spawnPairChecks": 120,
+      "ramps": 2,
+      "rampSampleChecks": 62,
+      "rampWidths": [
+        24,
+        24
+      ],
+      "maximumRampDegrees": 11.89,
+      "connectedWalkableCells": 9878,
+      "groundedRouteAreaApprox": 36476,
+      "independentDeckEntrances": 2,
+      "gridStuds": 2,
+      "avatarClearanceRadius": 2,
+      "limitations": "Analytic authored geometry only; Roblox Studio playtest still required."
+    },
+    {
+      "name": "Crystal Cavern",
+      "parts": 201,
+      "size": [
+        192,
+        200
+      ],
+      "spawns": 16,
+      "spawnPairChecks": 120,
+      "ramps": 2,
+      "rampSampleChecks": 62,
+      "rampWidths": [
+        24,
+        24
+      ],
+      "maximumRampDegrees": 11.63,
+      "connectedWalkableCells": 6583,
+      "groundedRouteAreaApprox": 23728,
+      "independentDeckEntrances": 2,
+      "gridStuds": 2,
+      "avatarClearanceRadius": 2,
+      "limitations": "Analytic authored geometry only; Roblox Studio playtest still required."
+    },
+    {
+      "name": "Sunset Docks",
+      "parts": 265,
+      "size": [
+        268,
+        218
+      ],
+      "spawns": 16,
+      "spawnPairChecks": 120,
+      "ramps": 2,
+      "rampSampleChecks": 62,
+      "rampWidths": [
+        24,
+        24
+      ],
+      "maximumRampDegrees": 12.53,
+      "connectedWalkableCells": 10651,
+      "groundedRouteAreaApprox": 38428,
+      "independentDeckEntrances": 2,
+      "gridStuds": 2,
+      "avatarClearanceRadius": 2,
+      "limitations": "Analytic authored geometry only; Roblox Studio playtest still required."
+    },
+    {
+      "name": "Sunstone Bazaar",
+      "parts": 260,
+      "size": [
+        236,
+        228
+      ],
+      "spawns": 16,
+      "spawnPairChecks": 120,
+      "ramps": 2,
+      "rampSampleChecks": 62,
+      "rampWidths": [
+        24,
+        24
+      ],
+      "maximumRampDegrees": 12.2,
+      "connectedWalkableCells": 11178,
+      "groundedRouteAreaApprox": 41816,
+      "independentDeckEntrances": 2,
+      "gridStuds": 2,
+      "avatarClearanceRadius": 2,
+      "limitations": "Analytic authored geometry only; Roblox Studio playtest still required."
+    },
+    {
+      "name": "Stardust Carnival",
+      "parts": 286,
+      "size": [
+        268,
+        220
+      ],
+      "spawns": 16,
+      "spawnPairChecks": 120,
+      "ramps": 2,
+      "rampSampleChecks": 62,
+      "rampWidths": [
+        24,
+        24
+      ],
+      "maximumRampDegrees": 11.89,
+      "connectedWalkableCells": 9654,
+      "groundedRouteAreaApprox": 35496,
+      "independentDeckEntrances": 2,
+      "gridStuds": 2,
+      "avatarClearanceRadius": 2,
+      "limitations": "Analytic authored geometry only; Roblox Studio playtest still required."
+    },
+    {
+      "name": "Fuseworks",
+      "parts": 272,
+      "size": [
+        228,
+        240
+      ],
+      "spawns": 16,
+      "spawnPairChecks": 120,
+      "ramps": 2,
+      "rampSampleChecks": 62,
+      "rampWidths": [
+        24,
+        24
+      ],
+      "maximumRampDegrees": 12.2,
+      "connectedWalkableCells": 11027,
+      "groundedRouteAreaApprox": 40368,
+      "independentDeckEntrances": 2,
+      "gridStuds": 2,
+      "avatarClearanceRadius": 2,
+      "limitations": "Analytic authored geometry only; Roblox Studio playtest still required."
+    },
+    {
+      "name": "Detonator Plaza",
+      "parts": 238,
+      "size": [
+        216,
+        184
+      ],
+      "spawns": 16,
+      "spawnPairChecks": 120,
+      "ramps": 2,
+      "rampSampleChecks": 62,
+      "rampWidths": [
+        24,
+        24
+      ],
+      "maximumRampDegrees": 11.31,
+      "connectedWalkableCells": 8054,
+      "groundedRouteAreaApprox": 30068,
+      "independentDeckEntrances": 2,
+      "gridStuds": 2,
+      "avatarClearanceRadius": 2,
+      "limitations": "Analytic authored geometry only; Roblox Studio playtest still required."
+    },
+    {
+      "name": "Payload Port",
+      "parts": 236,
+      "size": [
+        280,
+        204
+      ],
+      "spawns": 16,
+      "spawnPairChecks": 120,
+      "ramps": 2,
+      "rampSampleChecks": 62,
+      "rampWidths": [
+        24,
+        24
+      ],
+      "maximumRampDegrees": 11.82,
+      "connectedWalkableCells": 11585,
+      "groundedRouteAreaApprox": 43180,
+      "independentDeckEntrances": 2,
+      "gridStuds": 2,
+      "avatarClearanceRadius": 2,
+      "limitations": "Analytic authored geometry only; Roblox Studio playtest still required."
+    }
+  ],
+  "mapCount": 15,
+  "allSpawnPairsConnected": 1800,
+  "allRampsIndependentlyReachable": 30,
+  "rampHeightSamples": 930,
+  "geometryOnly": true
+}

@@ -1,0 +1,31 @@
+{
+  "geometryRawSHA256": "d9c3f3d6bf7e8eb8fa550284d2732de49284260da25347a591f25abfb0f81570",
+  "rejectedBrokenFixtures": 5,
+  "cases": [
+    {
+      "case": "Ramp points downhill at deck connection",
+      "rejected": true,
+      "reason": "reversed or discontinuous ramp"
+    },
+    {
+      "case": "One of two ramps has no collision",
+      "rejected": true,
+      "reason": "ramp endpoint unreachable"
+    },
+    {
+      "case": "Duplicate spawn centers",
+      "rejected": true,
+      "reason": "Minimum pair spacing"
+    },
+    {
+      "case": "Coplanar intersecting road paint",
+      "rejected": true,
+      "reason": "coplanar road paint"
+    },
+    {
+      "case": "Ink shell overlaps top floor",
+      "rejected": true,
+      "reason": "floor shell z-fighting"
+    }
+  ]
+}

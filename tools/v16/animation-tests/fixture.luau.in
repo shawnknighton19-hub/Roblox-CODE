@@ -1,0 +1,60 @@
+local A=(function()
+{{ANIMATION}}
+end)()
+local input={TouchEnabled=false,InputBegan=signal(),GetFocusedTextBox=function() return nil end}
+local cas={Bound={}}
+function cas:BindActionAtPriority(name,fn) self.Bound[name]=fn end
+function cas:UnbindAction(name) self.Bound[name]=nil end
+services.UserInputService=input;services.ContextActionService=cas
+services.Debris={AddItem=function() end};services.SoundService=Instance.new('SoundService')
+services.RunService.RenderStepped=signal()
+function playerService:GetPlayerFromCharacter(c) for _,p in ipairs(self.members) do if p.Character==c then return p end end end
+function methods:ChangeState(state) self.State=state end
+function methods:Play() self.Played=true end
+local schedule={}
+task.delay=function(t,fn) schedule[#schedule+1]={At=clock+t,Fn=fn} end
+local X=Instance.new('Folder',services.ReplicatedStorage);X.Name='HABExpansion'
+for _,name in ipairs({'Config','CombatRules','HABCombatHUD','HABActionAnimationsV16'}) do local m=Instance.new('ModuleScript',X);m.Name=name end
+for _,name in ipairs({'FX','Action'}) do local m=Instance.new('RemoteEvent',X);m.Name=name;m.OnClientEvent=signal() end
+local requests={}
+function methods:FireServer(kind,packet) requests[#requests+1]={Kind=kind,Packet=packet} end
+for _,name in ipairs({'BombSkinBuilderV12','HussCatalogV11'}) do local m=Instance.new('ModuleScript',services.ReplicatedStorage);m.Name=name end
+local config={Audio={SwingId=0,ThrowId=0,AbilityId=0},DefaultAbility='Speed',Swing={Windup=.055,Cooldown=.48},Throw={Cooldown=12},VFX={}}
+local hud={Pending=function() end,Reply=function() end,Notice=function() end,Hit=function() end,Destroy=function() end}
+local require=function(m)
+ if m.Name=='HABActionAnimationsV16' then return A
+ elseif m.Name=='Config' then return config elseif m.Name=='HABCombatHUD' then return function() return hud end
+ elseif m.Name=='CombatRules' then return {Projectile=function(origin,velocity,gravity,age) return origin+velocity*age-Vector3.new(0,gravity*age*age/2,0) end}
+ elseif m.Name=='BombSkinBuilderV12' then return {Apply=function() end} elseif m.Name=='HussCatalogV11' then return {ById={bomb_default={}},Defaults={Bombs='bomb_default'}} end
+ error('Unknown module '..m.Name)
+end
+owner:SetAttribute('HussSFXMuted',true)
+for _,p in ipairs(playerService.members) do
+ p:SetAttribute('InRound',true);p.Character:SetAttribute('MovementAction','DiveEnd');p.Character:SetAttribute('MovementActionId',0)
+ p.Character.Humanoid.MoveDirection=Vector3.zero
+end
+local exports
+do
+{{CLIENT}}
+exports={Pose=pose,Clear=clearPose,Poses=poses,Send=send,Predicted=predicted,Born=born,Folder=folder,Missiles=missiles}
+end
+local assertions=0
+local function check(condition,message) assertions+=1;assert(condition,message or 'Assertion '..assertions) end
+local function tick(dt)
+ clock+=dt or 1/60
+ for i=#schedule,1,-1 do if schedule[i].At<=clock then local q=table.remove(schedule,i);q.Fn() end end
+ services.RunService.PreAnimation:Fire()
+ services.RunService.PreSimulation:Fire(dt or 1/60)
+ services.RunService.RenderStepped:Fire(dt or 1/60)
+end
+local function reset(p)
+ local c=p.Character;exports.Clear(c)
+ c:SetAttribute('HABWeavePoseUntil',nil);c:SetAttribute('HABWeavePoseStartedAt',nil);c:SetAttribute('HussDodgeStartedAt',nil);c:SetAttribute('MovementAction','DiveEnd');c:SetAttribute('MovementActionId',(c:GetAttribute('MovementActionId') or 0)+1)
+ c:SetAttribute('Ragdolled',false);c:SetAttribute('IsRagdoll',false);c:SetAttribute('HussBombCarrier',true)
+ p:SetAttribute('HussEmotePlaying',nil);p:SetAttribute('HussReducedMotion',nil)
+ c.HumanoidRootPart.Anchored=false;c.Humanoid.Health=100;c.Humanoid.PlatformStand=false;c.Humanoid.Sit=false;c.Humanoid.State=Enum.HumanoidStateType.Running
+ c.HumanoidRootPart.AssemblyLinearVelocity=Vector3.zero
+ for _,j in ipairs(c:GetDescendants()) do if j:IsA('Motor6D') or j:IsA('AnimationConstraint') then j.Transform=CFrame.identity end end
+ clock+=1
+end
+{{REGRESSIONS}}

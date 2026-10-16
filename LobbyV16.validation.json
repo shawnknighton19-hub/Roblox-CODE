@@ -1,0 +1,4354 @@
+{
+  "version": 16,
+  "checks": 1464,
+  "passed": true,
+  "errors": [],
+  "groundAccessPoints": 18,
+  "terraceAccessPoints": 5,
+  "standingClearanceRadius": 2,
+  "standingEnvelopeHeight": 6.4,
+  "rampWidth": 28,
+  "rampRise": 5,
+  "rampRun": 24,
+  "rampSlopeDegrees": 11.768288932020646,
+  "newParts": 174,
+  "retainedExistingParts": 458,
+  "arenaAnchor": [
+    0,
+    -27,
+    -190
+  ],
+  "viewingEdgeZ": -39.7,
+  "nearestMapEdgeZ": -70,
+  "spectatorSeparationStuds": 30.3,
+  "spectatorViewpoints": [
+    [
+      -58,
+      12,
+      -35
+    ],
+    [
+      -29,
+      12,
+      -35
+    ],
+    [
+      0,
+      12,
+      -35
+    ],
+    [
+      29,
+      12,
+      -35
+    ],
+    [
+      58,
+      12,
+      -35
+    ]
+  ],
+  "spectatorActorSightlines": [
+    {
+      "map": "Orbital Station",
+      "spawnHeadSamples": 16,
+      "spawnHeadsVisibleFromAtLeastOneViewingPosition": 14,
+      "spawnSamples": [
+        {
+          "sample": "Orbital Station/Spawns/Spawn01",
+          "visible": true
+        },
+        {
+          "sample": "Orbital Station/Spawns/Spawn02",
+          "visible": true
+        },
+        {
+          "sample": "Orbital Station/Spawns/Spawn03",
+          "visible": true
+        },
+        {
+          "sample": "Orbital Station/Spawns/Spawn04",
+          "visible": true
+        },
+        {
+          "sample": "Orbital Station/Spawns/Spawn05",
+          "visible": true
+        },
+        {
+          "sample": "Orbital Station/Spawns/Spawn06",
+          "visible": true
+        },
+        {
+          "sample": "Orbital Station/Spawns/Spawn07",
+          "visible": true
+        },
+        {
+          "sample": "Orbital Station/Spawns/Spawn08",
+          "visible": true
+        },
+        {
+          "sample": "Orbital Station/Spawns/Spawn09",
+          "visible": true
+        },
+        {
+          "sample": "Orbital Station/Spawns/Spawn10",
+          "visible": true
+        },
+        {
+          "sample": "Orbital Station/Spawns/Spawn11",
+          "visible": false
+        },
+        {
+          "sample": "Orbital Station/Spawns/Spawn12",
+          "visible": true
+        },
+        {
+          "sample": "Orbital Station/Spawns/Spawn13",
+          "visible": true
+        },
+        {
+          "sample": "Orbital Station/Spawns/Spawn14",
+          "visible": true
+        },
+        {
+          "sample": "Orbital Station/Spawns/Spawn15",
+          "visible": false
+        },
+        {
+          "sample": "Orbital Station/Spawns/Spawn16",
+          "visible": true
+        }
+      ],
+      "centralLaneSamples": 21,
+      "centralLanesVisible": 19,
+      "laneSamples": [
+        {
+          "localPosition": [
+            -60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            13.0,
+            0.0
+          ],
+          "surface": "Orbital Station/Themed architecture/Reactor promenade/Walkable deck",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -10.5,
+            13.0,
+            0.0
+          ],
+          "surface": "Orbital Station/Themed architecture/Reactor promenade/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            10.5,
+            13.0,
+            0.0
+          ],
+          "surface": "Orbital Station/Themed architecture/Reactor promenade/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            13.0,
+            -14.5
+          ],
+          "surface": "Orbital Station/Themed architecture/Reactor promenade/Walkable deck",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            13.0,
+            14.5
+          ],
+          "surface": "Orbital Station/Themed architecture/Reactor promenade/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        }
+      ]
+    },
+    {
+      "map": "Pirate Cove",
+      "spawnHeadSamples": 16,
+      "spawnHeadsVisibleFromAtLeastOneViewingPosition": 15,
+      "spawnSamples": [
+        {
+          "sample": "Pirate Cove/Spawns/Spawn01",
+          "visible": true
+        },
+        {
+          "sample": "Pirate Cove/Spawns/Spawn02",
+          "visible": true
+        },
+        {
+          "sample": "Pirate Cove/Spawns/Spawn03",
+          "visible": true
+        },
+        {
+          "sample": "Pirate Cove/Spawns/Spawn04",
+          "visible": true
+        },
+        {
+          "sample": "Pirate Cove/Spawns/Spawn05",
+          "visible": true
+        },
+        {
+          "sample": "Pirate Cove/Spawns/Spawn06",
+          "visible": true
+        },
+        {
+          "sample": "Pirate Cove/Spawns/Spawn07",
+          "visible": true
+        },
+        {
+          "sample": "Pirate Cove/Spawns/Spawn08",
+          "visible": true
+        },
+        {
+          "sample": "Pirate Cove/Spawns/Spawn09",
+          "visible": true
+        },
+        {
+          "sample": "Pirate Cove/Spawns/Spawn10",
+          "visible": true
+        },
+        {
+          "sample": "Pirate Cove/Spawns/Spawn11",
+          "visible": true
+        },
+        {
+          "sample": "Pirate Cove/Spawns/Spawn12",
+          "visible": true
+        },
+        {
+          "sample": "Pirate Cove/Spawns/Spawn13",
+          "visible": true
+        },
+        {
+          "sample": "Pirate Cove/Spawns/Spawn14",
+          "visible": true
+        },
+        {
+          "sample": "Pirate Cove/Spawns/Spawn15",
+          "visible": false
+        },
+        {
+          "sample": "Pirate Cove/Spawns/Spawn16",
+          "visible": true
+        }
+      ],
+      "centralLaneSamples": 22,
+      "centralLanesVisible": 22,
+      "laneSamples": [
+        {
+          "localPosition": [
+            -60,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -32.0,
+            13.0,
+            -4.0
+          ],
+          "surface": "Pirate Cove/Themed architecture/Bomb brigantine/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -41.5,
+            13.0,
+            -4.0
+          ],
+          "surface": "Pirate Cove/Themed architecture/Bomb brigantine/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -22.5,
+            13.0,
+            -4.0
+          ],
+          "surface": "Pirate Cove/Themed architecture/Bomb brigantine/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -32.0,
+            13.0,
+            -21.5
+          ],
+          "surface": "Pirate Cove/Themed architecture/Bomb brigantine/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -32.0,
+            13.0,
+            13.5
+          ],
+          "surface": "Pirate Cove/Themed architecture/Bomb brigantine/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        }
+      ]
+    },
+    {
+      "map": "Neon District",
+      "spawnHeadSamples": 16,
+      "spawnHeadsVisibleFromAtLeastOneViewingPosition": 16,
+      "spawnSamples": [
+        {
+          "sample": "Neon District/Spawns/Spawn01",
+          "visible": true
+        },
+        {
+          "sample": "Neon District/Spawns/Spawn02",
+          "visible": true
+        },
+        {
+          "sample": "Neon District/Spawns/Spawn03",
+          "visible": true
+        },
+        {
+          "sample": "Neon District/Spawns/Spawn04",
+          "visible": true
+        },
+        {
+          "sample": "Neon District/Spawns/Spawn05",
+          "visible": true
+        },
+        {
+          "sample": "Neon District/Spawns/Spawn06",
+          "visible": true
+        },
+        {
+          "sample": "Neon District/Spawns/Spawn07",
+          "visible": true
+        },
+        {
+          "sample": "Neon District/Spawns/Spawn08",
+          "visible": true
+        },
+        {
+          "sample": "Neon District/Spawns/Spawn09",
+          "visible": true
+        },
+        {
+          "sample": "Neon District/Spawns/Spawn10",
+          "visible": true
+        },
+        {
+          "sample": "Neon District/Spawns/Spawn11",
+          "visible": true
+        },
+        {
+          "sample": "Neon District/Spawns/Spawn12",
+          "visible": true
+        },
+        {
+          "sample": "Neon District/Spawns/Spawn13",
+          "visible": true
+        },
+        {
+          "sample": "Neon District/Spawns/Spawn14",
+          "visible": true
+        },
+        {
+          "sample": "Neon District/Spawns/Spawn15",
+          "visible": true
+        },
+        {
+          "sample": "Neon District/Spawns/Spawn16",
+          "visible": true
+        }
+      ],
+      "centralLaneSamples": 19,
+      "centralLanesVisible": 14,
+      "laneSamples": [
+        {
+          "localPosition": [
+            -60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            12.0,
+            -28.0
+          ],
+          "surface": "Neon District/Themed architecture/Crosstown skywalk/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -19.0,
+            12.0,
+            -28.0
+          ],
+          "surface": "Neon District/Themed architecture/Crosstown skywalk/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            19.0,
+            12.0,
+            -28.0
+          ],
+          "surface": "Neon District/Themed architecture/Crosstown skywalk/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            12.0,
+            -34.5
+          ],
+          "surface": "Neon District/Themed architecture/Crosstown skywalk/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            12.0,
+            -21.5
+          ],
+          "surface": "Neon District/Themed architecture/Crosstown skywalk/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        }
+      ]
+    },
+    {
+      "map": "Emerald Ruins",
+      "spawnHeadSamples": 16,
+      "spawnHeadsVisibleFromAtLeastOneViewingPosition": 15,
+      "spawnSamples": [
+        {
+          "sample": "Emerald Ruins/Spawns/Spawn01",
+          "visible": true
+        },
+        {
+          "sample": "Emerald Ruins/Spawns/Spawn02",
+          "visible": true
+        },
+        {
+          "sample": "Emerald Ruins/Spawns/Spawn03",
+          "visible": true
+        },
+        {
+          "sample": "Emerald Ruins/Spawns/Spawn04",
+          "visible": true
+        },
+        {
+          "sample": "Emerald Ruins/Spawns/Spawn05",
+          "visible": true
+        },
+        {
+          "sample": "Emerald Ruins/Spawns/Spawn06",
+          "visible": true
+        },
+        {
+          "sample": "Emerald Ruins/Spawns/Spawn07",
+          "visible": true
+        },
+        {
+          "sample": "Emerald Ruins/Spawns/Spawn08",
+          "visible": true
+        },
+        {
+          "sample": "Emerald Ruins/Spawns/Spawn09",
+          "visible": true
+        },
+        {
+          "sample": "Emerald Ruins/Spawns/Spawn10",
+          "visible": true
+        },
+        {
+          "sample": "Emerald Ruins/Spawns/Spawn11",
+          "visible": true
+        },
+        {
+          "sample": "Emerald Ruins/Spawns/Spawn12",
+          "visible": true
+        },
+        {
+          "sample": "Emerald Ruins/Spawns/Spawn13",
+          "visible": false
+        },
+        {
+          "sample": "Emerald Ruins/Spawns/Spawn14",
+          "visible": true
+        },
+        {
+          "sample": "Emerald Ruins/Spawns/Spawn15",
+          "visible": true
+        },
+        {
+          "sample": "Emerald Ruins/Spawns/Spawn16",
+          "visible": true
+        }
+      ],
+      "centralLaneSamples": 24,
+      "centralLanesVisible": 23,
+      "laneSamples": [
+        {
+          "localPosition": [
+            -60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            13.0,
+            -45.0
+          ],
+          "surface": "Emerald Ruins/Themed architecture/Temple terrace/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -16.5,
+            13.0,
+            -45.0
+          ],
+          "surface": "Emerald Ruins/Themed architecture/Temple terrace/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            16.5,
+            13.0,
+            -45.0
+          ],
+          "surface": "Emerald Ruins/Themed architecture/Temple terrace/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            13.0,
+            -53.0
+          ],
+          "surface": "Emerald Ruins/Themed architecture/Temple terrace/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            13.0,
+            -37.0
+          ],
+          "surface": "Emerald Ruins/Themed architecture/Temple terrace/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        }
+      ]
+    },
+    {
+      "map": "Sky Garden",
+      "spawnHeadSamples": 16,
+      "spawnHeadsVisibleFromAtLeastOneViewingPosition": 15,
+      "spawnSamples": [
+        {
+          "sample": "Sky Garden/Spawns/Spawn01",
+          "visible": true
+        },
+        {
+          "sample": "Sky Garden/Spawns/Spawn02",
+          "visible": true
+        },
+        {
+          "sample": "Sky Garden/Spawns/Spawn03",
+          "visible": true
+        },
+        {
+          "sample": "Sky Garden/Spawns/Spawn04",
+          "visible": true
+        },
+        {
+          "sample": "Sky Garden/Spawns/Spawn05",
+          "visible": true
+        },
+        {
+          "sample": "Sky Garden/Spawns/Spawn06",
+          "visible": true
+        },
+        {
+          "sample": "Sky Garden/Spawns/Spawn07",
+          "visible": true
+        },
+        {
+          "sample": "Sky Garden/Spawns/Spawn08",
+          "visible": true
+        },
+        {
+          "sample": "Sky Garden/Spawns/Spawn09",
+          "visible": true
+        },
+        {
+          "sample": "Sky Garden/Spawns/Spawn10",
+          "visible": true
+        },
+        {
+          "sample": "Sky Garden/Spawns/Spawn11",
+          "visible": true
+        },
+        {
+          "sample": "Sky Garden/Spawns/Spawn12",
+          "visible": true
+        },
+        {
+          "sample": "Sky Garden/Spawns/Spawn13",
+          "visible": false
+        },
+        {
+          "sample": "Sky Garden/Spawns/Spawn14",
+          "visible": true
+        },
+        {
+          "sample": "Sky Garden/Spawns/Spawn15",
+          "visible": true
+        },
+        {
+          "sample": "Sky Garden/Spawns/Spawn16",
+          "visible": true
+        }
+      ],
+      "centralLaneSamples": 15,
+      "centralLanesVisible": 11,
+      "laneSamples": [
+        {
+          "localPosition": [
+            -60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            12.0,
+            -2.0
+          ],
+          "surface": "Sky Garden/Themed architecture/Bloom terrace/Walkable deck",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -14.5,
+            12.0,
+            -2.0
+          ],
+          "surface": "Sky Garden/Themed architecture/Bloom terrace/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            14.5,
+            12.0,
+            -2.0
+          ],
+          "surface": "Sky Garden/Themed architecture/Bloom terrace/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            12.0,
+            -10.5
+          ],
+          "surface": "Sky Garden/Themed architecture/Bloom terrace/Walkable deck",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            12.0,
+            6.5
+          ],
+          "surface": "Sky Garden/Themed architecture/Bloom terrace/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        }
+      ]
+    },
+    {
+      "map": "Ember Keep",
+      "spawnHeadSamples": 16,
+      "spawnHeadsVisibleFromAtLeastOneViewingPosition": 13,
+      "spawnSamples": [
+        {
+          "sample": "Ember Keep/Spawns/Spawn01",
+          "visible": true
+        },
+        {
+          "sample": "Ember Keep/Spawns/Spawn02",
+          "visible": true
+        },
+        {
+          "sample": "Ember Keep/Spawns/Spawn03",
+          "visible": true
+        },
+        {
+          "sample": "Ember Keep/Spawns/Spawn04",
+          "visible": true
+        },
+        {
+          "sample": "Ember Keep/Spawns/Spawn05",
+          "visible": true
+        },
+        {
+          "sample": "Ember Keep/Spawns/Spawn06",
+          "visible": true
+        },
+        {
+          "sample": "Ember Keep/Spawns/Spawn07",
+          "visible": true
+        },
+        {
+          "sample": "Ember Keep/Spawns/Spawn08",
+          "visible": true
+        },
+        {
+          "sample": "Ember Keep/Spawns/Spawn09",
+          "visible": true
+        },
+        {
+          "sample": "Ember Keep/Spawns/Spawn10",
+          "visible": true
+        },
+        {
+          "sample": "Ember Keep/Spawns/Spawn11",
+          "visible": true
+        },
+        {
+          "sample": "Ember Keep/Spawns/Spawn12",
+          "visible": false
+        },
+        {
+          "sample": "Ember Keep/Spawns/Spawn13",
+          "visible": false
+        },
+        {
+          "sample": "Ember Keep/Spawns/Spawn14",
+          "visible": false
+        },
+        {
+          "sample": "Ember Keep/Spawns/Spawn15",
+          "visible": true
+        },
+        {
+          "sample": "Ember Keep/Spawns/Spawn16",
+          "visible": true
+        }
+      ],
+      "centralLaneSamples": 21,
+      "centralLanesVisible": 20,
+      "laneSamples": [
+        {
+          "localPosition": [
+            -60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            15.0,
+            -46.0
+          ],
+          "surface": "Ember Keep/Themed architecture/Fuse battlement/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -23.0,
+            15.0,
+            -46.0
+          ],
+          "surface": "Ember Keep/Themed architecture/Fuse battlement/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            23.0,
+            15.0,
+            -46.0
+          ],
+          "surface": "Ember Keep/Themed architecture/Fuse battlement/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            15.0,
+            -53.0
+          ],
+          "surface": "Ember Keep/Themed architecture/Fuse battlement/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            15.0,
+            -39.0
+          ],
+          "surface": "Ember Keep/Themed architecture/Fuse battlement/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        }
+      ]
+    },
+    {
+      "map": "Clockwork Foundry",
+      "spawnHeadSamples": 16,
+      "spawnHeadsVisibleFromAtLeastOneViewingPosition": 15,
+      "spawnSamples": [
+        {
+          "sample": "Clockwork Foundry/Spawns/Spawn01",
+          "visible": true
+        },
+        {
+          "sample": "Clockwork Foundry/Spawns/Spawn02",
+          "visible": true
+        },
+        {
+          "sample": "Clockwork Foundry/Spawns/Spawn03",
+          "visible": true
+        },
+        {
+          "sample": "Clockwork Foundry/Spawns/Spawn04",
+          "visible": true
+        },
+        {
+          "sample": "Clockwork Foundry/Spawns/Spawn05",
+          "visible": true
+        },
+        {
+          "sample": "Clockwork Foundry/Spawns/Spawn06",
+          "visible": true
+        },
+        {
+          "sample": "Clockwork Foundry/Spawns/Spawn07",
+          "visible": true
+        },
+        {
+          "sample": "Clockwork Foundry/Spawns/Spawn08",
+          "visible": true
+        },
+        {
+          "sample": "Clockwork Foundry/Spawns/Spawn09",
+          "visible": true
+        },
+        {
+          "sample": "Clockwork Foundry/Spawns/Spawn10",
+          "visible": true
+        },
+        {
+          "sample": "Clockwork Foundry/Spawns/Spawn11",
+          "visible": false
+        },
+        {
+          "sample": "Clockwork Foundry/Spawns/Spawn12",
+          "visible": true
+        },
+        {
+          "sample": "Clockwork Foundry/Spawns/Spawn13",
+          "visible": true
+        },
+        {
+          "sample": "Clockwork Foundry/Spawns/Spawn14",
+          "visible": true
+        },
+        {
+          "sample": "Clockwork Foundry/Spawns/Spawn15",
+          "visible": true
+        },
+        {
+          "sample": "Clockwork Foundry/Spawns/Spawn16",
+          "visible": true
+        }
+      ],
+      "centralLaneSamples": 21,
+      "centralLanesVisible": 21,
+      "laneSamples": [
+        {
+          "localPosition": [
+            -60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            31.0,
+            13.0,
+            0.0
+          ],
+          "surface": "Clockwork Foundry/Themed architecture/Inspection conveyor/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            22.25,
+            13.0,
+            0.0
+          ],
+          "surface": "Clockwork Foundry/Themed architecture/Inspection conveyor/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            39.75,
+            13.0,
+            0.0
+          ],
+          "surface": "Clockwork Foundry/Themed architecture/Inspection conveyor/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            31.0,
+            13.0,
+            -16.25
+          ],
+          "surface": "Clockwork Foundry/Themed architecture/Inspection conveyor/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            31.0,
+            13.0,
+            16.25
+          ],
+          "surface": "Clockwork Foundry/Themed architecture/Inspection conveyor/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        }
+      ]
+    },
+    {
+      "map": "Frostfall Village",
+      "spawnHeadSamples": 16,
+      "spawnHeadsVisibleFromAtLeastOneViewingPosition": 13,
+      "spawnSamples": [
+        {
+          "sample": "Frostfall Village/Spawns/Spawn01",
+          "visible": true
+        },
+        {
+          "sample": "Frostfall Village/Spawns/Spawn02",
+          "visible": true
+        },
+        {
+          "sample": "Frostfall Village/Spawns/Spawn03",
+          "visible": true
+        },
+        {
+          "sample": "Frostfall Village/Spawns/Spawn04",
+          "visible": true
+        },
+        {
+          "sample": "Frostfall Village/Spawns/Spawn05",
+          "visible": true
+        },
+        {
+          "sample": "Frostfall Village/Spawns/Spawn06",
+          "visible": true
+        },
+        {
+          "sample": "Frostfall Village/Spawns/Spawn07",
+          "visible": true
+        },
+        {
+          "sample": "Frostfall Village/Spawns/Spawn08",
+          "visible": true
+        },
+        {
+          "sample": "Frostfall Village/Spawns/Spawn09",
+          "visible": true
+        },
+        {
+          "sample": "Frostfall Village/Spawns/Spawn10",
+          "visible": false
+        },
+        {
+          "sample": "Frostfall Village/Spawns/Spawn11",
+          "visible": true
+        },
+        {
+          "sample": "Frostfall Village/Spawns/Spawn12",
+          "visible": true
+        },
+        {
+          "sample": "Frostfall Village/Spawns/Spawn13",
+          "visible": false
+        },
+        {
+          "sample": "Frostfall Village/Spawns/Spawn14",
+          "visible": true
+        },
+        {
+          "sample": "Frostfall Village/Spawns/Spawn15",
+          "visible": true
+        },
+        {
+          "sample": "Frostfall Village/Spawns/Spawn16",
+          "visible": false
+        }
+      ],
+      "centralLaneSamples": 22,
+      "centralLanesVisible": 22,
+      "laneSamples": [
+        {
+          "localPosition": [
+            -60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            13.0,
+            -48.0
+          ],
+          "surface": "Frostfall Village/Themed architecture/Lodge balcony/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -17.0,
+            13.0,
+            -48.0
+          ],
+          "surface": "Frostfall Village/Themed architecture/Lodge balcony/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            17.0,
+            13.0,
+            -48.0
+          ],
+          "surface": "Frostfall Village/Themed architecture/Lodge balcony/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            13.0,
+            -54.75
+          ],
+          "surface": "Frostfall Village/Themed architecture/Lodge balcony/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            13.0,
+            -41.25
+          ],
+          "surface": "Frostfall Village/Themed architecture/Lodge balcony/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        }
+      ]
+    },
+    {
+      "map": "Crystal Cavern",
+      "spawnHeadSamples": 16,
+      "spawnHeadsVisibleFromAtLeastOneViewingPosition": 15,
+      "spawnSamples": [
+        {
+          "sample": "Crystal Cavern/Spawns/Spawn01",
+          "visible": false
+        },
+        {
+          "sample": "Crystal Cavern/Spawns/Spawn02",
+          "visible": true
+        },
+        {
+          "sample": "Crystal Cavern/Spawns/Spawn03",
+          "visible": true
+        },
+        {
+          "sample": "Crystal Cavern/Spawns/Spawn04",
+          "visible": true
+        },
+        {
+          "sample": "Crystal Cavern/Spawns/Spawn05",
+          "visible": true
+        },
+        {
+          "sample": "Crystal Cavern/Spawns/Spawn06",
+          "visible": true
+        },
+        {
+          "sample": "Crystal Cavern/Spawns/Spawn07",
+          "visible": true
+        },
+        {
+          "sample": "Crystal Cavern/Spawns/Spawn08",
+          "visible": true
+        },
+        {
+          "sample": "Crystal Cavern/Spawns/Spawn09",
+          "visible": true
+        },
+        {
+          "sample": "Crystal Cavern/Spawns/Spawn10",
+          "visible": true
+        },
+        {
+          "sample": "Crystal Cavern/Spawns/Spawn11",
+          "visible": true
+        },
+        {
+          "sample": "Crystal Cavern/Spawns/Spawn12",
+          "visible": true
+        },
+        {
+          "sample": "Crystal Cavern/Spawns/Spawn13",
+          "visible": true
+        },
+        {
+          "sample": "Crystal Cavern/Spawns/Spawn14",
+          "visible": true
+        },
+        {
+          "sample": "Crystal Cavern/Spawns/Spawn15",
+          "visible": true
+        },
+        {
+          "sample": "Crystal Cavern/Spawns/Spawn16",
+          "visible": true
+        }
+      ],
+      "centralLaneSamples": 24,
+      "centralLanesVisible": 21,
+      "laneSamples": [
+        {
+          "localPosition": [
+            -60,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            12.0,
+            0.0
+          ],
+          "surface": "Crystal Cavern/Themed architecture/Prism causeway/Walkable deck",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -8.5,
+            12.0,
+            0.0
+          ],
+          "surface": "Crystal Cavern/Themed architecture/Prism causeway/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            8.5,
+            12.0,
+            0.0
+          ],
+          "surface": "Crystal Cavern/Themed architecture/Prism causeway/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            12.0,
+            -12.0
+          ],
+          "surface": "Crystal Cavern/Themed architecture/Prism causeway/Walkable deck",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            12.0,
+            12.0
+          ],
+          "surface": "Crystal Cavern/Themed architecture/Prism causeway/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        }
+      ]
+    },
+    {
+      "map": "Sunset Docks",
+      "spawnHeadSamples": 16,
+      "spawnHeadsVisibleFromAtLeastOneViewingPosition": 13,
+      "spawnSamples": [
+        {
+          "sample": "Sunset Docks/Spawns/Spawn01",
+          "visible": false
+        },
+        {
+          "sample": "Sunset Docks/Spawns/Spawn02",
+          "visible": true
+        },
+        {
+          "sample": "Sunset Docks/Spawns/Spawn03",
+          "visible": true
+        },
+        {
+          "sample": "Sunset Docks/Spawns/Spawn04",
+          "visible": true
+        },
+        {
+          "sample": "Sunset Docks/Spawns/Spawn05",
+          "visible": true
+        },
+        {
+          "sample": "Sunset Docks/Spawns/Spawn06",
+          "visible": true
+        },
+        {
+          "sample": "Sunset Docks/Spawns/Spawn07",
+          "visible": true
+        },
+        {
+          "sample": "Sunset Docks/Spawns/Spawn08",
+          "visible": false
+        },
+        {
+          "sample": "Sunset Docks/Spawns/Spawn09",
+          "visible": true
+        },
+        {
+          "sample": "Sunset Docks/Spawns/Spawn10",
+          "visible": true
+        },
+        {
+          "sample": "Sunset Docks/Spawns/Spawn11",
+          "visible": true
+        },
+        {
+          "sample": "Sunset Docks/Spawns/Spawn12",
+          "visible": true
+        },
+        {
+          "sample": "Sunset Docks/Spawns/Spawn13",
+          "visible": true
+        },
+        {
+          "sample": "Sunset Docks/Spawns/Spawn14",
+          "visible": true
+        },
+        {
+          "sample": "Sunset Docks/Spawns/Spawn15",
+          "visible": false
+        },
+        {
+          "sample": "Sunset Docks/Spawns/Spawn16",
+          "visible": true
+        }
+      ],
+      "centralLaneSamples": 21,
+      "centralLanesVisible": 17,
+      "laneSamples": [
+        {
+          "localPosition": [
+            -60,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -39.0,
+            13.0,
+            0.0
+          ],
+          "surface": "Sunset Docks/Themed architecture/Sunset loading quay/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -48.25,
+            13.0,
+            0.0
+          ],
+          "surface": "Sunset Docks/Themed architecture/Sunset loading quay/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -29.75,
+            13.0,
+            0.0
+          ],
+          "surface": "Sunset Docks/Themed architecture/Sunset loading quay/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -39.0,
+            13.0,
+            -22.5
+          ],
+          "surface": "Sunset Docks/Themed architecture/Sunset loading quay/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -39.0,
+            13.0,
+            22.5
+          ],
+          "surface": "Sunset Docks/Themed architecture/Sunset loading quay/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        }
+      ]
+    },
+    {
+      "map": "Sunstone Bazaar",
+      "spawnHeadSamples": 16,
+      "spawnHeadsVisibleFromAtLeastOneViewingPosition": 15,
+      "spawnSamples": [
+        {
+          "sample": "Sunstone Bazaar/Spawns/Spawn01",
+          "visible": true
+        },
+        {
+          "sample": "Sunstone Bazaar/Spawns/Spawn02",
+          "visible": true
+        },
+        {
+          "sample": "Sunstone Bazaar/Spawns/Spawn03",
+          "visible": true
+        },
+        {
+          "sample": "Sunstone Bazaar/Spawns/Spawn04",
+          "visible": true
+        },
+        {
+          "sample": "Sunstone Bazaar/Spawns/Spawn05",
+          "visible": true
+        },
+        {
+          "sample": "Sunstone Bazaar/Spawns/Spawn06",
+          "visible": true
+        },
+        {
+          "sample": "Sunstone Bazaar/Spawns/Spawn07",
+          "visible": true
+        },
+        {
+          "sample": "Sunstone Bazaar/Spawns/Spawn08",
+          "visible": true
+        },
+        {
+          "sample": "Sunstone Bazaar/Spawns/Spawn09",
+          "visible": true
+        },
+        {
+          "sample": "Sunstone Bazaar/Spawns/Spawn10",
+          "visible": true
+        },
+        {
+          "sample": "Sunstone Bazaar/Spawns/Spawn11",
+          "visible": true
+        },
+        {
+          "sample": "Sunstone Bazaar/Spawns/Spawn12",
+          "visible": false
+        },
+        {
+          "sample": "Sunstone Bazaar/Spawns/Spawn13",
+          "visible": true
+        },
+        {
+          "sample": "Sunstone Bazaar/Spawns/Spawn14",
+          "visible": true
+        },
+        {
+          "sample": "Sunstone Bazaar/Spawns/Spawn15",
+          "visible": true
+        },
+        {
+          "sample": "Sunstone Bazaar/Spawns/Spawn16",
+          "visible": true
+        }
+      ],
+      "centralLaneSamples": 22,
+      "centralLanesVisible": 20,
+      "laneSamples": [
+        {
+          "localPosition": [
+            -60,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            47.0,
+            13.0,
+            -3.0
+          ],
+          "surface": "Sunstone Bazaar/Themed architecture/Merchant terrace/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            39.5,
+            13.0,
+            -3.0
+          ],
+          "surface": "Sunstone Bazaar/Themed architecture/Merchant terrace/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            54.5,
+            13.0,
+            -3.0
+          ],
+          "surface": "Sunstone Bazaar/Themed architecture/Merchant terrace/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            47.0,
+            13.0,
+            -18.5
+          ],
+          "surface": "Sunstone Bazaar/Themed architecture/Merchant terrace/Walkable deck",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            47.0,
+            13.0,
+            12.5
+          ],
+          "surface": "Sunstone Bazaar/Themed architecture/Merchant terrace/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        }
+      ]
+    },
+    {
+      "map": "Stardust Carnival",
+      "spawnHeadSamples": 16,
+      "spawnHeadsVisibleFromAtLeastOneViewingPosition": 14,
+      "spawnSamples": [
+        {
+          "sample": "Stardust Carnival/Spawns/Spawn01",
+          "visible": true
+        },
+        {
+          "sample": "Stardust Carnival/Spawns/Spawn02",
+          "visible": true
+        },
+        {
+          "sample": "Stardust Carnival/Spawns/Spawn03",
+          "visible": true
+        },
+        {
+          "sample": "Stardust Carnival/Spawns/Spawn04",
+          "visible": true
+        },
+        {
+          "sample": "Stardust Carnival/Spawns/Spawn05",
+          "visible": true
+        },
+        {
+          "sample": "Stardust Carnival/Spawns/Spawn06",
+          "visible": true
+        },
+        {
+          "sample": "Stardust Carnival/Spawns/Spawn07",
+          "visible": true
+        },
+        {
+          "sample": "Stardust Carnival/Spawns/Spawn08",
+          "visible": true
+        },
+        {
+          "sample": "Stardust Carnival/Spawns/Spawn09",
+          "visible": true
+        },
+        {
+          "sample": "Stardust Carnival/Spawns/Spawn10",
+          "visible": true
+        },
+        {
+          "sample": "Stardust Carnival/Spawns/Spawn11",
+          "visible": true
+        },
+        {
+          "sample": "Stardust Carnival/Spawns/Spawn12",
+          "visible": false
+        },
+        {
+          "sample": "Stardust Carnival/Spawns/Spawn13",
+          "visible": false
+        },
+        {
+          "sample": "Stardust Carnival/Spawns/Spawn14",
+          "visible": true
+        },
+        {
+          "sample": "Stardust Carnival/Spawns/Spawn15",
+          "visible": true
+        },
+        {
+          "sample": "Stardust Carnival/Spawns/Spawn16",
+          "visible": true
+        }
+      ],
+      "centralLaneSamples": 25,
+      "centralLanesVisible": 25,
+      "laneSamples": [
+        {
+          "localPosition": [
+            -60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            13.0,
+            -45.0
+          ],
+          "surface": "Stardust Carnival/Themed architecture/Starburst stage/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -18.0,
+            13.0,
+            -45.0
+          ],
+          "surface": "Stardust Carnival/Themed architecture/Starburst stage/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            18.0,
+            13.0,
+            -45.0
+          ],
+          "surface": "Stardust Carnival/Themed architecture/Starburst stage/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            13.0,
+            -52.25
+          ],
+          "surface": "Stardust Carnival/Themed architecture/Starburst stage/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            13.0,
+            -37.75
+          ],
+          "surface": "Stardust Carnival/Themed architecture/Starburst stage/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        }
+      ]
+    },
+    {
+      "map": "Fuseworks",
+      "spawnHeadSamples": 16,
+      "spawnHeadsVisibleFromAtLeastOneViewingPosition": 10,
+      "spawnSamples": [
+        {
+          "sample": "Fuseworks/Spawns/Spawn01",
+          "visible": false
+        },
+        {
+          "sample": "Fuseworks/Spawns/Spawn02",
+          "visible": false
+        },
+        {
+          "sample": "Fuseworks/Spawns/Spawn03",
+          "visible": true
+        },
+        {
+          "sample": "Fuseworks/Spawns/Spawn04",
+          "visible": true
+        },
+        {
+          "sample": "Fuseworks/Spawns/Spawn05",
+          "visible": false
+        },
+        {
+          "sample": "Fuseworks/Spawns/Spawn06",
+          "visible": true
+        },
+        {
+          "sample": "Fuseworks/Spawns/Spawn07",
+          "visible": true
+        },
+        {
+          "sample": "Fuseworks/Spawns/Spawn08",
+          "visible": false
+        },
+        {
+          "sample": "Fuseworks/Spawns/Spawn09",
+          "visible": true
+        },
+        {
+          "sample": "Fuseworks/Spawns/Spawn10",
+          "visible": true
+        },
+        {
+          "sample": "Fuseworks/Spawns/Spawn11",
+          "visible": false
+        },
+        {
+          "sample": "Fuseworks/Spawns/Spawn12",
+          "visible": true
+        },
+        {
+          "sample": "Fuseworks/Spawns/Spawn13",
+          "visible": true
+        },
+        {
+          "sample": "Fuseworks/Spawns/Spawn14",
+          "visible": true
+        },
+        {
+          "sample": "Fuseworks/Spawns/Spawn15",
+          "visible": false
+        },
+        {
+          "sample": "Fuseworks/Spawns/Spawn16",
+          "visible": true
+        }
+      ],
+      "centralLaneSamples": 19,
+      "centralLanesVisible": 19,
+      "laneSamples": [
+        {
+          "localPosition": [
+            -60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            13.0,
+            0.0
+          ],
+          "surface": "Fuseworks/Themed architecture/Fuse assembly runway/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -7.25,
+            13.0,
+            0.0
+          ],
+          "surface": "Fuseworks/Themed architecture/Fuse assembly runway/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            7.25,
+            13.0,
+            0.0
+          ],
+          "surface": "Fuseworks/Themed architecture/Fuse assembly runway/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            13.0,
+            -25.5
+          ],
+          "surface": "Fuseworks/Themed architecture/Fuse assembly runway/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            13.0,
+            25.5
+          ],
+          "surface": "Fuseworks/Themed architecture/Fuse assembly runway/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        }
+      ]
+    },
+    {
+      "map": "Detonator Plaza",
+      "spawnHeadSamples": 16,
+      "spawnHeadsVisibleFromAtLeastOneViewingPosition": 16,
+      "spawnSamples": [
+        {
+          "sample": "Detonator Plaza/Spawns/Spawn01",
+          "visible": true
+        },
+        {
+          "sample": "Detonator Plaza/Spawns/Spawn02",
+          "visible": true
+        },
+        {
+          "sample": "Detonator Plaza/Spawns/Spawn03",
+          "visible": true
+        },
+        {
+          "sample": "Detonator Plaza/Spawns/Spawn04",
+          "visible": true
+        },
+        {
+          "sample": "Detonator Plaza/Spawns/Spawn05",
+          "visible": true
+        },
+        {
+          "sample": "Detonator Plaza/Spawns/Spawn06",
+          "visible": true
+        },
+        {
+          "sample": "Detonator Plaza/Spawns/Spawn07",
+          "visible": true
+        },
+        {
+          "sample": "Detonator Plaza/Spawns/Spawn08",
+          "visible": true
+        },
+        {
+          "sample": "Detonator Plaza/Spawns/Spawn09",
+          "visible": true
+        },
+        {
+          "sample": "Detonator Plaza/Spawns/Spawn10",
+          "visible": true
+        },
+        {
+          "sample": "Detonator Plaza/Spawns/Spawn11",
+          "visible": true
+        },
+        {
+          "sample": "Detonator Plaza/Spawns/Spawn12",
+          "visible": true
+        },
+        {
+          "sample": "Detonator Plaza/Spawns/Spawn13",
+          "visible": true
+        },
+        {
+          "sample": "Detonator Plaza/Spawns/Spawn14",
+          "visible": true
+        },
+        {
+          "sample": "Detonator Plaza/Spawns/Spawn15",
+          "visible": true
+        },
+        {
+          "sample": "Detonator Plaza/Spawns/Spawn16",
+          "visible": true
+        }
+      ],
+      "centralLaneSamples": 21,
+      "centralLanesVisible": 17,
+      "laneSamples": [
+        {
+          "localPosition": [
+            -60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            -25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            11.0,
+            0.0
+          ],
+          "surface": "Detonator Plaza/Themed architecture/Detonator pavilion/Walkable deck",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -8.0,
+            11.0,
+            0.0
+          ],
+          "surface": "Detonator Plaza/Themed architecture/Detonator pavilion/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            8.0,
+            11.0,
+            0.0
+          ],
+          "surface": "Detonator Plaza/Themed architecture/Detonator pavilion/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            11.0,
+            -9.0
+          ],
+          "surface": "Detonator Plaza/Themed architecture/Detonator pavilion/Walkable deck",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            11.0,
+            9.0
+          ],
+          "surface": "Detonator Plaza/Themed architecture/Detonator pavilion/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        }
+      ]
+    },
+    {
+      "map": "Payload Port",
+      "spawnHeadSamples": 16,
+      "spawnHeadsVisibleFromAtLeastOneViewingPosition": 12,
+      "spawnSamples": [
+        {
+          "sample": "Payload Port/Spawns/Spawn01",
+          "visible": true
+        },
+        {
+          "sample": "Payload Port/Spawns/Spawn02",
+          "visible": false
+        },
+        {
+          "sample": "Payload Port/Spawns/Spawn03",
+          "visible": true
+        },
+        {
+          "sample": "Payload Port/Spawns/Spawn04",
+          "visible": true
+        },
+        {
+          "sample": "Payload Port/Spawns/Spawn05",
+          "visible": true
+        },
+        {
+          "sample": "Payload Port/Spawns/Spawn06",
+          "visible": true
+        },
+        {
+          "sample": "Payload Port/Spawns/Spawn07",
+          "visible": false
+        },
+        {
+          "sample": "Payload Port/Spawns/Spawn08",
+          "visible": false
+        },
+        {
+          "sample": "Payload Port/Spawns/Spawn09",
+          "visible": true
+        },
+        {
+          "sample": "Payload Port/Spawns/Spawn10",
+          "visible": true
+        },
+        {
+          "sample": "Payload Port/Spawns/Spawn11",
+          "visible": true
+        },
+        {
+          "sample": "Payload Port/Spawns/Spawn12",
+          "visible": true
+        },
+        {
+          "sample": "Payload Port/Spawns/Spawn13",
+          "visible": false
+        },
+        {
+          "sample": "Payload Port/Spawns/Spawn14",
+          "visible": true
+        },
+        {
+          "sample": "Payload Port/Spawns/Spawn15",
+          "visible": true
+        },
+        {
+          "sample": "Payload Port/Spawns/Spawn16",
+          "visible": true
+        }
+      ],
+      "centralLaneSamples": 20,
+      "centralLanesVisible": 17,
+      "laneSamples": [
+        {
+          "localPosition": [
+            -60,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -30,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0,
+            5,
+            50
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            -50
+          ],
+          "surface": "Ground lane",
+          "visible": false,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            30,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            0
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            60,
+            5,
+            25
+          ],
+          "surface": "Ground lane",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            14.0,
+            -23.0
+          ],
+          "surface": "Payload Port/Themed architecture/Payload loading bridge/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            -19.5,
+            14.0,
+            -23.0
+          ],
+          "surface": "Payload Port/Themed architecture/Payload loading bridge/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            19.5,
+            14.0,
+            -23.0
+          ],
+          "surface": "Payload Port/Themed architecture/Payload loading bridge/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            14.0,
+            -30.0
+          ],
+          "surface": "Payload Port/Themed architecture/Payload loading bridge/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        },
+        {
+          "localPosition": [
+            0.0,
+            14.0,
+            -16.0
+          ],
+          "surface": "Payload Port/Themed architecture/Payload loading bridge/Walkable deck",
+          "visible": true,
+          "unobstructedByLobby": true
+        }
+      ]
+    }
+  ],
+  "builderSHA256": "da0f5bcdbc63353ff5ca132a8b75d77ddb608afd83aa39eba5433356b810c0fb",
+  "inputSHA256": "c354d8c3c7ac43b9364749aa292716aa592eee6f496f532c98c0bafb88279309",
+  "providedOriginalVerified": true,
+  "mapBuilderSHA256": "29e235c96a8f5bbfd43f3679faed760d240258d6b7f3d7480905854cdffeae86",
+  "mapExportSHA256": "d9c3f3d6bf7e8eb8fa550284d2732de49284260da25347a591f25abfb0f81570",
+  "limits": "Analytic solid geometry and sampled actor-head rays. Map cover deliberately can occlude individual players. Not Roblox Humanoid/PathfindingService playtesting or engine screenshots."
+}

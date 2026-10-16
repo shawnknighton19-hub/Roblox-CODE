@@ -1,0 +1,3785 @@
+{
+  "baseSHA256": "c354d8c3c7ac43b9364749aa292716aa592eee6f496f532c98c0bafb88279309",
+  "builder": "LobbyBuilderV16.luau",
+  "sourceSHA256": "da0f5bcdbc63353ff5ca132a8b75d77ddb608afd83aa39eba5433356b810c0fb",
+  "archiveOriginal": {
+    "6872": "Workspace/Lobby/North terrace",
+    "7021": "Workspace/Lobby/Gardens and seating",
+    "7169": "Workspace/Lobby/Boundary",
+    "8071": "Workspace/Lobby/HABExpansionLobby/SpectatorOverlook",
+    "8341": "Workspace/Lobby/HABExpansionLobby/InvisibleLobbyBarrier"
+  },
+  "propertyChanges": [
+    {
+      "ref": 7182,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk",
+      "property": "WorldPivotData",
+      "original_sha256": "167ea40459307de5300f1ef19a4986e0143277b84f63f5fabc41e40a70c385b1",
+      "value_hex": "100032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855a0001821c28f6846000000201"
+    },
+    {
+      "ref": 7239,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Bomb display",
+      "property": "WorldPivotData",
+      "original_sha256": "8d3022dca6c333ff4638a741c88df10d174fcfd023ced1650c0217b4d6ba922f",
+      "value_hex": "1000c613869832318da40000803f0000803f2ebd3bb3000000002ebd3b330000803f32318d2485600001826428f6846000000201"
+    },
+    {
+      "ref": 7183,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Kiosk backdrop",
+      "property": "CFrame",
+      "original_sha256": "4ce1231fa591d05f6a61ca2985b0cbd0438f971961a5cc747d4686fec7f74f52",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d248572000181e0000084600000"
+    },
+    {
+      "ref": 7184,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Counter",
+      "property": "CFrame",
+      "original_sha256": "da97f58f617cf5c0b6e06648d0aff5f18db70973176567cefe0027b46a6a1f4a",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d248549333580c0000084600000"
+    },
+    {
+      "ref": 7185,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Counter rim",
+      "property": "CFrame",
+      "original_sha256": "d3f7d18e4ce61e54c054fd5dc6cae2dd29330ce7c0d4140606f80b76fcf6a229",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d2485493335816ccccc84600000"
+    },
+    {
+      "ref": 7186,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Awning pole",
+      "property": "CFrame",
+      "original_sha256": "91c9872fea5336813230aea5924bd76b13a722bf4e3dea983ae7adf976d03053",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855800018200000084b80000"
+    },
+    {
+      "ref": 7187,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Awning pole",
+      "property": "CFrame",
+      "original_sha256": "2a9afdd549d2c1ad2c46c72913e21ae2a1db430b3693fce459fb4ff2a2acaeca",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855800018200000084080000"
+    },
+    {
+      "ref": 7188,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Canopy",
+      "property": "CFrame",
+      "original_sha256": "851bdfb1f40e410e4fb45f791754fe5091dea25677cacc92e6816655d286abbe",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182d6666884600000"
+    },
+    {
+      "ref": 7189,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "f3a5bdd080e02bba06b3aab0dbc88cff4654f537bfea6623feb3eb744951c709",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333484c00000"
+    },
+    {
+      "ref": 7190,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "c696b53ffb927f51e220f9bcc2c3073355e413d34f94ed89a7674cf13f340166",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333484accccc"
+    },
+    {
+      "ref": 7191,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "076dc2450b1c8fcb8070153cf682d1643a6869d5e65963730a01174e5a439198",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333484999998"
+    },
+    {
+      "ref": 7192,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "654e5af4332aae19ab473f80a2442ab87a21fb867a0c7d1a1988480e3e683a14",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333484866668"
+    },
+    {
+      "ref": 7193,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "06ff14ce305ec7cea0c9f41e7e766f3a3522edfe6076400b441f0ae474cc97bd",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333484733334"
+    },
+    {
+      "ref": 7194,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "44d47f103e718d11662fa9a83442cb2a8749fc6700fb87d3348b40920283d17d",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333484600000"
+    },
+    {
+      "ref": 7195,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "c872513bf31b044377a6d93ca8e0a202cc2aeaeb49c666ed1b7759a406404d48",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e33334844ccccc"
+    },
+    {
+      "ref": 7196,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "7889b211e58e37dc2a435019072f046ebad6605ff02ba4e75ba163508eb8e208",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333484399998"
+    },
+    {
+      "ref": 7197,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "3d65a4519c22754987e0d993e55c3f204929d10af4b331de5fed0fd23c0e19d8",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333484266666"
+    },
+    {
+      "ref": 7198,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "ce927ecee44fb4c69d91a566a5cbc6a37ca3cf74fc90d126f50bdbf24b493304",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333484133334"
+    },
+    {
+      "ref": 7199,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "066983eec310d27ab65270f8ff363ebb968b1c908ac99076c75fb0b4728fc090",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333484000000"
+    },
+    {
+      "ref": 7200,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/BOMBS",
+      "property": "CFrame",
+      "original_sha256": "e13fd5b9535170d6f345d6724fbeff5dfa9d5e6fe03c38d08222b0d7c51523aa",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24853f999b827ccccc84600000"
+    },
+    {
+      "ref": 7240,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Bomb display/Bomb base",
+      "property": "CFrame",
+      "original_sha256": "a1420a2eaf284d963f779f5aa2618cc4b6f5747c3ee149610788d856ff0b1823",
+      "value_hex": "00c613869832318da40000803f0000803f2ebd3bb3000000002ebd3b330000803f32318d248560000181b5c29084600000"
+    },
+    {
+      "ref": 7241,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Bomb display/Bomb shell",
+      "property": "CFrame",
+      "original_sha256": "42e13b901868cc9c19a1e01295868c6900a131040307fce65be89bc1cf8f899f",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24856000018250000084600000"
+    },
+    {
+      "ref": 7242,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Bomb display/Fuse cap",
+      "property": "CFrame",
+      "original_sha256": "04f4a133c02e3774be8603b4f9b65b17e4ef00c0f50800b41dfdef5809da1fd1",
+      "value_hex": "00c613869832318da40000803f0000803f2ebd3bb3000000002ebd3b330000803f32318d248560000182b1eb8684600000"
+    },
+    {
+      "ref": 7243,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Bomb display/Curved fuse",
+      "property": "CFrame",
+      "original_sha256": "f3d5cb4da77c185a8b4550b351ad45b8ba95bf5c547ccbeebc843591558b0f3e",
+      "value_hex": "000000803fe148ab26cce5e124000000009b63173f8f704ebf32318d248f704e3f9b63173f8560000182da3d70845ab850"
+    },
+    {
+      "ref": 7244,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Bomb display/Fuse ember",
+      "property": "CFrame",
+      "original_sha256": "e56692caf72d2695db19332ed07a700983e0f85ac17e5bd509760bf5cbff6354",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d248560000182fae148845570a4"
+    },
+    {
+      "ref": 7245,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Bomb display/Shell shine",
+      "property": "CFrame",
+      "original_sha256": "d8d8615d9712ea2430b2c811c9418fe5b4322ce70843650447bf1e99e73fa08d",
+      "value_hex": "00ae9e2d26e1aafb240000803ff96f4bbea5e57a3f00000000a5e57abff96f4bbe32318d2485558f5d826eb852845ca3d8"
+    },
+    {
+      "ref": 7246,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Bomb display/Shell shine",
+      "property": "CFrame",
+      "original_sha256": "9c64f6a5c8e623fd4b363ff93f291f58d7ddbc197b3115f72d3878bc64e9ed07",
+      "value_hex": "00ae9e2d26e1aafb240000803ff96f4bbea5e57a3f00000000a5e57abff96f4bbe32318d2485558f5d826eb8528457d708"
+    },
+    {
+      "ref": 7247,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Bomb display/Shell shine",
+      "property": "CFrame",
+      "original_sha256": "6e2b97c01d1baa3da6d44981a4e7491da2022c62fe916bf493cb119b717518ad",
+      "value_hex": "00ae9e2d26e1aafb240000803ff96f4bbea5e57a3f00000000a5e57abff96f4bbe32318d2485558f5d826eb85284530a40"
+    },
+    {
+      "ref": 7248,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Browse Bombs",
+      "property": "CFrame",
+      "original_sha256": "824b53f4e5dc80ea8b32473849b6d2ee047bae0630577a3f333b86aa0d1fcca8",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24853e000181c0000084600000"
+    },
+    {
+      "ref": 7250,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/ShopPanelV12",
+      "property": "CFrame",
+      "original_sha256": "d080acfab225101634122e5fd0a46759c0d6ec3912306e103bd69549f9f0fd49",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24853e85218173333484600000"
+    },
+    {
+      "ref": 7286,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk",
+      "property": "WorldPivotData",
+      "original_sha256": "64535cb0e5d05c891badef63ad747ae109ebc05e873d0d6cc6cc3d92c102a874",
+      "value_hex": "100032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855a0001821c28f6853c00000201"
+    },
+    {
+      "ref": 7343,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Bomb display",
+      "property": "WorldPivotData",
+      "original_sha256": "20c4173cf9a15d3d8e7b570fc5cfd3497f2a35ad7a4cf98b5204ef4f7938030c",
+      "value_hex": "1000c613869832318da40000803f0000803f2ebd3bb3000000002ebd3b330000803f32318d2485600001826428f6853c00000201"
+    },
+    {
+      "ref": 7287,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Kiosk backdrop",
+      "property": "CFrame",
+      "original_sha256": "67583eb71a179b068b1efdb1ae0857bb37ad1794b9974a5644034c826f792829",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d248572000181e00000853c0000"
+    },
+    {
+      "ref": 7288,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Counter",
+      "property": "CFrame",
+      "original_sha256": "eca6a45c42eeb4d192d34286ccfedbdc2fe974e6437de951df5ae250af22e615",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d248549333580c00000853c0000"
+    },
+    {
+      "ref": 7289,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Counter rim",
+      "property": "CFrame",
+      "original_sha256": "18e3bfbed67122599eae2152b896e1dfef4b781c9ee23c0960c2dcdb0e79f915",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d2485493335816ccccc853c0000"
+    },
+    {
+      "ref": 7290,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Awning pole",
+      "property": "CFrame",
+      "original_sha256": "32eb0627fc4a2aba86f74cae424d56c32c3893a653a9b1834afd5558844ecde6",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855800018200000085680000"
+    },
+    {
+      "ref": 7291,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Awning pole",
+      "property": "CFrame",
+      "original_sha256": "5d0bd511cc4ecef60ec2a60694d7fad5116a8f147064abb2018a7b3f0896c6ff",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855800018200000085100000"
+    },
+    {
+      "ref": 7292,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Canopy",
+      "property": "CFrame",
+      "original_sha256": "5b934d25e81d78daa4f52a118c50f974c0518b0145fd987d83178820d8b05a52",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182d66668853c0000"
+    },
+    {
+      "ref": 7293,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "ff3806a25d4a130de5a07979ef437b5db124aae26b6005c5138ec788cc6c9162",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e33334856c0000"
+    },
+    {
+      "ref": 7294,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "53cc4014af927018a21331a00e8bc9d11eebc673961ffbe86c1408ad68c42e10",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333485626666"
+    },
+    {
+      "ref": 7295,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "221f06c6b9a7a49737c217b2e832e6ca156aa9b8ba10c3e275384c534350d851",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e333348558cccc"
+    },
+    {
+      "ref": 7296,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "a643cb9631d744891ac8c8a0b0c7ca65e0569f63ceebb05e202385942e296922",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e33334854f3334"
+    },
+    {
+      "ref": 7297,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "73e0208d2856aba4467e06d5447bbe1d332c17590669e9c643d17337ce42a9ce",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e333348545999a"
+    },
+    {
+      "ref": 7298,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "e1a9db25113b7dcfd3cbf8f8c88a0954147942156f9748335c699f7112e54710",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e33334853c0000"
+    },
+    {
+      "ref": 7299,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "39a17c1dc4c2a7bc9998823fb6af440722edd94f25f81c926557a80f1df1b799",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333485326666"
+    },
+    {
+      "ref": 7300,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "855c2a0822f0dfc5e714323386763890351396b38c17e2b5b28af75c10dadfed",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e333348528cccc"
+    },
+    {
+      "ref": 7301,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "2477ef6cbbf32b605428c34eead919c06f85dd34d672bddbae14ea1f2f829a25",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e33334851f3334"
+    },
+    {
+      "ref": 7302,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "3b775c23d43c3367d0be1cc235726a2fd386498a36801cb1d9867cf4e52f2796",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e333348515999a"
+    },
+    {
+      "ref": 7303,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "b00cbdda3b54c60f97cf776fe645e8355ee701e154da39208686c2886503d0a0",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e33334850c0000"
+    },
+    {
+      "ref": 7304,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/TRAILS",
+      "property": "CFrame",
+      "original_sha256": "889eb29941f89a57413032f0a05fe9457a9b967e85a9d31ed50534d8e9825049",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24853f999b827ccccc853c0000"
+    },
+    {
+      "ref": 7344,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Bomb display/Bomb base",
+      "property": "CFrame",
+      "original_sha256": "87410645b6ddf4f9d73780653459cf9300329196fea38cfc91a71cc3ed31cd61",
+      "value_hex": "00c613869832318da40000803f0000803f2ebd3bb3000000002ebd3b330000803f32318d248560000181b5c290853c0000"
+    },
+    {
+      "ref": 7345,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Bomb display/Bomb shell",
+      "property": "CFrame",
+      "original_sha256": "fa2295c1ed78dc074076d5a9d7ad211a103acea003846faa83b94a4e21716c95",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d248560000182500000853c0000"
+    },
+    {
+      "ref": 7346,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Bomb display/Fuse cap",
+      "property": "CFrame",
+      "original_sha256": "4661bb3be20698be5fd158721098e3304aa395b6e3768733ec4f4e1f8d0e6845",
+      "value_hex": "00c613869832318da40000803f0000803f2ebd3bb3000000002ebd3b330000803f32318d248560000182b1eb86853c0000"
+    },
+    {
+      "ref": 7347,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Bomb display/Curved fuse",
+      "property": "CFrame",
+      "original_sha256": "62df18a6642eb7947791e3d8224e3ce532e29b0c6cdae1235da6fe8447a13bc5",
+      "value_hex": "000000803fe148ab26cce5e124000000009b63173f8f704ebf32318d248f704e3f9b63173f8560000182da3d7085395c28"
+    },
+    {
+      "ref": 7348,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Bomb display/Fuse ember",
+      "property": "CFrame",
+      "original_sha256": "a60246e23dd00ca399c2cad8edb105707a9ce7899c5eaf04dc16ad128df1f481",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d248560000182fae1488536b852"
+    },
+    {
+      "ref": 7349,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Bomb display/Shell shine",
+      "property": "CFrame",
+      "original_sha256": "daad1306813ffb7e3e241fa91758a30ec3d5cd12460877e3c1ec28f7b59764af",
+      "value_hex": "00ae9e2d26e1aafb240000803ff96f4bbea5e57a3f00000000a5e57abff96f4bbe32318d2485558f5d826eb852853a51ec"
+    },
+    {
+      "ref": 7350,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Bomb display/Shell shine",
+      "property": "CFrame",
+      "original_sha256": "6105317c96d36fabbbb082428058a3c38b1e0cd8c862373085b70bac22bbe1fc",
+      "value_hex": "00ae9e2d26e1aafb240000803ff96f4bbea5e57a3f00000000a5e57abff96f4bbe32318d2485558f5d826eb8528537eb86"
+    },
+    {
+      "ref": 7351,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Bomb display/Shell shine",
+      "property": "CFrame",
+      "original_sha256": "ae029abecb955c08b47ea60146f55ed2ce25d1b9d2cda1c8f0b5d75eccb7c48d",
+      "value_hex": "00ae9e2d26e1aafb240000803ff96f4bbea5e57a3f00000000a5e57abff96f4bbe32318d2485558f5d826eb8528535851e"
+    },
+    {
+      "ref": 7352,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/Browse Trails",
+      "property": "CFrame",
+      "original_sha256": "ca160714690b4332226996ed6d1c5fdbb66a1c95790013277dc051c6e35c5d17",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24853e000181c00000853c0000"
+    },
+    {
+      "ref": 7354,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk/ShopPanelV12",
+      "property": "CFrame",
+      "original_sha256": "b3e9fa83adc8bad82224325d09d5b0ec6570afa2fe980b154a3ba3d71aa124cc",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24853e852181733334853c0000"
+    },
+    {
+      "ref": 7390,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk",
+      "property": "WorldPivotData",
+      "original_sha256": "462bbe6665c1951c332094bd0224b9d8908c91c1bbd5c612074dc6b5af28ba37",
+      "value_hex": "100032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855a0001821c28f685c800000201"
+    },
+    {
+      "ref": 7447,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Bomb display",
+      "property": "WorldPivotData",
+      "original_sha256": "cba768f1f57e3d6716be34dad08570a73dbb64ad516aeab36615b02aa5feb811",
+      "value_hex": "10008c05129832318da40000803f0000803f2ebd3bb3000000002ebd3b330000803f32318d2485600001826428f685c800000201"
+    },
+    {
+      "ref": 7391,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Kiosk backdrop",
+      "property": "CFrame",
+      "original_sha256": "2a982bc27ef11346a8b37c22147f78036dba319e6b309e2750c8b97dee094f37",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d248572000181e0000085c80000"
+    },
+    {
+      "ref": 7392,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Counter",
+      "property": "CFrame",
+      "original_sha256": "3a114777a3fb3a286600b98ec9ee1f55b55c8897fa2d7184bd6f14b1c3a6cdbb",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d248549333580c0000085c80000"
+    },
+    {
+      "ref": 7393,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Counter rim",
+      "property": "CFrame",
+      "original_sha256": "fc826d180f0d9b31703e732bc076230f2a44ee06040e81f3c0ea2f00b1279bf6",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d2485493335816ccccc85c80000"
+    },
+    {
+      "ref": 7394,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Awning pole",
+      "property": "CFrame",
+      "original_sha256": "bb47ba507b63d998a903154a893df0ffda9af7e116a0b352f5184f6ecb3ca6b1",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855800018200000085f40000"
+    },
+    {
+      "ref": 7395,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Awning pole",
+      "property": "CFrame",
+      "original_sha256": "56604d517f3ff96895cd32cf291926761c58fa52084127239ad187816f5ad0f8",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d248558000182000000859c0000"
+    },
+    {
+      "ref": 7396,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Canopy",
+      "property": "CFrame",
+      "original_sha256": "07ad90b894fa5e6122a0f97ceea3fc6963760ea790137848bb19276517876073",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182d6666885c80000"
+    },
+    {
+      "ref": 7397,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "f6d9c5544d5242650766c010948352aa5b0b079528861e02d5d765db9b2beae3",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333485f80000"
+    },
+    {
+      "ref": 7398,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "5be2399526ae1f3d9f2d1f7a2a660a0f099ccb4349c954262ce7b1e184525952",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333485ee6666"
+    },
+    {
+      "ref": 7399,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "59daf0bb8263bee2dadeacfc03ce26a26fd002206c15abd953d944b1a27ffe3d",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333485e4ccce"
+    },
+    {
+      "ref": 7400,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "7b501d56646b7fc44ac3541364b30cc39206d02d0346032df7972b26329c86ed",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333485db3334"
+    },
+    {
+      "ref": 7401,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "1455a50d0d63e167a65ac725da1bf8782fb7be4ff30a8d70c0518c14ff9a4f8c",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333485d1999a"
+    },
+    {
+      "ref": 7402,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "1264bbf3a49b999b42afedbb731438acdaa1c1d868e726bcf4c23224bb0972fd",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333485c80000"
+    },
+    {
+      "ref": 7403,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "02f17f425293b71829a06492642a5f21b587b3f535889ed418912436b4342cd1",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333485be6666"
+    },
+    {
+      "ref": 7404,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "fcd0a474277fab35fe18904675e224a332a973ce5b7970d4e2b30ffe8e7e4eca",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333485b4cccc"
+    },
+    {
+      "ref": 7405,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "0d8714c2bfd43f5c7e57ee1e192fb97a236539575f4c884b53ee1d723064400c",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333485ab3334"
+    },
+    {
+      "ref": 7406,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "1631723b43329df83cfc8950f25efcbd6eaa6cf46bc6084ad642b378f2b205d1",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333485a1999a"
+    },
+    {
+      "ref": 7407,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "dfb638a1185a64ab132dba9753f539e2b305e42a4ae8aa7aa31a646cf3f057ae",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333485980000"
+    },
+    {
+      "ref": 7408,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/TITLES",
+      "property": "CFrame",
+      "original_sha256": "709a159b6787ac0975149557a1b937dfd19606db57d4f92733a0740e85a07c0b",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24853f999b827ccccc85c80000"
+    },
+    {
+      "ref": 7448,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Bomb display/Bomb base",
+      "property": "CFrame",
+      "original_sha256": "563dd6073e9feb1343247f1d9936ac426ae168ecbdb844ed3678b4448546c732",
+      "value_hex": "008c05129832318da40000803f0000803f2ebd3bb3000000002ebd3b330000803f32318d248560000181b5c29085c80000"
+    },
+    {
+      "ref": 7449,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Bomb display/Bomb shell",
+      "property": "CFrame",
+      "original_sha256": "40c9f6813998d6f228744c100c4f2873dc275dc821fed624d1e22c0157b26749",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24856000018250000085c80000"
+    },
+    {
+      "ref": 7450,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Bomb display/Fuse cap",
+      "property": "CFrame",
+      "original_sha256": "8065aeb95ba12fa6b6a431b9ad9fe46afaedd9a8f3a459f2c34566360804366f",
+      "value_hex": "008c05129832318da40000803f0000803f2ebd3bb3000000002ebd3b330000803f32318d248560000182b1eb8685c80000"
+    },
+    {
+      "ref": 7451,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Bomb display/Curved fuse",
+      "property": "CFrame",
+      "original_sha256": "e6b6bdf0f2ac67859dda1b453e76c466e09b1355f5cf78baa340543896a4d86e",
+      "value_hex": "000000803f5784b9a6da7144a5000000009b63173f8f704ebf32318d248f704e3f9b63173f8560000182da3d7085c55c28"
+    },
+    {
+      "ref": 7452,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Bomb display/Fuse ember",
+      "property": "CFrame",
+      "original_sha256": "62a522c88b499c598324d18f12b6391bdee0a8b56b4053244cfe173810ef336a",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d248560000182fae14885c2b852"
+    },
+    {
+      "ref": 7453,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Bomb display/Shell shine",
+      "property": "CFrame",
+      "original_sha256": "c3cb8be0fbd29d187e9c03f0845e3eaa26a18f8fc2a388d4955a916d9e73dc3b",
+      "value_hex": "0082060ba6ff90c3a40000803ff96f4bbea5e57a3f00000000a5e57abff96f4bbe32318d2485558f5d826eb85285c651ec"
+    },
+    {
+      "ref": 7454,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Bomb display/Shell shine",
+      "property": "CFrame",
+      "original_sha256": "d46fef4e34245ba085e0f7e6b5a34ab5539bdcbbf18284fe440fdacd1389954c",
+      "value_hex": "0082060ba6ff90c3a40000803ff96f4bbea5e57a3f00000000a5e57abff96f4bbe32318d2485558f5d826eb85285c3eb84"
+    },
+    {
+      "ref": 7455,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Bomb display/Shell shine",
+      "property": "CFrame",
+      "original_sha256": "3f9ed4f86c09643ca9d75c0f5e195c4f9c67115c1fbe04a6f20d552ea7a0c803",
+      "value_hex": "0082060ba6ff90c3a40000803ff96f4bbea5e57a3f00000000a5e57abff96f4bbe32318d2485558f5d826eb85285c18520"
+    },
+    {
+      "ref": 7456,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/Browse Titles",
+      "property": "CFrame",
+      "original_sha256": "6896032f6e33a29ba4c89da4f45519a4d88bd8b1ae172d084a3a3bd02d4997e6",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24853e000181c0000085c80000"
+    },
+    {
+      "ref": 7458,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk/ShopPanelV12",
+      "property": "CFrame",
+      "original_sha256": "b7c89fde65abe71adcb9ec243e260b2b94ddae8fb6b3b37389e0b1b951356740",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24853e85218173333485c80000"
+    },
+    {
+      "ref": 7494,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk",
+      "property": "WorldPivotData",
+      "original_sha256": "12dd7c59edbfd6041cbf1f74f7d26a62698c69f8d0d9a03f787ab04f4cb4eb65",
+      "value_hex": "100032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855a0001821c28f6862a00000201"
+    },
+    {
+      "ref": 7551,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Bomb display",
+      "property": "WorldPivotData",
+      "original_sha256": "7adc50d86f7c6e1beaf2800432538fff979f061f31db3f11e19b3c7a804f1215",
+      "value_hex": "10008c05129832318da40000803f0000803f2ebd3bb3000000002ebd3b330000803f32318d2485600001826428f6862a00000201"
+    },
+    {
+      "ref": 7495,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Kiosk backdrop",
+      "property": "CFrame",
+      "original_sha256": "3265ab62344583826766938742aef37ada1783af222055e44864679df96080da",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d248572000181e00000862a0000"
+    },
+    {
+      "ref": 7496,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Counter",
+      "property": "CFrame",
+      "original_sha256": "a2a018ef0390e03774a31d1abf4625b9ff6ce2c3571260ab114609fbbc906e62",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d248549333580c00000862a0000"
+    },
+    {
+      "ref": 7497,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Counter rim",
+      "property": "CFrame",
+      "original_sha256": "4bba74272f5ed3d64a2ca38d9a3e7d59affe2c3614b6399e9409dce5e20ff6b9",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d2485493335816ccccc862a0000"
+    },
+    {
+      "ref": 7498,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Awning pole",
+      "property": "CFrame",
+      "original_sha256": "6fc8299bf2452195529c8bd6ec890e18f536ef50e91682ac82372d8b2af24026",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855800018200000086400000"
+    },
+    {
+      "ref": 7499,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Awning pole",
+      "property": "CFrame",
+      "original_sha256": "279281d916904a96edb000dfe7ab93e00eb4965b3a596f79236934ade6588dfb",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855800018200000086140000"
+    },
+    {
+      "ref": 7500,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Canopy",
+      "property": "CFrame",
+      "original_sha256": "024647226a2afdb8334fca9808e645f2f5a1c2929d0c3ec3ea0808b0b61f3a5f",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182d66668862a0000"
+    },
+    {
+      "ref": 7501,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "a4e10e3161d2063d459f0ce147f7c34bc8481904ff4c342deab2adab1a8c73c0",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333486420000"
+    },
+    {
+      "ref": 7502,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "8bfebd20c93c816653fcbc720a4e1e262282fa0f43a9d0f86fd5b11c721de2a7",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e33334863d3334"
+    },
+    {
+      "ref": 7503,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "127bce9fae4d6b839d783fa913f373e7d7ef797ead84be15869a1ba6fa81ee31",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333486386666"
+    },
+    {
+      "ref": 7504,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "cf88a182b4fb6e9f95b1d499d3024e68f600be50d4604fecb16c8f751bc93241",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e333348633999a"
+    },
+    {
+      "ref": 7505,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "d7120a87e52b7651ceda6759efa025f45b66787d110a6d7daf87bf5212fb102d",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e33334862eccce"
+    },
+    {
+      "ref": 7506,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "af8262a96396b9668933b060b8b5e8829d394bc9534d515f276ea5b5fd0d273f",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e33334862a0000"
+    },
+    {
+      "ref": 7507,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "87316aecbc969fad89a944efff31cb9bee67a033e10d47e56407c7dd3c48e3c2",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333486253334"
+    },
+    {
+      "ref": 7508,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "872326719ec8765ceaa61516fbacf85f41eb55dc6e2062ca0a082aba13ad0f30",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333486206666"
+    },
+    {
+      "ref": 7509,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "f9f7c304e2edecb4dd98c61169a0d61cd6a28046e092ed408259ba6964819c90",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e33334861b999a"
+    },
+    {
+      "ref": 7510,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "a00202f4b0bb80f99259560f095d8df226b605221078813d4da4a1ddb16a9ac1",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e333348616ccce"
+    },
+    {
+      "ref": 7511,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Canopy stripe",
+      "property": "CFrame",
+      "original_sha256": "f79023a922beb38e08a5321f598e4261b9b85d1585e59167dd3fc365f6145575",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24855c000182e3333486120000"
+    },
+    {
+      "ref": 7512,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/EMOTES",
+      "property": "CFrame",
+      "original_sha256": "963199603b463b47f14b24d32c78fe65b5cc863f87d3d544774c0e25441c2eeb",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24853f999b827ccccc862a0000"
+    },
+    {
+      "ref": 7552,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Bomb display/Bomb base",
+      "property": "CFrame",
+      "original_sha256": "e8ff396c17006d4d3bd02dd789aef6dab4858d6bd409cc8ca56dee44ca1faa6a",
+      "value_hex": "008c05129832318da40000803f0000803f2ebd3bb3000000002ebd3b330000803f32318d248560000181b5c290862a0000"
+    },
+    {
+      "ref": 7553,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Bomb display/Bomb shell",
+      "property": "CFrame",
+      "original_sha256": "fd85a2cc31f88683d2dae608888affeccf4bf22aae795cef527db24d80a93dfe",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d248560000182500000862a0000"
+    },
+    {
+      "ref": 7554,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Bomb display/Fuse cap",
+      "property": "CFrame",
+      "original_sha256": "e798d7b07250fd0c93c6798c01925fa6f032486f2d2a24a4093a45d076a08a58",
+      "value_hex": "008c05129832318da40000803f0000803f2ebd3bb3000000002ebd3b330000803f32318d248560000182b1eb86862a0000"
+    },
+    {
+      "ref": 7555,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Bomb display/Curved fuse",
+      "property": "CFrame",
+      "original_sha256": "7a989b48442a730ccb3c26f827034154687c85c9572dfbd398a7fc8e0428c83a",
+      "value_hex": "000000803f5784b9a6da7144a5000000009b63173f8f704ebf32318d248f704e3f9b63173f8560000182da3d708628ae14"
+    },
+    {
+      "ref": 7556,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Bomb display/Fuse ember",
+      "property": "CFrame",
+      "original_sha256": "01dc4a32b8ab8ad2602b2165e7f3e3affa57018f3c93fb17817ec4c9598a47fb",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d248560000182fae14886275c2a"
+    },
+    {
+      "ref": 7557,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Bomb display/Shell shine",
+      "property": "CFrame",
+      "original_sha256": "9713863ed643a89d55dd963a8ce328e9a81b1316346d27ec27fe62a0bc39677d",
+      "value_hex": "0082060ba6ff90c3a40000803ff96f4bbea5e57a3f00000000a5e57abff96f4bbe32318d2485558f5d826eb852862928f6"
+    },
+    {
+      "ref": 7558,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Bomb display/Shell shine",
+      "property": "CFrame",
+      "original_sha256": "de1bb5aa3a72d1218e44b499b84e793af42cfe51706830e68057d3a94d10e4f5",
+      "value_hex": "0082060ba6ff90c3a40000803ff96f4bbea5e57a3f00000000a5e57abff96f4bbe32318d2485558f5d826eb8528627f5c4"
+    },
+    {
+      "ref": 7559,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Bomb display/Shell shine",
+      "property": "CFrame",
+      "original_sha256": "5aed86511727dbb255f3c9d2fadac71a8148aae96e983476648bba9a067503a0",
+      "value_hex": "0082060ba6ff90c3a40000803ff96f4bbea5e57a3f00000000a5e57abff96f4bbe32318d2485558f5d826eb8528626c290"
+    },
+    {
+      "ref": 7560,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/Browse Emotes",
+      "property": "CFrame",
+      "original_sha256": "8c4d892b4dd666f29fdbdd4041f2092b4174c1908d4e7f1cd31d62cfad37f1b2",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24853e000181c00000862a0000"
+    },
+    {
+      "ref": 7562,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/ShopPanelV12",
+      "property": "CFrame",
+      "original_sha256": "270c30c09455ebed4a6d71b7b6e9f0b64eb52cfeacaac203d207f7e193535151",
+      "value_hex": "0032318d24000000000000803f000000000000803f00000000000080bf0000000032318d24853e852181733334862a0000"
+    },
+    {
+      "ref": 7846,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay",
+      "property": "AttributesSerialize",
+      "original_sha256": "572328d4769aa0878029574295b0133231542bed6ecb54eaa39c8efc51d96bd2",
+      "value_hex": "5a000000020000000a000000484142446973706c6179030110000000484142446973706c61794f726967696e140000ad423333c3409a9921420032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24"
+    },
+    {
+      "ref": 7847,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb",
+      "property": "CFrame",
+      "original_sha256": "69039e04c7ad31898218f5d6b9bbfbb978e586e8ad7e4930ec822ef7ea5998a7",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a00008186666684433334"
+    },
+    {
+      "ref": 7849,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/ReactorLowerCap",
+      "property": "CFrame",
+      "original_sha256": "1be79bd0f12dd087858626c71a532e185a07b11c7cd39ce51e485666b13e2821",
+      "value_hex": "008c164f9832318da4000080bf0000803f2ebd3bb3000000002ebd3bb3000080bf32318d24855a00008150a3d684433334"
+    },
+    {
+      "ref": 7851,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit3",
+      "property": "CFrame",
+      "original_sha256": "b65edc7a144224cc901b741d1c8853513746b832eed0cb42c8254b24e8072df9",
+      "value_hex": "00539a52bfed8811bf005bb7bbdd8f03bf18713f3f9432d7be6ff6783e4d90afbe084968bf855564a081585a728445ec4c"
+    },
+    {
+      "ref": 7852,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit10",
+      "property": "CFrame",
+      "original_sha256": "941ba0110a30fff21980df09ced70175c003d4b752d51d80ce7ae743da6c584e",
+      "value_hex": "00871a373fed8811bf291fd0be43bc273f18713f3fe637db3d6cf6783e4d90afbe0849683f855e016081c11b7e8445ec4c"
+    },
+    {
+      "ref": 7853,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/ReactorUpperCap",
+      "property": "CFrame",
+      "original_sha256": "eef2fb29c510621dc4d6316a08591cd9ba9ced19412c2efec14ead23cf490e70",
+      "value_hex": "008c164f9832318da4000080bf0000803f2ebd3bb3000000002ebd3bb3000080bf32318d24855a000081bc28f684433334"
+    },
+    {
+      "ref": 7854,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit2",
+      "property": "CFrame",
+      "original_sha256": "b01cc24e84bbe4f123e81b2ff5d1553ae61686477305715eb6ffd151eda179b0",
+      "value_hex": "00d2ab35bfed8811bf7c15d5bee58b70be18713f3fdaf61ebf6c0b2a3f4d90afbe6c0b2abf855606a481715a28844aa3b4"
+    },
+    {
+      "ref": 7855,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit1",
+      "property": "CFrame",
+      "original_sha256": "be3811b271c2ac8ced3e18af8b5ab16fef5d68ff93d70b03f84b6875f8386a50",
+      "value_hex": "002a1fd0beed8811bf871a37bfe437db3d18713f3f43bc27bf0849683f4d90afbe6ef678be8557b944818ffda4844d5ccc"
+    },
+    {
+      "ref": 7856,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/PlasmaCageRib",
+      "property": "CFrame",
+      "original_sha256": "a44dee9a6f2df0237345b053c63c88ea3be8e13837c90ef40050ca4ca8228dff",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d2485563d708186666684433334"
+    },
+    {
+      "ref": 7857,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/PlasmaCageRib",
+      "property": "CFrame",
+      "original_sha256": "b711051b4383f8d047885a96859a2ff4e286362bc490579a871c56a843ebe229",
+      "value_hex": "00d8b35dbf00000000fdffffbe000000000000803f00000000fdffff3e00000000d8b35dbf85581eb881866666843cb000"
+    },
+    {
+      "ref": 7858,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit11",
+      "property": "CFrame",
+      "original_sha256": "fdf6bd4cdfbaf8c163db7776fb2cdd7371c665da2baec5d8c68f88cfc4fed50e",
+      "value_hex": "007e15d53eed8811bfd1ab35bfdbf61e3f18713f3fe18b70be6b0b2a3f4d90afbe6e0b2a3f855c54a481be0998844aa3b4"
+    },
+    {
+      "ref": 7859,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/PlasmaCoil4",
+      "property": "CFrame",
+      "original_sha256": "89a88ecd41f537d159233968927572d9532b80c065c55f61bb14d4d42bc2b7b2",
+      "value_hex": "0069c23ebfd761c7be46980a3fb74da1bea7ca6b3f46636a3e177916bf68eedb23bd1b4fbf85568ae0816f02d0843dbed0"
+    },
+    {
+      "ref": 7860,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit12",
+      "property": "CFrame",
+      "original_sha256": "0840b315fe0953a04d3c973f1ffc7356fd7f54d2d326d7fa15cf9eb1f406bdaf",
+      "value_hex": "004059b73bed8811bf539a52bf9032d73e18713f3fdf8f03bf0949683f4d90afbe60f6783e855a080481ac0f40844d5ccc"
+    },
+    {
+      "ref": 7861,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/FuseSpark",
+      "property": "CFrame",
+      "original_sha256": "b8485ab6212b7a4219ad81ddf81e3f32fa9ec8539498f404abf92e187ccb297a",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a000081f0000084458520"
+    },
+    {
+      "ref": 7862,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestCenter",
+      "property": "CFrame",
+      "original_sha256": "bf0c0159d0cb5bf4c3ecddd08f92c7e8753705285c7dc562f02254402da65cf3",
+      "value_hex": "000000803f000000002ebd3b33000000000000803f000000002ebd3bb3000000000000803f8554e148818ccccc84433334"
+    },
+    {
+      "ref": 7863,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit7",
+      "property": "CFrame",
+      "original_sha256": "48fbd466c43d0ec3af29afea87e09b3ae9c24f848c60cca2e50a28ddb6129b83",
+      "value_hex": "002b1fd03eed8811bf871a373fe237dbbd18713f3f43bc273f084968bf4d90afbe6ff6783e855c46bc817ccf288439099a"
+    },
+    {
+      "ref": 7864,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/PlasmaCageRib",
+      "property": "CFrame",
+      "original_sha256": "dbbc741fdbbaecca54c68fee0c738df7abfad48ec6f328e4251e93ae28038be7",
+      "value_hex": "00d8b35dbf00000000fdffff3e000000000000803f00000000fdffffbe00000000d8b35dbf855be14881866666843cb000"
+    },
+    {
+      "ref": 7866,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit8",
+      "property": "CFrame",
+      "original_sha256": "05e37abb3848b40a50e8936f8184a283bb8a7a74489bde46f8f5a637c7298cb7",
+      "value_hex": "00d1ab353fed8811bf7c15d53ee28b703e18713f3fdaf61e3f6d0b2abf4d90afbe6b0b2a3f855df95c819b72a4843bc2b4"
+    },
+    {
+      "ref": 7867,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit9",
+      "property": "CFrame",
+      "original_sha256": "53dff83786175044e0d1baa764ffb986343932f84105b4a8ebd5c1eb7d99a2c9",
+      "value_hex": "00549a523fed8811bf405ab73bde8f033f18713f3f9332d73e6af678be4d90afbe0949683f855e9b6081b4725a84407a1c"
+    },
+    {
+      "ref": 7868,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/FuseLower",
+      "property": "CFrame",
+      "original_sha256": "0743e1a9e2cf42eb720e5cb64783ef22fe9c50f7da6c16c66265e283b5d2ae32",
+      "value_hex": "00000080bfc06c88a40f8591a3000000005aec833e2d5b77bf32318d242d5b77bf5aec83be855a000081da3d7084438520"
+    },
+    {
+      "ref": 7869,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/PlasmaCageRib",
+      "property": "CFrame",
+      "original_sha256": "2c504e2b2cc5aac9b784b11c0e9a23b26da0d692911cfd9d136e27ad3c519f28",
+      "value_hex": "00d7b35d3f000000000100003f000000000000803f00000000010000bf00000000d7b35d3f855be148818666668449b668"
+    },
+    {
+      "ref": 7870,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit4",
+      "property": "CFrame",
+      "original_sha256": "f917640fe73a75e881b13a1ab26c65afd23728f65cbdecf7b313fbe50a09b2be",
+      "value_hex": "00871a37bfed8811bf2a1fd03e43bc27bf18713f3fe437dbbd6ef678be4d90afbe084968bf8555fea0814bb14e84407a1c"
+    },
+    {
+      "ref": 7871,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/FuseCurl",
+      "property": "CFrame",
+      "original_sha256": "e70a74fb9ebb46b345795bc626bc4fc3159d89155a195ed104ddd3ffb7691f46",
+      "value_hex": "00ffff7fbfd1e435a4bdff57a4000000003ad1433f14e624bf31318d2413e624bf3bd143bf855a000081e8f5c284449998"
+    },
+    {
+      "ref": 7872,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit5",
+      "property": "CFrame",
+      "original_sha256": "3eda11ca711b5d39f46a8bb2d5496b4888003234abb7ed24579c88fd16dc5d72",
+      "value_hex": "007c15d5beed8811bfd2ab353fdaf61ebf18713f3fe58b703e6c0b2abf4d90afbe6c0b2abf8557ab5c814ec334843bc2b4"
+    },
+    {
+      "ref": 7873,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/PlasmaCageRib",
+      "property": "CFrame",
+      "original_sha256": "b1f6c6720d63ebddc99b5523da0546c0088d70d400a6527c0db56bd068d32622",
+      "value_hex": "002ebdbbb3000000000000803f000000000000803f00000000000080bf000000002ebdbbb3855dc2908186666684433334"
+    },
+    {
+      "ref": 7874,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit6",
+      "property": "CFrame",
+      "original_sha256": "3be713c0064482cceadfeb442749bfb20fc8023d9c90407b53820bdcd10442c4",
+      "value_hex": "00605bb7bbed8811bf539a523f9532d7be18713f3fdd8f033f084968bf4d90afbe73f678be8559f7fc8160bd8c8439099a"
+    },
+    {
+      "ref": 7875,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/PlasmaHeart",
+      "property": "CFrame",
+      "original_sha256": "69039e04c7ad31898218f5d6b9bbfbb978e586e8ad7e4930ec822ef7ea5998a7",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a00008186666684433334"
+    },
+    {
+      "ref": 7876,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/PlasmaCoil9",
+      "property": "CFrame",
+      "original_sha256": "f8918dfe641b35dc43be884577c662f574610e181d3b0441c1996b0b44f333d2",
+      "value_hex": "006bc23e3fd761c7be44980abfb94da13ea7ca6b3f43636abe1579163f68eedb23bf1b4f3f855d7520819dc9fc8448a798"
+    },
+    {
+      "ref": 7877,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/FuseCollar",
+      "property": "CFrame",
+      "original_sha256": "6843112e6866402a7666fab5b6c49bb2e85badaa827d7f4b2e9a4142cad44514",
+      "value_hex": "008c164f9832318da4000080bf0000803f2ebd3bb3000000002ebd3bb3000080bf32318d24855a000081cb851e84433334"
+    },
+    {
+      "ref": 7879,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/PlasmaCoil8",
+      "property": "CFrame",
+      "original_sha256": "4da31397fdfa1b2ca8fc46b90612a58420340c1775fdad9499656008233fdc42",
+      "value_hex": "00a7ca6b3fd761c7be21b23cb2d761c73ea7ca6b3f028f9fb12ede4c3268eedb230000803f855e461481a34f7884433334"
+    },
+    {
+      "ref": 7880,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/PlasmaCoil1",
+      "property": "CFrame",
+      "original_sha256": "1e187a6ec9518969a85f51b3c48bd302dc021a8350d237686c38b9396f3e0652",
+      "value_hex": "002cba91bed761c7be4c4060bf2f73f6bda7ca6b3fad9fbdbe7178733f68eedb237a379ebe8558ade8817d7758844c069c"
+    },
+    {
+      "ref": 7881,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/PowerTerminal",
+      "property": "CFrame",
+      "original_sha256": "7fdcaca52f3fb787bc42924b016c893e5a0225e8ce3ea8828526a3681f5fb6f8",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a000081866666843acccc"
+    },
+    {
+      "ref": 7882,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/PlasmaCageRib",
+      "property": "CFrame",
+      "original_sha256": "73629c920dacb857d3ece4a35e6dacc4e19259cda7d68e74b2c8f580f05e838f",
+      "value_hex": "00d8b35d3f00000000ffffffbe000000000000803f00000000ffffff3e00000000d8b35d3f85581eb8818666668449b668"
+    },
+    {
+      "ref": 7883,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/PlasmaCoil10",
+      "property": "CFrame",
+      "original_sha256": "526a5b5a64c2425ee5ce3db2c63134c2d0b9fc4c3f41d5461c9ede62aa7349dc",
+      "value_hex": "002aba913ed761c7be4c4060bf2c73f63da7ca6b3fad9fbdbe7178733f68eedb2378379e3e855b5218818f5574844c069c"
+    },
+    {
+      "ref": 7885,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/PlasmaCoil7",
+      "property": "CFrame",
+      "original_sha256": "a6739887c97026698083fbaaf45881d30c69ca14ec14f72538db5fb16c6922fa",
+      "value_hex": "006bc23e3fd761c7be44980a3fb94da13ea7ca6b3f43636a3e157916bf68eedb23bf1b4f3f855d7520819dc9fc843dbed0"
+    },
+    {
+      "ref": 7886,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/TerminalLight",
+      "property": "CFrame",
+      "original_sha256": "1656743be64c290970c32849533fc8dba33668518ac352eddd9686f8b728220f",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a000081866666844d3d70"
+    },
+    {
+      "ref": 7887,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/PlasmaCoil6",
+      "property": "CFrame",
+      "original_sha256": "32a5271ed1050ae97d204edf9af8c3c6772fdf3dcdbac5d112987983b0cfcb35",
+      "value_hex": "002bba913ed761c7be4c40603f2e73f63da7ca6b3fad9fbd3e717873bf68eedb2379379e3e855b5218818f5574843a5fcc"
+    },
+    {
+      "ref": 7888,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/PowerTerminal",
+      "property": "CFrame",
+      "original_sha256": "e61fa61f56a5d5a58283ac40d39c3fd3fcb17e558a9ce6e52f49d63066baad70",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a000081866666844b9998"
+    },
+    {
+      "ref": 7890,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/PlasmaCoil5",
+      "property": "CFrame",
+      "original_sha256": "8f303efca2351f44a35c7aaa171f8ad7b494086bc7e16dcc09df474637c89274",
+      "value_hex": "002dba91bed761c7be4b40603f3173f6bda7ca6b3fac9fbd3e707873bf68eedb237b379ebe8558ade8817d7758843a5fcc"
+    },
+    {
+      "ref": 7891,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/PlasmaCoil2",
+      "property": "CFrame",
+      "original_sha256": "cebd94cc4ea6e128dc75e5be572699c985bb66cb2bb33e63372b390343ac9e93",
+      "value_hex": "0069c23ebfd761c7be47980abfb74da1bea7ca6b3f48636abe1879163f68eedb23bd1b4fbf85568ae0816f02d08448a798"
+    },
+    {
+      "ref": 7893,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/TerminalLight",
+      "property": "CFrame",
+      "original_sha256": "482c1ffc11a2fdb716906bc9c86a4bfca6db2a2b23f08291c72f8c1ed89e6733",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a000081866666843928f6"
+    },
+    {
+      "ref": 7895,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/PlasmaCoil3",
+      "property": "CFrame",
+      "original_sha256": "f6e85917054f8a597bc66aed9a966877d167ac187f3cf4870f4c8a6cd2196ef2",
+      "value_hex": "00a7ca6bbfd761c7be47eb2c33d761c7bea7ca6b3fcf3792322ebd3bb368eedb23000080bf8555b9ec81697d5484433334"
+    },
+    {
+      "ref": 7896,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/Gold column",
+      "property": "CFrame",
+      "original_sha256": "6b277f6f13ab278f981c1d8c1b06bf43d805e87c5decd7cb2a8e3e2f507999f3",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248567999881e0000084226666"
+    },
+    {
+      "ref": 7897,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/Cabinet foot",
+      "property": "CFrame",
+      "original_sha256": "6980a656f6656ffdffa97ff57458fc34c6418245931fa4007be2e445f24c07bc",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a00008019999a84226666"
+    },
+    {
+      "ref": 7898,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/Neon column inset",
+      "property": "CFrame",
+      "original_sha256": "9a821526d2b8168b50df06db8acca06ca565fcfe87d4591ff1747aa7f021b21c",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248565d70c81e0000084226666"
+    },
+    {
+      "ref": 7899,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/Colored recessed panel",
+      "property": "CFrame",
+      "original_sha256": "26215483e3296f4cf5fb7c6fbcc9c724c4f8ce19382edca294be5d72ab08f63d",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248567c29081e0000084600000"
+    },
+    {
+      "ref": 7900,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/Foundation",
+      "property": "CFrame",
+      "original_sha256": "b5bb5d1f7d8f8a11f207e98b1dd7ac5f45699a1131bf5d5bba30ece5db3f452a",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a00007fae147c84600000"
+    },
+    {
+      "ref": 7901,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/Pedestal gold ring",
+      "property": "CFrame",
+      "original_sha256": "0e0ae142136ff4a7de6289f2add48742db5a5b441628e4c627911ed50c551ec5",
+      "value_hex": "008c164f9832318da4000080bf0000803f2ebd3bb3000000002ebd3bb3000080bf32318d24855a000080e3d70a84433334"
+    },
+    {
+      "ref": 7902,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/BundleVFX",
+      "property": "CFrame",
+      "original_sha256": "150d690c36dfe4932f3f270ed6ad8bb106893da9cc9e01ccf0208431e29ee95b",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a00008160000084800000"
+    },
+    {
+      "ref": 7903,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/Reward jewel",
+      "property": "CFrame",
+      "original_sha256": "9f3dd11d9a4cfb2a79285bf91630e6594bcfbb12c29d1887fc9934c74c871262",
+      "value_hex": "0006ad472406ad47a4000080bff304353ff304353f00000000f304353ff30435bf32318d2485651eb88258000084466666"
+    },
+    {
+      "ref": 7904,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/Spotlit hood",
+      "property": "CFrame",
+      "original_sha256": "617385e49bc62c5465339401a478532aae6cb671cd81b06150772255c1f160bf",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856000008310000084600000"
+    },
+    {
+      "ref": 7905,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/Back wall",
+      "property": "CFrame",
+      "original_sha256": "b6c30d54247b452e0cda1196c382aac9a382773c08ffce9916596a3899bd3731",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856a000081e0000084600000"
+    },
+    {
+      "ref": 7906,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/BrowseStand",
+      "property": "CFrame",
+      "original_sha256": "05bd037e9b6b6450533f6753d83e523dded10c452ac101fe7f20a05037f0d24c",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248544cccc8146666684600000"
+    },
+    {
+      "ref": 7908,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/Hood gold lip",
+      "property": "CFrame",
+      "original_sha256": "74c1d32e50590baf967ac4447fee2bc6494817eca8ad69db0335ba740de137d5",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248551cccc8311999a84600000"
+    },
+    {
+      "ref": 7909,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/Soft display light",
+      "property": "CFrame",
+      "original_sha256": "deb3ee19a9973834e082087d6b6b4ddd1d1706dd2bb43528e3404c82984fa34d",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855e00008309999a84600000"
+    },
+    {
+      "ref": 7911,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/Display placard",
+      "property": "CFrame",
+      "original_sha256": "d6d4692b0a04c4857f11c6858a94999ad1954cf92ee1d93e54dbbf1fe666bf82",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248568666882d0000084600000"
+    },
+    {
+      "ref": 7931,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/Sculpture pedestal",
+      "property": "CFrame",
+      "original_sha256": "a4ad8c98b33327dd65cbe0e4da3b842d65bd5f3e2b39e6f3c640c029ce5f1bb6",
+      "value_hex": "008c164f9832318da4000080bf0000803f2ebd3bb3000000002ebd3bb3000080bf32318d24855a00008059999a84433334"
+    },
+    {
+      "ref": 7932,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/Reward jewel",
+      "property": "CFrame",
+      "original_sha256": "893f1dd9d43f3b01443b39c2b26a5f4b1b4770f1aa2e688b07925783d27a538e",
+      "value_hex": "0006ad472406ad47a4000080bff304353ff304353f00000000f304353ff30435bf32318d2485651eb8825800008479999a"
+    },
+    {
+      "ref": 7933,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/Gold column",
+      "property": "CFrame",
+      "original_sha256": "a9add78422c4903a2f4d5e1f242c74530479307c84dd43e9ffe9508cbe5a91db",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248567999881e00000849d999a"
+    },
+    {
+      "ref": 7934,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/Neon column inset",
+      "property": "CFrame",
+      "original_sha256": "045fdc141b9137a60ef1e6e5fead54fe4654036a354700402963fbf31c61f864",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248565d70c81e00000849d999a"
+    },
+    {
+      "ref": 7935,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/Reward jewel",
+      "property": "CFrame",
+      "original_sha256": "c5d89c4351cbe04e8f0efa539bf10100772a0ba68fc23c960e4ed06b457b78bf",
+      "value_hex": "0006ad472406ad47a4000080bff304353ff304353f00000000f304353ff30435bf32318d2485651eb88258000084600000"
+    },
+    {
+      "ref": 7936,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/Cabinet foot",
+      "property": "CFrame",
+      "original_sha256": "be51ea11d131a93f47c327d2405a535235efef4c7380301aaaf2342c10557873",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a00008019999a849d999a"
+    },
+    {
+      "ref": 7937,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/VFX pedestal",
+      "property": "CFrame",
+      "original_sha256": "161c59a88f19dc96dfef92e7cae5aa15a95b1b46af91c254f01d4cfe0028fac6",
+      "value_hex": "008c164f9832318da4000080bf0000803f2ebd3bb3000000002ebd3bb3000080bf32318d24855a00008059999a84800000"
+    },
+    {
+      "ref": 7939,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/HABStandDetail9/New reward placard",
+      "property": "CFrame",
+      "original_sha256": "58881e9afa2f332a84a3dbde9e4809881cd09ab2ba2061da615b9261df8ff240",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248549333480eccccc84600000"
+    },
+    {
+      "ref": 7947,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/HABStandDetail9/Reward edge light",
+      "property": "CFrame",
+      "original_sha256": "bb29f96ed064e2cc4aa22d1c74964733ed336298e75bd9db4ffb8d35de5760b1",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856551ec81d333348426cccc"
+    },
+    {
+      "ref": 7948,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/HABStandDetail9/Reward edge light",
+      "property": "CFrame",
+      "original_sha256": "14c29df77bb1f74baca5866c452c275cd006e4e686561cb6190f5a2c5044154a",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856551ec81d3333484993334"
+    },
+    {
+      "ref": 7949,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/HABStandDetail9/Reward jewel plinth",
+      "property": "CFrame",
+      "original_sha256": "f0e25854e0742c05a90f73bafa50e2d20916239ee13fce5860ea81ba42222511",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856233348231999a843b3334"
+    },
+    {
+      "ref": 7950,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/HABStandDetail9/Reward preview socket",
+      "property": "CFrame",
+      "original_sha256": "6cd83ce07ab34068e8f3467993cadda345047f2d102ba446ce78ffd4624c555c",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855fcccc8251999a843b3334"
+    },
+    {
+      "ref": 7951,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/HABStandDetail9/Reward jewel plinth",
+      "property": "CFrame",
+      "original_sha256": "f9e90966e6ca1227a03e903a7cf0ef929f2e545bfd91f79b6bc01594bd08f714",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856233348231999a84600000"
+    },
+    {
+      "ref": 7952,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/HABStandDetail9/Reward preview socket",
+      "property": "CFrame",
+      "original_sha256": "a21ef109a1dfdef689a6f89c667746756b1fe0147e6cffbd8207d06583edbead",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855fcccc8251999a84600000"
+    },
+    {
+      "ref": 7953,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/HABStandDetail9/Reward jewel plinth",
+      "property": "CFrame",
+      "original_sha256": "8e9eef04c1740b97bac85aa97f1666092adf91261f60fc50ab613f39997c7f21",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856233348231999a8484cccc"
+    },
+    {
+      "ref": 7954,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/HABStandDetail9/New reward placard",
+      "property": "CFrame",
+      "original_sha256": "24b3442747e5cb6c1d40230ecb75ef15e13bb8c31df2bbf22eda9460636525c0",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855f51ec825000008484cccc"
+    },
+    {
+      "ref": 7850,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestPoint4",
+      "property": "CFrame",
+      "original_sha256": "aa7a6babc22b6a30e348fc14a96fc69af3f0e44676ff6e0744b03513fece0715",
+      "value_hex": "00ef85ae231f4886a4000080bf7078733f7e379e3e000000007e379e3e707873bf32318d248554e148818fc43e84420f08"
+    },
+    {
+      "ref": 7865,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveCrownFin",
+      "property": "CFrame",
+      "original_sha256": "bfa6ae2632b4b605355c7ca047a241d48325af66ee1f25c037bd7c2c3dbf2146",
+      "value_hex": "004d06862447a8b123000080bfde0ea1be1801733f000000001801733fde0ea13e32318d24855ae14881c3d70a844970a4"
+    },
+    {
+      "ref": 7878,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestPoint3",
+      "property": "CFrame",
+      "original_sha256": "621d2ad812ba9d1d471852d98813afd4cf38a59296a0670a6dc8ce8ee4f01a0f",
+      "value_hex": "00267464a43bfb25a4000080bf1a79163fbc1b4fbf00000000bc1b4fbf1a7916bf32318d248554e1488185088e84427ea2"
+    },
+    {
+      "ref": 7884,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveCrownFin",
+      "property": "CFrame",
+      "original_sha256": "6c7ccc0adf60b27b8a19349b60632bf46a0ffa6379abdb3ecadecce10f1429d1",
+      "value_hex": "004d06862447a8b1a3000080bfde0ea13e1801733f000000001801733fde0ea1be32318d24855ae14881c3d70a843cf5c2"
+    },
+    {
+      "ref": 7889,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestPoint0",
+      "property": "CFrame",
+      "original_sha256": "4ce5f6d2f3569dee8dd6fbc5e25bef1098c7dbb17cfa55bb24f06e484dfaf9d8",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248554e1488196666684433334"
+    },
+    {
+      "ref": 7892,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestPoint2",
+      "property": "CFrame",
+      "original_sha256": "18a93b7b01f9bfdaff97cc32f06109b6ea82eea135d92c629d27cefe70d28ace",
+      "value_hex": "00287464a438fb2524000080bf177916bfbe1b4fbf00000000be1b4fbf1779163f32318d248554e1488185088e8443e7c4"
+    },
+    {
+      "ref": 7894,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestPoint1",
+      "property": "CFrame",
+      "original_sha256": "cb787424c7160b1bb053b7b4024de5b2049d1adb21c0ae9b30581699ac55a612",
+      "value_hex": "00ea85ae231f488624000080bf717873bf79379e3e0000000079379e3e7178733f32318d248554e148818fc43e8444575c"
+    },
+    {
+      "ref": 7964,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay",
+      "property": "AttributesSerialize",
+      "original_sha256": "4f2187d11ba19731cf809b15f67240c0d814a58b3e60c6435a5e98f7ed5ead7d",
+      "value_hex": "5a000000020000000a000000484142446973706c6179030110000000484142446973706c61794f726967696e140000ad423333c340cdcc88420032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24"
+    },
+    {
+      "ref": 7963,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/Pedestal gold ring",
+      "property": "CFrame",
+      "original_sha256": "0ce5bab79333c48f036412b06f3b3f3453d8db76a7a0cb2853a2725b575802aa",
+      "value_hex": "008c164f9832318da4000080bf0000803f2ebd3bb3000000002ebd3bb3000080bf32318d24855a000080e3d70a8511999a"
+    },
+    {
+      "ref": 7965,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb",
+      "property": "CFrame",
+      "original_sha256": "af781bb5068b2c79b86626f2264882e3d43c3a6c0df7f5e4a2f753c208a469ab",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a0000818666668511999a"
+    },
+    {
+      "ref": 7968,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/FurnaceGrate",
+      "property": "CFrame",
+      "original_sha256": "4807cf75a998ae68bdc0830ae267b5ff42853396bfe79168dbeb22e04b039830",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d2485553d7081728f5c8511999a"
+    },
+    {
+      "ref": 7969,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/FurnaceGrate",
+      "property": "CFrame",
+      "original_sha256": "2f918d85c2be333511ea22e08970b011478f4b4a3dea35b01d34db75fdffa3d1",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d2485553d70819a3d708511999a"
+    },
+    {
+      "ref": 7970,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/FurnaceGrate",
+      "property": "CFrame",
+      "original_sha256": "8a11bfc9d4b0c4500b209f3a40ef5f2703f0c081fc2cea7998e9b90aa19fa3a1",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d2485553d70818666668511999a"
+    },
+    {
+      "ref": 7971,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit2",
+      "property": "CFrame",
+      "original_sha256": "211918b9540596a93ef5b2a1b65d9ad1c42df5105ff439192d5ba5cdbdf2e883",
+      "value_hex": "00d2ab35bfed8811bf7c15d5bee58b70be18713f3fdaf61ebf6c0b2a3f4d90afbe6c0b2abf855606a481715a28851551da"
+    },
+    {
+      "ref": 7973,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit12",
+      "property": "CFrame",
+      "original_sha256": "e61a7348232e34230fb465944925a0d92b7dc70e56b8cbcadd3e125269a83fab",
+      "value_hex": "004059b73bed8811bf539a52bf9032d73e18713f3fdf8f03bf0949683f4d90afbe60f6783e855a080681ac0f408516ae66"
+    },
+    {
+      "ref": 7974,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit6",
+      "property": "CFrame",
+      "original_sha256": "26d9fe7026322ef49e007bd2ce48802a395a97330257b036e29ee2fbe34ee3ae",
+      "value_hex": "00605bb7bbed8811bf539a523f9532d7be18713f3fdd8f033f084968bf4d90afbe73f678be8559f7fa8160bd8c850c84ce"
+    },
+    {
+      "ref": 7976,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit8",
+      "property": "CFrame",
+      "original_sha256": "e2935d5c1b420791c0c26742f3ae1bd3da2ddabb224298fc252cfb57db70f688",
+      "value_hex": "00d1ab353fed8811bf7c15d53ee28b703e18713f3fdaf61e3f6d0b2abf4d90afbe6b0b2a3f855df95c819b72a4850de15a"
+    },
+    {
+      "ref": 7977,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit7",
+      "property": "CFrame",
+      "original_sha256": "f3f19970254e9100b9d2130634e6b4020c8b14859795699221baa5aebd658c48",
+      "value_hex": "002b1fd03eed8811bf871a373fe237dbbd18713f3f43bc273f084968bf4d90afbe6ff6783e855c46be817ccf28850c84ce"
+    },
+    {
+      "ref": 7978,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit3",
+      "property": "CFrame",
+      "original_sha256": "488bacc59d3f55c41bf0bba798fcf8ea9da9ff9e18cbecdc76f1233a8103e760",
+      "value_hex": "00539a52bfed8811bf005bb7bbdd8f03bf18713f3f9432d7be6ff6783e4d90afbe084968bf855564a081585a728512f626"
+    },
+    {
+      "ref": 7979,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/FurnaceDoorRim",
+      "property": "CFrame",
+      "original_sha256": "5497ca9f7350dd4e3f816b7934bcb19d98cd8ae4a148d95da3578350d714262b",
+      "value_hex": "000000803f000000002ebd3b33000000000000803f000000002ebd3bb3000000000000803f8555dc28818666668511999a"
+    },
+    {
+      "ref": 7981,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/FurnaceWindow",
+      "property": "CFrame",
+      "original_sha256": "fc42723c0e71127be1ff9626a431e80b65e6f644bcea96bfcc75f33a5c08386d",
+      "value_hex": "000000803f000000002ebd3b33000000000000803f000000002ebd3bb3000000000000803f855575c2818666668511999a"
+    },
+    {
+      "ref": 7984,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit5",
+      "property": "CFrame",
+      "original_sha256": "ad6f57eb3e6435c770f265a44aa9862f448f0bee97fdfb494d87f44b6d248a20",
+      "value_hex": "007c15d5beed8811bfd2ab353fdaf61ebf18713f3fe58b703e6c0b2abf4d90afbe6c0b2abf8557ab5e814ec334850de15a"
+    },
+    {
+      "ref": 7988,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit4",
+      "property": "CFrame",
+      "original_sha256": "a9e2d93c29d1073e59285ce41f8908f305fe0dbe9b23dd4085ec8ac6f3a4e106",
+      "value_hex": "00871a37bfed8811bf2a1fd03e43bc27bf18713f3fe437dbbd6ef678be4d90afbe084968bf8555fe9e814bb14e85103d0e"
+    },
+    {
+      "ref": 7991,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/FurnaceBase",
+      "property": "CFrame",
+      "original_sha256": "ae7fb8e4096e908d22ea8dad8ef9f3f5ed39f3bd1156aa6a39f23ac5a8484635",
+      "value_hex": "008c164f9832318da4000080bf0000803f2ebd3bb3000000002ebd3bb3000080bf32318d24855a0000814f5c288511999a"
+    },
+    {
+      "ref": 7992,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit10",
+      "property": "CFrame",
+      "original_sha256": "3a83e8873ccb4d75da198e8105788244d8a91ce1c8f01f7a7d0079dd7b892a7a",
+      "value_hex": "00871a373fed8811bf291fd0be43bc273f18713f3fe637db3d6cf6783e4d90afbe0849683f855e016281c11b7e8512f626"
+    },
+    {
+      "ref": 7993,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/FuseCollar",
+      "property": "CFrame",
+      "original_sha256": "6af2ee2addc307b4ee5899e91bc9290b13d8b21ad8ce170bed3a3a38d3be5d23",
+      "value_hex": "008c164f9832318da4000080bf0000803f2ebd3bb3000000002ebd3bb3000080bf32318d24855a000081cb851e8511999a"
+    },
+    {
+      "ref": 7994,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit9",
+      "property": "CFrame",
+      "original_sha256": "3c9778776d732a767623de9e3cd62ce3d892bd9330a70bd20405258600a9adfd",
+      "value_hex": "00549a523fed8811bf405ab73bde8f033f18713f3f9332d73e6af678be4d90afbe0949683f855e9b6081b4725a85103d0e"
+    },
+    {
+      "ref": 7995,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestCenter",
+      "property": "CFrame",
+      "original_sha256": "33b15ac865222cbb11fd54b7671ac48d0e3880ce1c2e47da1ec4d496e9373ea1",
+      "value_hex": "000000803f000000002ebd3b33000000000000803f000000002ebd3bb3000000000000803f8554e148818ccccc8511999a"
+    },
+    {
+      "ref": 7996,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/FuseSpark",
+      "property": "CFrame",
+      "original_sha256": "0a3191334d6a0ede5776939e4668720779db0e10844104dd89c9f582c4835e0a",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a000081f000008512c290"
+    },
+    {
+      "ref": 7997,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit11",
+      "property": "CFrame",
+      "original_sha256": "18948ec5e4e4bd41cf1215cf0b73ecaa9c6a3e918b3578701e6a66ccaa285185",
+      "value_hex": "007e15d53eed8811bfd1ab35bfdbf61e3f18713f3fe18b70be6b0b2a3f4d90afbe6e0b2a3f855c54a281be0998851551da"
+    },
+    {
+      "ref": 7998,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/FuseCurl",
+      "property": "CFrame",
+      "original_sha256": "57128705ec915ea7bb957ed8925acb420a2bc919dd93929ca1e35307ad2c06f7",
+      "value_hex": "00ffff7fbfd1e435a4bdff57a4000000003ad1433f14e624bf31318d2413e624bf3bd143bf855a000081e8f5c285124ccc"
+    },
+    {
+      "ref": 8000,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit1",
+      "property": "CFrame",
+      "original_sha256": "2c5bdcf0b72f01770827a6bcfeb4722dc325e7b02b04ab27066fca8728e9a1ed",
+      "value_hex": "002a1fd0beed8811bf871a37bfe437db3d18713f3f43bc27bf0849683f4d90afbe6ef678be8557b942818ffda48516ae66"
+    },
+    {
+      "ref": 8001,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/FuseLower",
+      "property": "CFrame",
+      "original_sha256": "22d7e1d1933912697e263410e07d3ca618d40037969d44528304f71541f5d9a4",
+      "value_hex": "00000080bfc06c88a40f8591a3000000005aec833e2d5b77bf32318d242d5b77bf5aec83be855a000081da3d708511c290"
+    },
+    {
+      "ref": 8005,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/FurnaceCrown",
+      "property": "CFrame",
+      "original_sha256": "d433ce95dc4e5b3cd0c10119d68d200cd507a8c9963ba6ecf0e6d4c3e046dbae",
+      "value_hex": "008c164f9832318da4000080bf0000803f2ebd3bb3000000002ebd3bb3000080bf32318d24855a000081bc28f68511999a"
+    },
+    {
+      "ref": 8006,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/Foundation",
+      "property": "CFrame",
+      "original_sha256": "4e9b8f66a36e78a9a71a9d0fa3ba7bf91c2028093ef5d12ba02e10f2add22d5e",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a00007fae147c85200000"
+    },
+    {
+      "ref": 8007,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/Gold column",
+      "property": "CFrame",
+      "original_sha256": "f2c675f8ff7ed6b48761ec7f0b6d134b59bdf9925bda055a25e5686abe5beb13",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248567999a81e00000853ecccc"
+    },
+    {
+      "ref": 8008,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/Sculpture pedestal",
+      "property": "CFrame",
+      "original_sha256": "4fa25f05fcd8c919a1199f3b55b08b23072e18c634b8371bf0b6cde4a7d3a37e",
+      "value_hex": "008c164f9832318da4000080bf0000803f2ebd3bb3000000002ebd3bb3000080bf32318d24855a00008059999a8511999a"
+    },
+    {
+      "ref": 8009,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/BrowseStand",
+      "property": "CFrame",
+      "original_sha256": "5532a9c4a0b38e8e6ed203c71aa829730bf51b18a34f2a29a33cad8afdf5d9e3",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248544cccc8146666685200000"
+    },
+    {
+      "ref": 8011,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/Cabinet foot",
+      "property": "CFrame",
+      "original_sha256": "04b6810e33ce49f891f910a3b622da2088fb0a47b7c4f812ee18239cab0d0a3a",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a00008019999a853ecccc"
+    },
+    {
+      "ref": 8012,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/Neon column inset",
+      "property": "CFrame",
+      "original_sha256": "36aad41b79269a0be3b181e89dfec2af90edae5309277c54dd2e7848b6a02ddf",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248565d70a81e00000853ecccc"
+    },
+    {
+      "ref": 8013,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/Reward jewel",
+      "property": "CFrame",
+      "original_sha256": "0a5390c0c7b422a9dcd3c3d5bd3bfb158ea8b97d92c1e3665288f54d7190af71",
+      "value_hex": "0006ad472406ad47a4000080bff304353ff304353f00000000f304353ff30435bf32318d2485651eb88258000085200000"
+    },
+    {
+      "ref": 8014,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/Reward jewel",
+      "property": "CFrame",
+      "original_sha256": "44e7d8bf58de488adbff6ed977eb025281d92d36661e1b05a629502a646f8e93",
+      "value_hex": "0006ad472406ad47a4000080bff304353ff304353f00000000f304353ff30435bf32318d2485651eb882580000852ccccc"
+    },
+    {
+      "ref": 8015,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/Back wall",
+      "property": "CFrame",
+      "original_sha256": "f477b442e2df5cd95fd82f67895ff608b4799e75c72ee57d8cfbd873ab190ccb",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856a000081e0000085200000"
+    },
+    {
+      "ref": 8016,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/Spotlit hood",
+      "property": "CFrame",
+      "original_sha256": "e064ed1503f16fc079e52abf82a8ceffb8e1a5b93538b4a26181f9d5203e50ef",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856000008310000085200000"
+    },
+    {
+      "ref": 8017,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/Display placard",
+      "property": "CFrame",
+      "original_sha256": "a0d6e344e0f75dac5ec7f8037339d96a321c978fd41ad5dcc70d29287f303cdb",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248568666682d0000085200000"
+    },
+    {
+      "ref": 8037,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/Colored recessed panel",
+      "property": "CFrame",
+      "original_sha256": "2db7d7eccbaa06771a0dafc5d8be238e63caa1bf418ba167a56aacae907486ba",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248567c29081e0000085200000"
+    },
+    {
+      "ref": 8038,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/BundleVFX",
+      "property": "CFrame",
+      "original_sha256": "3e5aff7e6a4ce5f4fc616ef3a14599a79a171429aa90c0314dca7b6c7411e4f2",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a00008160000085300000"
+    },
+    {
+      "ref": 8039,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/Cabinet foot",
+      "property": "CFrame",
+      "original_sha256": "496a113acdbafe25dc19839da072ef96e322912cac44489f436594334b820379",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a00008019999a85013334"
+    },
+    {
+      "ref": 8040,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/Gold column",
+      "property": "CFrame",
+      "original_sha256": "1a83e8bdd5f9f79456f22169684c332c7a792e58b64910d677303349ed172750",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248567999a81e0000085013334"
+    },
+    {
+      "ref": 8041,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/Neon column inset",
+      "property": "CFrame",
+      "original_sha256": "5f3097dc18501cb8a9c1ecf556b4a5270f1bfb375b5c9aba0691e7cb66682af7",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248565d70a81e0000085013334"
+    },
+    {
+      "ref": 8042,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/Soft display light",
+      "property": "CFrame",
+      "original_sha256": "29441349b3fa22ec0cf746b31cf156bbdc18e569850eacad06a4b940a6dcc641",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855e00008309999a85200000"
+    },
+    {
+      "ref": 8044,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/Reward jewel",
+      "property": "CFrame",
+      "original_sha256": "fd14e1502466a14ed0376e78080321936c04c1b4410beea089ed414bf55cc364",
+      "value_hex": "0006ad472406ad47a4000080bff304353ff304353f00000000f304353ff30435bf32318d2485651eb88258000085133334"
+    },
+    {
+      "ref": 8045,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/Hood gold lip",
+      "property": "CFrame",
+      "original_sha256": "3c4b352203f10a1104597c530ea18200aedb28c012e7f41e17272f684fe81ba6",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248551cccc8311999a85200000"
+    },
+    {
+      "ref": 8046,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/VFX pedestal",
+      "property": "CFrame",
+      "original_sha256": "d55bc4803d02754b02e28f82fce2f05d09cb0f831478ea9e74fb41c6ec32f489",
+      "value_hex": "008c164f9832318da4000080bf0000803f2ebd3bb3000000002ebd3bb3000080bf32318d24855a00008059999a85300000"
+    },
+    {
+      "ref": 8048,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/HABStandDetail9/New reward placard",
+      "property": "CFrame",
+      "original_sha256": "28d7a96e9a1f6ffc1ffb7e917f4eb857c1bd0810a12ed2f9fc424226e868fd2c",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248549333480eccccc85200000"
+    },
+    {
+      "ref": 8056,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/HABStandDetail9/Reward edge light",
+      "property": "CFrame",
+      "original_sha256": "05de305b9db00afa68815d044a96cb152cd16189e2c427b6ab400a897266f82a",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856551ec81d3333485036666"
+    },
+    {
+      "ref": 8057,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/HABStandDetail9/Reward edge light",
+      "property": "CFrame",
+      "original_sha256": "8378c2bc247990f58961696623ba90fa132af9b78101a26f747c175dfd40569e",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856551ec81d33334853c999a"
+    },
+    {
+      "ref": 8058,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/HABStandDetail9/Reward jewel plinth",
+      "property": "CFrame",
+      "original_sha256": "a6d45cdfd115d39851b8c5947fa20302c634514c13b08581c8b4f5e3da1163cc",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856233348231999a850d999a"
+    },
+    {
+      "ref": 8059,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/HABStandDetail9/Reward preview socket",
+      "property": "CFrame",
+      "original_sha256": "919761011bfa1503b93c13b6c85319d8536a58d277f7fa4f7abe6f5042b8cdf7",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855fcccc8251999a850d999a"
+    },
+    {
+      "ref": 8060,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/HABStandDetail9/Reward jewel plinth",
+      "property": "CFrame",
+      "original_sha256": "ad55a561e32934537ecc4f8565c86d6a22dbbee6842cbe8af1d60902979d3d66",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856233348231999a85200000"
+    },
+    {
+      "ref": 8061,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/HABStandDetail9/Reward preview socket",
+      "property": "CFrame",
+      "original_sha256": "9b7838714b5818b445436437629b771892e527ecbfce5fd86dc7da64911522f7",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855fcccc8251999a85200000"
+    },
+    {
+      "ref": 8062,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/HABStandDetail9/Reward jewel plinth",
+      "property": "CFrame",
+      "original_sha256": "73fc6b5415c7de16252076769b37cff761091af17b8af460a4c5646b4d42b850",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856233348231999a85326666"
+    },
+    {
+      "ref": 8063,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/HABStandDetail9/New reward placard",
+      "property": "CFrame",
+      "original_sha256": "a8d934f36aa3a76f3e630cedfce2066a80ca4b2f3dad3c39423fafb405dfc160",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855f51ec8250000085326666"
+    },
+    {
+      "ref": 7967,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveCrownFin",
+      "property": "CFrame",
+      "original_sha256": "32124df619303f837bb49e14b5f050494102b767c1051fc2bc4cdc01063265c9",
+      "value_hex": "004d06862447a8b1a3000080bfde0ea13e1801733f000000001801733fde0ea1be32318d24855ae14881c3d70a850e7ae2"
+    },
+    {
+      "ref": 7972,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestPoint0",
+      "property": "CFrame",
+      "original_sha256": "14c466aca90625ef3775df8515f9fd1a5a52605b48d2601d5d933eef4eda4f50",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248554e148819666668511999a"
+    },
+    {
+      "ref": 7975,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveCrownFin",
+      "property": "CFrame",
+      "original_sha256": "92bba36f09c3aab4a979ea4a630fdbf41f6994f7b0d18f115302e4f58ce926ae",
+      "value_hex": "004d06862447a8b123000080bfde0ea1be1801733f000000001801733fde0ea13e32318d24855ae14881c3d70a8514b852"
+    },
+    {
+      "ref": 7980,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestPoint3",
+      "property": "CFrame",
+      "original_sha256": "997e29e87cf87be9970c6182f386fc796415ae3ec92ef3a6bb77ea3099b82685",
+      "value_hex": "00267464a43bfb25a4000080bf1a79163fbc1b4fbf00000000bc1b4fbf1a7916bf32318d248554e1488185088e85113f50"
+    },
+    {
+      "ref": 7982,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/SolarHeatFin",
+      "property": "CFrame",
+      "original_sha256": "be2f483fffcaef66700b0d89cedb4bc8226dc6713e69a69bd4d5635557860399",
+      "value_hex": "00e20a313febf016bef30435bf8376553e3c607a3f00000000e20a313febf016bef304353f8556f2008187ae148514a79c"
+    },
+    {
+      "ref": 7983,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestPoint1",
+      "property": "CFrame",
+      "original_sha256": "8f661cf190cc8727df035c8603b68590ce9f05885a690e6a4cbad88491c1fa8e",
+      "value_hex": "00ea85ae231f488624000080bf717873bf79379e3e0000000079379e3e7178733f32318d248554e148818fc43e85122bb0"
+    },
+    {
+      "ref": 7985,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestPoint4",
+      "property": "CFrame",
+      "original_sha256": "bee533d73968721ceb1c21d2931b81fb24f028216f234e946c76d0bfcc9cd281",
+      "value_hex": "00ef85ae231f4886a4000080bf7078733f7e379e3e000000007e379e3e707873bf32318d248554e148818fc43e85110784"
+    },
+    {
+      "ref": 7986,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestPoint2",
+      "property": "CFrame",
+      "original_sha256": "40a11d37e95f32fb00c66fbba1b1249140e07f4a30d26e476f80fa8288743f6c",
+      "value_hex": "00287464a438fb2524000080bf177916bfbe1b4fbf00000000be1b4fbf1779163f32318d248554e1488185088e8511f3e4"
+    },
+    {
+      "ref": 7987,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/SolarHeatFin",
+      "property": "CFrame",
+      "original_sha256": "549b86202d34b5f2059fd20cc2ab32d6de7d29f1c50cd43153745e222d5c04af",
+      "value_hex": "00e20a313febf016bef304353f8376553e3c607a3f00000000e20a31bfebf0163ef304353f855d0e008187ae148514a79c"
+    },
+    {
+      "ref": 7989,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/SolarHeatFin",
+      "property": "CFrame",
+      "original_sha256": "2667741cbd63d4ab26344a3254e176754939871876fe3ed05b9599d668949ed1",
+      "value_hex": "003c607a3f837655be2ebd3b338376553e3c607a3f00000000529d37b3518b1c320000803f855a00008187ae148515eb86"
+    },
+    {
+      "ref": 7990,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/SolarHeatFin",
+      "property": "CFrame",
+      "original_sha256": "8b81034d13b47a6d3b2478ae5e81bd06b654d01b8f5a684718b4f4ab80b80503",
+      "value_hex": "00e40a31bfedf0163ef20435bf8376553e3c607a3f00000000e10a313feaf016bef50435bf8556f2008187ae14850e8b98"
+    },
+    {
+      "ref": 7999,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/SolarHeatFin",
+      "property": "CFrame",
+      "original_sha256": "ebee0660c09c05e5007e2be241788eb61291f54bff66ca3530f389af517c5b4f",
+      "value_hex": "001e178a2496766ba3000080bf8376553e3c607a3f000000003c607a3f837655be32318d248555ae148187ae148511999a"
+    },
+    {
+      "ref": 8002,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/SolarHeatFin",
+      "property": "CFrame",
+      "original_sha256": "7d1c2e9f14e11cc6a5b1d18e2a947d7ecbbf19024449fe698201d364ded0bc4e",
+      "value_hex": "00529db7b3518b9c320000803f8376553e3c607a3f000000003c607abf8376553e2ebdbbb3855e51ec8187ae148511999a"
+    },
+    {
+      "ref": 8003,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/SolarHeatFin",
+      "property": "CFrame",
+      "original_sha256": "3a161303d15d5a0fe145d65badeadea04fafab098519c22833ff6ba9ba097bc5",
+      "value_hex": "003c607abf8376553e2ede4cb28376553e3c607a3f00000000fc5d4832b4d32ab1000080bf855a00008187ae14850d47ae"
+    },
+    {
+      "ref": 8004,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay/Display bomb/HussBombSkin/SolarHeatFin",
+      "property": "CFrame",
+      "original_sha256": "537e7f7dcfcfb92bb9f3cf5bb0224997a7e7b7b9c02a50f72c331f128655d7a0",
+      "value_hex": "00e10a31bfeaf0163ef404353f8376553e3c607a3f00000000e30a31bfecf0163ef20435bf855d0e008187ae14850e8b98"
+    },
+    {
+      "ref": 8123,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay",
+      "property": "AttributesSerialize",
+      "original_sha256": "678971cb40d5a603741e00ea97f7dcb52e1ece5bb3f524aa56047b241dafc35b",
+      "value_hex": "5a000000020000000a000000484142446973706c6179030110000000484142446973706c61794f726967696e140000ad423333c340cdccc0420032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24"
+    },
+    {
+      "ref": 8124,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb",
+      "property": "CFrame",
+      "original_sha256": "084ff5947d19eede8d00f18362fb6727a29425cf700dceb5372bda268f46ce54",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a0000818666668581999a"
+    },
+    {
+      "ref": 8126,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit4",
+      "property": "CFrame",
+      "original_sha256": "33fcc34ca5900ac70f25b51c90f5919572fec14c8c27c1c3a5579458a0688fb6",
+      "value_hex": "00871a37bfed8811bf2a1fd03e43bc27bf18713f3fe437dbbd6ef678be4d90afbe084968bf8555fea0814bb14e85803d0e"
+    },
+    {
+      "ref": 8127,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit5",
+      "property": "CFrame",
+      "original_sha256": "1adad77d87989ad2d37c5a58fe5809c95bbc522811afb0c1a999db31f229ac00",
+      "value_hex": "007c15d5beed8811bfd2ab353fdaf61ebf18713f3fe58b703e6c0b2abf4d90afbe6c0b2abf8557ab5c814ec334857de15a"
+    },
+    {
+      "ref": 8128,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit7",
+      "property": "CFrame",
+      "original_sha256": "8bb8d8f55fe8639e09dd6cfd8d7aa35aeecd59f4451f91d86a269dfcdcabdda4",
+      "value_hex": "002b1fd03eed8811bf871a373fe237dbbd18713f3f43bc273f084968bf4d90afbe6ff6783e855c46bc817ccf28857c84ce"
+    },
+    {
+      "ref": 8130,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit1",
+      "property": "CFrame",
+      "original_sha256": "516d82574bf17db8809e8ec5b2ca549f76bc986f0c243361ada8e368bb7e3ab6",
+      "value_hex": "002a1fd0beed8811bf871a37bfe437db3d18713f3f43bc27bf0849683f4d90afbe6ef678be8557b944818ffda48586ae66"
+    },
+    {
+      "ref": 8132,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit2",
+      "property": "CFrame",
+      "original_sha256": "7b1c60fb217558163b8824e94b4b9b7add1c3e91ef67c30e3e311b867e2608c0",
+      "value_hex": "00d2ab35bfed8811bf7c15d5bee58b70be18713f3fdaf61ebf6c0b2a3f4d90afbe6c0b2abf855606a481715a28858551da"
+    },
+    {
+      "ref": 8142,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/SnowflakeCenter",
+      "property": "CFrame",
+      "original_sha256": "fed664a51ca90a7ebf959e83687d9893b07bae7973820a47dcef4ef9e208c0ca",
+      "value_hex": "000000803f000000002ebd3b33000000000000803f000000002ebd3bb3000000000000803f8555ae148189999a8581999a"
+    },
+    {
+      "ref": 8146,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestCenter",
+      "property": "CFrame",
+      "original_sha256": "c629bb742e0d159c1d2139c7a0758ebdd2f745334829f01a6755135c075b93ff",
+      "value_hex": "000000803f000000002ebd3b33000000000000803f000000002ebd3bb3000000000000803f8554e148818ccccc8581999a"
+    },
+    {
+      "ref": 8149,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/FuseLower",
+      "property": "CFrame",
+      "original_sha256": "fe30844c1c33aae70d54fdefe8f22b6b32306fd22884a0b97962ee640ac87669",
+      "value_hex": "00000080bfc06c88a40f8591a3000000005aec833e2d5b77bf32318d242d5b77bf5aec83be855a000081da3d708581c290"
+    },
+    {
+      "ref": 8151,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/FuseCurl",
+      "property": "CFrame",
+      "original_sha256": "ad01434288e5829a4206da97f997856d57ed332af350dbce74c4710ee874ea7f",
+      "value_hex": "00ffff7fbfd1e435a4bdff57a4000000003ad1433f14e624bf31318d2413e624bf3bd143bf855a000081e8f5c285824ccc"
+    },
+    {
+      "ref": 8152,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit10",
+      "property": "CFrame",
+      "original_sha256": "18054794847cf11bff4232721904070b0e42ae5fc028613df39163c56a2255a7",
+      "value_hex": "00871a373fed8811bf291fd0be43bc273f18713f3fe637db3d6cf6783e4d90afbe0849683f855e016081c11b7e8582f626"
+    },
+    {
+      "ref": 8154,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/FuseCollar",
+      "property": "CFrame",
+      "original_sha256": "8bccb4510f5c88dedd16f706aeeda4a51a6608c4948312804f64c6027b6daeb6",
+      "value_hex": "008c164f9832318da4000080bf0000803f2ebd3bb3000000002ebd3bb3000080bf32318d24855a000081cb851e8581999a"
+    },
+    {
+      "ref": 8155,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit12",
+      "property": "CFrame",
+      "original_sha256": "3f229b1d928568ea6ee21fac9c3ddf7fd8ca4c797ac9d14559b80e295e12a7de",
+      "value_hex": "004059b73bed8811bf539a52bf9032d73e18713f3fdf8f03bf0949683f4d90afbe60f6783e855a080481ac0f408586ae66"
+    },
+    {
+      "ref": 8156,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit11",
+      "property": "CFrame",
+      "original_sha256": "1cba64b22b3e4e9975e7f0dabb397bd45205716c8ef96ffd4d1786393d382a92",
+      "value_hex": "007e15d53eed8811bfd1ab35bfdbf61e3f18713f3fe18b70be6b0b2a3f4d90afbe6e0b2a3f855c54a481be0998858551da"
+    },
+    {
+      "ref": 8157,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/FrozenHeart",
+      "property": "CFrame",
+      "original_sha256": "084ff5947d19eede8d00f18362fb6727a29425cf700dceb5372bda268f46ce54",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a0000818666668581999a"
+    },
+    {
+      "ref": 8159,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit6",
+      "property": "CFrame",
+      "original_sha256": "1b5643005cbe39a9b60d32a8f4ae615713a4eb57f3f07aabbc2ee8f31973a93f",
+      "value_hex": "00605bb7bbed8811bf539a523f9532d7be18713f3fdd8f033f084968bf4d90afbe73f678be8559f7fc8160bd8c857c84ce"
+    },
+    {
+      "ref": 8160,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/FuseSpark",
+      "property": "CFrame",
+      "original_sha256": "fa5d74eca295f0fa6fab260c9066326c81cc3e4c1d626276f79b02085607e4b7",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a000081f000008582c290"
+    },
+    {
+      "ref": 8161,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit9",
+      "property": "CFrame",
+      "original_sha256": "2ca298dc3129f935578144fb98a241b30c836d102058fee28e445cd244b4527e",
+      "value_hex": "00549a523fed8811bf405ab73bde8f033f18713f3f9332d73e6af678be4d90afbe0949683f855e9b6081b4725a85803d0e"
+    },
+    {
+      "ref": 8162,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit8",
+      "property": "CFrame",
+      "original_sha256": "f329cc93ea1348997e877cbf459a48c3fedd0f23e5bbaffb0c2164c5ab6d300b",
+      "value_hex": "00d1ab353fed8811bf7c15d53ee28b703e18713f3fdaf61e3f6d0b2abf4d90afbe6b0b2a3f855df95c819b72a4857de15a"
+    },
+    {
+      "ref": 8163,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit3",
+      "property": "CFrame",
+      "original_sha256": "ae3f5c29572ca8e1052d96d0a089c7a68740a3865231177d5f9a78dbbf6658b7",
+      "value_hex": "00539a52bfed8811bf005bb7bbdd8f03bf18713f3f9432d7be6ff6783e4d90afbe084968bf855564a081585a728582f626"
+    },
+    {
+      "ref": 8164,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/VFX pedestal",
+      "property": "CFrame",
+      "original_sha256": "869a7ed483a3ad305727e3c4dc2f3ad19ea83b92ffaf94755a9229ae9fa89098",
+      "value_hex": "008c164f9832318da4000080bf0000803f2ebd3bb3000000002ebd3bb3000080bf32318d24855a00008059999a85a00000"
+    },
+    {
+      "ref": 8165,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/BundleVFX",
+      "property": "CFrame",
+      "original_sha256": "5e67b1e267c090f3f3d77a76c9d1cdc45c320276ae507174436237585235b9a0",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a00008160000085a00000"
+    },
+    {
+      "ref": 8166,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/Foundation",
+      "property": "CFrame",
+      "original_sha256": "9e7dfd096a45ec96cfe692760c10915e06f3b90a288ce18102335217d58f4638",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a00007fae147c85900000"
+    },
+    {
+      "ref": 8167,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/Hood gold lip",
+      "property": "CFrame",
+      "original_sha256": "f6b084fb73723528f18c46abbaf60069ec7c093cb26a1bb2415abef0e83a6ac2",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248551cccc8311999a85900000"
+    },
+    {
+      "ref": 8168,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/Colored recessed panel",
+      "property": "CFrame",
+      "original_sha256": "e1eb1092ac4a1edf6dda89282b5c9a63c413a0ebda29c4a6c948315009ce2f81",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248567c29081e0000085900000"
+    },
+    {
+      "ref": 8169,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/Soft display light",
+      "property": "CFrame",
+      "original_sha256": "8d03dcea5cf015374c5a827ea4a0c9aa90f295968797dbcb443698fa4514b28d",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855e00008309999a85900000"
+    },
+    {
+      "ref": 8171,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/Gold column",
+      "property": "CFrame",
+      "original_sha256": "2cda0e52d3784131343d715f4d4f3b552be821436e3d9733ef7d938af2ccaa82",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248567999881e0000085713334"
+    },
+    {
+      "ref": 8172,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/Cabinet foot",
+      "property": "CFrame",
+      "original_sha256": "b7190950235b6b3e72d96d59519df48d672ca7f37e5ebb695b3600c0c69742e5",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a00008019999a85713334"
+    },
+    {
+      "ref": 8173,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/Pedestal gold ring",
+      "property": "CFrame",
+      "original_sha256": "2761a885808fde2364ecdba5eb643af12f640e1f739c29c1ba808e40a55266f9",
+      "value_hex": "008c164f9832318da4000080bf0000803f2ebd3bb3000000002ebd3bb3000080bf32318d24855a000080e3d70a8581999a"
+    },
+    {
+      "ref": 8174,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/Back wall",
+      "property": "CFrame",
+      "original_sha256": "579cc376f33e26d8bb807206af6e0b1d88fb33cc6b529555522162be1f2228df",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856a000081e0000085900000"
+    },
+    {
+      "ref": 8175,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/Gold column",
+      "property": "CFrame",
+      "original_sha256": "eee345131dbfa475b33b8ef00f9490b3e92ab3006ebc67181bb48b04ca1d310d",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248567999881e0000085aecccc"
+    },
+    {
+      "ref": 8176,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/Neon column inset",
+      "property": "CFrame",
+      "original_sha256": "bb7d2cd429ecbed6956fe3e134f6dcd15f6a53c54673d35c623bb6491994576c",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248565d70c81e0000085713334"
+    },
+    {
+      "ref": 8177,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/BrowseStand",
+      "property": "CFrame",
+      "original_sha256": "cca75a8e6940d9c197b6b75bc21ca2acf446a7673fb1049a2022c99ab18d3b6f",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248544cccc8146666685900000"
+    },
+    {
+      "ref": 8179,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/Reward jewel",
+      "property": "CFrame",
+      "original_sha256": "f28c6c38c7f934a10d0c53ba7c10ce6d59cdb5a0a377bf3644b543e337275ea7",
+      "value_hex": "0006ad472406ad47a4000080bff304353ff304353f00000000f304353ff30435bf32318d2485651eb882580000859ccccc"
+    },
+    {
+      "ref": 8180,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/Display placard",
+      "property": "CFrame",
+      "original_sha256": "fd40263ec627d4d779091b86836dbbdbdb386edf7e304ed43375efd684e15637",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248568666882d0000085900000"
+    },
+    {
+      "ref": 8200,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/Spotlit hood",
+      "property": "CFrame",
+      "original_sha256": "86d1551bdde62a4ce1628a436e8d63c942a567f9d18bc6dc7ca033015350853f",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856000008310000085900000"
+    },
+    {
+      "ref": 8201,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/Neon column inset",
+      "property": "CFrame",
+      "original_sha256": "3e3f05f7259c58c78809f0b7a2f11bfcb2117c81825a786e28e67acb3baca300",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248565d70c81e0000085aecccc"
+    },
+    {
+      "ref": 8202,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/Reward jewel",
+      "property": "CFrame",
+      "original_sha256": "d97af19db6a89e5d6b71626d28632301901b8c24af26bdc7955c4fffcb328de3",
+      "value_hex": "0006ad472406ad47a4000080bff304353ff304353f00000000f304353ff30435bf32318d2485651eb88258000085833334"
+    },
+    {
+      "ref": 8203,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/Cabinet foot",
+      "property": "CFrame",
+      "original_sha256": "50727a854e0f5ba36b5a22615e8984bbe73a500a2d4d0f3f39f932d4b8c37b91",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a00008019999a85aecccc"
+    },
+    {
+      "ref": 8204,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/Sculpture pedestal",
+      "property": "CFrame",
+      "original_sha256": "143bfb7777043461e46c8bac47790ad4f4f6154eb3af1d1e8907369a0a5ec1d0",
+      "value_hex": "008c164f9832318da4000080bf0000803f2ebd3bb3000000002ebd3bb3000080bf32318d24855a00008059999a8581999a"
+    },
+    {
+      "ref": 8205,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/Reward jewel",
+      "property": "CFrame",
+      "original_sha256": "bc6b6dacc794e712ce4b003f3b068b823f3609024a9cd4290aa3c671f0a8de7c",
+      "value_hex": "0006ad472406ad47a4000080bff304353ff304353f00000000f304353ff30435bf32318d2485651eb88258000085900000"
+    },
+    {
+      "ref": 8207,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/HABStandDetail9/New reward placard",
+      "property": "CFrame",
+      "original_sha256": "4a5d5e61ccd16e56cb7b34545ae05c45954a5fbd737a408c03e795809e1aa352",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248549333480eccccc85900000"
+    },
+    {
+      "ref": 8215,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/HABStandDetail9/Reward edge light",
+      "property": "CFrame",
+      "original_sha256": "03dd8af4e4a3a78553e86553b356ee74af7472dbccb5a48fd958d3a5274e2ef1",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856551ec81d3333485736666"
+    },
+    {
+      "ref": 8216,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/HABStandDetail9/Reward edge light",
+      "property": "CFrame",
+      "original_sha256": "109f53ca9c93d755be5c00e1e532ed17b476eb1c012efc13679612675b57c3eb",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856551ec81d3333485ac999a"
+    },
+    {
+      "ref": 8217,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/HABStandDetail9/Reward jewel plinth",
+      "property": "CFrame",
+      "original_sha256": "acb80b37e3b5938a8cba6f9daf3c31777ceaf5c8a7057533d0ec932df55c5b65",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856233348231999a857d999a"
+    },
+    {
+      "ref": 8218,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/HABStandDetail9/Reward preview socket",
+      "property": "CFrame",
+      "original_sha256": "2b443cf4318dfd3741d6db0f5ef9fcbc72c6b42bcb6dfa0669458e919ba6273a",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855fcccc8251999a857d999a"
+    },
+    {
+      "ref": 8219,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/HABStandDetail9/Reward jewel plinth",
+      "property": "CFrame",
+      "original_sha256": "f8eadfb5672694acce190b0b51c3b38d7e936a700f3f934265d8a48dcb8121ee",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856233348231999a85900000"
+    },
+    {
+      "ref": 8220,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/HABStandDetail9/Reward preview socket",
+      "property": "CFrame",
+      "original_sha256": "2c94bf25990da02a01d5afd4aaa92af4a3ca209911b353add3969dd59f058e26",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855fcccc8251999a85900000"
+    },
+    {
+      "ref": 8221,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/HABStandDetail9/Reward jewel plinth",
+      "property": "CFrame",
+      "original_sha256": "a42a01f7e5625cfbc9d2dfddae89d68eccb307878ee632bde8db2e270bf55c00",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856233348231999a85a26666"
+    },
+    {
+      "ref": 8222,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/HABStandDetail9/New reward placard",
+      "property": "CFrame",
+      "original_sha256": "03ac1607743559c03bf6f1bb39999e3ce4bada82715ac7fb03b7b9453bdbdabd",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855f51ec8250000085a26666"
+    },
+    {
+      "ref": 8129,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/SnowflakePoint4",
+      "property": "CFrame",
+      "original_sha256": "08739b88f57bd9f86636d8587619d690ebd3ab1a8b37731f0ce20f97391e7235",
+      "value_hex": "00ef85ae231f4886a4000080bf7078733f7e379e3e000000007e379e3e707873bf32318d248555ae14818d4ee68580e300"
+    },
+    {
+      "ref": 8131,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveCrownFin",
+      "property": "CFrame",
+      "original_sha256": "5bcec3209c39d546dfb7720da4aed6a65046e2ebbf33db7bec5d65f4e9ad60b6",
+      "value_hex": "004d06862447a8b123000080bfde0ea1be1801733f000000001801733fde0ea13e32318d24855ae14881c3d70a8584b852"
+    },
+    {
+      "ref": 8133,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveCrownFin",
+      "property": "CFrame",
+      "original_sha256": "2872b84811e254cbf322cefa5c6f577a927e0de30e924cb9fff9cc73116cd07b",
+      "value_hex": "004d06862447a8b1a3000080bfde0ea13e1801733f000000001801733fde0ea1be32318d24855ae14881c3d70a857e7ae0"
+    },
+    {
+      "ref": 8134,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestPoint4",
+      "property": "CFrame",
+      "original_sha256": "441a87a78dcd04bdeea9f56c516c49d09d72192ed5df242d91078b95faa25a1a",
+      "value_hex": "00ef85ae231f4886a4000080bf7078733f7e379e3e000000007e379e3e707873bf32318d248554e148818fc43e85810784"
+    },
+    {
+      "ref": 8135,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/SnowflakePoint1",
+      "property": "CFrame",
+      "original_sha256": "865532354f0119f33a08b940b0f0c905125edb69073d220021b055c4e84df928",
+      "value_hex": "00ea85ae231f488624000080bf717873bf79379e3e0000000079379e3e7178733f32318d248555ae14818d4ee685825034"
+    },
+    {
+      "ref": 8136,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/SnowflakePoint2",
+      "property": "CFrame",
+      "original_sha256": "b97faf6a30b727f3d1238c7e1afb6ee5492d885bb66e0bcf8a3dcee54a56511d",
+      "value_hex": "00287464a438fb2524000080bf177916bfbe1b4fbf00000000be1b4fbf1779163f32318d248555ae14817fe44c85820a74"
+    },
+    {
+      "ref": 8137,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/SnowflakePoint3",
+      "property": "CFrame",
+      "original_sha256": "e5e7a71771ee4bf023d846cc96159ee565287170ab9cb82d0bf732d2103fdd43",
+      "value_hex": "00267464a43bfb25a4000080bf1a79163fbc1b4fbf00000000bc1b4fbf1a7916bf32318d248555ae14817fe44c858128be"
+    },
+    {
+      "ref": 8138,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestPoint2",
+      "property": "CFrame",
+      "original_sha256": "ef4c653fe49170885accfa95e3e3fc5dd694b264e28d19cb405510a6c94cd883",
+      "value_hex": "00287464a438fb2524000080bf177916bfbe1b4fbf00000000be1b4fbf1779163f32318d248554e1488185088e8581f3e2"
+    },
+    {
+      "ref": 8139,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestPoint3",
+      "property": "CFrame",
+      "original_sha256": "09bb328e733354fa245a486b545c53e514ed70c66477caf56de90230951abea0",
+      "value_hex": "00267464a43bfb25a4000080bf1a79163fbc1b4fbf00000000bc1b4fbf1a7916bf32318d248554e1488185088e85813f50"
+    },
+    {
+      "ref": 8140,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/HangingIcicle",
+      "property": "CFrame",
+      "original_sha256": "9e479eb47763af5a9de43b61a7a82abaf75e33ac67898c48cb3ad3ca0210d867",
+      "value_hex": "0032318da48c16cf18000080bf2ebdbbb3000080bf00000000000080bf2ebdbb3332318d2485581eb8814b851e8583a3d8"
+    },
+    {
+      "ref": 8141,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestPoint0",
+      "property": "CFrame",
+      "original_sha256": "151846f9292e58daff7b0d7a800b0eab70c19753d0f15e6ee1fc3bca70e304c7",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248554e148819666668581999a"
+    },
+    {
+      "ref": 8143,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestPoint1",
+      "property": "CFrame",
+      "original_sha256": "fb83ab81c6faa9f755c5f0fa4cb037e253a5eb91aa4439b1a65e0382d9c8f445",
+      "value_hex": "00ea85ae231f488624000080bf717873bf79379e3e0000000079379e3e7178733f32318d248554e148818fc43e85822bae"
+    },
+    {
+      "ref": 8144,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/SnowflakePoint0",
+      "property": "CFrame",
+      "original_sha256": "d718f6828b6f3067aeb2f9f6e243c526ef72f4c0e52838a4487cb22531ebe286",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248555ae148195999a8581999a"
+    },
+    {
+      "ref": 8145,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/IceCrownShard",
+      "property": "CFrame",
+      "original_sha256": "c10284e2a2807f04ca61e855d5c704a96d6e69f77929832f41aceb1f8e3e399d",
+      "value_hex": "009f370a3fc41a86be63c84c3f22a7903ec59c733f6099f73de1fa4abf9695243e1779163f855cd0bc81af5c288583a540"
+    },
+    {
+      "ref": 8147,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/IceCrownShard",
+      "property": "CFrame",
+      "original_sha256": "c02d3c2fb413819f6ef889cbc4fd34496cd2f678855ee93ed1c501185d14482e",
+      "value_hex": "00006b19bf9ceafdbc61c84c3f2500e23d0f8c7c3f5d99f73ddffa4abf9595243e1a7916bf855cd0bc81af5c28857f8df4"
+    },
+    {
+      "ref": 8148,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/IceCrownShard",
+      "property": "CFrame",
+      "original_sha256": "2f4a0b9233f735a23305b82231cbeced4e7399713d672c42f24af9ce8009389b",
+      "value_hex": "00c68973bf8855253daf709cbe64136a3dde4e7f3f22263dbd1f109b3e6a767bbd707873bf8558ecb481af5c28857e4a52"
+    },
+    {
+      "ref": 8150,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/HangingIcicle",
+      "property": "CFrame",
+      "original_sha256": "402e92558a5d15d46fc5516a8152ebee5c2ff4b642ee9c6de015ff66147fea93",
+      "value_hex": "0032318da48c16cf18000080bf2ebdbbb3000080bf00000000000080bf2ebdbb3332318d2485581eb8814b851e857f8f5c"
+    },
+    {
+      "ref": 8153,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/IceCrownShard",
+      "property": "CFrame",
+      "original_sha256": "e90cb1690a8c18267fdfe640fc88591904b554dba7294dc78c3a5bc45b5f4a7e",
+      "value_hex": "006856643f20a4aabeaa709cbec0e4ab3ef6d9703f1c263dbd1a109b3e62767bbd7178733f8558ecb481af5c288584e8e0"
+    },
+    {
+      "ref": 8158,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay/Display bomb/HussBombSkin/IceCrownShard",
+      "property": "CFrame",
+      "original_sha256": "4e5eb1c3e0df9d4b3d37fd36543fc7a848b82ca600d8043401ebc5d416d8c942",
+      "value_hex": "00e035f3bc6ff915be1a207dbf2c27493e6a14783f500619bea5e57a3ff96f4bbe539b8b248556852081af5c288581999a"
+    },
+    {
+      "ref": 8232,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay",
+      "property": "AttributesSerialize",
+      "original_sha256": "8f0100171f22532eb3139f23451f1c92cdbb45c1ce6ee5795ed61fb5358211de",
+      "value_hex": "5a000000020000000a000000484142446973706c6179030110000000484142446973706c61794f726967696e140000ad423333c340cdccf8420032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24"
+    },
+    {
+      "ref": 8231,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/Cabinet foot",
+      "property": "CFrame",
+      "original_sha256": "fa0c78352f077785c493d88f499b36f7146c75290ec441194adf9b7090e75905",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a00008019999a860f6666"
+    },
+    {
+      "ref": 8233,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb",
+      "property": "CFrame",
+      "original_sha256": "f58ee4cf519b4efa7736ae066f83906f14f477d8c9b076ad3a0af7b20a1a8e09",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a00008186666685f1999a"
+    },
+    {
+      "ref": 8235,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit7",
+      "property": "CFrame",
+      "original_sha256": "421ccf64ccbf34ef6eb010cf7e1ba8d9590acb2c02ceb53fc9c723adcf1d237e",
+      "value_hex": "002b1fd03eed8811bf871a373fe237dbbd18713f3f43bc273f084968bf4d90afbe6ff6783e855c46be817ccf2885ec84ce"
+    },
+    {
+      "ref": 8239,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit6",
+      "property": "CFrame",
+      "original_sha256": "23cae11c4a03065f49508fb38d33ccb5d8d375aa0b9651f78066d003599c5bb7",
+      "value_hex": "00605bb7bbed8811bf539a523f9532d7be18713f3fdd8f033f084968bf4d90afbe73f678be8559f7fa8160bd8c85ec84ce"
+    },
+    {
+      "ref": 8242,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/DeepSeaFin",
+      "property": "CFrame",
+      "original_sha256": "957130ab84f476ea0ea29bea05e18e523fbbe4065fd823665bc609abab21b419",
+      "value_hex": "0035de2a3ecec179beef9074bfaa170abf62d9493f6d4e97be3249533f698c103fd3e28624855ae1488196666685ed8f5c"
+    },
+    {
+      "ref": 8244,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/PearlRim",
+      "property": "CFrame",
+      "original_sha256": "422d658dfa516ee3af33bbb5dc6d464073633466d779f83dbc50822602283d4b",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855ae1968168f5c285edbd42"
+    },
+    {
+      "ref": 8245,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit12",
+      "property": "CFrame",
+      "original_sha256": "b37c001782c0581a489251d067c6b06d3740356f0ba0b867680dc08b9b960fe7",
+      "value_hex": "004059b73bed8811bf539a52bf9032d73e18713f3fdf8f03bf0949683f4d90afbe60f6783e855a080681ac0f4085f6ae66"
+    },
+    {
+      "ref": 8246,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit4",
+      "property": "CFrame",
+      "original_sha256": "d95d38d52251e664b6e9416979c11d4fc063bf598876669b273559c1e5e70362",
+      "value_hex": "00871a37bfed8811bf2a1fd03e43bc27bf18713f3fe437dbbd6ef678be4d90afbe084968bf8555fe9e814bb14e85f03d0e"
+    },
+    {
+      "ref": 8247,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/PearlRim",
+      "property": "CFrame",
+      "original_sha256": "68fc69aacd333eadb5d7890a3fc1ebf2666b46987eceb205f64b0fc0d7b63261",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855d915e8168f5c285efe1c0"
+    },
+    {
+      "ref": 8248,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit2",
+      "property": "CFrame",
+      "original_sha256": "553774e099a6917aba2dcba1ce17eadc66e6774ef353f57fa918f8875447fae7",
+      "value_hex": "00d2ab35bfed8811bf7c15d5bee58b70be18713f3fdaf61ebf6c0b2a3f4d90afbe6c0b2abf855606a481715a2885f551da"
+    },
+    {
+      "ref": 8249,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit3",
+      "property": "CFrame",
+      "original_sha256": "205afe24bf3e8a3a84d98a237d8ae6298f668c100d7383ddd87b48453df477f7",
+      "value_hex": "00539a52bfed8811bf005bb7bbdd8f03bf18713f3f9432d7be6ff6783e4d90afbe084968bf855564a081585a7285f2f626"
+    },
+    {
+      "ref": 8250,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestCenter",
+      "property": "CFrame",
+      "original_sha256": "6c3f9ae579adaacb9c139beda9029976c8a5a11bab01f6c3b0facefcd9f8bc34",
+      "value_hex": "000000803f000000002ebd3b33000000000000803f000000002ebd3bb3000000000000803f8554e148818ccccc85f1999a"
+    },
+    {
+      "ref": 8251,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/DeepSeaFin",
+      "property": "CFrame",
+      "original_sha256": "9f9cdb1fa63d406130950890b66a628b56bb85727c2395b7cf0cfee7c7ed689e",
+      "value_hex": "0035de2abecec179beef9074bfaa170a3f62d9493f6d4e97be3249533f698c10bfd3e28624855ae1488196666685f5a3d8"
+    },
+    {
+      "ref": 8252,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit1",
+      "property": "CFrame",
+      "original_sha256": "9ecceb2a1765700bf7662c82829965b762bec1cdb8393ebcb37c447f8f5e2c57",
+      "value_hex": "002a1fd0beed8811bf871a37bfe437db3d18713f3f43bc27bf0849683f4d90afbe6ef678be8557b942818ffda485f6ae66"
+    },
+    {
+      "ref": 8254,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/PearlRim",
+      "property": "CFrame",
+      "original_sha256": "043ac28b84a136c91407aa52c1ab26cf3547e70da06a8e7d3ced34ade7ef86fa",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855787ee8168f5c285f4b230"
+    },
+    {
+      "ref": 8255,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/FuseCurl",
+      "property": "CFrame",
+      "original_sha256": "e733d484ce0d97f0b11e60f6d0ab19d538172f7f6947760c3b6d388b3e08f54a",
+      "value_hex": "00ffff7fbfd1e435a4bdff57a4000000003ad1433f14e624bf31318d2413e624bf3bd143bf855a000081e8f5c285f24ccc"
+    },
+    {
+      "ref": 8256,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit11",
+      "property": "CFrame",
+      "original_sha256": "f2d55ec41243c71919ea9ad562fa1c3eb5783212589b41fc93eeb6a4afc8f6bd",
+      "value_hex": "007e15d53eed8811bfd1ab35bfdbf61e3f18713f3fe18b70be6b0b2a3f4d90afbe6e0b2a3f855c54a281be099885f551da"
+    },
+    {
+      "ref": 8258,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/FuseSpark",
+      "property": "CFrame",
+      "original_sha256": "a6786deb5e5229ff83eb02ece1829293ed295dcda31137cd69c1715ad5b6a116",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a000081f0000085f2c290"
+    },
+    {
+      "ref": 8259,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/PearlRim",
+      "property": "CFrame",
+      "original_sha256": "f1c0847900cf6a8aaa465a82f7b10825b4ce2e8ccfff324739b4ccb3b2c3e11f",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d2485560a3e8168f5c285f1999a"
+    },
+    {
+      "ref": 8260,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/PearlHeart",
+      "property": "CFrame",
+      "original_sha256": "f58ee4cf519b4efa7736ae066f83906f14f477d8c9b076ad3a0af7b20a1a8e09",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a00008186666685f1999a"
+    },
+    {
+      "ref": 8261,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/PearlRim",
+      "property": "CFrame",
+      "original_sha256": "e3ff83c2b4c43037015dcdb07f571a3db63c3ddac1165eab7fe9417e7c3c6f13",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855ae1968168f5c285f575f2"
+    },
+    {
+      "ref": 8262,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/PearlRim",
+      "property": "CFrame",
+      "original_sha256": "f918e012309055cb1daa9a385caff366565fc5cc954ce9ae861d43c90f67432a",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855787ee8168f5c285ee8104"
+    },
+    {
+      "ref": 8264,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/FuseCollar",
+      "property": "CFrame",
+      "original_sha256": "821b9e7cc040024334bb37197fc1dc082533147764fe3030513684e75e06dd8a",
+      "value_hex": "008c164f9832318da4000080bf0000803f2ebd3bb3000000002ebd3bb3000080bf32318d24855a000081cb851e85f1999a"
+    },
+    {
+      "ref": 8267,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/FuseLower",
+      "property": "CFrame",
+      "original_sha256": "c362be82747f1b276a0b7466a341ca8ae25f4ab567d20a6716d9a1fb9e86aeaf",
+      "value_hex": "00000080bfc06c88a40f8591a3000000005aec833e2d5b77bf32318d242d5b77bf5aec83be855a000081da3d7085f1c290"
+    },
+    {
+      "ref": 8270,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit5",
+      "property": "CFrame",
+      "original_sha256": "942fc8b65292333ff1e19731bebd1d2f5aaf8b0e7b57e9f2ebe060df7099c4ab",
+      "value_hex": "007c15d5beed8811bfd2ab353fdaf61ebf18713f3fe58b703e6c0b2abf4d90afbe6c0b2abf8557ab5e814ec33485ede15a"
+    },
+    {
+      "ref": 8271,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit9",
+      "property": "CFrame",
+      "original_sha256": "6d01ca09bc42fa108de830454e07d8d620d47160231832250febc591cdbb88e2",
+      "value_hex": "00549a523fed8811bf405ab73bde8f033f18713f3f9332d73e6af678be4d90afbe0949683f855e9b6081b4725a85f03d0e"
+    },
+    {
+      "ref": 8272,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit10",
+      "property": "CFrame",
+      "original_sha256": "140a592fe98b8cd8a77103dab2308681b52f2cc060a5bdf18d1072deae2aa790",
+      "value_hex": "00871a373fed8811bf291fd0be43bc273f18713f3fe637db3d6cf6783e4d90afbe0849683f855e016281c11b7e85f2f626"
+    },
+    {
+      "ref": 8273,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/PearlRim",
+      "property": "CFrame",
+      "original_sha256": "2e395c2605fe68fa1999bbaeb281feb0241ccfc480c33640b07a43bc88c54d98",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855d915e8168f5c285f35174"
+    },
+    {
+      "ref": 8275,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveOrbit8",
+      "property": "CFrame",
+      "original_sha256": "eb2b23410f0fa391c474d15d8f6b40e638788c19518d9ca38cbf959e1a2fc266",
+      "value_hex": "00d1ab353fed8811bf7c15d53ee28b703e18713f3fdaf61e3f6d0b2abf4d90afbe6b0b2a3f855df95c819b72a485ede15a"
+    },
+    {
+      "ref": 8276,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/Back wall",
+      "property": "CFrame",
+      "original_sha256": "10e898e47f438f167f7bf9298336f6efd42354aab4aa78901985df83ada448b4",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856a000081e0000086000000"
+    },
+    {
+      "ref": 8277,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/Foundation",
+      "property": "CFrame",
+      "original_sha256": "7b8a46c72901065f2fe2aa332481a99a8142d1d57809ce5e95a0a8e189e4dd28",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a00007fae147c86000000"
+    },
+    {
+      "ref": 8278,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/Pedestal gold ring",
+      "property": "CFrame",
+      "original_sha256": "1ed903ec5b882c483d82574ecad2561cb2dfbcb87e12cf2866e3da56ee40ae26",
+      "value_hex": "008c164f9832318da4000080bf0000803f2ebd3bb3000000002ebd3bb3000080bf32318d24855a000080e3d70a85f1999a"
+    },
+    {
+      "ref": 8279,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/Gold column",
+      "property": "CFrame",
+      "original_sha256": "cb1d487e0895610b790fd8381ea5e10d3ab19209e3ef2b734baef7baac81b0b8",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248567999a81e0000085e13334"
+    },
+    {
+      "ref": 8280,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/Reward jewel",
+      "property": "CFrame",
+      "original_sha256": "cf21b117cea453a55a189263ac7f70e88013bf6814e30ba4078503955f29fd4c",
+      "value_hex": "0006ad472406ad47a4000080bff304353ff304353f00000000f304353ff30435bf32318d2485651eb88258000085f33334"
+    },
+    {
+      "ref": 8281,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/Neon column inset",
+      "property": "CFrame",
+      "original_sha256": "54cf11c44da9b41af5e0ced9eabc2a89d851d6fd51f78d984d9e8d7f7f176a62",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248565d70a81e0000085e13334"
+    },
+    {
+      "ref": 8282,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/Colored recessed panel",
+      "property": "CFrame",
+      "original_sha256": "c4eb82c0863cadec36f14d41346f77a20d0c9b84106a86a1dbe6d20b3408f991",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248567c29081e0000086000000"
+    },
+    {
+      "ref": 8283,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/Reward jewel",
+      "property": "CFrame",
+      "original_sha256": "c39b12288ba02be5db132a84a6a99d6c5b94f46f0cfc524e410734c758fcd74a",
+      "value_hex": "0006ad472406ad47a4000080bff304353ff304353f00000000f304353ff30435bf32318d2485651eb88258000086000000"
+    },
+    {
+      "ref": 8284,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/Gold column",
+      "property": "CFrame",
+      "original_sha256": "5d380585c2d20daee47bb30b87abafe0463d6ad2a504da0e35b266258bdbfb1d",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248567999a81e00000860f6666"
+    },
+    {
+      "ref": 8285,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/Neon column inset",
+      "property": "CFrame",
+      "original_sha256": "9b33539d22df3e88ee0295707f3ca070af6a6571e8ae86c184024020b672a619",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248565d70a81e00000860f6666"
+    },
+    {
+      "ref": 8286,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/Cabinet foot",
+      "property": "CFrame",
+      "original_sha256": "bbd1d077810fda47fb286a13a20e20a30a0c6f9f831b0e7bef19a7e803d32de7",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a00008019999a85e13334"
+    },
+    {
+      "ref": 8287,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/BundleVFX",
+      "property": "CFrame",
+      "original_sha256": "d3480e93c6b543718ab96edf38f0313dafcd95cac9dd6e4e73988810e957cbd7",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855a00008160000086080000"
+    },
+    {
+      "ref": 8288,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/VFX pedestal",
+      "property": "CFrame",
+      "original_sha256": "7f7c3466980084d9b4e6462daae7a0c0a2c8f4218c67267708e2e16707ddae73",
+      "value_hex": "008c164f9832318da4000080bf0000803f2ebd3bb3000000002ebd3bb3000080bf32318d24855a00008059999a86080000"
+    },
+    {
+      "ref": 8289,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/Hood gold lip",
+      "property": "CFrame",
+      "original_sha256": "8dcf7753216c8f4d38b1bf5e0847e82b6db7e10368c12ea4cba2f0b2dd57d008",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248551cccc8311999a86000000"
+    },
+    {
+      "ref": 8290,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/Reward jewel",
+      "property": "CFrame",
+      "original_sha256": "1c0b0af29777e0a77c69c256caded75be2210317227e72a763db7cb8f8723e59",
+      "value_hex": "0006ad472406ad47a4000080bff304353ff304353f00000000f304353ff30435bf32318d2485651eb88258000086066666"
+    },
+    {
+      "ref": 8291,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/Display placard",
+      "property": "CFrame",
+      "original_sha256": "1ec0a9e9995569ccdbb772ea2d8d83f6c9214d6028c0cd45d169f760766ad0f3",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248568666682d0000086000000"
+    },
+    {
+      "ref": 8311,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/Sculpture pedestal",
+      "property": "CFrame",
+      "original_sha256": "7322a2da3814c604ccf77584ed10cf973acfb1b199d12e449df3968e8bf9252d",
+      "value_hex": "008c164f9832318da4000080bf0000803f2ebd3bb3000000002ebd3bb3000080bf32318d24855a00008059999a85f1999a"
+    },
+    {
+      "ref": 8312,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/Soft display light",
+      "property": "CFrame",
+      "original_sha256": "c8a4a5a6695c2bc03c9ca45eeedf9243c090ecf34decb49473b825906c566e95",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855e00008309999a86000000"
+    },
+    {
+      "ref": 8314,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/Spotlit hood",
+      "property": "CFrame",
+      "original_sha256": "5faec061f270a4afaa01d0d28087753b762d2baa67ef1238c1189256f25e2f66",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856000008310000086000000"
+    },
+    {
+      "ref": 8315,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/BrowseStand",
+      "property": "CFrame",
+      "original_sha256": "d4217fbad4daab0ab865d359cb4c8b69cbd4722b3264c76991ad574b8e8b4816",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248544cccc8146666686000000"
+    },
+    {
+      "ref": 8318,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/HABStandDetail9/New reward placard",
+      "property": "CFrame",
+      "original_sha256": "52b2d05b9a660010c9f704c9157e172d2fa01d8c668759dd27d4e2bab7f9596c",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248549333480eccccc86000000"
+    },
+    {
+      "ref": 8326,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/HABStandDetail9/Reward edge light",
+      "property": "CFrame",
+      "original_sha256": "8a6f3d7ab76d1c224bfa314af402d1f2ff4d64ac9a051ab5cac607f36dbe5cf3",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856551ec81d3333485e36666"
+    },
+    {
+      "ref": 8327,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/HABStandDetail9/Reward edge light",
+      "property": "CFrame",
+      "original_sha256": "485786a9164a93cad7fa66197fd980e81de7422263e16a9675c75598d29f88a8",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856551ec81d33334860e4ccc"
+    },
+    {
+      "ref": 8328,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/HABStandDetail9/Reward jewel plinth",
+      "property": "CFrame",
+      "original_sha256": "4c17f7dd94af05461a0726e8b7259ac7ac1d08d3a892e12f969e47cd7c0a1392",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856233348231999a85ed999a"
+    },
+    {
+      "ref": 8329,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/HABStandDetail9/Reward preview socket",
+      "property": "CFrame",
+      "original_sha256": "4d41329ebde14c419ed34d128128ad7ed3f6e235f1936d13bfcc4352ab05da37",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855fcccc8251999a85ed999a"
+    },
+    {
+      "ref": 8330,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/HABStandDetail9/Reward jewel plinth",
+      "property": "CFrame",
+      "original_sha256": "76d7081dea6c462f30a520ab7a9b68b944d101b77e0cc6a51de5b48c49cb7a0a",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856233348231999a86000000"
+    },
+    {
+      "ref": 8331,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/HABStandDetail9/Reward preview socket",
+      "property": "CFrame",
+      "original_sha256": "b6cfbf760b854b0411130e603685e42440f43c70096bde9ce849648c40adbbbb",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855fcccc8251999a86000000"
+    },
+    {
+      "ref": 8332,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/HABStandDetail9/Reward jewel plinth",
+      "property": "CFrame",
+      "original_sha256": "e678b3d852e50e92e415d12def0a34ef464bd0eb996a5b3750d9c16371db2844",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24856233348231999a86093334"
+    },
+    {
+      "ref": 8333,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/HABStandDetail9/New reward placard",
+      "property": "CFrame",
+      "original_sha256": "8505b17a95b4b20b36a4ec2c96b196dff73b50c63ee4d2c2a7bc35cfca3e0ac5",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d24855f51ec8250000086093334"
+    },
+    {
+      "ref": 8236,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ClamShellFlute",
+      "property": "CFrame",
+      "original_sha256": "5d25a768c37939e52cddf3ecde3ef967cb2efa94840e66446fa93db102296e11",
+      "value_hex": "00a5353fbf6d4e973e067c18bf99976c3eef90743f08ad3c3e059d1f3f8be6a6a31e2648bf85580e0281570a3c85ef2924"
+    },
+    {
+      "ref": 8237,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestPoint1",
+      "property": "CFrame",
+      "original_sha256": "99e279a0f0c5672e1a28ed8c8a249ae6fc877911c6f026900b17c631889f017f",
+      "value_hex": "00ea85ae231f488624000080bf717873bf79379e3e0000000079379e3e7178733f32318d248554e148818fc43e85f22bb0"
+    },
+    {
+      "ref": 8238,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ClamShellFlute",
+      "property": "CFrame",
+      "original_sha256": "9d64ffe2846964b213b2f62e964af571b393a42c408583f41c557ce24ca20ca5",
+      "value_hex": "00326f6ebf6d4e973e36af593e4683933eef90743fe5ac86bd8cdc63be8be6a6a3e09479bf855ab1bc81570a3c85ee8ee8"
+    },
+    {
+      "ref": 8240,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestPoint0",
+      "property": "CFrame",
+      "original_sha256": "1cfd81239f480bf2975604d8276ca9a1217ed561d5a7e409aaf2c2224a2a841e",
+      "value_hex": "0032318d2400000000000080bf000000000000803f000000000000803f0000000032318d248554e1488196666685f1999a"
+    },
+    {
+      "ref": 8241,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestPoint3",
+      "property": "CFrame",
+      "original_sha256": "6d25df53c6db5cebbfbac5c065c0596023e67deba41c04a79e4f556ba5c47532",
+      "value_hex": "00267464a43bfb25a4000080bf1a79163fbc1b4fbf00000000bc1b4fbf1a7916bf32318d248554e1488185088e85f13f50"
+    },
+    {
+      "ref": 8243,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestPoint2",
+      "property": "CFrame",
+      "original_sha256": "3ca4c794ab42481b7862f81584b3c5fb0d6897ac3fd1a91673d3673f10aa9377",
+      "value_hex": "00287464a438fb2524000080bf177916bfbe1b4fbf00000000be1b4fbf1779163f32318d248554e1488185088e85f1f3e4"
+    },
+    {
+      "ref": 8253,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ClamShellFlute",
+      "property": "CFrame",
+      "original_sha256": "6c0873c74cf644b04e618baffc3c4e43cf0c172dc33d58d4b2054efeb6091186",
+      "value_hex": "00003ad4be6d4e973eb3585c3f7a4c033eef90743f835288bee5a566bf8be6a6a30326debe855ccfa081570a3c85f03f0c"
+    },
+    {
+      "ref": 8257,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ClamShellFlute",
+      "property": "CFrame",
+      "original_sha256": "9ce8712f8f4da99f2ebcdd0b6d1207cf6e20fd27068c67e2d0d2ad8ea7777e06",
+      "value_hex": "00023ad43e6d4e973eb3585c3f7b4c03beef90743f835288bee5a566bf8be6a6a30526de3e855ccfa081570a3c85f2f428"
+    },
+    {
+      "ref": 8263,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/BundleCrestPoint4",
+      "property": "CFrame",
+      "original_sha256": "dd8566945b0b3eaec2233ed4f4fde50e0f5a279a24395ba8ff9702df26017fea",
+      "value_hex": "00ef85ae231f4886a4000080bf7078733f7e379e3e000000007e379e3e707873bf32318d248554e148818fc43e85f10784"
+    },
+    {
+      "ref": 8265,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveCrownFin",
+      "property": "CFrame",
+      "original_sha256": "c0398eeba498a58113882c16d2a9c4d434a2d4b046b543d083f90d282118068a",
+      "value_hex": "004d06862447a8b1a3000080bfde0ea13e1801733f000000001801733fde0ea1be32318d24855ae14881c3d70a85ee7ae2"
+    },
+    {
+      "ref": 8266,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ClamShellFlute",
+      "property": "CFrame",
+      "original_sha256": "dabd5863a85b7fbdc85d74303816aed9dc6f2b1be5dd733c7096a3d2fd230c85",
+      "value_hex": "00a3353f3f6d4e973e087c18bf97976cbeef90743f0aad3c3e079d1f3f8be6a6a31c26483f85580e0281570a3c85f40a10"
+    },
+    {
+      "ref": 8268,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ExclusiveCrownFin",
+      "property": "CFrame",
+      "original_sha256": "01e063765489d77da4af303f820c12f8394c60ee6190029cc31a532f40dfac15",
+      "value_hex": "004d06862447a8b123000080bfde0ea1be1801733f000000001801733fde0ea13e32318d24855ae14881c3d70a85f4b852"
+    },
+    {
+      "ref": 8269,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ClamShellFlute",
+      "property": "CFrame",
+      "original_sha256": "0677b274f9f5ed73d880c5725711bb7d827e6eb70b53bab00dc94db353b479e8",
+      "value_hex": "00326f6e3f6d4e973e32af593e468393beef90743fe2ac86bd88dc63be8be6a6a3e094793f855ab1bc81570a3c85f4a44c"
+    },
+    {
+      "ref": 8274,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay/Display bomb/HussBombSkin/ClamShellFlute",
+      "property": "CFrame",
+      "original_sha256": "a693a13d05b165af73a34a443708afda4a91a920a81d8b968baeedced7128de4",
+      "value_hex": "0032318d246d4e973eef9074bf00000000ef90743f6d4e973e0000803f8be6a6a3d3e286248556e14881570a3c85f1999a"
+    },
+    {
+      "ref": 8349,
+      "path": "Workspace/Lobby/HABExpansionLobby/CrateStand/ShowcaseChest/Luminous lock",
+      "property": "CFrame",
+      "original_sha256": "95fb754af7b1c1bb753742f89c865e058435ce400020e1eb83233c8cffc50ab6",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf83a0000081e000008631b334"
+    },
+    {
+      "ref": 8350,
+      "path": "Workspace/Lobby/HABExpansionLobby/CrateStand/ShowcaseChest/Lid strap",
+      "property": "CFrame",
+      "original_sha256": "e3ddcf40d63129f9467795faddeb42a608ed45a815cd8c71f63676db54408d35",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf83800000821a3d7086360000"
+    },
+    {
+      "ref": 8351,
+      "path": "Workspace/Lobby/HABExpansionLobby/CrateStand/ShowcaseChest/Lid strap",
+      "property": "CFrame",
+      "original_sha256": "4550caeea19edf4f9e03314508af3d9baa26d84b1cec6c0db4490def43b7d3a7",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf83c00000821a3d7086360000"
+    },
+    {
+      "ref": 8352,
+      "path": "Workspace/Lobby/HABExpansionLobby/CrateStand/ShowcaseChest/Brass strap",
+      "property": "CFrame",
+      "original_sha256": "ae7bc067c8ec8f93e74402ee6bea70c8146e6e9b0b7c3e23dd293fb43e6b7b8d",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf83c0000081accccc8631cccc"
+    },
+    {
+      "ref": 8353,
+      "path": "Workspace/Lobby/HABExpansionLobby/CrateStand/ShowcaseChest/Brass strap",
+      "property": "CFrame",
+      "original_sha256": "a8b0bd8674c034db9beb857ea9fb853123d0246542121551b9417063e2ed19c2",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf8380000081accccc8631cccc"
+    },
+    {
+      "ref": 8354,
+      "path": "Workspace/Lobby/HABExpansionLobby/CrateStand/ShowcaseChest/Chest",
+      "property": "CFrame",
+      "original_sha256": "8a5b42dd704b741430db239a2397aa04ba6c79f37be6b41588597c6f9047ff7a",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf83a0000081a6666686360000"
+    },
+    {
+      "ref": 8355,
+      "path": "Workspace/Lobby/HABExpansionLobby/CrateStand/ShowcaseChest/Fitted lid",
+      "property": "CFrame",
+      "original_sha256": "530d7ea76430864bb4fd38374674f2c3f4176a36a8f249b4afece714d6ca3f0c",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf83a000008210000086360000"
+    },
+    {
+      "ref": 8356,
+      "path": "Workspace/Lobby/HABExpansionLobby/CrateStand/Display placard",
+      "property": "CFrame",
+      "original_sha256": "654957dd47ffed65300af95ad9c5dc281f2c9966e2c8a5bcec4f420ed20fc049",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf83a0000082d00000863d3334"
+    },
+    {
+      "ref": 8376,
+      "path": "Workspace/Lobby/HABExpansionLobby/CrateStand/BrowseStand",
+      "property": "CFrame",
+      "original_sha256": "f034cb88c2d37243c30e6d233dfc1734161d001a8fff9c1065939cb31ad43c20",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf83a0000081533334862d0000"
+    },
+    {
+      "ref": 8378,
+      "path": "Workspace/Lobby/HABExpansionLobby/CrateStand/Crate hood",
+      "property": "CFrame",
+      "original_sha256": "73b534b343758ee44c7c1fa0fb5795ca0c3b0ca05a059349cd399756b8750fe5",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf83a000008310000086370000"
+    },
+    {
+      "ref": 8379,
+      "path": "Workspace/Lobby/HABExpansionLobby/CrateStand/Canopy support",
+      "property": "CFrame",
+      "original_sha256": "d614f680aaad5cf362cc21974353d2331e08b997d7df6fe02cc47929cad89661",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf832b333082100000863c0000"
+    },
+    {
+      "ref": 8380,
+      "path": "Workspace/Lobby/HABExpansionLobby/CrateStand/Counter gold trim",
+      "property": "CFrame",
+      "original_sha256": "107b0b4b6c04bc186a281dc85da1e7e18b450a9f28c94e84b5ae9eace3011d19",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf83a000008130000086360000"
+    },
+    {
+      "ref": 8381,
+      "path": "Workspace/Lobby/HABExpansionLobby/CrateStand/Canopy support",
+      "property": "CFrame",
+      "original_sha256": "ad5a840b2408c816fad3a9473f5f9e4af0e6d7a5581c4968038a555665c48be1",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf840a666682100000863c0000"
+    },
+    {
+      "ref": 8382,
+      "path": "Workspace/Lobby/HABExpansionLobby/CrateStand/Crate counter",
+      "property": "CFrame",
+      "original_sha256": "dd530bb09ebce3cc59d3166cccba54c95c8bbb54b558fa4849fbf0e7e07d1eb4",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf83a00000808ccccc86360000"
+    },
+    {
+      "ref": 7598,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Lobby leaderboards",
+      "property": "WorldPivotData",
+      "original_sha256": "73538348954a2f06f33fb753a9fd803b517df955c34343885bac0a32ff5cdecc",
+      "value_hex": "1000000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf4dbedf9282180000865e00000201"
+    },
+    {
+      "ref": 7599,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Lobby leaderboards/Wins board",
+      "property": "CFrame",
+      "original_sha256": "1ce2c604151e583087f193fcd661b61bea9f660d16ab8fa9d502c1a2d79b3bfa",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf84b0000082300000865e0000"
+    },
+    {
+      "ref": 7658,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Lobby leaderboards/Board stand",
+      "property": "CFrame",
+      "original_sha256": "9482195ea58562b0b1a3ce4964c2ab67d93427a88066f806feeab209acef9c03",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf8500000080599998865e0000"
+    },
+    {
+      "ref": 7659,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Lobby leaderboards/Board stand",
+      "property": "CFrame",
+      "original_sha256": "2ee7bf0170d9147c0a2a56a322f924b04afa6cf65fc473a7c8bc1928e9d6524e",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf8460000080599998865e0000"
+    },
+    {
+      "ref": 7660,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Lobby leaderboards/Kills board",
+      "property": "CFrame",
+      "original_sha256": "82b642dc93d2963058dd6c63cdeb16b326ba11ed2c1a451aabb1b0a693e3026f",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf8320000082300000865e0000"
+    },
+    {
+      "ref": 7719,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Lobby leaderboards/Board stand",
+      "property": "CFrame",
+      "original_sha256": "a9d73744a918bb5643a483b06baa6af64a99bfd2d72320c2e23d44f3c63edae9",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf83c0000080599998865e0000"
+    },
+    {
+      "ref": 7720,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Lobby leaderboards/Board stand",
+      "property": "CFrame",
+      "original_sha256": "9c0f8a09e7070dc77dbecb5334f0ca23a663346e5eb05f6568d5e1937eb57050",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf8200000080599998865e0000"
+    },
+    {
+      "ref": 7721,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Lobby leaderboards/FinalStands board",
+      "property": "CFrame",
+      "original_sha256": "949674705a478a8cb5210b606060a17931e9f9574c0a1fc80e62597ff3a0e31b",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf8320000182300000865e0000"
+    },
+    {
+      "ref": 7780,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Lobby leaderboards/Board stand",
+      "property": "CFrame",
+      "original_sha256": "ca551a423c6398b2361e697c0a7666f49f5856ca402c3d1317b001e42c737aeb",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf8200000180599998865e0000"
+    },
+    {
+      "ref": 7781,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Lobby leaderboards/Board stand",
+      "property": "CFrame",
+      "original_sha256": "b1003e7ee23a331936a8c5eb584feb850a521d5acc0c5142ad7b38ae657b2f03",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf83c0000180599998865e0000"
+    },
+    {
+      "ref": 7782,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Lobby leaderboards/GlobalWins board",
+      "property": "CFrame",
+      "original_sha256": "06ff9201eed3c6601e0c4101265a3f64e7c1b247934d5283ea65456ceebb8a10",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf84b0000182300000865e0000"
+    },
+    {
+      "ref": 7841,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Lobby leaderboards/Board stand",
+      "property": "CFrame",
+      "original_sha256": "c3054ee067729881b0283044d5003e63c9f57b52fad6d22ac66b66c9300bcfac",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf8460000180599998865e0000"
+    },
+    {
+      "ref": 7842,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Lobby leaderboards/Board stand",
+      "property": "CFrame",
+      "original_sha256": "96c2b564b3f26c3f8bb1df70429806c7f708e0a2151b96d455931108bce83ee3",
+      "value_hex": "00000080bf0000000032310d25000000000000803f0000000032310da500000000000080bf8500000180599998865e0000"
+    },
+    {
+      "ref": 6793,
+      "path": "Workspace/ActiveArenaAnchor",
+      "property": "CFrame",
+      "original_sha256": "f9c148fe864678620de70d7145444e24ca9cdeea640015710b585cbc9608659d",
+      "value_hex": "000000803f0000000000000000000000000000803f0000000000000000000000000000803f0000000083b00001867c0001"
+    }
+  ],
+  "transforms": [
+    {
+      "ref": 7182,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk",
+      "anchorRef": 7248,
+      "old": [
+        -79.5,
+        7.0,
+        69.66000366210938,
+        -4.371138828673793e-08,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        -1.0,
+        0.0,
+        -4.371138828673793e-08
+      ],
+      "new": [
+        -79.5,
+        7,
+        44,
+        6.123233995736766e-17,
+        0,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        6.123233995736766e-17
+      ],
+      "delta": [
+        3.0449354682104968e-06,
+        0.0,
+        -25.66000018705401,
+        1.0,
+        0.0,
+        -4.371138834797027e-08,
+        0.0,
+        1.0,
+        0.0,
+        4.371138834797027e-08,
+        0.0,
+        1.0
+      ],
+      "descendantCountIncludingRoot": 104,
+      "cframeAttributes": []
+    },
+    {
+      "ref": 7286,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Trails kiosk",
+      "anchorRef": 7352,
+      "old": [
+        -79.5,
+        7.0,
+        106.66000366210938,
+        -4.371138828673793e-08,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        -1.0,
+        0.0,
+        -4.371138828673793e-08
+      ],
+      "new": [
+        -79.5,
+        7,
+        79,
+        6.123233995736766e-17,
+        0,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        6.123233995736766e-17
+      ],
+      "delta": [
+        4.662256827714373e-06,
+        0.0,
+        -27.66000018705401,
+        1.0,
+        0.0,
+        -4.371138834797027e-08,
+        0.0,
+        1.0,
+        0.0,
+        4.371138834797027e-08,
+        0.0,
+        1.0
+      ],
+      "descendantCountIncludingRoot": 104,
+      "cframeAttributes": []
+    },
+    {
+      "ref": 7390,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Titles kiosk",
+      "anchorRef": 7456,
+      "old": [
+        79.5,
+        7.0,
+        69.66000366210938,
+        -4.371138828673793e-08,
+        0.0,
+        -1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        -4.371138828673793e-08
+      ],
+      "new": [
+        -79.5,
+        7,
+        114,
+        6.123233995736766e-17,
+        0,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        6.123233995736766e-17
+      ],
+      "delta": [
+        3.0449354682104968e-06,
+        0.0,
+        183.660000187054,
+        -1.0,
+        0.0,
+        -4.3711388225505586e-08,
+        0.0,
+        1.0,
+        0.0,
+        4.3711388225505586e-08,
+        0.0,
+        -1.0
+      ],
+      "descendantCountIncludingRoot": 104,
+      "cframeAttributes": []
+    },
+    {
+      "ref": 7494,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk",
+      "anchorRef": 7560,
+      "old": [
+        79.5,
+        7.0,
+        106.66000366210938,
+        -4.371138828673793e-08,
+        0.0,
+        -1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        -4.371138828673793e-08
+      ],
+      "new": [
+        -79.5,
+        7,
+        149,
+        6.123233995736766e-17,
+        0,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        6.123233995736766e-17
+      ],
+      "delta": [
+        4.662256827714373e-06,
+        0.0,
+        255.660000187054,
+        -1.0,
+        0.0,
+        -4.3711388225505586e-08,
+        0.0,
+        1.0,
+        0.0,
+        4.3711388225505586e-08,
+        0.0,
+        -1.0
+      ],
+      "descendantCountIncludingRoot": 104,
+      "cframeAttributes": []
+    },
+    {
+      "ref": 7845,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber",
+      "anchorRef": 7906,
+      "old": [
+        -28.0,
+        5.099999904632568,
+        154.9600067138672,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "new": [
+        81.2,
+        5.099999904632568,
+        44,
+        6.123233995736766e-17,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        6.123233995736766e-17
+      ],
+      "delta": [
+        236.16000671386718,
+        0.0,
+        71.99999999999999,
+        6.123233995736766e-17,
+        0.0,
+        -1.0,
+        0,
+        1,
+        0,
+        1.0,
+        0.0,
+        6.123233995736766e-17
+      ],
+      "descendantCountIncludingRoot": 117,
+      "cframeAttributes": [
+        {
+          "ref": 7846,
+          "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Cyber/RotatingBombDisplay",
+          "attributes": [
+            {
+              "name": "HABDisplayOrigin",
+              "old": [
+                -31.600000381469727,
+                6.099999904632568,
+                149.66000366210938,
+                1,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                1
+              ],
+              "new": [
+                86.5,
+                6.099999904632568,
+                40.400001525878906,
+                6.123234262925839e-17,
+                0.0,
+                -1.0,
+                0.0,
+                1.0,
+                0.0,
+                1.0,
+                0.0,
+                6.123234262925839e-17
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ref": 7962,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar",
+      "anchorRef": 8009,
+      "old": [
+        52.0,
+        5.099999904632568,
+        78.96000671386719,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "new": [
+        81.2,
+        5.099999904632568,
+        72,
+        6.123233995736766e-17,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        6.123233995736766e-17
+      ],
+      "delta": [
+        160.16000671386718,
+        0.0,
+        19.999999999999993,
+        6.123233995736766e-17,
+        0.0,
+        -1.0,
+        0,
+        1,
+        0,
+        1.0,
+        0.0,
+        6.123233995736766e-17
+      ],
+      "descendantCountIncludingRoot": 109,
+      "cframeAttributes": [
+        {
+          "ref": 7964,
+          "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Solar/RotatingBombDisplay",
+          "attributes": [
+            {
+              "name": "HABDisplayOrigin",
+              "old": [
+                48.400001525878906,
+                6.099999904632568,
+                73.66000366210938,
+                1,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                1
+              ],
+              "new": [
+                86.5,
+                6.099999904632568,
+                68.4000015258789,
+                6.123234262925839e-17,
+                0.0,
+                -1.0,
+                0.0,
+                1.0,
+                0.0,
+                1.0,
+                0.0,
+                6.123234262925839e-17
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ref": 8122,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier",
+      "anchorRef": 8177,
+      "old": [
+        28.0,
+        5.099999904632568,
+        154.9600067138672,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "new": [
+        81.2,
+        5.099999904632568,
+        100,
+        6.123233995736766e-17,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        6.123233995736766e-17
+      ],
+      "delta": [
+        236.16000671386718,
+        0.0,
+        71.99999999999999,
+        6.123233995736766e-17,
+        0.0,
+        -1.0,
+        0,
+        1,
+        0,
+        1.0,
+        0.0,
+        6.123233995736766e-17
+      ],
+      "descendantCountIncludingRoot": 108,
+      "cframeAttributes": [
+        {
+          "ref": 8123,
+          "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Glacier/RotatingBombDisplay",
+          "attributes": [
+            {
+              "name": "HABDisplayOrigin",
+              "old": [
+                24.399999618530273,
+                6.099999904632568,
+                149.66000366210938,
+                1,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                1
+              ],
+              "new": [
+                86.5,
+                6.099999904632568,
+                96.4000015258789,
+                6.123234262925839e-17,
+                0.0,
+                -1.0,
+                0.0,
+                1.0,
+                0.0,
+                1.0,
+                0.0,
+                6.123234262925839e-17
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ref": 8230,
+      "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom",
+      "anchorRef": 8315,
+      "old": [
+        -52.0,
+        5.099999904632568,
+        78.96000671386719,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "new": [
+        81.2,
+        5.099999904632568,
+        128,
+        6.123233995736766e-17,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        6.123233995736766e-17
+      ],
+      "delta": [
+        160.16000671386718,
+        0.0,
+        180.0,
+        6.123233995736766e-17,
+        0.0,
+        -1.0,
+        0,
+        1,
+        0,
+        1.0,
+        0.0,
+        6.123233995736766e-17
+      ],
+      "descendantCountIncludingRoot": 111,
+      "cframeAttributes": [
+        {
+          "ref": 8232,
+          "path": "Workspace/Lobby/HABExpansionLobby/Bundle_Phantom/RotatingBombDisplay",
+          "attributes": [
+            {
+              "name": "HABDisplayOrigin",
+              "old": [
+                -55.599998474121094,
+                6.099999904632568,
+                73.66000366210938,
+                1,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                1
+              ],
+              "new": [
+                86.5,
+                6.099999904632568,
+                124.4000015258789,
+                6.123234262925839e-17,
+                0.0,
+                -1.0,
+                0.0,
+                1.0,
+                0.0,
+                1.0,
+                0.0,
+                6.123234262925839e-17
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ref": 8347,
+      "path": "Workspace/Lobby/HABExpansionLobby/CrateStand",
+      "anchorRef": 8376,
+      "old": [
+        68.0,
+        5.300000190734863,
+        122.16000366210938,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "new": [
+        26,
+        5.300000190734863,
+        150.5,
+        -1,
+        0,
+        1.2246467991473532e-16,
+        0,
+        1,
+        0,
+        -1.2246467991473532e-16,
+        0,
+        -1
+      ],
+      "delta": [
+        93.99999999999999,
+        0.0,
+        272.6600036621094,
+        -1.0,
+        0.0,
+        1.2246467991473532e-16,
+        0,
+        1,
+        0,
+        -1.2246467991473532e-16,
+        0.0,
+        -1.0
+      ],
+      "descendantCountIncludingRoot": 36,
+      "cframeAttributes": []
+    },
+    {
+      "ref": 7598,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Lobby leaderboards",
+      "anchorRef": 7599,
+      "old": [
+        -54.0,
+        14.5,
+        12.660003662109375,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "new": [
+        54,
+        9.5,
+        175,
+        -1,
+        0,
+        1.2246467991473532e-16,
+        0,
+        1,
+        0,
+        -1.2246467991473532e-16,
+        0,
+        -1
+      ],
+      "delta": [
+        0.0,
+        -5.0,
+        187.66000366210938,
+        -1.0,
+        0.0,
+        1.2246467991473532e-16,
+        0,
+        1,
+        0,
+        -1.2246467991473532e-16,
+        0.0,
+        -1.0
+      ],
+      "descendantCountIncludingRoot": 245,
+      "cframeAttributes": []
+    }
+  ],
+  "counts": {
+    "WorldPivotData": 9,
+    "CFrame": 428,
+    "AttributesSerialize": 4,
+    "CFrameAttributes": 4
+  },
+  "textChanges": [
+    {
+      "ref": 7547,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/EMOTES/HussSignV11/Body/Heading",
+      "original": "EMOTES",
+      "new": "LOCKER"
+    },
+    {
+      "ref": 7549,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/EMOTES/HussSignV11/Body/Subtitle",
+      "original": "SHOW YOUR STYLE",
+      "new": "YOUR EFFECTS COLLECTION"
+    },
+    {
+      "ref": 7592,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/ShopPanelV12/ShopIdleV12/Body/Title",
+      "original": "EMOTES EXCHANGE",
+      "new": "YOUR LOCKER"
+    },
+    {
+      "ref": 7596,
+      "path": "Workspace/Lobby/V11 Bomb Exchange/Emotes kiosk/ShopPanelV12/ShopIdleV12/Body/Details",
+      "original": "CELEBRATE EVERY CLOSE CALL",
+      "new": "BROWSE YOUR OWNED EFFECTS"
+    }
+  ],
+  "verification": {
+    "sourceSHA256Checked": true,
+    "actualBuilderLayoutExecuted": true,
+    "allAnchorPosesVerified": true,
+    "inverseTransformsVerified": true,
+    "allOtherAttributeRecordsByteIdentical": true,
+    "allPropertySingletonsCodecRoundTripped": true
+  }
+}

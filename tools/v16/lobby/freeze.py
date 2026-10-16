@@ -1,0 +1,12 @@
+"""Freeze the independently encoded export alongside its verified world journal."""
+from pathlib import Path
+import argparse,json,hashlib,shutil
+HERE=Path(__file__).resolve().parent;REPO=HERE.parents[2]
+p=argparse.ArgumentParser();p.add_argument('--export-dir',required=True);a=p.parse_args();out=Path(a.export_dir)
+m=json.loads((HERE/'property-manifest.json').read_text());verification=json.loads((out/'export-validation.json').read_text())
+assert hashlib.sha256((REPO/m['builder']).read_bytes()).hexdigest()==m['sourceSHA256']==verification['builderSHA256'],'Re-export or regenerate mutations after builder changes.'
+geometry=(out/'generated.rbxl').read_bytes();assert hashlib.sha256(geometry).hexdigest()==verification['geometrySHA256']
+m.update({'version':16,'geometry':'tools/v16/lobby/generated.rbxl','geometry_sha256':verification['geometrySHA256'],'newRoots':{'HABLobbyLayoutV16':'Workspace/Lobby'},'backupFolder':'OriginalLobby','preservePaths':['Workspace/Lobby','Workspace/Lobby/Floor','Workspace/Lobby/LobbySpawn','Workspace/Lobby/Promenades','Workspace/Lobby/Bomb fountain','Workspace/Lobby/Arrival','Workspace/Lobby/V11 Bomb Exchange','Workspace/Lobby/HABExpansionLobby','Workspace/Lobby/HABCrateAnnex'],'notes':['Pristine HABWAS only: preserve original floor, spawn, fountain, promenades and arrival architecture.','Move whole original kiosks, bundles, crate stand and leaderboard group; keep identity and tags. CFrame-bearing display attributes move with their geometry.','Archive exactly five old architecture models; replace with modest original-style low terrace, organized walks, sparse planting, perimeter and two utility stalls.','Viewing edge Z=-39.7, floorY6.5, arena anchor (0,-27,-190), at least30.3stud horizontal separation from maxdepth240 map. Invisible guard is CanQuery=false.','New geometry includes no runtime Scripts or LocalScripts. Two utility prompts use existing HABOpenPanel routes.','Original four Emotes sign strings become Locker; original category/anchors/tags stay intact for existing client compatibility.']})
+(HERE/'generated.rbxl').write_bytes(geometry);(HERE/'world-manifest.json').write_text(json.dumps(m,indent=2)+'\n')
+shutil.copyfile(out/'export-validation.json',HERE/'export-validation.json')
+print(json.dumps({'geometrySHA256':m['geometry_sha256'],'sourceSHA256':m['sourceSHA256'],'propertyChanges':len(m['propertyChanges']),'textChanges':len(m['textChanges'])},indent=2))

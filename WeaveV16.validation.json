@@ -1,0 +1,115 @@
+{
+  "passed": true,
+  "assertions": 265,
+  "checks": [
+    "Eight distinct directional full-body clips and canonical connected R6/R15 skeletons.",
+    "Original .72-second animation window and local MovementActionId/remote DodgeIFrameRequest contract.",
+    "No movement, velocity, cooldown, collision, camera, asset loading or cosmetic VFX writes.",
+    "Foot-plane correction through joint transforms only; sampled grounding error recorded below.",
+    "Fresh Animator restoration, action/weave ownership, late replicated rigs, packet latency, death, pause, respawn and teardown."
+  ],
+  "limitations": "Offline actual-source Luau with deterministic math and signal adapter. Roblox Animator evaluation order, visual polish with live movement and online replication still require Studio playtesting.",
+  "grounding": [
+    {
+      "Action": "DiveBackRight",
+      "Maximum": 4.440892098500626e-16,
+      "Minimum": 0,
+      "Rig": "R6"
+    },
+    {
+      "Action": "DiveBackLeft",
+      "Maximum": 4.440892098500626e-16,
+      "Minimum": -4.440892098500626e-16,
+      "Rig": "R6"
+    },
+    {
+      "Action": "DiveForwardLeft",
+      "Maximum": 0,
+      "Minimum": -4.440892098500626e-16,
+      "Rig": "R6"
+    },
+    {
+      "Action": "DiveLeft",
+      "Maximum": 4.440892098500626e-16,
+      "Minimum": -4.440892098500626e-16,
+      "Rig": "R6"
+    },
+    {
+      "Action": "DiveForward",
+      "Maximum": 4.440892098500626e-16,
+      "Minimum": -4.440892098500626e-16,
+      "Rig": "R6"
+    },
+    {
+      "Action": "DiveForwardRight",
+      "Maximum": 0,
+      "Minimum": -4.440892098500626e-16,
+      "Rig": "R6"
+    },
+    {
+      "Action": "DiveRight",
+      "Maximum": 4.440892098500626e-16,
+      "Minimum": -4.440892098500626e-16,
+      "Rig": "R6"
+    },
+    {
+      "Action": "DiveBack",
+      "Maximum": 0,
+      "Minimum": -4.440892098500626e-16,
+      "Rig": "R6"
+    },
+    {
+      "Action": "DiveBackRight",
+      "Maximum": 8.881784197001252e-16,
+      "Minimum": -4.440892098500626e-16,
+      "Rig": "R15"
+    },
+    {
+      "Action": "DiveBackLeft",
+      "Maximum": 4.440892098500626e-16,
+      "Minimum": -4.440892098500626e-16,
+      "Rig": "R15"
+    },
+    {
+      "Action": "DiveForwardLeft",
+      "Maximum": 4.440892098500626e-16,
+      "Minimum": -8.881784197001252e-16,
+      "Rig": "R15"
+    },
+    {
+      "Action": "DiveLeft",
+      "Maximum": 4.440892098500626e-16,
+      "Minimum": -4.440892098500626e-16,
+      "Rig": "R15"
+    },
+    {
+      "Action": "DiveForward",
+      "Maximum": 4.440892098500626e-16,
+      "Minimum": -4.440892098500626e-16,
+      "Rig": "R15"
+    },
+    {
+      "Action": "DiveForwardRight",
+      "Maximum": 4.440892098500626e-16,
+      "Minimum": -4.440892098500626e-16,
+      "Rig": "R15"
+    },
+    {
+      "Action": "DiveRight",
+      "Maximum": 8.881784197001252e-16,
+      "Minimum": -4.440892098500626e-16,
+      "Rig": "R15"
+    },
+    {
+      "Action": "DiveBack",
+      "Maximum": 4.440892098500626e-16,
+      "Minimum": 0,
+      "Rig": "R15"
+    }
+  ],
+  "sha256": {
+    "HABWeaveAnimationsV16.luau": "2df39afa217828902ca359e6ecd85d47d69d6c173b61d255485939752b7e15f5",
+    "DodgeWeaveV16.client.luau": "0125c96b8bbe35438392f073a02fce38f1317da80a457f3b0d805406a955b061"
+  },
+  "original_sha256": "349717f6514d4e09b5f8970cc23bd1e1d382a6782c587eb2a3a43c88d5b34e36"
+}

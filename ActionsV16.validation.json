@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "assertions": 78789,
+  "run_command": "python tools/v16/animation-tests/test_actions.py",
+  "checks": [
+    "Original HABWAS input binding and approved local launch/speed blocks preserved byte-for-byte.",
+    "Original server Swing/Throw/TagHit/ShieldBlock/Ability packet compatibility; no new server fields or remotes.",
+    "15 authored variants; nine ability gestures with grounded leg stances and reduced-motion blending.",
+    "Canonical R6, R15 role mapping and public AnimationConstraint aliases; finite transforms and neutral recovery.",
+    "Predicted pose rejection, exact authoritative contact time, respawn/death cleanup, and ownership restoration.",
+    "Latest accepted action can interrupt older weave visuals; a new weave interrupts an older action without changing physics."
+  ],
+  "limitations": "Offline Luau execution with a Roblox math/signal adapter. Native Studio animation, network replication, and loaded custom locomotion assets require playtesting.",
+  "sha256": {
+    "HABActionAnimationsV16.luau": "8c9165efe5a3804478b0cd08bb23eb6b2c9f65aaca709d9177dbc39a329970f8",
+    "HABActionClientV16.client.luau": "3db819cb3183779c70da34971932dbee284e8d630bb9a3a20e7db29484722baa"
+  },
+  "original_sha256": {
+    "original-action-client.luau": "485e08bcb9350f5f92eb9a33c839b40fbf8f4e7456148d56bd089a276da84e48",
+    "original-action-service.luau": "701fca7c16cffcdb879fa0481f5b50762f93d6067c301e4eeffa99b6a28df88a"
+  }
+}

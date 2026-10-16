@@ -1,0 +1,40 @@
+{
+  "assertions": 885,
+  "actual_source_executed": true,
+  "syntax_checked": true,
+  "native_studio_tested": false,
+  "preservation": [
+    "original Trail/Aura renderer core",
+    "original sprite atlas/update",
+    "original Trail/Aura live timing and positions",
+    "all saved catalog IDs",
+    "kill sounds",
+    "original 25 boost Trail script unchanged"
+  ],
+  "coverage": [
+    "removed category rendering denied",
+    "ability artwork requires approved context",
+    "same original preview textures",
+    "removed crate refund-only",
+    "direct request category guards",
+    "all nine original ability effects",
+    "shield cleanup",
+    "event deduplication",
+    "panic yields to action/weave"
+  ],
+  "source_sha256": {
+    "HABCatalogV16.luau": "5ea9a955c428ca1942d7f4843b0191a7f24a53bd6ef6e9e2518a70b52aa5c82b",
+    "HABRendererV16.luau": "89008c935f21e08de0b216ba5afd84ce57027610eaf9deb179d8d0de74159ebe",
+    "HABHalloweenEffectsV16.client.luau": "91f8f6e8862a311e4db3a05d145a0cc099963f52fa0abe20bacf12dba77d34b7",
+    "FXCanvasV16.luau": "2c3aa063e25692c6170a61657cb8bec5df753f4e024e0436b6cd10e0c40a44f8",
+    "CarrierPanicV16.client.luau": "b628d53a9c0cc8884c77f61e671434a746af88fa48d5f66190952310d6350775",
+    "HABCombatFXV16.client.luau": "d6eff9e76c854efc8d8f97906fe54538b05c4720fbf0c650e1789bc3c8e096d2",
+    "CollectionViewModelV16.luau": "a1d1b62e0e7b4e0796b4525d0e7f9d8aca4b23e42abe2df901c4908a766e14a7",
+    "HABCrateShopClientV16.client.luau": "8c4c6b73590701f8f4c6246d7458e5bf2a8802918737ab31461f2b190c0d2d86",
+    "HABCrateServiceV16.luau": "95b55216e8183ecb27ffe213caeba9a7b01bcc73e1528d8956e3bf29c763523e",
+    "HABFunAbilityFXV16.client.luau": "1d14c165d313c11200048ad83ad4054ca792446c2a537e5b5055715fa226964a",
+    "HABExpansionClientV16.client.luau": "3f6f535e5cef8deaa98745e34c5497ec73fde6a8e291ada4dff2b7f4bd3af9a8",
+    "StandShopV16.client.luau": "971f7fd524bdcc22aa51c57ebdb73ee86d1416b2c2feecf6f16d6a6081f86e8b",
+    "HABCombatHUDV16.luau": "3597bed2b7fc72be4e651eed99c0d073009ccc306835c8f57fabfb55a51b39a1"
+  }
+}

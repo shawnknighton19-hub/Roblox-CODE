@@ -1,0 +1,6 @@
+{
+  "builderSHA256": "da0f5bcdbc63353ff5ca132a8b75d77ddb608afd83aa39eba5433356b810c0fb",
+  "geometrySHA256": "fbff9138f906a3a5b91ca5bfb1368cb4a17fbf1a8b4c91ddd6bcff57254c4b22",
+  "encoder": "github.com/robloxapi/rbxfile@37f4b3f11ff694d24160b9d7b948174fd384d596",
+  "output": "/workspace/scratch/hab-v16/lobby"
+}

@@ -1,0 +1,201 @@
+local baseIsA=methods.IsA
+function methods:IsA(class)
+ if class=='BaseScript'then return self.ClassName=='Script'or self.ClassName=='LocalScript'end
+ if class=='LuaSourceContainer'then return self.ClassName=='ModuleScript'or self:IsA('BaseScript')end
+ if class=='BasePart'and self.ClassName=='MeshPart'then return true end
+ return baseIsA(self,class)
+end
+function methods:IsDescendantOf(ancestor)local p=self.Parent;while p do if p==ancestor then return true end;p=p.Parent end;return false end
+local function make(class,parent,name,source)
+ local o=Instance.new(class);o.Name=name;o.Parent=parent
+ if class=='Model'then o.WorldPivot=CFrame.identity end
+ if source then o.Source=source end
+ if o:IsA('BaseScript')then o.Disabled=false end
+ return o
+end
+local function find(path)
+ local names=string.split(path,'/');local current=services[names[1]]
+ for i=2,#names do current=current and current:FindFirstChild(names[i])end
+ return current
+end
+local function roots()
+ local out={};for _,o in pairs(services)do if typeof(o)=='Instance'then out[#out+1]=o end end;return out
+end
+local function capture()
+ local saved={}
+ for _,root in ipairs(roots())do
+  local list={root};for _,o in ipairs(root:GetDescendants())do list[#list+1]=o end
+  for _,o in ipairs(list)do
+   local props={};for k,v in pairs(o._props)do props[k]=v end
+   saved[o]={props=props,attrs=json(o:GetAttributes())}
+  end
+ end
+ return saved
+end
+local function checkSame(before,label,allowDisplaced)
+ local function allowed(o,key)local row=allowDisplaced and allowDisplaced[o];return row==true and key=='Parent'or type(row)=='table'and row[key]end
+ for o,record in pairs(before)do
+  for key,value in pairs(record.props)do
+   if not(allowed(o,key))then assert(o[key]==value,label..' changed '..o.Name..'.'..key)end
+  end
+  for key,value in pairs(o._props)do
+   if not(allowed(o,key))then assert(record.props[key]==value,label..' added/changed '..o.Name..'.'..key)end
+  end
+  assert(json(o:GetAttributes())==record.attrs,label..' changed attributes '..o.Name)
+ end
+end
+local function fixture(mode)
+ services={};local refs={}
+ for _,row in ipairs(originalRows)do
+  local parent=refs[row.parent]
+  local o=make(row.class,parent,row.name,row.props.Source);refs[row.ref]=o
+  if not parent then services[row.name]=o end
+ end
+ local function value(v)
+  if type(v)~='table'then return v end
+  if v.kind=='CFrame'then return CFrame.new(table.unpack(v.value))end
+  if v.kind=='Vector3'then return Vector3.new(table.unpack(v.value))end
+  if v.kind=='Ref'then return refs[v.value]end
+  error('Unknown fixture value')
+ end
+ for _,row in ipairs(originalRows)do
+  local o=refs[row.ref]
+  for k,v in pairs(row.props)do o[k]=value(v)end
+  for k,v in pairs(row.attrs)do o:SetAttribute(k,value(v))end
+ end
+ workspace=services.Workspace
+ services.RunService={IsStudio=function()return mode~='notStudio'end,IsRunning=function()return mode=='playMode'end}
+ services.CollectionService={AddTag=function(_,o,tag)o:SetAttribute('FixtureTag_'..tag,true)end,HasTag=function(_,o,tag)return o:GetAttribute('FixtureTag_'..tag)==true end}
+ game.GetDescendants=function()local out={};for _,root in ipairs(roots())do for _,o in ipairs(root:GetDescendants())do out[#out+1]=o end end;return out end
+ game.GetChildren=function()return roots()end
+ return refs
+end
+local currentMode,requireCount,warnings
+local function warn(...)local out={};for _,v in ipairs({...})do out[#out+1]=tostring(v)end;warnings[#warnings+1]=table.concat(out,' ')end
+local function require(module)
+ assert(module:IsA('ModuleScript')and module:IsDescendantOf(services.ServerStorage),'only staged syntax probe may be required')
+ assert(module.Source:sub(1,18)=='return function()\n','never execute attached gameplay during install')
+ requireCount+=1
+ local source=module.Source
+ if currentMode=='compileFailure'and requireCount==1 then source='return function()\nlocal =\nend'end
+ local fn,why=loadstring(source);assert(fn,why);return fn()
+end
+local function install()
+__INSTALLER__
+end
+-- CASES_INSERT
+local scenarios={}
+local modes={'install','rerun','notStudio','playMode','compileFailure','duplicateMain','wrongVersion','movedSpawn','changedBooth','missingFloor','foreignMapScript','backupAttachFailure','mapArchiveFailure','previewArchiveFailure','mapAttachFailure','lobbyAttachFailure','lobbyTransformFailure','markerFailure','sourceReadbackFailure','persistentSourceRestoreFailure','persistentWorldRestoreFailure','persistentLobbyRestoreFailure'}
+for i,e in ipairs(expectedEntries)do
+ if e.target and not e.add then modes[#modes+1]='write_'..i end
+ if e.add then modes[#modes+1]='add_'..i;modes[#modes+1]='misplaced_'..i end
+end
+for _,name in ipairs({'ServerMain','RoundService','BombService','HABActionService','SnappyMovement','HudController'})do modes[#modes+1]='custom_'..name end
+local function countBackups()
+ local n=0;for _,o in ipairs(services.ServerStorage:GetChildren())do if o.Name:sub(1,19)=='HABPolishV16Backup_'then n+=1 end end;return n
+end
+for _,mode in ipairs(modes)do
+ currentMode=mode;requireCount=0;warnings={};fixture(mode)
+ local main=find('ServerScriptService/Services/ServerMain')
+ local oldLibrary=find('ServerStorage/MapLibrary');local oldPreviews=find('ReplicatedStorage/BombTagV6Previews')
+ local oldMaps=find('Workspace/Maps');local lobby=find('Workspace/Lobby');local spawn=find('Workspace/Lobby/LobbySpawn')
+ local booth=find('Workspace/Lobby/V11 Bomb Exchange/Bombs kiosk/Browse Bombs')
+ local prefix,index=mode:match('^(%a+)_(%d+)$');index=tonumber(index);local entry=index and expectedEntries[index]
+ if mode=='duplicateMain'then main:Clone().Parent=services.ServerScriptService
+ elseif mode=='wrongVersion'then workspace:SetAttribute('HABPolishVersion',15)
+ elseif mode=='movedSpawn'then spawn.CFrame=spawn.CFrame+CFrame.new(3,0,0).Position
+ elseif mode=='changedBooth'then booth.CFrame=booth.CFrame+CFrame.new(3,0,0).Position
+ elseif mode=='missingFloor'then oldLibrary:GetChildren()[1]:FindFirstChild('Floor'):Destroy()
+ elseif mode=='foreignMapScript'then make('Script',oldLibrary:GetChildren()[1],'PlayerCreatedScript','print("must preserve")')
+ elseif prefix=='misplaced'then make('ModuleScript',make('Folder',services.ReplicatedStorage,'Other'),entry.path:match('[^/]+$'),entry.target)
+ elseif mode:sub(1,7)=='custom_'then
+  local name=mode:sub(8);local found
+  for _,root in ipairs(roots())do for _,o in ipairs(root:GetDescendants())do if o.Name==name and o:IsA('LuaSourceContainer')and o:IsDescendantOf(services.ServerStorage)==false then found=o;break end end;if found then break end end
+  assert(found,'Custom fixture source not found: '..name);found.Source..='\n-- User customization must survive.'
+ end
+ local before=capture();local fired=false;local primaryFault=false;local restorationRefused=false
+ local newindex,setattr=mt.__newindex,methods.SetAttribute
+ local writeTarget=find('ServerScriptService/Services/EconomyServiceV9')
+ local writeBefore=writeTarget.Source
+ mt.__newindex=function(o,k,v)
+  if mode=='persistentSourceRestoreFailure'and o==writeTarget and k=='Source'then
+   if not primaryFault and v~=writeBefore then primaryFault=true;fired=true;error('Injected persistent source refusal')end
+   if primaryFault and v==writeBefore then restorationRefused=true;error('Injected persistent source restoration refusal')end
+  end
+  if mode=='persistentLobbyRestoreFailure'then
+   if not primaryFault and o.Name=='HABLobbyLayoutV16'and k=='Parent'and v==lobby then primaryFault=true;fired=true;error('Injected final lobby parent refusal')end
+   if primaryFault and o==booth and k=='CFrame'and v==before[booth].props.CFrame then restorationRefused=true;error('Injected persistent lobby original transform restoration refusal')end
+  end
+  if mode=='persistentWorldRestoreFailure'then
+   if not primaryFault and o==oldPreviews and k=='Parent'and v~=services.ReplicatedStorage then primaryFault=true;fired=true;error('Injected preview archive refusal')end
+   if primaryFault and o==oldLibrary and k=='Parent'and v==services.ServerStorage then restorationRefused=true;error('Injected persistent original map restoration refusal')end
+  end
+  if not fired then
+   local fail=false
+   if prefix=='write'then fail=o==find(entry.path)and k=='Source'and v==entry.target
+   elseif prefix=='add'then fail=o.Name==entry.path:match('[^/]+$')and k=='Parent'and v==find(entry.path:match('^(.*)/[^/]+$'))
+   elseif mode=='backupAttachFailure'then fail=k=='Parent'and v==services.ServerStorage and o.Name:sub(1,19)=='HABPolishV16Backup_'
+   elseif mode=='mapArchiveFailure'then fail=o==oldLibrary and k=='Parent'and v~=services.ServerStorage
+   elseif mode=='previewArchiveFailure'then fail=o==oldPreviews and k=='Parent'and v~=services.ReplicatedStorage
+   elseif mode=='mapAttachFailure'then fail=o~=oldMaps and o.Name=='Maps'and k=='Parent'and v==workspace
+   elseif mode=='lobbyAttachFailure'then fail=o.Name=='HABLobbyLayoutV16'and k=='Parent'and v==lobby
+   elseif mode=='lobbyTransformFailure'then fail=o==booth and k=='CFrame'and v~=before[booth].props.CFrame
+   elseif mode=='sourceReadbackFailure'and o==writeTarget and k=='Source'and v~=writeBefore then fired=true;return end
+   if fail then fired=true;error('Injected '..mode)end
+  end
+  return newindex(o,k,v)
+ end
+ methods.SetAttribute=function(o,k,v)
+  if mode=='markerFailure'and not fired and o==workspace and k=='HABPolishVersion'and v==16 then fired=true;error('Injected marker refusal')end
+  return setattr(o,k,v)
+ end
+ local ok,why=pcall(install)
+ mt.__newindex=newindex;methods.SetAttribute=setattr
+ local expected=mode=='install'or mode=='rerun'
+ assert(ok==expected,mode..' unexpected '..tostring(ok)..' '..tostring(why))
+ if ok then
+  assert(workspace:GetAttribute('HABPolishVersion')==16,'Committed marker missing')
+  assert(find('Workspace/Lobby/HABLobbyLayoutV16'),'New lobby not installed')
+  assert(#find('ServerStorage/MapLibrary'):GetChildren()==15,'All maps installed')
+  assert(#find('ReplicatedStorage/BombTagV6Previews'):GetChildren()==15,'All map previews installed')
+  assert(#find('Workspace/Maps'):GetChildren()==1,'One active arena installed')
+  assert(spawn.Parent==lobby and spawn.CFrame==before[spawn].props.CFrame,'Original spawn preserved')
+  for _,e in ipairs(expectedEntries)do
+   local o=find(e.path);assert(o and o.ClassName==e.class,'Missing source '..e.path)
+   assert(o.Source==(e.target or e.old),'Wrong source '..e.path)
+   if e.disabled~=nil then assert(o.Disabled==e.disabled,'Enabled state changed '..e.path)end
+  end
+  if mode=='rerun'then
+   local first=capture();local backupCount=countBackups();local again,err=pcall(install);assert(again,'Rerun failed '..tostring(err))
+   checkSame(first,'No-op rerun');assert(countBackups()==backupCount,'Rerun duplicated backups')
+  end
+ else
+  local allowDisplaced
+  if mode=='persistentWorldRestoreFailure'then
+   assert(fired and restorationRefused,'Nested rollback injection not exercised')
+   assert(oldLibrary.Parent and oldLibrary:IsDescendantOf(services.ServerStorage),'Original map library lost during failed rollback')
+   assert(#oldLibrary:GetChildren()==15,'Original map templates lost')
+   allowDisplaced={[oldLibrary]=true}
+   assert(countBackups()==1 and tostring(why):lower():find('backup',1,true),'Incomplete rollback must retain backup and report it')
+  elseif mode=='persistentLobbyRestoreFailure'then
+   assert(fired and restorationRefused,'Nested lobby restoration injection not exercised')
+   assert(countBackups()==1 and tostring(why):lower():find('backup',1,true),'Failed lobby restore must retain independent backup')
+   local originalLobby
+   for _,o in ipairs(services.ServerStorage:GetDescendants())do if o.Name=='OriginalLobby'and o:IsA('Model')then originalLobby=o;break end end
+   assert(originalLobby,'Independent original lobby clone missing')
+   local originalBooth=originalLobby:FindFirstChild('V11 Bomb Exchange'):FindFirstChild('Bombs kiosk'):FindFirstChild('Browse Bombs')
+   assert(originalBooth.CFrame==before[booth].props.CFrame,'Independent backup must contain the true original transform')
+   allowDisplaced={[booth]={CFrame=true}}
+  elseif mode=='persistentSourceRestoreFailure'then
+   assert(fired and restorationRefused,'Source rollback injection not exercised')
+   assert(countBackups()==1 and tostring(why):lower():find('backup',1,true),'Source restore failure must retain backups')
+  end
+  checkSame(before,'Failure rollback '..mode,allowDisplaced)
+  assert(not find('Workspace/Lobby/HABLobbyLayoutV16'),'Failed install left new lobby')
+  assert(not services.ServerStorage:FindFirstChild('HABPolishV16Preflight'),'Failed install leaked staging')
+  for _,e in ipairs(expectedEntries)do if e.add then assert(not find(e.path),'Failed install left added source')end end
+  if mode:find('Failure',1,true)and mode~='compileFailure'or prefix=='write'or prefix=='add'then assert(fired,'Failure injection never reached '..mode)end
+ end
+ scenarios[#scenarios+1]={name=mode,passed=true}
+end
+print('INSTALL_REPORT '..json({passed=true,scenarios=scenarios}))

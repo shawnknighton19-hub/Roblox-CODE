@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "assertions": 52,
+  "run_command": "python tools/v16/animation-tests/test_weave_integration.py",
+  "callback_orders": [
+    "weave_first",
+    "action_first"
+  ],
+  "checks": [
+    "Both production pose owners execute against original movement attribute and remote protocol.",
+    "Local prediction yields weave; newer accepted strike/ability cancels weave pose without physics change.",
+    "New weave interrupts older accepted action; all owned transforms and markers restore.",
+    "Remote-actor ability interaction and complete cleanup."
+  ],
+  "limitations": "Offline math/signal adapter, not native Animator/replication.",
+  "sha256": {
+    "HABActionAnimationsV16.luau": "8c9165efe5a3804478b0cd08bb23eb6b2c9f65aaca709d9177dbc39a329970f8",
+    "HABActionClientV16.client.luau": "3db819cb3183779c70da34971932dbee284e8d630bb9a3a20e7db29484722baa",
+    "HABWeaveAnimationsV16.luau": "2df39afa217828902ca359e6ecd85d47d69d6c173b61d255485939752b7e15f5",
+    "DodgeWeaveV16.client.luau": "0125c96b8bbe35438392f073a02fce38f1317da80a457f3b0d805406a955b061"
+  }
+}

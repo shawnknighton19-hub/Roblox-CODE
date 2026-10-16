@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "place_sha256": "a48c6c8f9fabe40c04ebc37759d707a1c78beb54a7937e0a26bd42cfaa169a7a",
+  "installer_sha256": "d6e2f75518afc02ac665c0144f24cdd6156c440d8c9157673470c15b753de93c",
+  "native_studio_tested": false,
+  "scope": "Independent binary-derived complete live map/lobby graph passes full installer no-op preflight and remains unchanged in transaction adapter."
+}

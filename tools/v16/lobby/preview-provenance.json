@@ -1,0 +1,28 @@
+{
+  "builderSHA256": "da0f5bcdbc63353ff5ca132a8b75d77ddb608afd83aa39eba5433356b810c0fb",
+  "mapBuilderSHA256": "29e235c96a8f5bbfd43f3679faed760d240258d6b7f3d7480905854cdffeae86",
+  "camera": {
+    "position": [
+      0,
+      12,
+      -35
+    ],
+    "target": [
+      0,
+      -21,
+      -175
+    ],
+    "verticalFieldOfViewDegrees": 70,
+    "resolution": [
+      1600,
+      900
+    ]
+  },
+  "renderer": "Blender Cycles, approximate fonts; actual executed lobby/map part geometry and illustrative actors at real spawn points. Not a Roblox screenshot.",
+  "previews": {
+    "LobbyV16-Overview.png": "f8496777f8e7587676b277d55e796501d155219a04b829e1b344cd3632c3fe45",
+    "LobbyV16-Arrival.png": "5fb663f17380c706504063e407f26a640d2737679e53b5ddd20a1943d30a3514",
+    "LobbyV16-Spectator.png": "fbbc1aba759795a068a03211ea48327b398ed05c958490c6dc232bf97aa53284",
+    "LobbyV16-World.png": "0685297c0f45971a5628b1b75c3dafa3b987ba2c1ade7edc27b8143aab54ded6"
+  }
+}

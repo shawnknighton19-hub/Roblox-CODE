@@ -1,0 +1,207 @@
+{
+  "passed": true,
+  "scenarios": [
+    {
+      "name": "install",
+      "passed": true
+    },
+    {
+      "name": "rerun",
+      "passed": true
+    },
+    {
+      "name": "notStudio",
+      "passed": true
+    },
+    {
+      "name": "playMode",
+      "passed": true
+    },
+    {
+      "name": "compileFailure",
+      "passed": true
+    },
+    {
+      "name": "duplicateMain",
+      "passed": true
+    },
+    {
+      "name": "wrongVersion",
+      "passed": true
+    },
+    {
+      "name": "movedSpawn",
+      "passed": true
+    },
+    {
+      "name": "changedBooth",
+      "passed": true
+    },
+    {
+      "name": "missingFloor",
+      "passed": true
+    },
+    {
+      "name": "foreignMapScript",
+      "passed": true
+    },
+    {
+      "name": "backupAttachFailure",
+      "passed": true
+    },
+    {
+      "name": "mapArchiveFailure",
+      "passed": true
+    },
+    {
+      "name": "previewArchiveFailure",
+      "passed": true
+    },
+    {
+      "name": "mapAttachFailure",
+      "passed": true
+    },
+    {
+      "name": "lobbyAttachFailure",
+      "passed": true
+    },
+    {
+      "name": "lobbyTransformFailure",
+      "passed": true
+    },
+    {
+      "name": "markerFailure",
+      "passed": true
+    },
+    {
+      "name": "sourceReadbackFailure",
+      "passed": true
+    },
+    {
+      "name": "persistentSourceRestoreFailure",
+      "passed": true
+    },
+    {
+      "name": "persistentWorldRestoreFailure",
+      "passed": true
+    },
+    {
+      "name": "persistentLobbyRestoreFailure",
+      "passed": true
+    },
+    {
+      "name": "write_7",
+      "passed": true
+    },
+    {
+      "name": "write_13",
+      "passed": true
+    },
+    {
+      "name": "write_14",
+      "passed": true
+    },
+    {
+      "name": "write_15",
+      "passed": true
+    },
+    {
+      "name": "write_16",
+      "passed": true
+    },
+    {
+      "name": "write_17",
+      "passed": true
+    },
+    {
+      "name": "write_18",
+      "passed": true
+    },
+    {
+      "name": "write_19",
+      "passed": true
+    },
+    {
+      "name": "write_20",
+      "passed": true
+    },
+    {
+      "name": "write_31",
+      "passed": true
+    },
+    {
+      "name": "write_32",
+      "passed": true
+    },
+    {
+      "name": "write_42",
+      "passed": true
+    },
+    {
+      "name": "write_45",
+      "passed": true
+    },
+    {
+      "name": "write_50",
+      "passed": true
+    },
+    {
+      "name": "write_56",
+      "passed": true
+    },
+    {
+      "name": "write_61",
+      "passed": true
+    },
+    {
+      "name": "add_70",
+      "passed": true
+    },
+    {
+      "name": "misplaced_70",
+      "passed": true
+    },
+    {
+      "name": "add_71",
+      "passed": true
+    },
+    {
+      "name": "misplaced_71",
+      "passed": true
+    },
+    {
+      "name": "custom_ServerMain",
+      "passed": true
+    },
+    {
+      "name": "custom_RoundService",
+      "passed": true
+    },
+    {
+      "name": "custom_BombService",
+      "passed": true
+    },
+    {
+      "name": "custom_HABActionService",
+      "passed": true
+    },
+    {
+      "name": "custom_SnappyMovement",
+      "passed": true
+    },
+    {
+      "name": "custom_HudController",
+      "passed": true
+    }
+  ],
+  "installer_sha256": "d6e2f75518afc02ac665c0144f24cdd6156c440d8c9157673470c15b753de93c",
+  "source_sha256": {
+    "tools/v16/world_installer.luau": "27ac38feb5c6c237efcffa1d6839fb318dd55d63e926bfb533eaad7f0c969d7e",
+    "tools/v16/installer_tail.luau": "f733610bd9c10220a28e5e10b48042dc13d9609678c53a5d9def7375c68166a7",
+    "LobbyBuilderV16.luau": "da0f5bcdbc63353ff5ca132a8b75d77ddb608afd83aa39eba5433356b810c0fb",
+    "MapBuilderV16.luau": "29e235c96a8f5bbfd43f3679faed760d240258d6b7f3d7480905854cdffeae86"
+  },
+  "original_place_sha256": "c354d8c3c7ac43b9364749aa292716aa592eee6f496f532c98c0bafb88279309",
+  "native_studio_tested": false,
+  "scope": "Exact complete installer with original 179 sources, original parent graph and complete 1576-object original lobby fixture; deterministic Instance/service adapter and inert syntax wrappers. No native Studio execution claim."
+}

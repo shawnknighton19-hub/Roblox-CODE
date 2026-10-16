@@ -1,0 +1,62 @@
+-- Builds on the vendored deterministic math adapter; not native Roblox simulation.
+function methods:GetPropertyChangedSignal(name)
+	self._props.propertySignals=self._props.propertySignals or {}
+	self._props.propertySignals[name]=self._props.propertySignals[name] or signal()
+	return self._props.propertySignals[name]
+end
+-- Replace the old adapter's star topology with a connected, scaled R15 bind skeleton.
+local function r15Skeleton(c)
+	for _,j in ipairs(c:GetDescendants()) do if j:IsA('Motor6D') then j:Destroy() end end
+	local function joint(name,p0,p1,y0,y1)
+		local j=Instance.new('Motor6D',c[p0]);j.Name=name;j.Part0=c[p0];j.Part1=c[p1]
+		j.C0=CFrame.new(0,y0,0);j.C1=CFrame.new(0,y1,0);j.Transform=CFrame.new();j.Enabled=true
+		return j
+	end
+	c.LowerTorso.Size=Vector3.new(2,1,1);c.UpperTorso.Size=Vector3.new(2,1,1);c.Head.Size=Vector3.new(2,1,1)
+	joint('Root','HumanoidRootPart','LowerTorso',-.5,0)
+	joint('Waist','LowerTorso','UpperTorso',.5,-.5)
+	joint('Neck','UpperTorso','Head',.5,-.5)
+	for _,sign in ipairs({-1,1}) do
+		local side=sign==-1 and 'Left' or 'Right'
+		local shoulder=joint(side..'Shoulder','UpperTorso',side..'UpperArm',.25,.5);shoulder.C0=CFrame.new(sign*1.25,.25,0)
+		joint(side..'Elbow',side..'UpperArm',side..'LowerArm',-.5,.5)
+		local hip=joint(side..'Hip','LowerTorso',side..'UpperLeg',-.5,.5);hip.C0=CFrame.new(sign*.5,-.5,0)
+		joint(side..'Knee',side..'UpperLeg',side..'LowerLeg',-.5,.5)
+		c[side..'Foot'].Size=Vector3.new(1,.5,1.2)
+		joint(side..'Ankle',side..'LowerLeg',side..'Foot',-.5,.25)
+	end
+end
+r15Skeleton(r15.Character)
+local A=(function()
+{{MODULE}}
+end)()
+local m=Instance.new('ModuleScript',services.ReplicatedStorage);m.Name='HABWeaveAnimationsV16'
+local require=function(module) assert(module==m,'Unexpected dependency');return A end
+local exports
+do
+{{CLIENT}}
+exports={States=active,Players=players,Start=start,Cancel=cancel,Restore=restore}
+end
+local assertions=0
+local function check(ok,message) assertions+=1;assert(ok,message or ('assertion '..assertions)) end
+local function tick(dt)
+	clock+=dt or 1/60
+	services.RunService.PreAnimation:Fire()
+	services.RunService.PreSimulation:Fire(dt or 1/60)
+end
+local function localAction(action)
+	owner.Character:SetAttribute('MovementAction',action)
+	owner.Character:SetAttribute('MovementActionId',(owner.Character:GetAttribute('MovementActionId') or 0)+1)
+end
+local function reset(player)
+	local state=exports.States[player];if state then exports.Cancel(state) end
+	local c=player.Character
+	c:SetAttribute('Ragdolled',nil);c:SetAttribute('IsRagdoll',nil)
+	c:SetAttribute('HABActionPoseStartedAt',nil);c:SetAttribute('HABActionPoseUntil',nil)
+	c:SetAttribute('MovementAction','DiveEnd')
+	c.Humanoid.Health=100;c.Humanoid.PlatformStand=false;c.Humanoid.Sit=false;c.Humanoid.State=Enum.HumanoidStateType.Running
+	c.HumanoidRootPart.Anchored=false;player:SetAttribute('HussGamePaused',nil)
+	workspace:SetAttribute('HussGamePaused',nil);workspace:SetAttribute('HussDodgeV5',true)
+	clock+=1
+end
+{{REGRESSIONS}}

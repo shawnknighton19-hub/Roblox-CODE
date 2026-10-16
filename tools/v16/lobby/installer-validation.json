@@ -1,0 +1,16 @@
+{
+  "checks": 1181,
+  "passed": true,
+  "scenarios": [
+    "fresh",
+    "rerun",
+    "identity preservation",
+    "CFrame attribute transformation",
+    "full undo",
+    "drift rejection",
+    "mid-archive rollback",
+    "commit rollback"
+  ],
+  "builderSHA256": "da0f5bcdbc63353ff5ca132a8b75d77ddb608afd83aa39eba5433356b810c0fb",
+  "limits": "Actual Luau transactions in deterministic Instance adapter; Studio engine not available."
+}

@@ -1,0 +1,81 @@
+{
+  "status": "passed",
+  "baseline": "Untouched HABWAS.rbxl; no V15 runtime installed",
+  "artifacts": {
+    "Install-HABWAS-Polish-V16.command.luau": {
+      "bytes": 1304803,
+      "sha256": "d6e2f75518afc02ac665c0144f24cdd6156c440d8c9157673470c15b753de93c"
+    },
+    "HABWAS-Polish-V16.txt": {
+      "bytes": 1328478,
+      "sha256": "01283ddb6fdce3a5457527372ac6e38d8721bc17fb6248d4f1f129f43ca7555e"
+    },
+    "HABWAS-Polished-V16.rbxl": {
+      "bytes": 1945471,
+      "sha256": "a48c6c8f9fabe40c04ebc37759d707a1c78beb54a7937e0a26bd42cfaa169a7a"
+    },
+    "HABWAS.rbxl": {
+      "bytes": 1552493,
+      "sha256": "c354d8c3c7ac43b9364749aa292716aa592eee6f496f532c98c0bafb88279309"
+    },
+    "tools/v16/place_patch.json": {
+      "bytes": 5580,
+      "sha256": "7724ea646c1065430385a803b52ddce973001d77fbd452dc075aa64cc231ec11"
+    },
+    "tools/v16/assembly.json": {
+      "bytes": 2302,
+      "sha256": "a18e5e5053a5075484b8ffa44cfcdb96ef565217d50090fc7270bab3aa33c55c"
+    }
+  },
+  "validation_reports": {
+    "ActionsV16.validation.json": "d614a18a9c256f94c24e9a8d96001420cf370f58e28b0ba1ea0ace1f6c405259",
+    "WeaveV16.validation.json": "1ccb8bcbdbc0049c1303495775389db6f5214b2eab5ae3bc1aea9340b8fa5027",
+    "ActionWeaveIntegrationV16.validation.json": "f225bd1222b8d018e1de54f738e8a9d8ef017e3d5a90a58ebeedea9186eedf59",
+    "EffectsV16.validation.json": "6336a253dfdeb52db0d121a24085fdc7f64b447c903fcb5deb8e7d9f57a9c0ec",
+    "BootV16.validation.json": "643f54fd7f5fe9980cf8a802d10f6c90f1d593ea736337548bdd429d94ca6b87",
+    "InstallerV16.validation.json": "f56168b36d785ac426f085aaa9d9b76aaaa5fe32517adba234705284800ab313",
+    "V16-APIReview.validation.json": "c29f40f19a3e66f20dd38dde38102a48f4d324b13ec9ebc4d3fc67b8a72869f9",
+    "HABWAS-Polished-V16.validation.json": "c8c4dcbea74b2aa5614fd62a94dda27349b4698a1b88466012b770eac6fe6a9e",
+    "tools/v16/maps/world-manifest.json": "ad6e326dc50d5f2f4aef2c7e0fa15a592aa1a43fc857a84cd796337f2f368229",
+    "tools/v16/lobby/world-manifest.json": "3e78d37bd389f12d108586b03e1bd66da190d0e7cb1dbe85ebf4c13c0d73cb3e",
+    "MapsV16.validation.json": "0044a1ef2666280966951336993b3d5b764b8caaaa449a42fb6aacd5fb32a65b",
+    "LobbyV16.validation.json": "54fd2e95f4eb95292f80a97488f6a7462b826be9400d7d05200ed542107d938b",
+    "LobbyInstallerV16.validation.json": "c6d02a70c588ec8c371f3bae95f0e941b8167bb0283d7867f2b4ea8002a6d700",
+    "PackagedRerunV16.validation.json": "6a8c027643a137e4157d7c761654f9bc6b16e358f3604350d636b67b52cc117e"
+  },
+  "runtime_sources": {
+    "DodgeWeaveV16.client.luau": "0125c96b8bbe35438392f073a02fce38f1317da80a457f3b0d805406a955b061",
+    "HABActionClientV16.client.luau": "3db819cb3183779c70da34971932dbee284e8d630bb9a3a20e7db29484722baa",
+    "EconomyServiceV16.luau": "25815c61dec9fe3cd08fa719df83e829ecfb7a768273ab8adb7ecb5a68ee00b4",
+    "HABCatalogV16.luau": "5ea9a955c428ca1942d7f4843b0191a7f24a53bd6ef6e9e2518a70b52aa5c82b",
+    "HABRendererV16.luau": "89008c935f21e08de0b216ba5afd84ce57027610eaf9deb179d8d0de74159ebe",
+    "HABHalloweenEffectsV16.client.luau": "91f8f6e8862a311e4db3a05d145a0cc099963f52fa0abe20bacf12dba77d34b7",
+    "FXCanvasV16.luau": "2c3aa063e25692c6170a61657cb8bec5df753f4e024e0436b6cd10e0c40a44f8",
+    "CarrierPanicV16.client.luau": "b628d53a9c0cc8884c77f61e671434a746af88fa48d5f66190952310d6350775",
+    "HABCombatFXV16.client.luau": "d6eff9e76c854efc8d8f97906fe54538b05c4720fbf0c650e1789bc3c8e096d2",
+    "CollectionViewModelV16.luau": "a1d1b62e0e7b4e0796b4525d0e7f9d8aca4b23e42abe2df901c4908a766e14a7",
+    "HABCrateShopClientV16.client.luau": "8c4c6b73590701f8f4c6246d7458e5bf2a8802918737ab31461f2b190c0d2d86",
+    "HABCrateServiceV16.luau": "95b55216e8183ecb27ffe213caeba9a7b01bcc73e1528d8956e3bf29c763523e",
+    "HABFunAbilityFXV16.client.luau": "1d14c165d313c11200048ad83ad4054ca792446c2a537e5b5055715fa226964a",
+    "HABExpansionClientV16.client.luau": "3f6f535e5cef8deaa98745e34c5497ec73fde6a8e291ada4dff2b7f4bd3af9a8",
+    "StandShopV16.client.luau": "971f7fd524bdcc22aa51c57ebdb73ee86d1416b2c2feecf6f16d6a6081f86e8b",
+    "HABCombatHUDV16.luau": "3597bed2b7fc72be4e651eed99c0d073009ccc306835c8f57fabfb55a51b39a1",
+    "HABWeaveAnimationsV16.luau": "2df39afa217828902ca359e6ecd85d47d69d6c173b61d255485939752b7e15f5",
+    "HABActionAnimationsV16.luau": "8c9165efe5a3804478b0cd08bb23eb6b2c9f65aaca709d9177dbc39a329970f8",
+    "MapBuilderV16.luau": "29e235c96a8f5bbfd43f3679faed760d240258d6b7f3d7480905854cdffeae86",
+    "LobbyBuilderV16.luau": "da0f5bcdbc63353ff5ca132a8b75d77ddb608afd83aa39eba5433356b810c0fb"
+  },
+  "offline_previews": {
+    "LobbyV16-Overview.png": "f8496777f8e7587676b277d55e796501d155219a04b829e1b344cd3632c3fe45",
+    "LobbyV16-Arrival.png": "5fb663f17380c706504063e407f26a640d2737679e53b5ddd20a1943d30a3514",
+    "LobbyV16-Spectator.png": "fbbc1aba759795a068a03211ea48327b398ed05c958490c6dc232bf97aa53284",
+    "LobbyV16-World.png": "0685297c0f45971a5628b1b75c3dafa3b987ba2c1ade7edc27b8143aab54ded6",
+    "MapsV16-Preview.png": "f9bc567fd648b96ed57a0f8d4cb12d9c9729bae8fbec34ea095647a1ec37cb75",
+    "ActionAnimationsV16-Poses.png": "86ee132db9212614521d3c8f2af6e040b7d00d2568fd8b49b8b846e03be8d015",
+    "ActionAnimationsV16-Preview.gif": "da40d4356def75135e587247b19cb2f922b2bdb21a87fc9fcbe75af531acd33c",
+    "WeaveV16-Poses.png": "02072125034d3307b003ff18b9fa157b4b3b19ac88419a1ff2a8df708bf6356b",
+    "WeaveV16-Preview.gif": "32fd4a91d59373a5a0e1b59d503a427a13ec1ed881ea349b443147bb1cc571a9"
+  },
+  "native_studio_tested": false,
+  "limits": "Offline actual-source tests, analytic geometry and independent RBXL decoding passed. Native Studio opening, rendering, physics, animation blending, streaming, networking and live Roblox purchases require playtesting."
+}

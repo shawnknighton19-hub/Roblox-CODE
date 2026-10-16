@@ -1,0 +1,640 @@
+{
+  "baselineFailure": "/tmp/hab-boot-gtg9_901/generated_boot.luau:296: You must publish this place to the web to access DataStore.",
+  "baselineNormalPhases": [
+    "WAITING",
+    "STARTING",
+    "FINAL_DUEL",
+    "RESULT"
+  ],
+  "baselineOrderedFailure": "/tmp/hab-boot-gtg9_901/generated_boot.luau:299: OrderedDataStore unavailable",
+  "loadedModuleCount": 30,
+  "modules": [
+    "ReplicatedStorage.Shared.Net.Remotes",
+    "ReplicatedStorage.Shared.Config.GameConfig",
+    "ReplicatedStorage.HABExpansion.Config",
+    "ReplicatedStorage.HussCatalogV11",
+    "ServerScriptService.Services.OwnerCommandsV12",
+    "ServerScriptService.Services.HABCrateInventoryRules",
+    "ServerScriptService.Services.HABRetirementRules",
+    "ReplicatedStorage.HABHalloween.Effects",
+    "ReplicatedStorage.HABHalloween.Settings",
+    "ReplicatedStorage.HABHalloween.ExtraFXPart01",
+    "ReplicatedStorage.HABHalloween.ExtraFXPart02",
+    "ReplicatedStorage.HABHalloween.ExtraFXPart03",
+    "ReplicatedStorage.HABHalloween.ExtraFXPart04",
+    "ReplicatedStorage.HABHalloween.ExtraFXData",
+    "ReplicatedStorage.HABHalloween.HABEffectNames",
+    "ReplicatedStorage.HABHalloween.HABKillSounds",
+    "ReplicatedStorage.HABHalloween.Catalog",
+    "ServerScriptService.Services.EconomyServiceV9",
+    "ReplicatedStorage.BombSkinBuilderV12",
+    "ServerScriptService.Services.CosmeticsServiceV11",
+    "ServerScriptService.Services.PerfectWeaveServiceV11",
+    "ServerScriptService.Services.HABCrateService",
+    "ReplicatedStorage.HABExpansion.CombatRules",
+    "ServerScriptService.Services.HABPassService",
+    "ServerScriptService.Services.HABActionService",
+    "ServerScriptService.Services.BombService",
+    "ServerScriptService.Services.BombTagMapVoteServiceV6",
+    "ServerScriptService.Services.PracticeServiceV11",
+    "ServerScriptService.Services.RoundService",
+    "ServerScriptService.Services.HABGemPurchases"
+  ],
+  "patchedNormalPhases": [
+    "WAITING",
+    "STARTING",
+    "FINAL_DUEL",
+    "RESULT"
+  ],
+  "patchedPhases": [
+    {
+      "remote": "BombTagVoteV6",
+      "state": "Open",
+      "time": 0
+    },
+    {
+      "remote": "BombTagVoteV6",
+      "state": "Result",
+      "time": 7.050000000000006
+    },
+    {
+      "remote": "BombTagVoteV6",
+      "state": "Close",
+      "time": 8.050000000000006
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 0,
+        "State": "WAITING",
+        "TimeLeft": 11,
+        "Winner": ""
+      },
+      "time": 8.050000000000006
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 0,
+        "State": "WAITING",
+        "TimeLeft": 10,
+        "Winner": ""
+      },
+      "time": 9.050000000000006
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 0,
+        "State": "WAITING",
+        "TimeLeft": 9,
+        "Winner": ""
+      },
+      "time": 10.050000000000006
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 0,
+        "State": "WAITING",
+        "TimeLeft": 8,
+        "Winner": ""
+      },
+      "time": 11.050000000000006
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 0,
+        "State": "WAITING",
+        "TimeLeft": 7,
+        "Winner": ""
+      },
+      "time": 12.050000000000006
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 0,
+        "State": "WAITING",
+        "TimeLeft": 6,
+        "Winner": ""
+      },
+      "time": 13.050000000000006
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 0,
+        "State": "WAITING",
+        "TimeLeft": 5,
+        "Winner": ""
+      },
+      "time": 14.050000000000006
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 0,
+        "State": "WAITING",
+        "TimeLeft": 4,
+        "Winner": ""
+      },
+      "time": 15.050000000000006
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 1,
+        "State": "STARTING",
+        "TimeLeft": 3,
+        "Winner": ""
+      },
+      "time": 16.050000000000004
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 1,
+        "State": "STARTING",
+        "TimeLeft": 2,
+        "Winner": ""
+      },
+      "time": 17.050000000000004
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 1,
+        "State": "STARTING",
+        "TimeLeft": 1,
+        "Winner": ""
+      },
+      "time": 18.050000000000004
+    },
+    {
+      "remote": "BombState",
+      "state": {
+        "Active": true,
+        "CarrierName": "User701",
+        "CarrierUserId": 701,
+        "EndTime": 33.050000000000004,
+        "Event": "Started"
+      },
+      "time": 19.050000000000004
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 60,
+        "Winner": ""
+      },
+      "time": 19.066666666666773
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 60,
+        "Winner": ""
+      },
+      "time": 19.333333333333453
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 60,
+        "Winner": ""
+      },
+      "time": 19.600000000000133
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 60,
+        "Winner": ""
+      },
+      "time": 19.866666666666813
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 59,
+        "Winner": ""
+      },
+      "time": 20.133333333333493
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 59,
+        "Winner": ""
+      },
+      "time": 20.400000000000173
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 59,
+        "Winner": ""
+      },
+      "time": 20.666666666666853
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 59,
+        "Winner": ""
+      },
+      "time": 20.933333333333533
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 58,
+        "Winner": ""
+      },
+      "time": 21.200000000000212
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 58,
+        "Winner": ""
+      },
+      "time": 21.466666666666892
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 58,
+        "Winner": ""
+      },
+      "time": 21.733333333333572
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 58,
+        "Winner": ""
+      },
+      "time": 22.000000000000252
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 57,
+        "Winner": ""
+      },
+      "time": 22.266666666666932
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 57,
+        "Winner": ""
+      },
+      "time": 22.533333333333612
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 57,
+        "Winner": ""
+      },
+      "time": 22.800000000000292
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 56,
+        "Winner": ""
+      },
+      "time": 23.066666666666972
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 56,
+        "Winner": ""
+      },
+      "time": 23.333333333333652
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 56,
+        "Winner": ""
+      },
+      "time": 23.600000000000332
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 56,
+        "Winner": ""
+      },
+      "time": 23.86666666666701
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 55,
+        "Winner": ""
+      },
+      "time": 24.13333333333369
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 55,
+        "Winner": ""
+      },
+      "time": 24.40000000000037
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 55,
+        "Winner": ""
+      },
+      "time": 24.66666666666705
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 55,
+        "Winner": ""
+      },
+      "time": 24.93333333333373
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 54,
+        "Winner": ""
+      },
+      "time": 25.20000000000041
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 54,
+        "Winner": ""
+      },
+      "time": 25.46666666666709
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 54,
+        "Winner": ""
+      },
+      "time": 25.73333333333377
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 54,
+        "Winner": ""
+      },
+      "time": 26.00000000000045
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 53,
+        "Winner": ""
+      },
+      "time": 26.26666666666713
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 53,
+        "Winner": ""
+      },
+      "time": 26.53333333333381
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 53,
+        "Winner": ""
+      },
+      "time": 26.80000000000049
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 52,
+        "Winner": ""
+      },
+      "time": 27.06666666666717
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 52,
+        "Winner": ""
+      },
+      "time": 27.33333333333385
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 52,
+        "Winner": ""
+      },
+      "time": 27.60000000000053
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 52,
+        "Winner": ""
+      },
+      "time": 27.86666666666721
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 51,
+        "Winner": ""
+      },
+      "time": 28.13333333333389
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 51,
+        "Winner": ""
+      },
+      "time": 28.40000000000057
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 51,
+        "Winner": ""
+      },
+      "time": 28.66666666666725
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 51,
+        "Winner": ""
+      },
+      "time": 28.93333333333393
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 50,
+        "Winner": ""
+      },
+      "time": 29.20000000000061
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 50,
+        "Winner": ""
+      },
+      "time": 29.46666666666729
+    },
+    {
+      "remote": "RoundState",
+      "state": {
+        "Alive": 4,
+        "State": "PRACTICE",
+        "TimeLeft": 50,
+        "Winner": ""
+      },
+      "time": 29.73333333333397
+    }
+  ],
+  "patchedWarnings": [
+    "[HAB Save] Profile store unavailable; gameplay continues, saving/purchases stay paused: /tmp/hab-boot-gtg9_901/generated_boot.luau:35785: You must publish this place to the web to access DataStore.",
+    "[HAB Save] Rankings store unavailable; gameplay and loaded profiles continue: /tmp/hab-boot-gtg9_901/generated_boot.luau:35788: OrderedDataStore unavailable"
+  ],
+  "scenarios": [
+    "primary datastore acquisition failure",
+    "ordered datastore acquisition failure",
+    "protected bootstrap with persistent data unavailable",
+    "unmodified baseline two-player round, results, rewards and lobby return",
+    "unpublished two-player round continues with no temporary economy",
+    "ordered-store outage preserves profiles and ordinary rewards",
+    "store recovery, isolated identities, idempotent Init and durable receipts",
+    "profile API access failure stays fail closed while practice runs",
+    "real solo bot practice leaves coins and competitive stats unchanged",
+    "AFK pause/resume and second-player transition from practice to real match",
+    "CrateBoot-first startup ordering preserves playable practice and locked profiles",
+    "relocated original tagged kiosk permits nearby purchases and rejects distant requests"
+  ],
+  "input_sha256": "c354d8c3c7ac43b9364749aa292716aa592eee6f496f532c98c0bafb88279309",
+  "economy_patch_sha256": "25815c61dec9fe3cd08fa719df83e829ecfb7a768273ab8adb7ecb5a68ee00b4",
+  "source_overlays": {
+    "StarterPlayer/StarterPlayerScripts/DodgeWeaveV5": "0125c96b8bbe35438392f073a02fce38f1317da80a457f3b0d805406a955b061",
+    "StarterPlayer/StarterPlayerScripts/HABActionClient": "3db819cb3183779c70da34971932dbee284e8d630bb9a3a20e7db29484722baa",
+    "ServerScriptService/Services/EconomyServiceV9": "25815c61dec9fe3cd08fa719df83e829ecfb7a768273ab8adb7ecb5a68ee00b4",
+    "ReplicatedStorage/HABHalloween/Catalog": "5ea9a955c428ca1942d7f4843b0191a7f24a53bd6ef6e9e2518a70b52aa5c82b",
+    "ReplicatedStorage/HABHalloween/Renderer": "89008c935f21e08de0b216ba5afd84ce57027610eaf9deb179d8d0de74159ebe",
+    "StarterPlayer/StarterPlayerScripts/HABHalloweenEffects": "91f8f6e8862a311e4db3a05d145a0cc099963f52fa0abe20bacf12dba77d34b7",
+    "ReplicatedStorage/HABHalloween/FXCanvas": "2c3aa063e25692c6170a61657cb8bec5df753f4e024e0436b6cd10e0c40a44f8",
+    "StarterPlayer/StarterPlayerScripts/CarrierPanicV12": "b628d53a9c0cc8884c77f61e671434a746af88fa48d5f66190952310d6350775",
+    "StarterPlayer/StarterPlayerScripts/HABCombatFX": "d6eff9e76c854efc8d8f97906fe54538b05c4720fbf0c650e1789bc3c8e096d2",
+    "ReplicatedStorage/HABHalloween/CollectionViewModel": "a1d1b62e0e7b4e0796b4525d0e7f9d8aca4b23e42abe2df901c4908a766e14a7",
+    "StarterPlayer/StarterPlayerScripts/HABCrateShopClient": "8c4c6b73590701f8f4c6246d7458e5bf2a8802918737ab31461f2b190c0d2d86",
+    "ServerScriptService/Services/HABCrateService": "95b55216e8183ecb27ffe213caeba9a7b01bcc73e1528d8956e3bf29c763523e",
+    "StarterPlayer/StarterPlayerScripts/HABFunAbilityFX": "1d14c165d313c11200048ad83ad4054ca792446c2a537e5b5055715fa226964a",
+    "StarterPlayer/StarterPlayerScripts/HABExpansionClient": "3f6f535e5cef8deaa98745e34c5497ec73fde6a8e291ada4dff2b7f4bd3af9a8",
+    "StarterPlayer/StarterPlayerScripts/StandShopV12": "971f7fd524bdcc22aa51c57ebdb73ee86d1416b2c2feecf6f16d6a6081f86e8b",
+    "ReplicatedStorage/HABExpansion/HABCombatHUD": "3597bed2b7fc72be4e651eed99c0d073009ccc306835c8f57fabfb55a51b39a1"
+  },
+  "new_maps_executed": true,
+  "lobby_layout_sha256": "da0f5bcdbc63353ff5ca132a8b75d77ddb608afd83aa39eba5433356b810c0fb",
+  "map_builder_sha256": "29e235c96a8f5bbfd43f3679faed760d240258d6b7f3d7480905854cdffeae86",
+  "native_studio_tested": false,
+  "scope": "Actual original bootstrap and full transitive project modules executed with deterministic platform service doubles; scenario world is flat test geometry, not Roblox physics."
+}

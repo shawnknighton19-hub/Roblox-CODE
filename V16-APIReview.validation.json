@@ -1,0 +1,380 @@
+{
+  "verified": true,
+  "sourceSha256": {
+    "CarrierPanicV16.client.luau": "b628d53a9c0cc8884c77f61e671434a746af88fa48d5f66190952310d6350775",
+    "CollectionViewModelV16.luau": "a1d1b62e0e7b4e0796b4525d0e7f9d8aca4b23e42abe2df901c4908a766e14a7",
+    "DodgeWeaveV16.client.luau": "0125c96b8bbe35438392f073a02fce38f1317da80a457f3b0d805406a955b061",
+    "EconomyServiceV16.luau": "25815c61dec9fe3cd08fa719df83e829ecfb7a768273ab8adb7ecb5a68ee00b4",
+    "FXCanvasV16.luau": "2c3aa063e25692c6170a61657cb8bec5df753f4e024e0436b6cd10e0c40a44f8",
+    "HABActionAnimationsV16.luau": "8c9165efe5a3804478b0cd08bb23eb6b2c9f65aaca709d9177dbc39a329970f8",
+    "HABActionClientV16.client.luau": "3db819cb3183779c70da34971932dbee284e8d630bb9a3a20e7db29484722baa",
+    "HABCatalogV16.luau": "5ea9a955c428ca1942d7f4843b0191a7f24a53bd6ef6e9e2518a70b52aa5c82b",
+    "HABCombatFXV16.client.luau": "d6eff9e76c854efc8d8f97906fe54538b05c4720fbf0c650e1789bc3c8e096d2",
+    "HABCombatHUDV16.luau": "3597bed2b7fc72be4e651eed99c0d073009ccc306835c8f57fabfb55a51b39a1",
+    "HABCrateServiceV16.luau": "95b55216e8183ecb27ffe213caeba9a7b01bcc73e1528d8956e3bf29c763523e",
+    "HABCrateShopClientV16.client.luau": "8c4c6b73590701f8f4c6246d7458e5bf2a8802918737ab31461f2b190c0d2d86",
+    "HABExpansionClientV16.client.luau": "3f6f535e5cef8deaa98745e34c5497ec73fde6a8e291ada4dff2b7f4bd3af9a8",
+    "HABFunAbilityFXV16.client.luau": "1d14c165d313c11200048ad83ad4054ca792446c2a537e5b5055715fa226964a",
+    "HABHalloweenEffectsV16.client.luau": "91f8f6e8862a311e4db3a05d145a0cc099963f52fa0abe20bacf12dba77d34b7",
+    "HABRendererV16.luau": "89008c935f21e08de0b216ba5afd84ce57027610eaf9deb179d8d0de74159ebe",
+    "HABWeaveAnimationsV16.luau": "2df39afa217828902ca359e6ecd85d47d69d6c173b61d255485939752b7e15f5",
+    "Install-HABWAS-Polish-V16.command.luau": "d6e2f75518afc02ac665c0144f24cdd6156c440d8c9157673470c15b753de93c",
+    "LobbyBuilderV16.luau": "da0f5bcdbc63353ff5ca132a8b75d77ddb608afd83aa39eba5433356b810c0fb",
+    "MapBuilderV16.luau": "29e235c96a8f5bbfd43f3679faed760d240258d6b7f3d7480905854cdffeae86",
+    "StandShopV16.client.luau": "971f7fd524bdcc22aa51c57ebdb73ee86d1416b2c2feecf6f16d6a6081f86e8b"
+  },
+  "api_reference_sha256": "f4353c2a648d3e9c54127f721bc0bf468dbaa38383f674fa224c5f18f173a77d",
+  "literal_instance_classes": [
+    "AlignOrientation",
+    "Animation",
+    "Animator",
+    "Attachment",
+    "AudioEmitter",
+    "AudioPlayer",
+    "BillboardGui",
+    "BoolValue",
+    "CFrameValue",
+    "Camera",
+    "Explosion",
+    "Folder",
+    "Frame",
+    "Highlight",
+    "Humanoid",
+    "ImageLabel",
+    "IntValue",
+    "Model",
+    "ModuleScript",
+    "Motor6D",
+    "Part",
+    "ParticleEmitter",
+    "PointLight",
+    "ProximityPrompt",
+    "RemoteEvent",
+    "ScreenGui",
+    "Sound",
+    "StringValue",
+    "SurfaceGui",
+    "TextButton",
+    "TextChatCommand",
+    "TextLabel",
+    "Trail",
+    "UICorner",
+    "UIListLayout",
+    "UIPadding",
+    "UIStroke",
+    "WeldConstraint",
+    "Wire",
+    "WorldModel"
+  ],
+  "literal_enum_members": [
+    "AnimationPriority.Idle",
+    "AnimationPriority.Movement",
+    "ApplyStrokeMode.Border",
+    "ApplyStrokeMode.Contextual",
+    "AssetFetchStatus.Success",
+    "ChatVersion.LegacyChatService",
+    "ChatVersion.TextChatService",
+    "CompressionAlgorithm.Zstd",
+    "ContextActionResult.Pass",
+    "ContextActionResult.Sink",
+    "CoreGuiType.EmotesMenu",
+    "CreatorType.Group",
+    "CreatorType.User",
+    "DataStoreRequestType.GetSortedAsync",
+    "DataStoreRequestType.SetIncrementSortedAsync",
+    "EasingDirection.Out",
+    "EasingStyle.Quad",
+    "EasingStyle.Quart",
+    "ExplosionType.NoCraters",
+    "FillDirection.Horizontal",
+    "Font.Code",
+    "Font.FredokaOne",
+    "Font.GothamBlack",
+    "Font.GothamBold",
+    "Font.GothamMedium",
+    "HighlightDepthMode.AlwaysOnTop",
+    "HighlightDepthMode.Occluded",
+    "HorizontalAlignment.Center",
+    "HumanoidDisplayDistanceType.None",
+    "HumanoidRigType.R15",
+    "HumanoidRigType.R6",
+    "HumanoidStateType.Climbing",
+    "HumanoidStateType.Dead",
+    "HumanoidStateType.FallingDown",
+    "HumanoidStateType.Freefall",
+    "HumanoidStateType.GettingUp",
+    "HumanoidStateType.Jumping",
+    "HumanoidStateType.Landed",
+    "HumanoidStateType.Physics",
+    "HumanoidStateType.Ragdoll",
+    "HumanoidStateType.Running",
+    "HumanoidStateType.RunningNoPhysics",
+    "HumanoidStateType.Seated",
+    "HumanoidStateType.Swimming",
+    "InfoType.GamePass",
+    "InfoType.Product",
+    "KeyCode.A",
+    "KeyCode.B",
+    "KeyCode.ButtonB",
+    "KeyCode.ButtonR1",
+    "KeyCode.ButtonR2",
+    "KeyCode.ButtonX",
+    "KeyCode.ButtonY",
+    "KeyCode.D",
+    "KeyCode.E",
+    "KeyCode.Escape",
+    "KeyCode.J",
+    "KeyCode.LeftAlt",
+    "KeyCode.LeftShift",
+    "KeyCode.Q",
+    "KeyCode.R",
+    "KeyCode.RightAlt",
+    "KeyCode.S",
+    "KeyCode.Space",
+    "KeyCode.W",
+    "Material.Air",
+    "Material.ForceField",
+    "Material.Glass",
+    "Material.Metal",
+    "Material.Neon",
+    "Material.Slate",
+    "Material.SmoothPlastic",
+    "Material.Wood",
+    "MouseBehavior.Default",
+    "MouseBehavior.LockCenter",
+    "NormalId.Back",
+    "NormalId.Front",
+    "NormalId.Top",
+    "OrientationAlignmentMode.OneAttachment",
+    "PartType.Ball",
+    "PartType.Block",
+    "PartType.Cylinder",
+    "ParticleFlipbookLayout.Grid4x4",
+    "ParticleFlipbookMode.OneShot",
+    "ParticleOrientation.FacingCamera",
+    "PathStatus.Success",
+    "PathWaypointAction.Jump",
+    "ProductPurchaseDecision.NotProcessedYet",
+    "ProductPurchaseDecision.PurchaseGranted",
+    "RaycastFilterType.Exclude",
+    "RenderPriority.Camera",
+    "RenderPriority.Last",
+    "RollOffMode.InverseTapered",
+    "RolloutState.Enabled",
+    "ScaleType.Stretch",
+    "ScrollingDirection.X",
+    "ScrollingDirection.Y",
+    "SortOrder.LayoutOrder",
+    "SurfaceGuiSizingMode.FixedSize",
+    "SurfaceGuiSizingMode.PixelsPerStud",
+    "SurfaceType.Smooth",
+    "TextTruncate.AtEnd",
+    "TextTruncate.None",
+    "TextXAlignment.Center",
+    "TextXAlignment.Left",
+    "TextXAlignment.Right",
+    "TextYAlignment.Center",
+    "TextYAlignment.Top",
+    "ThumbnailSize.Size100x100",
+    "ThumbnailType.HeadShot",
+    "UserInputState.Begin",
+    "UserInputType.MouseButton1",
+    "UserInputType.Touch",
+    "VerticalAlignment.Center",
+    "ZIndexBehavior.Sibling"
+  ],
+  "reviewed_public_members": {
+    "AnimationConstraint.Part0": {
+      "owner": "AnimationConstraint",
+      "type": "Property",
+      "security": {
+        "Read": "None",
+        "Write": "None"
+      }
+    },
+    "AnimationConstraint.Part1": {
+      "owner": "AnimationConstraint",
+      "type": "Property",
+      "security": {
+        "Read": "None",
+        "Write": "None"
+      }
+    },
+    "AnimationConstraint.C0": {
+      "owner": "AnimationConstraint",
+      "type": "Property",
+      "security": {
+        "Read": "None",
+        "Write": "None"
+      }
+    },
+    "AnimationConstraint.C1": {
+      "owner": "AnimationConstraint",
+      "type": "Property",
+      "security": {
+        "Read": "None",
+        "Write": "None"
+      }
+    },
+    "AnimationConstraint.Transform": {
+      "owner": "AnimationConstraint",
+      "type": "Property",
+      "security": {
+        "Read": "None",
+        "Write": "None"
+      }
+    },
+    "AnimationConstraint.Enabled": {
+      "owner": "Constraint",
+      "type": "Property",
+      "security": {
+        "Read": "None",
+        "Write": "None"
+      }
+    },
+    "AnimationConstraint.Attachment0": {
+      "owner": "Constraint",
+      "type": "Property",
+      "security": {
+        "Read": "None",
+        "Write": "None"
+      }
+    },
+    "AnimationConstraint.Attachment1": {
+      "owner": "Constraint",
+      "type": "Property",
+      "security": {
+        "Read": "None",
+        "Write": "None"
+      }
+    },
+    "Motor6D.Part0": {
+      "owner": "JointInstance",
+      "type": "Property",
+      "security": {
+        "Read": "None",
+        "Write": "None"
+      }
+    },
+    "Motor6D.Part1": {
+      "owner": "JointInstance",
+      "type": "Property",
+      "security": {
+        "Read": "None",
+        "Write": "None"
+      }
+    },
+    "Motor6D.C0": {
+      "owner": "JointInstance",
+      "type": "Property",
+      "security": {
+        "Read": "None",
+        "Write": "None"
+      }
+    },
+    "Motor6D.C1": {
+      "owner": "JointInstance",
+      "type": "Property",
+      "security": {
+        "Read": "None",
+        "Write": "None"
+      }
+    },
+    "Motor6D.Transform": {
+      "owner": "Motor6D",
+      "type": "Property",
+      "security": {
+        "Read": "None",
+        "Write": "None"
+      }
+    },
+    "Motor6D.Enabled": {
+      "owner": "JointInstance",
+      "type": "Property",
+      "security": {
+        "Read": "None",
+        "Write": "None"
+      }
+    },
+    "RunService.PreAnimation": {
+      "owner": "RunService",
+      "type": "Event",
+      "security": "None"
+    },
+    "RunService.PreSimulation": {
+      "owner": "RunService",
+      "type": "Event",
+      "security": "None"
+    },
+    "RunService.Heartbeat": {
+      "owner": "RunService",
+      "type": "Event",
+      "security": "None"
+    },
+    "RunService.RenderStepped": {
+      "owner": "RunService",
+      "type": "Event",
+      "security": "None"
+    },
+    "DataStoreService.GetDataStore": {
+      "owner": "DataStoreService",
+      "type": "Function",
+      "security": "None"
+    },
+    "DataStoreService.GetOrderedDataStore": {
+      "owner": "DataStoreService",
+      "type": "Function",
+      "security": "None"
+    },
+    "EncodingService.Base64Decode": {
+      "owner": "EncodingService",
+      "type": "Function",
+      "security": "None"
+    },
+    "EncodingService.GetDecompressedBufferSize": {
+      "owner": "EncodingService",
+      "type": "Function",
+      "security": "None"
+    },
+    "EncodingService.DecompressBuffer": {
+      "owner": "EncodingService",
+      "type": "Function",
+      "security": "None"
+    },
+    "Instance.Destroying": {
+      "owner": "Instance",
+      "type": "Event",
+      "security": "None"
+    },
+    "Instance.GetPropertyChangedSignal": {
+      "owner": "Object",
+      "type": "Function",
+      "security": "None"
+    },
+    "MarketplaceService.ProcessReceipt": {
+      "owner": "MarketplaceService",
+      "type": "Callback",
+      "security": "None"
+    },
+    "MarketplaceService.GetProductInfo": {
+      "owner": "MarketplaceService",
+      "type": "Function",
+      "security": "None"
+    },
+    "MarketplaceService.UserOwnsGamePassAsync": {
+      "owner": "MarketplaceService",
+      "type": "Function",
+      "security": "None"
+    },
+    "MarketplaceService.PromptGamePassPurchaseFinished": {
+      "owner": "MarketplaceService",
+      "type": "Event",
+      "security": "None"
+    }
+  },
+  "file_count": 21,
+  "limits": [
+    "Checks literal class constructors and enum member references only.",
+    "Does not validate dynamic properties, engine execution, event ordering, physics, rendering, or asset permissions."
+  ]
+}
